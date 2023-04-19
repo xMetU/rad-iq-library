@@ -1,6 +1,6 @@
 <?php
 
-namespace Kieran\Component\MyImageViewer\Site\View\ImageView;
+namespace Kieran\Component\MyImageViewer\Site\View\FocusImageView;
 
 defined('_JEXEC') or die;
 
@@ -25,13 +25,7 @@ class HtmlView extends BaseHtmlView {
      */
     public function display($template = null) {
 
-
-        $this->buttonCategories = $this->get('Items', 'ButtonCategories');
-        $this->items = $this->get('Items');
-        
-
-        $this->pagination = $this->get('Pagination');
-
+        $this->item = $this->get('Item');
 
         // Call the parent display to display the layout file
         parent::display($template);

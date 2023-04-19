@@ -13,13 +13,11 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\Router\Route;
 
 ?>
 
 
-
-<!-- Display all images -->
+<!-- Display images by category -->
 <div class="row mt-5 mb-5">
 	<div class="bg-muted col-3">
 		<table>
@@ -36,7 +34,7 @@ use Joomla\CMS\Router\Route;
 					<?php foreach ($this->buttonCategories as $bc => $row) : ?>
 						<tr>
 							<td class="col-2">
-								<a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?imageCategory='. $row->imageCategory . '&task=Display.changeImageList') ?>"><?php echo $row->imageCategory; ?></a>
+								<a class="btn btn-primary" href="<?php echo Uri::getInstance()->current(); ?>imageCategory=<?php echo $row->imageCategory; ?>&task=Display.changeImageList"><?php echo $row->imageCategory; ?></a>
 								<!-- <a class="btn btn-primary" href="index.php?imageCategory=<?php echo $row->imageCategory; ?>&task=Display.changeImageList"><?php echo $row->imageCategory; ?></a> -->
 							</td>
 						</tr>
@@ -46,7 +44,7 @@ use Joomla\CMS\Router\Route;
 		</table>
 	</div>
 
-	<div id="test" class="bg-muted col-4">
+	<div class="bg-muted col-4">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -83,10 +81,10 @@ use Joomla\CMS\Router\Route;
 <script>
 	window.onload = function() {
     let tableBody = document.getElementById("images");
-    
+
     tableBody.querySelectorAll("img").forEach(function (image) {
         image.addEventListener("click", function () {
-    
+
             window.location.href = "<?php echo Uri::getInstance()->current() . '?&task=Display.focusImage&id=' ; ?>" + image.id;
         });
     });

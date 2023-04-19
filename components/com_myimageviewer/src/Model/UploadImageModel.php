@@ -16,15 +16,31 @@ use Joomla\CMS\Table\Table;
 
 class UploadImageModel extends ListModel {
 
+    public function getImageList(){
 
-    public function getListQuery(){
+        // Get a db connection.
+        $db = $this->getDatabase();
+        $query = $db->getQuery(true)       
+            //Query
+            ->select('image.imageCategory')
+            ->from($db->quoteName('#__myImageViewer_image', 'image'))
+            ->where($db->quoteName('image.imageCategory') . '=' . $db->quoteName('image'));
+            // ->where($db->quoteName('image.imageCategory') . '= :category')
+            // ->bind(':category', $category);
+
+        // Check query is correct        
+        echo $query;
+
+    }
+
+
+    public function getCategories(){
 
         // Get a db connection.
         $db = $this->getDatabase();
 
         // Create a new query object.
         $query = $db->getQuery(true)
-        
                 //Query
                 ->select('image.imageCategory')
                 ->from($db->quoteName('#__myImageViewer_image', 'image'));

@@ -8,7 +8,7 @@
 	<author>Kieran</author>
 
 	<!--  The version string is recorded in the components table -->
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<!-- The description is optional and defaults to the name -->
 	<description>An Image Viewer</description>
 
@@ -21,6 +21,7 @@
 	
 	<media folder="media" destination="com_myImageViewer">
 		<folder>images</folder>
+		<folder>js</folder>
 	</media>
 
 

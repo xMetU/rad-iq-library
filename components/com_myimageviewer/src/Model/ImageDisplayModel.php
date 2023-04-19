@@ -14,26 +14,31 @@ use Joomla\CMS\Table\Table;
  *
  */
 
-class ImageModel extends ListModel {
+class ImageDisplayModel extends ListModel {
 
 
+
+
+    // Get a general list of images to display on home page
     public function getListQuery(){
+        
+        // Factory::getApplication()->enqueueMessage("imageDisplayModel getListQuery()");
+
 
         // Get a db connection.
         $db = $this->getDatabase();
 
         // Create a new query object.
         $query = $db->getQuery(true)
-        
                 //Query
-                ->select('*')
+                ->select($db->quoteName(['image.imageUrl', 'image.imageCategory', 'image.id']))
                 ->from($db->quoteName('#__myImageViewer_image', 'image'));
-                // ->where($db->quoteName('image.imageCategory') . '=' . $db->quote('Chest'));
 
         // Check query is correct        
-        echo $query;
+        // echo $query->dump();
 
         return $query;
     }
+
         
 }
