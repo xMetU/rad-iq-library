@@ -31,8 +31,11 @@ class ImageDisplayModel extends ListModel {
         // Create a new query object.
         $query = $db->getQuery(true)
                 //Query
-                ->select($db->quoteName(['image.imageUrl', 'image.imageCategory', 'image.id']))
-                ->from($db->quoteName('#__myImageViewer_image', 'image'));
+                ->select($db->quoteName(['image.imageUrl', 'c.categoryName', 'image.id']))
+                ->from($db->quoteName('#__myImageViewer_image', 'image'))
+                ->join(
+                    'LEFT',
+                    $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.id'));
 
         // Check query is correct        
         // echo $query->dump();
