@@ -121,7 +121,7 @@ Text::script('JHIDEPASSWORD');
                 </li>
                 <?php if ($usersConfig->get('allowUserRegistration')) : ?>
                 <li>
-                    <a href="<?php echo Route::_($registerLink); ?>">
+                    <a class="btn btn-outline-primary mt-5" href="<?php echo Route::_($registerLink); ?>">
                     <?php echo Text::_('MOD_LOGIN_REGISTER'); ?> <span class="icon-register" aria-hidden="true"></span></a>
                 </li>
                 <?php endif; ?>
