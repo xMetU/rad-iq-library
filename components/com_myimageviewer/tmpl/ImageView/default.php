@@ -15,29 +15,29 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
+$document = Factory::getDocument();
+$document->addScript("media/com_myimageviewer/js/imageView.js");
+$document->addStyleSheet("media/com_myimageviewer/css/imageView.css");
+
 ?>
 
+<!-- ========== IMAGE VIEW ========== -->
 
-
-<!-- Display all images -->
-<div class="row mt-5 mb-5">
-	<div class="bg-muted col-3">
-		<table>
-			<thead>
-				<tr>
-					<th>
-						<?php echo Text::_('CATEGORY'); ?>
-					</th>
-				</tr>	
-			</thead>
-			
+<!-- Categories -->
+<div class="row">
+	<div id="sidenav" class="col-2 text-center">
+		<table class="w-100">
 			<tbody>
 				<?php if (!empty($this->buttonCategories)) : ?>
-					<?php foreach ($this->buttonCategories as $bc => $row) : ?>
+					<?php foreach ($this->buttonCategories as $category) : ?>
 						<tr>
-							<td class="col-2">
-								<a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?imageCategory='. $row->categoryName . '&task=Display.changeImageList') ?>"><?php echo $row->categoryName; ?></a>
-								<!-- <a class="btn btn-primary" href="index.php?imageCategory=<?php echo $row->categoryName; ?>&task=Display.changeImageList"><?php echo $row->categoryName; ?></a> -->
+							<td>
+								<a
+									class="btn btn-secondary d-flex justify-content-center"
+									href="<?php echo Uri::getInstance()->current() . Route::_('?imageCategory='. $category->categoryName . '&task=Display.changeImageList') ?>"
+								>
+									<?php echo $category->categoryName; ?>
+								</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -46,50 +46,40 @@ use Joomla\CMS\Router\Route;
 		</table>
 	</div>
 
-	<div id="test" class="bg-muted col-4">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>
-						<?php echo Text::_('IMAGES'); ?>
-					</th>
-				</tr>
-			</thead>
+	<div class="col-10">
+		<table class="table table-borderless">
 			<tfoot>
-				<tr>
-					<td>
-						<?php echo $this->pagination->getListFooter(); ?>
+				<tr class="border-top">
+					<td colspan="3">
+						<div class="d-flex justify-content-center">
+							<?php echo $this->pagination->getListFooter(); ?>
+						</div>
 					</td>
 				</tr>
 			</tfoot>
+
 			<tbody id="images">
 				<?php if (!empty($this->items)) : ?>
-					<?php foreach ($this->items as $i => $row) : ?>
+					<?php foreach (array_chunk($this->items, 3) as $row) : ?>
 						<tr>
-							<td class="col-3">								
-								<img id="<?php echo $row->id; ?>" src="<?php echo $row->imageUrl; ?>" style="width:150px;height:180px;"/>
-							</td>
+							<?php foreach ($row as $item) : ?>
+								<td class="p-0">
+									<div class="card">
+										<img
+											id="<?php echo $item->id; ?>"
+											class="card-img-top"
+											src="<?php echo $item->imageUrl; ?>"
+										/>
+										<div class="card-body">
+											<h5 class="card-title"><?php echo $item->imageName; ?></h5>
+										</div>
+									</div>
+								</td>
+							<?php endforeach; ?>
 						</tr>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tbody>
 		</table>
-	</div>
-	
+	</div>	
 </div>
-
-
-<!-- Makes the images clickable and directs to the focus image view -->
-<script>
-	window.onload = function() {
-    let tableBody = document.getElementById("images");
-    
-    tableBody.querySelectorAll("img").forEach(function (image) {
-        image.addEventListener("click", function () {
-    
-            window.location.href = "<?php echo Uri::getInstance()->current() . '?&task=Display.focusImage&id=' ; ?>" + image.id;
-        });
-    });
-};
-</script>
-
