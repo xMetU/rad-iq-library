@@ -36,8 +36,8 @@ use Joomla\CMS\Router\Route;
 					<?php foreach ($this->buttonCategories as $bc => $row) : ?>
 						<tr>
 							<td class="col-2">
-								<a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?imageCategory='. $row->imageCategory . '&task=Display.changeImageList') ?>"><?php echo $row->imageCategory; ?></a>
-								<!-- <a class="btn btn-primary" href="index.php?imageCategory=<?php echo $row->imageCategory; ?>&task=Display.changeImageList"><?php echo $row->imageCategory; ?></a> -->
+								<a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?imageCategory='. $row->categoryName . '&task=Display.changeImageList') ?>"><?php echo $row->categoryName; ?></a>
+								<!-- <a class="btn btn-primary" href="index.php?imageCategory=<?php echo $row->categoryName; ?>&task=Display.changeImageList"><?php echo $row->categoryName; ?></a> -->
 							</td>
 						</tr>
 					<?php endforeach; ?>

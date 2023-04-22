@@ -24,14 +24,17 @@ class FocusImageModel extends ItemModel {
         $item   = new \stdClass();
 
         
-        $table  = $this->getTable('Image');
-        $table->load($id);
+        $table1  = $this->getTable('Image');
+        $table1->load($id);
 
-        $item->id           =   $table->id;
-        $item->name         =   $table->imageName;
-        $item->category     =   $table->imageCategory;
-        $item->description  =   $table->imageDescription;
-        $item->url          =   $table->imageUrl;
+        $table2 = $this->getTable('ImageCategory');
+        $table2->load($table1->categoryId);
+
+        $item->id           =   $table1->id;
+        $item->name         =   $table1->imageName;
+        $item->category     =   $table2->categoryName;
+        $item->description  =   $table1->imageDescription;
+        $item->url          =   $table1->imageUrl;
 
         return $item;
 
