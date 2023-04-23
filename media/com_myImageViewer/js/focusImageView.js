@@ -3,32 +3,46 @@ window.onload = () => {
     const imageView = document.querySelector("#img-view");
     const focusedImageView = document.querySelector("#focused-img-view");
     const focusedImage = document.querySelector("#focused-img");
+    const exitButton = document.querySelector("#exit-button");
+    const contrastInput = document.querySelector("#contrast-input");
 
     // variables
-    const minZoom = 1;
-    const maxZoom = 2;
+    const minZoom = 0.5;
+    const maxZoom = 2.5;
     const zoomFactor = 0.1;
     let currentZoom = 0.5;
 
     initImageView();
-    initFocusedImage();
+    initFocusedImageView();
+    initZoom();
 
     // ================================================================================
     // INIT FUNCTIONS
     // ================================================================================
 
     function initImageView() {
-        imageView.onclick = (e) => {
+        imageView.addEventListener("click", function (e) {
             e.preventDefault();
             openFocusedImageViewer();
-        }
+        });
     }
 
-    function initFocusedImage() {
-        initZoom(0.5, 2, 0.1);
+    function initFocusedImageView() {
+        contrastInput.value = 100;
+        contrastInput.addEventListener("input", function (e) {
+            console.log(this.value);
+            e.preventDefault();
+            focusedImage.style.filter = `contrast(${this.value}%)`;
+        });
+
+        exitButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            closeFocusedImageViewer();
+        });
     }
 
     function initZoom() {
+        focusedImage.style.transform = `scale(0.5)`;
         focusedImage.addEventListener("wheel", function (e) {
             e.preventDefault();
 
@@ -58,5 +72,6 @@ window.onload = () => {
 
     function closeFocusedImageViewer() {
         focusedImageView.classList.add("d-none");
+        focusedImage.style.filter = "";
     }
 }

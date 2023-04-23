@@ -3,7 +3,7 @@ window.onload = function () {
     const tableBody = document.getElementById("images");
 
     tableBody.querySelectorAll("img").forEach((image) => {
-        image.onclick = (e) => {
+        image.parentElement.onclick = (e) => {
             e.preventDefault();
             window.location.href += `?&task=Display.focusImage&id=${image.id}`;
         }
