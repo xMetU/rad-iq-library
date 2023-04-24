@@ -17,7 +17,7 @@ use Joomla\CMS\Table\Table;
 class FocusImageModel extends ItemModel {
 
     // Retrieve the chosen image for focussed display.
-    public function getItem($pk = null){
+    public function getItem($pk = null) {
 
         $id = Factory::getApplication()->input->get('id');
 

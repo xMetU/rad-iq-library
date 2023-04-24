@@ -13,59 +13,70 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
 
 ?>
 
 
-<!-- Upload image Form -->
-<form action="index.php?option=com_myImageViewer&view=UploadImageView" method="post" id="adminForm" name="adminForm">
+<!--==================== Upload image Form =========================-->
+<form action="<?php echo Uri::getInstance()->current() . '?&task=Form.saveImage' ?>" method="post" id="adminForm" name="adminForm" enctype="multipart/form-data">
 	<table class="table table-hover mt-5">
 		<tbody>
+
+			<!--==================== Image Name =========================-->
 			<tr>
 				<td>
-					<?php echo Text::_('TITLE'); ?>:
+					<?php echo Text::_('NAME'); ?>:
 				</td>
 				<td>
-					<input type="text" id="myImageViewer-upload-title" name="myImageVieweruploadtitle" value=""  maxlength="255" class="form-control" />
+					<input type="text" name="imageName" class="form-control"/>
 				</td>
 			</tr>
 
+			<!--==================== Image Description =========================-->
+			<tr>
+				<td>
+					<?php echo Text::_('DESCRIPTION'); ?>:
+				</td>
+				<td>
+					<input type="textarea" name="imageDescription" class="form-control"/>
+				</td>
+			</tr>
+
+			<!--==================== Image Category Select =========================-->
 			<tr>
 				<td>
 					<?php echo Text::_('CATEGORY'); ?>:
 				</td>
 				<td>
 					<!-- Drop down list to display the categories -->
-					<select id="myImageViewer-Upload-Category" name="myImageViewerUploadCategory" class="form-control">
-						<?php foreach ($this->items as $i => $row) : ?>
-							<option value="<?php echo $row->imageCategory; ?>"><?php echo $row->imageCategory; ?></option>
+					<select id="uploadCategory" name="categoryId" class="form-control">
+						<?php foreach ($this->categories as $c => $row) : ?>
+							<option value="<?php echo $row->id; ?>"><?php echo $row->categoryName; ?></option>
 						<?php endforeach; ?>
 					</select>
 				</td>
-				<td>
-					<a href="index.php?task=Upload.display" class="btn btn-outline-primary"><?php echo Text::_('NEW CATEGORY'); ?></a>
-				</td>
-			</tr>
 
-			<tr>
-				<td><?php echo Text::_('DESCRIPTION'); ?>:</td>
+				<!--==================== New Category =========================-->
 				<td>
-					<textarea id="myImageViewer-Upload-Description" name="myImageViewerUploadDescription" 
-					onkeyup="countCharsUpload('<?php echo $this->t['upload_form_id']; ?>');" cols="30" rows="10" 
-					class="form-control"></textarea>
-				</td>				
+					<a href="<?php echo Uri::getInstance()->current() . '?&task=Display.addNewCategory' ?>" class="btn btn-outline-primary"><?php echo Text::_('NEW CATEGORY'); ?></a>
+				</td>
 			</tr>
 
 			<tr>
 				<td><?php echo Text::_('FILENAME');?>:</td>
 				<td>
-					<input type="file" id="file-upload" name="Filedata" class="form-control" />
-					<button class="btn btn-primary" id="file-upload-submit"><i class="icon-upload icon-white"></i><?php echo Text::_(' SAVE'); ?></button>
+					<input type="file" name="imageUrl" class="form-control"/>
+					<button class="btn btn-primary" id="uploadImage-submit" onclick="Joomla.submitbutton(Form.saveImage)"><i class="icon-upload icon-white"></i><?php echo Text::_(' SAVE'); ?></button>
 				</td>
 			</tr>
 		</tbody>
 	</table>
 </form>
+
+<div>
+	<a class="mt-5 btn btn-outline-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.display') ?>"><?php echo Text::_('BACK'); ?></a>
+</div>
 
 
 

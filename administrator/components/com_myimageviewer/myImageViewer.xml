@@ -23,12 +23,13 @@
 		<folder>images</folder>
 		<folder>js</folder>
 	</media>
-
-
+	
+	
 	<!-- Site Main File Copy Section -->
 	<files folder="site">
 		<folder>src</folder>
         <folder>tmpl</folder>
+		<folder>forms</folder>
 	</files>
 
 	<administration>

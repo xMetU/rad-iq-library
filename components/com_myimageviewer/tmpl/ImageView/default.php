@@ -21,6 +21,7 @@ use Joomla\CMS\Router\Route;
 
 <!-- Display all images -->
 <div class="row mt-5 mb-5">
+
 	<div class="bg-muted col-3">
 		<table>
 			<thead>
@@ -46,7 +47,7 @@ use Joomla\CMS\Router\Route;
 		</table>
 	</div>
 
-	<div id="test" class="bg-muted col-4">
+	<div class="col-4">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -74,6 +75,10 @@ use Joomla\CMS\Router\Route;
 				<?php endif; ?>
 			</tbody>
 		</table>
+	</div>
+
+	<div class="col-1">
+		<a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.uploadForm') ?>">Upload Image</a>
 	</div>
 	
 </div>
