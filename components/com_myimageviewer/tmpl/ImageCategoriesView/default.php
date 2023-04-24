@@ -19,6 +19,7 @@ $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/imageView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
+$selectedCategories = [];
 ?>
 
 <!-- ========== IMAGE VIEW ========== -->
@@ -44,7 +45,8 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							<td class="p-2">
 								<a
 									class="btn d-flex justify-content-center"
-									href="<?php echo Uri::getInstance()->current() . Route::_('?imageCategory='. $category->categoryName . '&task=Display.changeImageList') ?>"
+									onclick="<?php array_push($selectedCategories, $category->id) ?>"
+									href="<?php echo Uri::getInstance()->current() . Route::_('?categories='. implode(',', $selectedCategories) . '&task=Display.changeImageList') ?>"
 								>
 									<?php echo $category->categoryName; ?>
 								</a>

@@ -18,14 +18,14 @@ class ImageCategoriesDisplayModel extends ListModel {
 
     
     // Get a list of images filtered by category
-    public function getListQuery(){
+    public function getListQuery() {
 
         // Factory::getApplication()->enqueueMessage("imageDisplayModel changeCategory()");
 
         // Get a db connection.
         $db = $this->getDatabase();
 
-        $imageCategory = Factory::getApplication()->input->get('imageCategory');       
+        $categories = Factory::getApplication()->input->getVar('categories');
 
         // Create a new query object.
         $query = $db->getQuery(true)
@@ -35,11 +35,11 @@ class ImageCategoriesDisplayModel extends ListModel {
                 ->join(
                     'LEFT',
                     $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.id'))
-                ->where($db->quoteName('c.categoryName') . '=' . $db->quote($imageCategory));
+                ->where($db->quoteName('c.id') . 'IN(' . $categories . ')');
 
 
         // Check query is correct        
-        // echo $query->dump();
+        echo $query->dump();
 
         return $query;
     }
