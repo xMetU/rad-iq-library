@@ -39,7 +39,7 @@ class ImageCategoriesDisplayModel extends ListModel {
 
 
         // Check query is correct        
-        echo $query->dump();
+        // echo $query->dump();
 
         return $query;
     }
