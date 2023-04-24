@@ -54,7 +54,7 @@ function toggleCategory($id, $categories) {
 						<tr>
 							<td class="p-2">
 								<a
-									class="btn d-flex justify-content-center"
+									class="btn d-flex justify-content-center<?php echo in_array($category->id, $categories) ? " active" : ""; ?>"
 									href="<?php
 										echo Uri::getInstance()->current()
 										. Route::_('?categories='. implode(',', toggleCategory($category->id, $categories))
