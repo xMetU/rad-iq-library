@@ -19,6 +19,17 @@ $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/imageView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
+// get categories from url
+$categories = isset($_GET['categories']) ? explode(',', $_GET['categories']) : [0];
+
+// if $id is in $categories, remove it, otherwise add it
+function toggleCategory($id, $categories) {
+	if (in_array($id, $categories)) {
+		return array_diff($categories, [$id]);
+	} else {
+		return array_merge($categories, [$id]);
+	}
+}
 ?>
 
 <!-- ========== IMAGE VIEW ========== -->
@@ -44,7 +55,11 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							<td class="p-2">
 								<a
 									class="btn d-flex justify-content-center"
-									href="<?php echo Uri::getInstance()->current() . Route::_('?imageCategory='. $category->categoryName . '&task=Display.changeImageList') ?>"
+									href="<?php
+										echo Uri::getInstance()->current()
+										. Route::_('?categories='. implode(',', toggleCategory($category->id, $categories))
+										. '&task=Display.changeImageList');
+									?>"
 								>
 									<?php echo $category->categoryName; ?>
 								</a>
