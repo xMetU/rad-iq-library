@@ -59,16 +59,16 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
     <div class="h-100">
         <img id="focused-img" class="h-100" src="<?php echo $this->item->url; ?>"/>
     </div>
-    <div id="controls" class="row fixed-top justify-content-center">
+    <div id="controls" class="row fixed-top justify-content-center m-2">
         <div class="col"></div>
 
-        <div class="col-4 bg-dark d-flex align-items-center rounded-bottom">
+        <div class="col-4 bg-dark d-flex align-items-center rounded">
             <label class="px-2">Contrast: </label>
-            <input type="range" min="20" max="300" id="contrast-input"/>
+            <input type="range" min="20" max="420" id="contrast-input"/>
         </div>
 
         <div class="col">
-            <button id="exit-button" class="btn float-end rounded-circle m-2">X</button>
+            <button id="exit-button" class="btn float-end rounded-circle">&#x2715;</button>
         </div>
     </div>
 </div> 

@@ -31,11 +31,8 @@ body {
 
 /* ========== IMAGE VIEW ========== */
 
-#images img.card-img-top {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 20px;
+table#categories > thead, table#images>thead {
+    height: 50px;
 }
 
 #categories a {
@@ -44,6 +41,13 @@ body {
 
 #categories a:hover {
     filter: brightness(130%);
+}
+
+#images img.card-img-top {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 20px;
 }
 
 #images .card {
