@@ -1,6 +1,7 @@
-DROP TABLE IF EXISTS `#__myQuiz_quiz`;
-DROP TABLE IF EXISTS `#__myQuiz_question`;
 DROP TABLE IF EXISTS `#__myQuiz_answer`;
+DROP TABLE IF EXISTS `#__myQuiz_question`;
+DROP TABLE IF EXISTS `#__myQuiz_quiz`;
+
 
 
 CREATE TABLE IF NOT EXISTS `#__myQuiz_quiz` (

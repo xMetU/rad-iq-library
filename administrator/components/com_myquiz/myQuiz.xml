@@ -15,14 +15,7 @@
 
     
     <!-- Vendor\Component\ComponentName -->
-
     <namespace path="src/">Kieran\Component\MyQuiz</namespace>
-	
-	
-	<media folder="media" destination="com_myQuiz">
-		<folder>images</folder>
-		<folder>js</folder>
-	</media>
 
 
 	<!-- Site Main File Copy Section -->

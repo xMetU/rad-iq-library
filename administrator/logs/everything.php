@@ -73,3 +73,4 @@
 2023-04-27T17:47:05+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
 2023-04-27T17:47:16+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.63 seconds
 2023-04-27T17:47:17+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.64 seconds
+2023-04-27T17:56:07+00:00	WARNING 127.0.0.1	jerror	Cannot delete or update a parent row: a foreign key constraint fails
