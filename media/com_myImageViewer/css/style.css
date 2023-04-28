@@ -1,6 +1,6 @@
 body {
     background-color: #180F15;
-    background-image: linear-gradient(to bottom right, #0B060A, #272662);
+    background-image: linear-gradient(to bottom right, #0b060a, #272662);
 }
 
 * {
@@ -8,8 +8,12 @@ body {
 }
 
 .btn {
-    background-color: #2e1f9b;
+    background-color: #242C76;
     color: white;
+}
+
+.btn:hover {
+    background-color: #444C96;
 }
 
 .btn.active {
@@ -39,10 +43,6 @@ table#categories > thead, table#images>thead {
     border-radius: 999px;
 }
 
-#categories a:hover {
-    filter: brightness(130%);
-}
-
 #images img.card-img-top {
     width: 100%;
     aspect-ratio: 1;
@@ -64,6 +64,12 @@ table#categories > thead, table#images>thead {
 
 /* ========== FOCUSED IMAGE VIEW ========== */
 
+#focus-button {
+    font-size: 1.5em;
+    aspect-ratio: 1;
+    right: 48px;
+}
+
 #focused-img-view {
     position: fixed;
     top: 0;
@@ -74,6 +80,10 @@ table#categories > thead, table#images>thead {
     background-color: rgba(0, 0, 0, 0.95);
 }
 
-#controls {
+#controls-container {
     z-index: 69420;
+}
+
+#controls {
+    background-color: #242C76;
 }

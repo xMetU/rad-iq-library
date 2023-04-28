@@ -78,7 +78,7 @@ function toggleCategory($id, $categories) {
 		<table id="images" class="table table-borderless">
 			<tfoot>
 				<tr>
-					<td class="d-flex justify-content-center p-0" colspan="3">
+					<td class="d-flex justify-content-center p-2" colspan="3">
 						<?php echo $this->pagination->getListFooter(); ?>
 					</td>
 				</tr>
@@ -88,7 +88,7 @@ function toggleCategory($id, $categories) {
 				<?php if (!empty($this->items)) : ?>
 					<tr class="row">
 						<?php foreach ($this->items as $item) : ?>
-							<td class="col-3 p-3 pt-0">
+							<td class="col-3 py-2 px-3">
 								<div class="card p-3 pb-0">
 									<img
 										id="<?php echo $item->id; ?>"
@@ -106,7 +106,7 @@ function toggleCategory($id, $categories) {
 				<?php else: ?>
 					<tr>
 						<td>
-							<p class="text-secondary text-center pt-5">Select a category</p>
+							<p class="text-secondary text-center pt-5">Select a category to view images</p>
 						</td>
 					</tr>
 				<?php endif; ?>
