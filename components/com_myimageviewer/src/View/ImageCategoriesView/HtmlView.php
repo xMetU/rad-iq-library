@@ -1,6 +1,6 @@
 <?php
 
-namespace Kieran\Component\MyImageViewer\Site\View\UploadImageView;
+namespace Kieran\Component\MyImageViewer\Site\View\ImageCategoriesView;
 
 defined('_JEXEC') or die;
 
@@ -25,8 +25,13 @@ class HtmlView extends BaseHtmlView {
      */
     public function display($template = null) {
 
+
+        $this->buttonCategories = $this->get('Items', 'ButtonCategories');
+        $this->items = $this->get('Items');
         
-        $this->categories = $this->get('Items', 'ButtonCategories');
+
+        $this->pagination = $this->get('Pagination');
+
 
         // Call the parent display to display the layout file
         parent::display($template);

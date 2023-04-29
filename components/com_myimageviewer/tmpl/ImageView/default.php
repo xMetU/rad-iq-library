@@ -114,3 +114,7 @@ function toggleCategory($id, $categories) {
 		</table>
 	</div>	
 </div>
+
+<div class="col-1">
+	<a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.uploadForm') ?>">Upload Image</a>
+</div>
