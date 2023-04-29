@@ -34,9 +34,7 @@ $document->addStyleSheet("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/fon
 <div class="row">
     <!-- Image -->
     <div class="col-7 pe-5 position-relative">
-        <button id="focus-button" class="btn position-absolute m-2 p-2 pt-0 text-wrap">
-            <i class="bi bi-arrows-fullscreen"></i>
-        </button>
+        <button id="focus-button" class="btn position-absolute m-2 p-1">Open</button>
         <img class="w-100 rounded" src="<?php echo $this->item->url; ?>"/>
     </div>
 

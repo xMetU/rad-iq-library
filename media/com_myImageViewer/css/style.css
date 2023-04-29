@@ -62,11 +62,24 @@ table#categories > thead, table#images>thead {
     cursor: pointer;
 }
 
+ul.pagination li.page-item > .page-link {
+    background-color: #180F15;
+    color: white;
+}
+
+ul.pagination li.page-item.active > .page-link {
+    top: -2px;
+    border-width: 3px;
+    border-color: #5E9FFB;
+}
+
+ul.pagination li.page-item.disabled > .page-link {
+    opacity: 50%;
+}
+
 /* ========== FOCUSED IMAGE VIEW ========== */
 
 #focus-button {
-    font-size: 1.5em;
-    aspect-ratio: 1;
     right: 48px;
 }
 
