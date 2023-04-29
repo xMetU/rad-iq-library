@@ -35,12 +35,18 @@ function toggleCategory($id, $categories) {
 <!-- ========== IMAGE VIEW ========== -->
 
 <!-- Headers -->
-<div class="row mb-3">
-	<div class="col-2 text-center mt-auto">
+<div class="row">
+	<div class="col-2 text-center my-auto">
 		<h6>Categories</h6>
 	</div>
-	<div class="col-10 text-center ps-5">
-		<h3>Images</h3>
+	<div class="col-10 row ps-5">
+		<div class="col"></div>
+		<div class="col text-center">
+			<h3>Images</h3>
+		</div>
+		<div class="col">
+			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.uploadForm') ?>">Upload</a>
+		</div>
 	</div>
 </div>
 
@@ -115,6 +121,3 @@ function toggleCategory($id, $categories) {
 	</div>	
 </div>
 
-<div class="col-1">
-	<a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.uploadForm') ?>">Upload Image</a>
-</div>
