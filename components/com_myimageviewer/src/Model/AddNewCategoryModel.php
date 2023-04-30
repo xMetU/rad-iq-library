@@ -15,8 +15,6 @@ use Joomla\CMS\Table\Table;
  */
 
 class AddNewCategoryModel extends AdminModel {
-
-
 	/**
 	 * Method to get a table object, load it if necessary.
 	 *
@@ -54,6 +52,4 @@ class AddNewCategoryModel extends AdminModel {
 
 		return $form;
 	}
-
-        
 }

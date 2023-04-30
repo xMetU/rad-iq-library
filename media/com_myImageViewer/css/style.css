@@ -31,6 +31,10 @@ body {
     color: white;
 }
 
+.control-group {
+    margin: 0px;
+}
+
 /* TODO: Add pagination styles */
 
 /* ========== IMAGE VIEW ========== */

@@ -15,28 +15,39 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 
+$document = Factory::getDocument();
+$document->addStyleSheet("media/com_myimageviewer/css/style.css");
+
 ?>
 
-<!-- ========== Add Category Form ============================== -->
-<form action="<?php echo Uri::getInstance()->current() . '?&task=Form.saveCategory' ?>" method="post" id="adminForm" name="adminForm">
-	<table class="table table-hover mt-5">
-		<tbody>
-			<tr>
-				<td>
+<!-- ========== ADD NEW CATEGORY VIEW ========== -->
+
+<div class="row justify-content-center">
+	<div class="col-8">
+		<div class="row">
+			<div class="col">
+				<a class="btn" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.uploadForm') ?>">Back</a>
+			</div>
+			<div class="col-8 text-center">
+				<h3>Create New Category</h3>
+			</div>
+			<div class="col"></div>
+		</div>
+		<form action="<?php echo Uri::getInstance()->current() . '?&task=Form.saveCategory' ?>" method="post" id="adminForm" name="adminForm">
+			<hr/>
+
+			<div class="form-group row">
+				<label for="categoryName">Category Name:</label>
+
+				<div class="col">
 					<?php echo $this->form->renderFieldSet('addNewCategory'); ?>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
-	<div class="mt-5">
-		<button class="btn btn-primary" id="addNewCategory-submit" onclick="Joomla.submitbutton(Form.saveCategory)"></i><?php echo Text::_(' CREATE CATEGORY!'); ?></button> 
+				</div>
+				<div class="col-auto">
+					<button class="btn" id="addNewCategory-submit" onclick="Joomla.submitbutton(Form.saveCategory)"></i>Create</button> 
+				</div>
+			</div>
+		</form>
 	</div>
-
-</form>
-
-<div class="mt-5">
-	<a class="mt-5 btn btn-outline-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.uploadForm') ?>"><?php echo Text::_('BACK'); ?></a>
 </div>
 
 

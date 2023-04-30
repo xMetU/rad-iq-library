@@ -23,7 +23,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <!-- ========== UPLOAD IMAGE VIEW ========== -->
 
 <div class="row justify-content-center">
-	<div class="col-6">
+	<div class="col-8">
 		<div class="row">
 			<div class="col">
 				<a class="btn" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.display') ?>">Back</a>
