@@ -35,25 +35,6 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-
-    public function changeImageList() {
-        $app = Factory::getApplication();
-        $document = Factory::getDocument();
-
-        $viewFormat = $document->getType();
-        $view = $this->getView('ImageView', $viewFormat);
-
-        $model1 = $this->getModel('ImageDisplay');
-        $model2 = $this->getModel('ButtonCategories');
-        
-        $view->setModel($model1, true);   
-        $view->setModel($model2); 
-        
-        $view->document = $document;
-        $view->display();
-    }
-    
-
     public function focusImage() {
 
         // Factory::getApplication()->enqueueMessage("focusImage");

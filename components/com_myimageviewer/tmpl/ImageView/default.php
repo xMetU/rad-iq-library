@@ -30,6 +30,7 @@ function toggleCategory($id, $categories) {
 		return array_merge($categories, [$id]);
 	}
 }
+
 ?>
 
 <!-- ========== IMAGE VIEW ========== -->
@@ -63,8 +64,7 @@ function toggleCategory($id, $categories) {
 									class="btn d-flex justify-content-center<?php echo in_array($category->id, $categories) ? " active" : ""; ?>"
 									href="<?php
 										echo Uri::getInstance()->current()
-										. Route::_('?categories='. implode(',', toggleCategory($category->id, $categories))
-										. '&task=Display.changeImageList');
+										. Route::_('?categories='. implode(',', toggleCategory($category->id, $categories)));
 									?>"
 								>
 									<?php echo $category->categoryName; ?>
