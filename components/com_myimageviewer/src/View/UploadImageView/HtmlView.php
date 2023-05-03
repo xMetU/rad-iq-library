@@ -15,8 +15,6 @@ use Joomla\CMS\Factory;
  */
 
 class HtmlView extends BaseHtmlView {
-    
-
     /**
      * Display the view
      *
@@ -24,8 +22,7 @@ class HtmlView extends BaseHtmlView {
      * @return  void
      */
     public function display($template = null) {
-
-        
+        $this->images = $this->get('Items', 'ImageDisplay');
         $this->categories = $this->get('Items', 'ButtonCategories');
 
         // Call the parent display to display the layout file

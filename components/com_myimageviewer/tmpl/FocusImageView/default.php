@@ -26,7 +26,7 @@ $document->addStyleSheet("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/fon
 <!-- Header -->
 <div class="row mb-3">
     <div class="col-3">
-        <a class="btn" href="<?php echo Uri::getInstance()->current() . '?&task=Display.display' ?>">Back</a>
+        <a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
     </div>
 </div>
 

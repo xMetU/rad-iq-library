@@ -33,9 +33,11 @@ class ImageDisplayModel extends ListModel {
                 ->from($db->quoteName('#__myImageViewer_image', 'image'))
                 ->join(
                     'LEFT',
-                    $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.id'))
-                ->where($db->quoteName('c.id') . 'IN(' . $categories . ')');
-
+                    $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.id'));
+                
+        if (isset($categories)) {
+            $query->where($db->quoteName('c.id') . 'IN(' . $categories . ')');
+        }
 
         // Check query is correct        
         // echo $query->dump();
@@ -43,5 +45,4 @@ class ImageDisplayModel extends ListModel {
         return $query;
     }
 
-        
 }

@@ -26,7 +26,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col-8">
 		<div class="row">
 			<div class="col">
-				<a class="btn" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.display') ?>">Back</a>
+				<a class="btn" href="<?php echo Uri::getInstance()->current() ?>">Back</a>
 			</div>
 			<div class="col-8 text-center">
 				<h3>Upload New Image</h3>
@@ -62,7 +62,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 				<div class="col">
 					<select id="uploadCategory" name="categoryId" class="form-control">
-						<?php foreach ($this->categories as $c => $row) : ?>
+						<?php foreach ($this->categories as $row) : ?>
 							<option value="<?php echo $row->id; ?>"><?php echo $row->categoryName; ?></option>
 						<?php endforeach; ?>
 					</select>
@@ -89,7 +89,15 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<div class="form-group">
 				<button class="btn col-auto" id="uploadImage-submit" onclick="Joomla.submitbutton(Form.saveImage)"><i class="icon-check icon-white"></i> Done</button>
 			</div>
-		</form>	
+		</form>
+		<div class="row text-center">
+			<h3>Delete Images</h3>
+		</div>
+		<div class="row">
+			<?php foreach ($this->images as $row) : ?>
+				<div><?php echo $row->imageName; ?></div>
+			<?php endforeach; ?>
+		</div>
 	</div>
 </div>
 

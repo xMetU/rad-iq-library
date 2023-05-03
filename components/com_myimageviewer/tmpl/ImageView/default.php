@@ -20,7 +20,9 @@ $document->addScript("media/com_myimageviewer/js/imageView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 // get categories from url
-$categories = isset($_GET['categories']) ? explode(',', $_GET['categories']) : [0];
+$categories = isset($_GET['categories']) ? explode(',', $_GET['categories']) : [];
+// filter out empty entries caused by implode/explode
+$categories = array_filter($categories);
 
 // if $id is in $categories, remove it, otherwise add it
 function toggleCategory($id, $categories) {
@@ -46,7 +48,7 @@ function toggleCategory($id, $categories) {
 			<h3>Images</h3>
 		</div>
 		<div class="col">
-			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.uploadForm') ?>">Upload</a>
+			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.uploadForm') ?>">Manage</a>
 		</div>
 	</div>
 </div>
@@ -73,7 +75,7 @@ function toggleCategory($id, $categories) {
 						</tr>
 					<?php endforeach; ?>
 				<?php else : ?>
-					<p class="text-secondary text-center pt-5">Issue encountered while loading categories...</p>
+					<p class="text-secondary text-center pt-5">Issue encountered while loading categories</p>
 				<?php endif; ?>
 			</tbody>
 		</table>
