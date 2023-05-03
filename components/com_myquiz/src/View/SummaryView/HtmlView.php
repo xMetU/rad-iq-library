@@ -1,6 +1,6 @@
 <?php
 
-namespace Kieran\Component\MyQuiz\Site\View\QuizDisplayView;
+namespace Kieran\Component\MyQuiz\Site\View\SummaryView;
 
 defined('_JEXEC') or die;
 
@@ -25,10 +25,7 @@ class HtmlView extends BaseHtmlView {
      */
     public function display($template = null) {
 
-
-        $this->item = $this->get('Item');
-        $this->items = $this->get('Items', 'QuizQuestions');
-
+        $this->items = $this->get('Items');
 
         $this->pagination = $this->get('Pagination');
 

@@ -18,7 +18,7 @@ class QuestionAnswersModel extends ListModel {
 
     
     // Get a list of images filtered by category
-    public function getListQuery(){
+    public function getListQuery() {
 
         // Get a db connection.
         $db = $this->getDatabase();

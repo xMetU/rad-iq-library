@@ -6,6 +6,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+
 
 /**
  * @package     Joomla.Site
@@ -32,31 +34,41 @@ class DisplayController extends BaseController {
     }
 
 
-    public function quizDisplay() {
+    public function questionDisplay() {
 
-        $document = Factory::getDocument();
-        $viewFormat = $document->getType();
+        $userId = Factory::getUser()->id;
 
-        $view = $this->getView('QuizDisplayView', $viewFormat);
+        // Not logged in
+        if($userId === 0) {
+            Factory::getApplication()->enqueueMessage('Please login to continue');
+            $this->setRedirect(Route::_('?index.php', false));
+        }
 
-        $model1 = $this->getModel('QuizInfo');
-        $model2 = $this->getModel('QuizQuestions');
-        
-        $view->setModel($model1, true); 
-        $view->setModel($model2, false);   
-
-        $view->document = $document;
-        $view->display();
+        else{
+            $document = Factory::getDocument();
+            $viewFormat = $document->getType();
+    
+            $model1 = $this->getModel('QuestionAnswers');
+            $model2 = $this->getModel('QuizQuestions');
+    
+    
+            $view = $this->getView('QuestionAnswerView', $viewFormat);       
+            $view->setModel($model1, true);   
+            $view->setModel($model2, false);
+    
+            $view->document = $document;
+            $view->display();
+        }
     }
 
 
-    public function questionDisplay() {
+    public function summaryDisplay() {
+
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
 
-        $view = $this->getView('QuestionAnswerView', $viewFormat);
-
-        $model = $this->getModel('QuestionAnswers');
+        $view = $this->getView('SummaryView', $viewFormat);
+        $model = $this->getModel('Summary');
         
         $view->setModel($model, true);   
 

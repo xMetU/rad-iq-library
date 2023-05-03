@@ -20,13 +20,12 @@ use Joomla\CMS\Router\Route;
 <!-- ====== Display all Quizzes =========== -->
 
 <div class="mt-5">
-    
     <?php foreach ($this->items as $i => $row) : ?>
         <div class="row mt-5">
             <div class="row mt-2">
-                <div class="col-3 text-center"><?php echo Text::_("Title: ")?></div>
+                <div class="col-3 text-center"><?php echo Text::_("Title: ") ?></div>
                 <div class="col-6"><?php echo $row->title; ?></div>
-                <div class="col-3"><a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?id='. $row->id . '?&task=Display.quizDisplay') ?>"><?php echo Text::_("START QUIZ")?></a></div>
+                <div class="col-3"><a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&id='. $row->id . '&question=1&task=Display.questionDisplay') ?>"><?php echo Text::_("START QUIZ")?></a></div>
             </div>
 
             <div class="row mt-2">
