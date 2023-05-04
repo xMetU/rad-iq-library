@@ -67,4 +67,38 @@ class DisplayController extends BaseController {
         $view->document = $document;
         $view->display();
     }
+
+
+    public function uploadForm() {
+
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+
+        $view = $this->getView('UploadImageView', $viewFormat);  
+        
+        $model1 = $this->getModel('UploadImage');
+        $model2 = $this->getModel('ButtonCategories');
+        
+        $view->setModel($model1, true);   
+        $view->setModel($model2);    
+    
+        $view->document = $document;
+        $view->display();
+    }
+
+
+    public function addNewCategory() {
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+
+        $view = $this->getView('AddNewCategoryView', $viewFormat);  
+        
+        $model = $this->getModel('AddNewCategory');
+        
+        $view->setModel($model, true);     
+    
+        $view->document = $document;
+        $view->display();
+
+    }
 }

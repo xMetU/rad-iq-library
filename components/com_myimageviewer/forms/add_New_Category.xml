@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="addNewCategory">
+		<field
+			name="categoryName"
+			type="text"
+			label="CATEGORY NAME"
+			size="40"
+			class="inputbox"
+			required="true" />
+			
+		<field
+			name="id"
+			type="hidden"	/>
+	</fieldset>
+</form>
