@@ -13,11 +13,11 @@ body {
 }
 
 .btn:hover {
-    background-color: #444C96;
+    background-color: #3A42C5;
 }
 
 .btn.active {
-    background-color: #5E9FFB;
+    background-color: #54A9fB;
 }
 
 .breadcrumb {
@@ -111,3 +111,16 @@ ul.pagination li.page-item.disabled > .page-link {
 
 /* ========== UPLOAD IMAGE VIEW ========== */
 
+textarea {
+    overflow-y: scroll;
+}
+
+#image-list .row {
+    background-color: #242C76;
+    border-radius: 999px;
+    padding: 5px;
+}
+
+#image-list .row:hover {
+    background-color: #3A42C5;
+}

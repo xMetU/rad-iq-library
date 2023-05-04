@@ -22,18 +22,20 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 <!-- ========== UPLOAD IMAGE VIEW ========== -->
 
-<div class="row justify-content-center">
-	<div class="col-8">
-		<div class="row">
-			<div class="col">
-				<a class="btn" href="<?php echo Uri::getInstance()->current() ?>">Back</a>
-			</div>
-			<div class="col-8 text-center">
-				<h3>Upload New Image</h3>
-			</div>
-			<div class="col"></div>
-		</div>
+<div class="row">
+	<div class="col">
+		<a class="btn" href="<?php echo Uri::getInstance()->current() ?>">Back</a>
+	</div>
+	<div class="col-8 text-center">
+		<h3>Manage Images</h3>
+	</div>
+	<div class="col"></div>
+</div>
 
+<hr/>
+
+<div class="row">
+	<div class="col-7 pe-5">
 		<form 
 			action="<?php echo Uri::getInstance()->current() . '?&task=Form.saveImage' ?>"
 			method="post"
@@ -41,18 +43,16 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			name="adminForm"
 			enctype="multipart/form-data"
 		>
-			<hr/>
-
 			<div class="form-group">
 				<label for="imageName">Name:</label>
-				<input type="text" name="imageName" placeholder="My new image" class="form-control"/>
+				<input type="text" name="imageName" placeholder="Enter name..." class="form-control"/>
 			</div>
 
 			<hr/>
 
 			<div class="form-group">
 				<label for="imageDescription">Description:</label>
-				<input type="textarea" name="imageDescription" placeholder="My new images description" rows="4" class="form-control"/>
+				<textarea type="textarea" name="imageDescription" placeholder="Enter description..." rows="5" class="form-control"></textarea>
 			</div>
 
 			<hr/>
@@ -90,14 +90,21 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<button class="btn col-auto" id="uploadImage-submit" onclick="Joomla.submitbutton(Form.saveImage)"><i class="icon-check icon-white"></i> Done</button>
 			</div>
 		</form>
-		<div class="row text-center">
-			<h3>Delete Images</h3>
-		</div>
-		<div class="row">
-			<?php foreach ($this->images as $row) : ?>
-				<div><?php echo $row->imageName; ?></div>
-			<?php endforeach; ?>
-		</div>
+	</div>
+
+	<div id="image-list" class="col-5 pt-3">
+		<?php foreach ($this->images as $row) : ?>
+			<div class="row my-2">
+				<div class="col-2">
+					<?php echo $row->imageName; ?>
+				</div>
+				<div class="col">
+					<?php echo $row->categoryName; ?>
+				</div>
+				<div class="col-auto">
+					<i class="icon-times icon-white"></i>
+				</div>
+			</div>
+		<?php endforeach; ?>
 	</div>
 </div>
-
