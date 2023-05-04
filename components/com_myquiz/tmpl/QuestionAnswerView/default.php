@@ -55,9 +55,9 @@ else {
     <div class="row mt-5">
 
         <!-- ====== Question List =========== -->
-        <div class="col-5">
+        <div class="col-3">
             <?php foreach ($this->questions as $q => $row) : ?>
-                <div class="row mt-5 col-3">
+                <div class="row mt-5 col-5">
                     <a class="btn btn-outline-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&id=' . $row->id . '&question='. $row->questionNumber . '&count='. $count . '&task=Display.questionDisplay') ?>"><?php echo Text::_("Question ") . $row->questionNumber; ?></a>
                 </div>
             <?php endforeach; ?> 
@@ -102,6 +102,14 @@ else {
                 </div>
             </form>
         </div>
+
+        
+        <div class="col-2">		
+            <?php foreach ($this->image as $im => $row) : ?>						
+                <img id="<?php echo $row->imageId; ?>" src="<?php echo $row->imageUrl; ?>" style="width:250px;height:280px;"/>
+            <?php endforeach; ?>
+        </div>
+        
 
     </div>            
 </div>

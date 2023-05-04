@@ -14,7 +14,7 @@ use Joomla\CMS\Table\Table;
  *
  */
 
-class AllQuizModel extends ListModel {
+class ImageModel extends ListModel {
 
     
     // Get a list of images filtered by category
@@ -22,6 +22,8 @@ class AllQuizModel extends ListModel {
 
         // Get a db connection.
         $db = $this->getDatabase();
+        
+        $id = Factory::getApplication()->input->get('id');
 
         // Create a new query object.
         $query = $db->getQuery(true)
@@ -30,8 +32,8 @@ class AllQuizModel extends ListModel {
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',
-                $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId'));
-
+                $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId'))
+            ->where($db->quoteName('q.id') . '=' . $db->quote($id));
 
         // Check query is correct        
         // echo $query->dump();
