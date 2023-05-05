@@ -2,7 +2,7 @@
 
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_myImageViewer
+ * @subpackage  com_myQuiz
  *
  */
 
@@ -11,5 +11,5 @@ defined('_JEXEC') or die('Restricted Access');
 ?>
 
 
-<h2 class="text-center bg-primary text-white">This is the Admin side of My Image Viewer</h2>
+<h2 class="text-center bg-primary text-white">This is the Admin side of My Quiz</h2>
 

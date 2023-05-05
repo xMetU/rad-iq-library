@@ -14,31 +14,29 @@ use Joomla\CMS\Table\Table;
  *
  */
 
-class ImageDisplayModel extends ListModel {
+class ImageCategoriesDisplayModel extends ListModel {
 
-    // Get a general list of images to display on home page
-    public function getListQuery() {
+    
+    // Get a list of images filtered by category
+    public function getListQuery(){
 
         // Factory::getApplication()->enqueueMessage("imageDisplayModel changeCategory()");
 
         // Get a db connection.
         $db = $this->getDatabase();
 
-        $categories = Factory::getApplication()->input->getVar('categories');
+        $imageCategory = Factory::getApplication()->input->get('imageCategory');       
 
         // Create a new query object.
         $query = $db->getQuery(true)
                 //Query
-                ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'c.categoryName', 'image.id']))
+                ->select($db->quoteName(['image.imageUrl', 'c.categoryName', 'image.id']))
                 ->from($db->quoteName('#__myImageViewer_image', 'image'))
                 ->join(
                     'LEFT',
-                    $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.id')
-                );
-                
-        if (isset($categories)) {
-            $query->where($db->quoteName('c.id') . 'IN(' . $categories . ')');
-        }
+                    $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.id'))
+                ->where($db->quoteName('c.categoryName') . '=' . $db->quote($imageCategory));
+
 
         // Check query is correct        
         // echo $query->dump();
@@ -46,4 +44,6 @@ class ImageDisplayModel extends ListModel {
         return $query;
     }
 
+
+        
 }

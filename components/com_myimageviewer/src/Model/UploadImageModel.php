@@ -42,7 +42,7 @@ class UploadImageModel extends BaseModel {
 		$db->setQuery($query);
 		$result = $db->execute();
 	}
-
+	// This and deleteImage have yet to be tested
 	public function updateImage($data, $imageId) {
 		$db = Factory::getDbo();
 		$columns = array('imageName', 'imageDescription', 'categoryId', 'imageUrl');
