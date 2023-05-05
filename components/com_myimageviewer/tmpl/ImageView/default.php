@@ -61,7 +61,7 @@ function toggleCategory($id, $categories) {
 				<?php if (!empty($this->buttonCategories)) : ?>
 					<?php foreach ($this->buttonCategories as $category) : ?>
 						<tr>
-							<td class="py-2">
+							<td class="pt-3">
 								<a
 									class="btn d-flex justify-content-center<?php echo in_array($category->id, $categories) ? " active" : ""; ?>"
 									href="<?php
@@ -96,7 +96,7 @@ function toggleCategory($id, $categories) {
 				<?php if (!empty($this->items)) : ?>
 					<tr class="row">
 						<?php foreach ($this->items as $item) : ?>
-							<td class="col-3 py-2 px-3">
+							<td class="col-3 pt-3 px-3">
 								<div class="card p-3 pb-0">
 									<img
 										id="<?php echo $item->id; ?>"

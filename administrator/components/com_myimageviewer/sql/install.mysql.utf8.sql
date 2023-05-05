@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `#__myImageViewer_image` (
   `id` SERIAL NOT NULL,
   `imageName` VARCHAR(45)  NOT NULL,
   `categoryId` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `imageDescription` VARCHAR(200),
+  `imageDescription` TEXT,
   `imageProjection` VARCHAR(200),
   `imageUrl` VARCHAR(200) NOT NULL,
   `imageCitation` VARCHAR(200),

@@ -30,9 +30,28 @@ class UploadImageModel extends BaseModel {
         return $item;	
 	}
 
+	public function getImageData($pk = null) {
+       	$id = Factory::getApplication()->input->get('id');
+        $item   = new \stdClass();
+
+        $table1  = $this->getTable('Image');
+        $table1->load($id);
+
+        $table2 = $this->getTable('ImageCategory');
+        $table2->load($table1->categoryId);
+
+        $item->id = $table1->id;
+        $item->name = $table1->imageName;
+        $item->category = $table2->categoryName;
+        $item->description = $table1->imageDescription;
+        $item->url = $table1->imageUrl;
+
+        return $item;
+    }
+
 	public function saveImage($data) {
-		$db = Factory::getDbo();      
-		$columns = array('imageName','imageDescription','categoryId', 'imageUrl');
+		$db = Factory::getDbo();
+		$columns = array('imageName', 'categoryId', 'imageUrl', 'imageDescription');
 		
 		$query = $db->getQuery(true)
 			->insert($db->quoteName('#__myImageViewer_image'))
@@ -42,30 +61,13 @@ class UploadImageModel extends BaseModel {
 		$db->setQuery($query);
 		$result = $db->execute();
 	}
-	// This and deleteImage have yet to be tested
-	public function updateImage($data, $imageId) {
-		$db = Factory::getDbo();
-		$columns = array('imageName', 'imageDescription', 'categoryId', 'imageUrl');
-
-		$query = $db->getQuery(true)
-			->update($db->quoteName('#__myImageViewer_image'))
-			->set($db->quoteName($columns[0]) . ' = ' . $db->quote($data[0]))
-			->set($db->quoteName($columns[1]) . ' = ' . $db->quote($data[1]))
-			->set($db->quoteName($columns[2]) . ' = ' . $db->quote($data[2]))
-			->set($db->quoteName($columns[3]) . ' = ' . $db->quote($data[3]))
-			->where($db->quoteName('imageId') . ' = ' . (int) $imageId);
-
-		$db->setQuery($query);
-		$result = $db->execute();
-}
 
 	public function deleteImage($imageId) {
-		$db = Factory::getDbo();      
-		$columns = array('imageName','imageDescription','categoryId', 'imageUrl');
+		$db = Factory::getDbo();
 		
 		$query = $db->getQuery(true)
 			->delete($db->quoteName('#__myImageViewer_image'))
-			->where($db->quoteName('imageId') . '=' . (int) $imageId);
+			->where($db->quoteName('id') . '=' . (int) $imageId);
 		
 		$db->setQuery($query);
 		$result = $db->execute();

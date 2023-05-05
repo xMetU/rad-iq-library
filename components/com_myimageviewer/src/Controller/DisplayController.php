@@ -15,15 +15,13 @@ use Joomla\CMS\Factory;
 
 class DisplayController extends BaseController {
     
-
-
     public function display($cachable = false, $urlparams = array()) {     
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
 
         $view = $this->getView('ImageView', $viewFormat);
 
-        $model1 = $this->getModel('ImageDisplay');
+        $model1 = $this->getModel('ImageCategoriesDisplay');
         $model2 = $this->getModel('ButtonCategories');
         
         $view->setModel($model1, true);
@@ -63,7 +61,6 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-
     public function addNewCategory() {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
@@ -76,6 +73,6 @@ class DisplayController extends BaseController {
     
         $view->document = $document;
         $view->display();
-
     }
+
 }

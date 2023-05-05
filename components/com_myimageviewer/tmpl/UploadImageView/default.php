@@ -18,6 +18,7 @@ use Joomla\CMS\Uri\Uri;
 $document = Factory::getDocument();
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
+$selectedImage = "1";
 ?>
 
 <!-- ========== UPLOAD IMAGE VIEW ========== -->
@@ -35,7 +36,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <hr/>
 
 <div class="row">
-	<div class="col-7 pe-5">
+	<div class="col-9 pe-5">
 		<form 
 			action="<?php echo Uri::getInstance()->current() . '?&task=Form.saveImage' ?>"
 			method="post"
@@ -50,18 +51,11 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 			<hr/>
 
-			<div class="form-group">
-				<label for="imageDescription">Description:</label>
-				<textarea type="textarea" name="imageDescription" placeholder="Enter description..." rows="5" class="form-control"></textarea>
-			</div>
-
-			<hr/>
-
 			<div class="form-group row">
 				<label for="categoryId">Category:</label>
 
 				<div class="col">
-					<select id="uploadCategory" name="categoryId" class="form-control">
+					<select id="uploadCategory" name="categoryId" class="form-control" required>
 						<?php foreach ($this->categories as $row) : ?>
 							<option value="<?php echo $row->id; ?>"><?php echo $row->categoryName; ?></option>
 						<?php endforeach; ?>
@@ -81,30 +75,57 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<div class="form-group">
 				<label for="imageUrl">File:</label>
 				
-				<input type="file" name="imageUrl" class="form-control"/>
+				<input type="file" name="imageUrl" class="form-control" required/>
 			</div>
-			
+
+			<hr/>
+
+			<div class="form-group">
+				<label for="imageDescription">Description:</label>
+				<textarea type="textarea" name="imageDescription" placeholder="Enter description..." rows="5" class="form-control"></textarea>
+			</div>
+
 			<hr/>
 			
 			<div class="form-group">
-				<button class="btn col-auto" id="uploadImage-submit" onclick="Joomla.submitbutton(Form.saveImage)"><i class="icon-check icon-white"></i> Done</button>
+				<button class="btn col-auto" id="uploadImage-submit">
+					<i class="icon-check icon-white"></i> Done
+				</button>
 			</div>
 		</form>
 	</div>
-
-	<div id="image-list" class="col-5 pt-3">
-		<?php foreach ($this->images as $row) : ?>
-			<div class="row my-2">
-				<div class="col-2">
-					<?php echo $row->imageName; ?>
-				</div>
-				<div class="col">
-					<?php echo $row->categoryName; ?>
-				</div>
-				<div class="col-auto">
-					<i class="icon-times icon-white"></i>
-				</div>
-			</div>
-		<?php endforeach; ?>
+	
+	<div id="image-list" class="col pt-3">
+		<table class="w-100">
+			<tbody>
+				<?php foreach ($this->images as $row) : ?>
+					<form
+						action="<?php echo Uri::getInstance()->current() . '?&task=Form.deleteImage' ?>"
+						method="post"
+						enctype="multipart/form-data"
+					>
+						<input type="hidden" name="imageId" value="<?php echo $row->id; ?>"/>
+						<input type="hidden" name="imageUrl" value="<?php echo $row->imageUrl; ?>">
+						<tr class="row my-2">
+							<td class="col">
+								<?php echo $row->imageName; ?>
+							</td>
+							<td class="col">
+								<?php echo $row->categoryName; ?>
+							</td>
+							<td class="col-auto">
+								<button
+									class="delete-button"
+									id="deleteImage-submit"
+								>
+									<i class="icon-times icon-white"></i>
+								</button>
+							</td>
+							
+						</tr>
+					</form>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
 	</div>
 </div>

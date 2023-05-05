@@ -121,6 +121,11 @@ textarea {
     padding: 5px;
 }
 
-#image-list .row:hover {
+#image-list .delete-button {
+    background-color: #2E36A1;
+    border-radius: 999px;
+}
+
+#image-list .delete-button:hover {
     background-color: #3A42C5;
 }
