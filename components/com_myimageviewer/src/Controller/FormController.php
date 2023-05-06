@@ -51,14 +51,11 @@ class FormController extends BaseController {
 		$data = $_POST;
 		$imageUrl = $data['imageUrl'];
 		$imageId = $data['imageId'];
-
-		if (File::exists($imageUrl)) {
-			File::delete($imageUrl);
-			$model->deleteImage($imageId);
-			Factory::getApplication()->enqueueMessage("File deleted successfully");
-		}
-		else {
-			Factory::getApplication()->enqueueMessage("File could not be deleted");
+		// Error messages handled by deleteImage
+		if ($model->deleteImage($imageId)) {
+			if (File::exists($imageUrl)) {
+				File::delete($imageUrl);
+			}
 		}
 
 		$this->setRedirect(Route::_(

@@ -16,6 +16,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
+$document->addScript("media/com_myimageviewer/js/imageView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 $selectedImage = "1";
@@ -84,14 +85,14 @@ $selectedImage = "1";
 			<div class="form-group">
 				<label for="imageDescription">Description:</label>
 
-				<textarea type="textarea" name="imageDescription" placeholder="Enter description..." rows="12" class="form-control"></textarea>
+				<textarea type="textarea" name="imageDescription" placeholder="Enter description..." rows="16" class="form-control"></textarea>
 			</div>
 
 			<hr/>
 			
 			<div class="form-group">
 				<button id="uploadImage-submit" class="btn col-auto">
-					<i class="icon-check icon-white"></i> Upload New Image
+					<i class="icon-check icon-white"></i> Done
 				</button>
 			</div>
 		</form>
@@ -122,8 +123,6 @@ $selectedImage = "1";
 					<div class="col-auto">
 						<button id="deleteImage-submit" class="btn btn-sm">delete</button>
 					</div>
-
-					<div class=""></div>
 				</div>
 			</form>
 		<?php endforeach; ?>

@@ -25,14 +25,14 @@ class ImageCategoriesDisplayModel extends ListModel {
         }
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'c.categoryName', 'image.id']))
+            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id']))
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
             ->join(
                 'LEFT',
-                $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.id')
+                $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.categoryId')
             )
             ->where($db->quoteName('c.id') . 'IN(' . $categories . ')');
-
+        
         return $query;
     }
 
