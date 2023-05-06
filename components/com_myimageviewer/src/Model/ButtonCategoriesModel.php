@@ -16,7 +16,6 @@ use Joomla\CMS\Table\Table;
 
 class ButtonCategoriesModel extends ListModel {
 
-    // A list of all categories to populate the button list for the user to filter by category
     public function getListQuery() {
         $db = $this->getDatabase();  
 

@@ -20,7 +20,7 @@ class ImageDisplayModel extends ListModel {
         $db = $this->getDatabase();
         $categories = Factory::getApplication()->input->getVar('categories');
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'c.categoryName', 'image.id']))
+            ->select($db->quoteName(['image.imageName', 'image.imageDescription', 'image.imageUrl', 'c.categoryName', 'image.id']))
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
             ->join(
                 'LEFT',

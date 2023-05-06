@@ -115,17 +115,12 @@ textarea {
     overflow-y: scroll;
 }
 
-#image-list .row {
+#image-list > form > .row .row {
     background-color: #242C76;
     border-radius: 999px;
-    padding: 5px;
 }
 
-#image-list .delete-button {
-    background-color: #2E36A1;
+#image-list > form > .row button {
     border-radius: 999px;
 }
 
-#image-list .delete-button:hover {
-    background-color: #3A42C5;
-}

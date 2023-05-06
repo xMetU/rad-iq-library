@@ -11,7 +11,6 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filesystem\File;
 
-
 /**
  * @package     Joomla.Site
  * @subpackage  com_myImageViewer
@@ -55,6 +54,7 @@ class FormController extends BaseController {
 
 		if (File::exists($imageUrl)) {
 			File::delete($imageUrl);
+			$model->deleteImage($imageId);
 			Factory::getApplication()->enqueueMessage("File deleted successfully");
 		}
 		else {
@@ -65,8 +65,6 @@ class FormController extends BaseController {
 			Uri::getInstance()->current() . '?&task=Display.uploadForm',
 			false,
 		));
-
-		$model->deleteImage($imageId);
 	}
 
     public function cancelImage($key = null) {
