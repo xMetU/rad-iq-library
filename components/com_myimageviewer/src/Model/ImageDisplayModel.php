@@ -19,8 +19,6 @@ class ImageDisplayModel extends ListModel {
     // Get a general list of images to display on home page
     public function getListQuery() {
 
-        // Factory::getApplication()->enqueueMessage("imageDisplayModel changeCategory()");
-
         // Get a db connection.
         $db = $this->getDatabase();
 
@@ -39,9 +37,6 @@ class ImageDisplayModel extends ListModel {
         if (isset($categories)) {
             $query->where($db->quoteName('c.id') . 'IN(' . $categories . ')');
         }
-
-        // Check query is correct        
-        // echo $query->dump();
 
         return $query;
     }

@@ -26,11 +26,7 @@ class HtmlView extends BaseHtmlView {
     public function display($template = null) {
 
         $this->items = $this->get('Items');
-
-        $this->item = $this->get('Item', 'QuizInfo');
         $this->questions = $this->get('Items', 'QuizQuestions');
-        $this->image = $this->get('Items', 'Image');
-
         $this->pagination = $this->get('Pagination');
 
 

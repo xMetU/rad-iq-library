@@ -15,15 +15,20 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
 
+// Consolidate from multiple items to a single variable
 foreach ($this->items as $i => $row){
-    $question = $row->questionDescription;
-    $questionNumber = $row->questionNumber;
     $quizId = $row->quizId;
     $title = $row->title;
+    $questionNumber = $row->questionNumber;
+    $question = $row->questionDescription;
+    $imageId = $row->imageId;
+    $imageUrl = $row->imageUrl;
 }
+
 
 $count = count($this->questions);
 
+// Update the button if at end of quiz
 if($questionNumber < $count){
     $label = Text::_('NEXT'); 
 }
@@ -54,18 +59,15 @@ else {
     <!-- ====== BODY =========== -->
     <div class="row mt-5">
 
-        <!-- ====== Question List =========== -->
-        <div class="col-3">
-            <?php foreach ($this->questions as $q => $row) : ?>
-                <div class="row mt-5 col-5">
-                    <a class="btn btn-outline-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&id=' . $row->id . '&question='. $row->questionNumber . '&count='. $count . '&task=Display.questionDisplay') ?>"><?php echo Text::_("Question ") . $row->questionNumber; ?></a>
-                </div>
-            <?php endforeach; ?> 
+        <!-- ====== Image =========== -->
+        <div class="col-3">							
+            <img id="<?php echo $imageId; ?>" src="<?php echo $imageUrl; ?>" style="width:250px;height:280px;"/>
         </div>
+        
 
 
         <!-- ====== ANSWERS =========== -->
-        <div class="col-7">
+        <div class="col-6">
             <form action="" method="post" id="adminForm" name="adminForm" enctype="multipart/form-data">
                 
                 <!--===== Question Part ====== -->
@@ -103,20 +105,22 @@ else {
             </form>
         </div>
 
-        
-        <div class="col-2">		
-            <?php foreach ($this->image as $im => $row) : ?>						
-                <img id="<?php echo $row->imageId; ?>" src="<?php echo $row->imageUrl; ?>" style="width:250px;height:280px;"/>
-            <?php endforeach; ?>
+        <!-- ====== Question List =========== -->
+        <div class="col-3">
+            <?php foreach ($this->questions as $q => $row) : ?>
+                <div class="row mt-5 col-5">
+                    <a class="btn btn-outline-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&id=' . $row->id . '&question='. $row->questionNumber . '&count='. $count . '&task=Display.questionDisplay') ?>"><?php echo Text::_("Question ") . $row->questionNumber; ?></a>
+                </div>
+            <?php endforeach; ?> 
         </div>
-        
 
     </div>            
 </div>
 
 
-<script>
 
+<!-- ===== Submits Form onClick next/prev buttons ==-->
+<script>
     window.onload = function() {
 
         let next = document.getElementById("next");
@@ -127,6 +131,7 @@ else {
             changeQuestion(action)
         });
 
+        // Check prev button is not null (1st question doesn't need prev button)
         if(prev) {
             prev.addEventListener("click", function () {       
             var action = 'prevQuestion';

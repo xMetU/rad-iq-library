@@ -22,6 +22,7 @@ class SaveAnswersModel extends BaseModel {
 		$db = Factory::getDbo();      
 
 
+		// Check if the question has already been answered
 		$check = $db->getQuery(true)
 			//Query
 			->select('*')
@@ -34,7 +35,7 @@ class SaveAnswersModel extends BaseModel {
 		$columns = array('userId','quizId','questionNumber', 'answerNumber');
 		$data = [$userId, $quizId, $questionNumber, $answerNumber]; 
 
-		
+		// If the question hasn't already been answered, then it can be inserted
 		if(!$check) {
 			$query = $db->getQuery(true)
 			->insert($db->quoteName('#__myQuiz_userAnswers'))
@@ -47,6 +48,7 @@ class SaveAnswersModel extends BaseModel {
 			return true;
 		}
 
+		// Delete the old question answer, so the new one can be added.
 		else{
 			$query = $db->getQuery(true)
 				->delete($db->quoteName('#__myQuiz_userAnswers'))
@@ -54,8 +56,6 @@ class SaveAnswersModel extends BaseModel {
 				. 'AND' . $db->quoteName('quizId') . '=' . $db->quote($quizId)
 				. 'AND' . $db->quoteName('questionNumber') . '=' . $db->quote($questionNumber));
 		
-			// Check query is correct    
-        	// echo $query->dump();
 
 			try {
 				$db->setQuery($query);
@@ -65,6 +65,7 @@ class SaveAnswersModel extends BaseModel {
 				echo $e->getMessage();
 			}
 
+			// If the deletion is successful, the new answer can be added.
 			if($result) {
 				$query = $db->getQuery(true)
 				->insert($db->quoteName('#__myQuiz_userAnswers'))
