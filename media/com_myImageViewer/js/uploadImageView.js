@@ -1,10 +1,33 @@
 window.onload = function () {
-    // Makes the images redirect to the focused image view when clicked
-    const tableBody = document.getElementById("image-list");
+    const tableBody = document.getElementById("images");
 
-    tableBody.querySelectorAll("button").forEach((button) => {
-        button.onclick = function (e) {
-            // TODO: implement "are you sure" prompt
-        };
+    tableBody.querySelectorAll("form").forEach((form) => {
+        // delete button opens the confirm message
+        form.querySelector(".delete").onclick = function (e) {
+            e.preventDefault();
+            openOverlay(form);
+        }
+
+        // yes button submits the form and closes it
+        form.querySelector(".delete-yes").onclick = function (e) {
+            closeOverlay(form);
+        }
+
+        // no button closes it without submitting
+        form.querySelector(".delete-no").onclick = function (e) {
+            e.preventDefault();
+            closeOverlay(form);
+        }
+
     });
+
+    // ========== UTILITIES ==========
+
+    function openOverlay(form) {
+        form.querySelector(".overlay-background").classList.remove("d-none");
+    }
+
+    function closeOverlay(form) {
+        form.querySelector(".overlay-background").classList.add("d-none");
+    }
 };

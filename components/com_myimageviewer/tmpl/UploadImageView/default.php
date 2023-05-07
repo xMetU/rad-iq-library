@@ -16,7 +16,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
-$document->addScript("media/com_myimageviewer/js/imageView.js");
+$document->addScript("media/com_myimageviewer/js/uploadImageView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 $selectedImage = "1";
@@ -98,7 +98,7 @@ $selectedImage = "1";
 		</form>
 	</div>
 	
-	<div id="image-list" class="col">
+	<div id="images" class="col">
 		<h5 class="text-center pb-4">Remove Images</h5>
 
 		<?php foreach ($this->images as $row) : ?>
@@ -114,14 +114,32 @@ $selectedImage = "1";
 				<div class="row mb-2">
 					<div class="col">
 						<div class="row p-1">
-							<div class="col"><?php echo $row->imageName; ?></div>
+							<div class="col-4 text-truncate border-end"><?php echo $row->imageName; ?></div>
 
-							<div class="col"><?php echo $row->categoryName; ?></div>
+							<div class="col-3 text-truncate border-end"><?php echo $row->categoryName; ?></div>
+
+							<div class="col-5 text-truncate"><?php echo $row->imageDescription; ?></div>
 						</div>
 					</div>
 					
 					<div class="col-auto">
-						<button id="deleteImage-submit" class="btn btn-sm">delete</button>
+						<button class="delete btn btn-sm">delete</button>
+					</div>
+				</div>
+
+				<div class="overlay-background d-flex d-none">
+					<div class="m-auto justify-content-center">
+						<div class="row mb-4 text-center">
+							<h5>Are you sure you want to delete <?php echo $row->imageName; ?>?<br/>This action cannot be undone.</h5>
+						</div>
+						<div class="row">
+							<div class="col">
+								<button id="deleteImage-submit" class="delete-yes btn float-end me-3">Yes, delete it</button>
+							</div>
+							<div class="col">
+								<button class="delete-no btn ms-3">No, go back</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</form>

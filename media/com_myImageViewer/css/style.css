@@ -39,6 +39,14 @@ div.alert-wrapper {
     background-color: #180F15;
 }
 
+#system-message-container {
+    margin-top: 0px;
+}
+
+#system-message-container > * {
+    margin-top: 16px;
+}
+
 /* TODO: Add pagination styles */
 
 /* ========== IMAGE VIEW ========== */
@@ -91,7 +99,7 @@ ul.pagination li.page-item.disabled > .page-link {
     right: 48px;
 }
 
-#focused-img-view {
+.overlay-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -115,12 +123,12 @@ textarea {
     overflow-y: scroll;
 }
 
-#image-list > form > .row .row {
+#images > form > .row .row {
     background-color: #242C76;
     border-radius: 999px;
 }
 
-#image-list > form > .row button {
+#images > form > .row button {
     border-radius: 999px;
 }
 

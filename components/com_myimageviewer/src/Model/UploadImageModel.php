@@ -20,7 +20,7 @@ class UploadImageModel extends BaseModel {
 		return Factory::getApplication()->bootComponent('com_myImageViewer')->getMVCFactory()->createTable($type);
 	}
 
-	public function getCategory($categoryId)  { 
+	public function getCategory($categoryId)  {
         $item = new \stdClass();
 
         $table = $this->getTable();
@@ -30,23 +30,26 @@ class UploadImageModel extends BaseModel {
         return $item;	
 	}
 
-	public function getImageData($pk = null) {
-       	$id = Factory::getApplication()->input->get('id');
-        $item   = new \stdClass();
+	public function getImages($ids = null) {
+		$items = array();
+		$table = $this->getTable('Image');
+		
+		if ($ids) {
+			$table->load($ids);
+		}
+		else {
+			$table->load();
+		}
 
-        $table1  = $this->getTable('Image');
-        $table1->load($id);
+		foreach ($table as $image) {
+			$item->id = $image->id;
+			$item->name = $image->imageName;
+			$item->category = getCategory($image->categoryId);
+			$item->description = $image->imageDescription;
+			$item->url = $image->imageUrl;
+		}
 
-        $table2 = $this->getTable('ImageCategory');
-        $table2->load($table1->categoryId);
-
-        $item->id = $table1->id;
-        $item->name = $table1->imageName;
-        $item->category = $table2->categoryName;
-        $item->description = $table1->imageDescription;
-        $item->url = $table1->imageUrl;
-
-        return $item;
+		return $items;
     }
 
 	public function saveImage($data) {
@@ -60,6 +63,7 @@ class UploadImageModel extends BaseModel {
 		
 		$db->setQuery($query);
 		$result = $db->execute();
+		Factory::getApplication()->enqueueMessage("Image saved successfully.");
 	}
 
 	public function deleteImage($imageId) {
