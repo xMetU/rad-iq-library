@@ -65,22 +65,5 @@ class UploadImageModel extends BaseModel {
 		$result = $db->execute();
 		Factory::getApplication()->enqueueMessage("Image saved successfully.");
 	}
-
-	public function deleteImage($imageId) {
-		try {
-			$db = Factory::getDbo();
-			$query = $db->getQuery(true)
-				->delete($db->quoteName('#__myImageViewer_image'))
-				->where($db->quoteName('id') . '=' . (int) $imageId);
-			$db->setQuery($query);
-			$db->execute();
-			Factory::getApplication()->enqueueMessage("Image deleted successfully.");
-			return true;
-		}
-		catch (Exception $e) {
-			Factory::getApplication()->enqueueMessage("Error when deleting image: " . $e->getMessage());
-			return false;
-		}
-	}
         
 }

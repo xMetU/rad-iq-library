@@ -26,7 +26,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col-8">
 		<div class="row">
 			<div class="col">
-				<a class="btn" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.uploadForm') ?>">Back</a>
+				<a class="btn" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display') ?>">Back</a>
 			</div>
 			<div class="col-8 text-center">
 				<h3>Create New Category</h3>
