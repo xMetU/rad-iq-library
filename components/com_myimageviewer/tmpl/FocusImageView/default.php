@@ -17,7 +17,6 @@ use Joomla\CMS\Router\Route;
 $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/focusImageView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
-$document->addStyleSheet("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
 ?>
 

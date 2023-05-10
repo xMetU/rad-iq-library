@@ -48,7 +48,7 @@ class FocusImageModel extends ItemModel {
 			return true;
 		}
 		catch (Exception $e) {
-			Factory::getApplication()->enqueueMessage("Error when deleting image: " . $e->getMessage());
+			Factory::getApplication()->enqueueMessage("Error while deleting image: " . $e->getMessage());
 			return false;
 		}
 	}

@@ -65,29 +65,36 @@ class FormController extends BaseController {
 	}
 
     public function saveCategory() {
-		$app = Factory::getApplication();
-        $app->enqueueMessage("FormController/saveCategory");
-		$input = $app->input;
-
 		$model = $this->getModel('AddNewCategory');
 
-        $data  = $input->post->get('formArray', array(), 'array');
-		$form = $model->getForm($data, false);
-        
-		if ($model->save($data)) {
-			$app->enqueueMessage("Category Added Successfully");
-			$this->setRedirect(Route::_('index.php?&task=Display.addNewCategory', false));
-		}
-		else {
-			$app->enqueueMessage("Could not add category");
-			$this->setRedirect(Route::_('index.php?&task=Display.addNewCategory', false));
-		}
+		$data = $_POST;
+
+		$model->saveCategory($data);
+
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?&task=Display.addNewCategory',
+			false,
+		));
     }
+
+	public function deleteCategory() {
+		$model = $this->getModel('AddNewCategory');
+		
+		$data = $_POST;
+		$categoryId = $data['categoryId'];
+
+		$model->deleteCategory($categoryId);
+
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?&task=Display.addNewCategory',
+			false,
+		));
+	}
 
     public function submit($key = null, $urlVar = null) {
 		$this->checkToken();
 
-		$app   = Factory::getApplication();
+		$app = Factory::getApplication();
 		$model = $this->getModel('Form');
 		$form = $model->getForm($data, false);
 

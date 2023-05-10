@@ -66,8 +66,10 @@ class DisplayController extends BaseController {
         $view = $this->getView('AddNewCategoryView', $viewFormat);  
         
         $model = $this->getModel('AddNewCategory');
-        
-        $view->setModel($model, true);     
+        $model2 = $this->getModel('ButtonCategories');
+
+        $view->setModel($model, true);
+        $view->setModel($model2);
     
         $view->document = $document;
         $view->display();
