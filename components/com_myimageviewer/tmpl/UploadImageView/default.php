@@ -49,9 +49,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<input 
 					type="text"
 					name="imageName"
-					placeholder="Enter name..."
 					class="form-control"
-					maxlength="50"
+					placeholder="Enter name..."
+					maxlength="60"
 					required
 				/>
 			</div>
@@ -82,7 +82,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<div class="form-group">
 				<label for="imageDescription">Description:</label>
 
-				<textarea type="textarea" name="imageDescription" placeholder="Enter description..." rows="16" class="form-control"></textarea>
+				<textarea
+					name="imageDescription"
+					class="form-control"
+					placeholder="Enter description..."
+					maxlength="12000"
+					rows="16"
+				></textarea>
 			</div>
 
 			<hr/>

@@ -37,18 +37,21 @@ class FocusImageModel extends ItemModel {
     }
 
     public function deleteImage($imageId) {
-		try {
-			$db = Factory::getDbo();
-			$query = $db->getQuery(true)
-				->delete($db->quoteName('#__myImageViewer_image'))
-				->where($db->quoteName('id') . '=' . (int) $imageId);
-			$db->setQuery($query);
+        $db = Factory::getDbo();
+        $query = $db->getQuery(true)
+            ->delete($db->quoteName('#__myImageViewer_image'))
+            ->where($db->quoteName('id') . '=' . (int) $imageId);
+        $db->setQuery($query);
+
+        try {
 			$db->execute();
 			Factory::getApplication()->enqueueMessage("Image deleted successfully.");
 			return true;
 		}
-		catch (Exception $e) {
-			Factory::getApplication()->enqueueMessage("Error while deleting image: " . $e->getMessage());
+		catch (\Exception $e) {
+            $message = $e->getMessage();
+            // TODO: better error messages
+			Factory::getApplication()->enqueueMessage("Error: " . $message);
 			return false;
 		}
 	}

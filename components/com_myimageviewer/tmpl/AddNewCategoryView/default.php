@@ -55,8 +55,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					<input
 						type="text"
 						name="categoryName"
-						placeholder="Enter name..."
 						class="form-control"
+						placeholder="Enter name..."
+						maxlength="30"
 						required
 					/>
 				</div>
@@ -78,7 +79,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			name="adminForm"
 		>	
 			<div class="row form-group">
-				<h5 class="text-center">Delete Category</h5>
+				<h5 class="text-center">Remove Category</h5>
 
 				<div class="col">
 					<label for="categoryId">Category Name: *</label>
@@ -93,7 +94,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 				<div class="col-auto">
 					<button id="delete-button" class="btn mt-4">
-						<i class="icon-times icon-white"></i> Delete
+						<i class="icon-times icon-white"></i> Remove
 					</button> 
 				</div>
 			</div>

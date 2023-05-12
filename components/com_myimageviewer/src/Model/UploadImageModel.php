@@ -60,10 +60,18 @@ class UploadImageModel extends BaseModel {
 			->insert($db->quoteName('#__myImageViewer_image'))
 			->columns($db->quoteName($columns))
 			->values(implode(',', $db->quote($data)));
-		
 		$db->setQuery($query);
-		$result = $db->execute();
-		Factory::getApplication()->enqueueMessage("Image saved successfully.");
+
+		try {
+			$result = $db->execute();
+			Factory::getApplication()->enqueueMessage("Image saved successfully.");
+			return true;
+		} catch (\Exception $e) {
+			$message = $e->getMessage();
+            // TODO: better error messages
+			Factory::getApplication()->enqueueMessage("Error: " . $message);
+			return false;
+		}
 	}
         
 }

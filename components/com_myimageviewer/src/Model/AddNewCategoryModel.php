@@ -29,36 +29,41 @@ class AddNewCategoryModel extends BaseModel {
 	 * @return  mixed    A Form object on success, false on failure
 	 */
 	public function saveCategory($data) {
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true)
+			->insert($db->quoteName('#__myImageViewer_imageCategory'))
+			->columns($db->quoteName(['categoryName']))
+			->values(implode(',', $db->quote($data)));
+		$db->setQuery($query);
+
 		try {
-			$db = Factory::getDbo();
-			$columns = array('categoryName');
-			$query = $db->getQuery(true)
-				->insert($db->quoteName('#__myImageViewer_imageCategory'))
-				->columns($db->quoteName($columns))
-				->values(implode(',', $db->quote($data)));
-			$db->setQuery($query);
-			$result = $db->execute();
+			$db->execute();
 			Factory::getApplication()->enqueueMessage("Category saved successfully.");
 			return true;
-		} catch (Exception $e) {
-			Factory::getApplication()->enqueueMessage("Error while creating category: " . $e->getMessage());
+		} catch (\Exception $e) {
+			$message = $e->getMessage();
+            // TODO: better error messages
+			Factory::getApplication()->enqueueMessage("Error: " . $message);
 			return false;
 		}
 	}
 
 	public function deleteCategory($categoryId) {
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true)
+			->delete($db->quoteName('#__myImageViewer_imageCategory'))
+			->where($db->quoteName('id') . '=' . (int) $categoryId);
+		$db->setQuery($query);
+			
 		try {
-			$db = Factory::getDbo();
-			$query = $db->getQuery(true)
-				->delete($db->quoteName('#__myImageViewer_imageCategory'))
-				->where($db->quoteName('id') . '=' . (int) $categoryId);
-			$db->setQuery($query);
 			$db->execute();
 			Factory::getApplication()->enqueueMessage("Category deleted successfully.");
 			return true;
 		}
-		catch (Exception $e) {
-			Factory::getApplication()->enqueueMessage("Error while deleting category: " . $e->getMessage());
+		catch (\Exception $e) {
+			$message = $e->getMessage();
+            // TODO: better error messages
+			Factory::getApplication()->enqueueMessage("Error: " . $message);
 			return false;
 		}
 	}
