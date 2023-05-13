@@ -94,3 +94,7 @@
 2023-05-07T07:31:29+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
 2023-05-07T07:31:43+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.66 seconds
 2023-05-07T07:31:44+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.64 seconds
+2023-05-13T13:56:59+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.87 seconds
+2023-05-13T13:57:00+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-05-13T13:57:14+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.63 seconds
+2023-05-13T13:57:15+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.64 seconds

@@ -15,18 +15,11 @@ use Joomla\CMS\Factory;
 
 class UploadController extends BaseController {
     
-    function upload() {
-        echo "upload";
-        Factory::getApplication()->enqueueMessage("upload");
-    }
 
 
     public function display($cachable = false, $urlparams = array()) {     
-        
-        echo "this is the site controller";
 
         $document = Factory::getDocument();
-        // $viewName = $this->input->getCmd('view', 'login');
         $viewFormat = $document->getType();
 
         $view = $this->getView('UploadImageView', $viewFormat);

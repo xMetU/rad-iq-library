@@ -36,6 +36,18 @@ else {
     $label = Text::_('FINISH'); 
 }
 
+$answerNumber = 0;
+
+$userQuestionData = Factory::getApplication()->getUserState('myQuiz.userQuestionData');
+foreach ($userQuestionData as $data){
+    if(isset($data['questionNumber'])) {
+        if($data['questionNumber'] === $questionNumber) {
+            $answerNumber = $data['answerNumber'];
+        }
+        
+    }
+}
+
 ?>
 
 
@@ -45,14 +57,7 @@ else {
 
     <!-- ====== TITLES =========== -->
     <div class="row">
-        <table>
-            <tbody>
-                <tr>
-                    <td><h3><?php echo $quizId . '. '; ?></h3></td>
-                    <td><h3><?php echo $title; ?></h3></td>
-                </tr>
-            </tbody>
-        </table>
+        <div><h3><?php echo $title; ?></h3></div>
     </div>
 
 
@@ -63,7 +68,6 @@ else {
         <div class="col-3">							
             <img id="<?php echo $imageId; ?>" src="<?php echo $imageUrl; ?>" style="width:250px;height:280px;"/>
         </div>
-        
 
 
         <!-- ====== ANSWERS =========== -->
@@ -123,22 +127,52 @@ else {
 <script>
     window.onload = function() {
 
-        let next = document.getElementById("next");
-        let prev = document.getElementById("prev");
-        
-        next.addEventListener("click", function() {  
-            var action = 'nextQuestion';
-            changeQuestion(action)
-        });
+        activateButtons();
+        checkAnswered();
 
-        // Check prev button is not null (1st question doesn't need prev button)
-        if(prev) {
-            prev.addEventListener("click", function () {       
-            var action = 'prevQuestion';
-            changeQuestion(action)
+
+
+        function activateButtons() {
+            let next = document.getElementById("next");
+            let prev = document.getElementById("prev");
+        
+            let text = next.value;
+            console.log(text);
+
+            next.addEventListener("click", function() {  
+                var nextAction = 'nextQuestion';
+                var finishAction = 'saveData';
+
+                if(next.value == 'NEXT'){
+                    console.log("next");
+                    changeQuestion(nextAction);
+                }
+                if(next.value == 'FINISH'){
+                    changeQuestion(finishAction);
+                }
             });
+
+            // Check prev button is not null (1st question doesn't need prev button)
+            if(prev) {
+                prev.addEventListener("click", function () {       
+                    var action = 'prevQuestion';
+                    changeQuestion(action);
+                });
+            }
         }
 
+        function checkAnswered() {
+            let button = Array.from(document.getElementsByName("selectedAnswer"));
+            
+            if("<?php echo $answerNumber; ?>") {
+                for(let i = 0; i < button.length; i++) {
+                    if(button[i].value == "<?php echo $answerNumber; ?>") {
+                        console.log("answered");
+                        button[i].checked = true;
+                    }
+                }
+            }
+        }
 
         function changeQuestion(formAction){
             let form = document.getElementById("adminForm");

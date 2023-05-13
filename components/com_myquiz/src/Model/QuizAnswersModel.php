@@ -14,7 +14,7 @@ use Joomla\CMS\Table\Table;
  *
  */
 
-class QuestionAnswersModel extends ListModel {
+class QuizAnswersModel extends ListModel {
 
     
     // Retrieves the list of answers for a quiz question
@@ -23,10 +23,10 @@ class QuestionAnswersModel extends ListModel {
         // Get a db connection.
         $db = $this->getDatabase();
 
-        $id = Factory::getApplication()->input->get('id');
+        $id = Factory::getApplication()->getUserState('myQuiz.userQuizId');
         $question = Factory::getApplication()->input->get('question');
 
-
+        
         $query = $db->getQuery(true)
                 ->select($db->quoteName(['qu.quizId', 'q.title', 'qu.questionNumber', 'qu.questionDescription', 'q.imageId', 'i.imageUrl', 
                                         'a.answerNumber', 'a.answerDescription']))

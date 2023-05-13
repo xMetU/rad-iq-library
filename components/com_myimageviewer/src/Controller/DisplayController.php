@@ -33,6 +33,7 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
+
     public function focusImage() {        
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
@@ -44,6 +45,7 @@ class DisplayController extends BaseController {
         $view->document = $document;
         $view->display();
     }
+
 
     public function uploadForm() {
         $document = Factory::getDocument();
@@ -76,6 +78,6 @@ class DisplayController extends BaseController {
     
         $view->document = $document;
         $view->display();
-
     }
+    
 }

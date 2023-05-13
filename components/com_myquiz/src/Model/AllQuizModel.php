@@ -16,7 +16,7 @@ use Joomla\CMS\Factory;
 class AllQuizModel extends ListModel {
 
 
-    // Get a list of images filtered by category
+    // Get a list of quizzes filtered by category
     public function getListQuery(){
 
         // Get a db connection.
@@ -27,7 +27,7 @@ class AllQuizModel extends ListModel {
         // Create a new query object.
         $query = $db->getQuery(true)
                 //Query
-            ->select($db->quoteName(['q.id', 'q.title', 'q.description', 'q.imageId', 'i.imageUrl']))
+            ->select($db->quoteName(['q.id', 'q.title', 'q.description', 'q.imageId', 'i.imageUrl', 'q.attemptsAllowed']))
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',

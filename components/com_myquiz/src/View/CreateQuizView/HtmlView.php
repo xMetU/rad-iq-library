@@ -1,6 +1,6 @@
 <?php
 
-namespace Kieran\Component\MyQuiz\Site\View\QuestionAnswerView;
+namespace Kieran\Component\MyQuiz\Site\View\CreateQuizView;
 
 defined('_JEXEC') or die;
 
@@ -17,16 +17,10 @@ use Joomla\CMS\Factory;
 class HtmlView extends BaseHtmlView {
     
 
-    /**
-     * Display the view
-     *
-     * @param   string  $template  The name of the layout file to parse.
-     * @return  void
-     */
+
     public function display($template = null) {
 
-        $this->items = $this->get('Items');
-        $this->questions = $this->get('Items', 'QuizQuestions');
+        $this->images = $this->get('Items');
 
 
         // Call the parent display to display the layout file

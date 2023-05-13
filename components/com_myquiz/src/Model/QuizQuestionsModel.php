@@ -23,8 +23,7 @@ class QuizQuestionsModel extends ListModel {
         // Get a db connection.
         $db = $this->getDatabase();
 
-        $id = Factory::getApplication()->input->get('id');
-
+        $id = Factory::getApplication()->getUserState('myQuiz.userQuizId');
 
         $query = $db->getQuery(true)
                 ->select($db->quoteName(['q.id', 'qu.questionNumber']))

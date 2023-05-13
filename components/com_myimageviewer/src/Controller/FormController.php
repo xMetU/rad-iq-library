@@ -21,11 +21,7 @@ use Joomla\CMS\Filesystem\File;
 class FormController extends BaseController {
     
 
-
-
-    public function saveImage() {     
-        Factory::getApplication()->enqueueMessage("FormController/saveImage");
-        
+    public function saveImage() {            
 
 		$model = $this->getModel('UploadImage');
 		
@@ -53,7 +49,7 @@ class FormController extends BaseController {
 
 		$model->saveImage($data);
 
-        // $this->setRedirect(Route::_('index.php?option=com_myImageViewer&view=ImageView', false));
+        $this->setRedirect(Route::_('index.php?option=com_myImageViewer&view=ImageView', false));
     }
 
 
@@ -68,19 +64,9 @@ class FormController extends BaseController {
 
     public function saveCategory() {  
 
-		$app = Factory::getApplication();
-
-        $app->enqueueMessage("FormController/saveCategory");
-
-
-		$input = $app->input;
-
-		// $val = $input->post->get('myImageViewerAddNewCategoryName', 'none');
-		// $input->post->set('myImageViewerAddNewCategoryName', 't');
-
 		$model = $this->getModel('AddNewCategory');
 
-        $data  = $input->post->get('formArray', array(), 'array');
+        $data  = Factory::getApplication()->input->post->get('formArray', array(), 'array');
 		$form = $model->getForm($data, false);
         
 		// $validData = $model->validate($form, $data);
@@ -93,12 +79,12 @@ class FormController extends BaseController {
 			$app->enqueueMessage("Could not add category");
 			$this->setRedirect(Route::_('index.php?&task=Display.addNewCategory', false));
 		}
-		
-		
+			
     }
 
 
 
+	// Function not used - Using as an example of checking valid data
     public function submit($key = null, $urlVar = null) {     
 
 		$this->checkToken();

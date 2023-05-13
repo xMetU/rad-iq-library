@@ -80,7 +80,6 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 			<div class="form-group">
 				<label for="imageUrl">File:</label>
-				
 				<input type="file" name="imageUrl" class="form-control"/>
 			</div>
 			

@@ -20,7 +20,6 @@ $marks = 0;
 
 
 <!-- ====== SUMMARY DISPLAY =========== -->
-
 <div class="mt-5">
 
     <!-- ====== Title =========== -->
@@ -32,8 +31,8 @@ $marks = 0;
             <thead>
                 <th class="col-1"></th>
                 <th class="col-3"><?php echo Text::_("STATUS"); ?></th>
-                <th class="col-2"><?php echo Text::_("MARKS"); ?></th>
-                <th class="col-6"><?php echo Text::_("FEEDBACK"); ?></th>
+                <th class="col-3"><?php echo Text::_("MARKS"); ?></th>
+                <th class="col-7"><?php echo Text::_("FEEDBACK"); ?></th>
             </thead>
 
             <tbody>
@@ -45,8 +44,9 @@ $marks = 0;
                             <td><?php echo Text::_("CORRECT"); ?></td>
                             <td><?php echo $row->markValue . '/' . $row->markValue; 
                                             $marks = $marks + $row->markValue; ?></td>
+                        
                         <?php else: ?>
-                            <td class="col-3 icon-delete"></td>
+                            <td class="icon-delete"></td>
                             <td><?php echo Text::_("INCORRECT"); ?></td>
                             <td><?php echo '0' . '/'. $row->markValue; ?></td>
                             <td><?php echo $row->feedback; ?></td>                  
@@ -62,14 +62,14 @@ $marks = 0;
     <div class="row mt-5">
         <div class="col-2"><?php echo Text::_("TOTAL SCORE: "); ?></div>
         <div class="col-2"><?php echo $marks . ' / ' . $total; ?></div>
+    </div> 
+    
+    <div class="row mt-5">
+        <a class="btn btn-outline-primary col-2" 
+        href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.quizScoresDisplay') ?>">
+        <?php echo Text::_("VIEW QUIZ SCORES"); ?></a>
+    </div> 
 
-
-
-
-                
-
-
-    </div>            
 </div>
 
 

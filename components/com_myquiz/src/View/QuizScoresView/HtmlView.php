@@ -1,6 +1,6 @@
 <?php
 
-namespace Kieran\Component\MyQuiz\Site\View\SummaryView;
+namespace Kieran\Component\MyQuiz\Site\View\QuizScoresView;
 
 defined('_JEXEC') or die;
 
@@ -26,19 +26,6 @@ class HtmlView extends BaseHtmlView {
     public function display($template = null) {
 
         $this->items = $this->get('Items');
-
-        $model = $this->getModel('SaveAnswers');
-        $marks = 0;
-        $total = 0;
-        
-        foreach($this->items as $i => $row) {
-            if($row->isCorrect) {
-                $marks = $marks + $row->markValue;
-            }
-            $total = $total + $row->markValue;
-        }
-
-        $model->saveQuiz($marks, $total);
 
         // Call the parent display to display the layout file
         parent::display($template);

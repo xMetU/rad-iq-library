@@ -12,12 +12,10 @@ use Joomla\CMS\Router\Route;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myQuiz
- *
  */
 
 class DisplayController extends BaseController {
     
-
 
     public function display($cachable = false, $urlparams = array()) {     
 
@@ -50,7 +48,7 @@ class DisplayController extends BaseController {
             $document = Factory::getDocument();
             $viewFormat = $document->getType();
     
-            $model1 = $this->getModel('QuestionAnswers');
+            $model1 = $this->getModel('QuizAnswers');
             $model2 = $this->getModel('QuizQuestions');
     
             $view = $this->getView('QuestionAnswerView', $viewFormat);       
@@ -69,7 +67,66 @@ class DisplayController extends BaseController {
         $viewFormat = $document->getType();
 
         $view = $this->getView('SummaryView', $viewFormat);
-        $model = $this->getModel('Summary');
+        $model1 = $this->getModel('Summary');
+        $model2 = $this->getModel('SaveAnswers');
+
+        $view->setModel($model1, true);   
+        $view->setModel($model2, false);  
+
+        $view->document = $document;
+        $view->display();
+    }
+
+    public function quizScoresDisplay() {
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+
+        $view = $this->getView('QuizScoresView', $viewFormat);
+        $model = $this->getModel('QuizScores');
+        $view->setModel($model, true);   
+
+        $view->document = $document;
+        $view->display();
+    }
+
+
+    public function createQuiz() {
+
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+
+        $view = $this->getView('CreateQuizView', $viewFormat);
+        $model = $this->getModel('AllImages');
+        
+        $view->setModel($model, true);   
+
+        $view->document = $document;
+        $view->display();
+    }
+
+
+    public function createQuestions() {
+
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+
+        $view = $this->getView('CreateQuestionsView', $viewFormat);
+        $model = $this->getModel('CreateQuiz');
+        
+        $view->setModel($model, true);   
+
+        $view->document = $document;
+        $view->display();
+    }
+
+
+    public function createAnswers() {
+
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+
+        $view = $this->getView('CreateAnswersView', $viewFormat);
+        $model = $this->getModel('CreateQuiz');
         
         $view->setModel($model, true);   
 
