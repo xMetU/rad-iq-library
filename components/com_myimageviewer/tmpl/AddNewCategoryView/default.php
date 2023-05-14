@@ -107,7 +107,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					</div>
 					<div class="row">
 						<div class="col">
-							<button id="delete-confirm" class="delete-yes btn float-end me-3">Yes, delete it</button>
+							<button id="delete-confirm" class="delete-yes btn float-end me-3">Yes, remove it</button>
 						</div>
 						<div class="col">
 							<button id="delete-cancel" class="btn ms-3">No, go back</button>

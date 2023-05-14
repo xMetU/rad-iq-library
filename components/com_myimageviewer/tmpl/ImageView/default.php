@@ -67,7 +67,7 @@ function toggleCategory($id, $categories) {
 						<tr>
 							<td class="pt-3 overflow-hidden">
 								<a
-									class="btn w-100 py-1 text-center text-truncate<?php echo in_array($category->id, $categories) ? " active" : ""; ?>"
+									class="btn w-100 py-1 text-center<?php echo in_array($category->id, $categories) ? " active" : ""; ?>"
 									href="<?php
 										echo Uri::getInstance()->current()
 										. Route::_('?categories='. implode(',', toggleCategory($category->id, $categories)));
@@ -105,9 +105,8 @@ function toggleCategory($id, $categories) {
 										class="card-img-top"
 										src="<?php echo $item->imageUrl; ?>"
 									/>
-
 									<div class="card-body text-center p-2">
-										<h5><?php echo $item->imageName; ?></h5>
+										<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
 									</div>
 								</div>
 							</td>

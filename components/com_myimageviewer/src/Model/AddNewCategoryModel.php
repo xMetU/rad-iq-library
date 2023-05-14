@@ -41,9 +41,11 @@ class AddNewCategoryModel extends BaseModel {
 			Factory::getApplication()->enqueueMessage("Category saved successfully.");
 			return true;
 		} catch (\Exception $e) {
-			$message = $e->getMessage();
-            // TODO: better error messages
-			Factory::getApplication()->enqueueMessage("Error: " . $message);
+			if (str_contains($e->getMessage(), "Duplicate")) {
+				Factory::getApplication()->enqueueMessage("Error: A category with this name already exists.");
+			} else {
+				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred, please contact your administrator.");
+			}
 			return false;
 		}
 	}
@@ -57,13 +59,12 @@ class AddNewCategoryModel extends BaseModel {
 			
 		try {
 			$db->execute();
-			Factory::getApplication()->enqueueMessage("Category deleted successfully.");
+			Factory::getApplication()->enqueueMessage("Category removed successfully.");
 			return true;
 		}
 		catch (\Exception $e) {
-			$message = $e->getMessage();
-            // TODO: better error messages
-			Factory::getApplication()->enqueueMessage("Error: " . $message);
+			Factory::getApplication()
+				->enqueueMessage("Error: Content is assigned to this category, please re-assign or remove it and try again.");
 			return false;
 		}
 	}

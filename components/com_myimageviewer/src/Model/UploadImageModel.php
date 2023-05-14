@@ -67,9 +67,7 @@ class UploadImageModel extends BaseModel {
 			Factory::getApplication()->enqueueMessage("Image saved successfully.");
 			return true;
 		} catch (\Exception $e) {
-			$message = $e->getMessage();
-            // TODO: better error messages
-			Factory::getApplication()->enqueueMessage("Error: " . $message);
+			Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred, please contact your administrator.");
 			return false;
 		}
 	}

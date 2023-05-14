@@ -45,13 +45,17 @@ class FocusImageModel extends ItemModel {
 
         try {
 			$db->execute();
-			Factory::getApplication()->enqueueMessage("Image deleted successfully.");
+			Factory::getApplication()->enqueueMessage("Image removed successfully.");
 			return true;
 		}
 		catch (\Exception $e) {
-            $message = $e->getMessage();
-            // TODO: better error messages
-			Factory::getApplication()->enqueueMessage("Error: " . $message);
+            if (str_contains($e-getMessage(), "foreign key constraint")) {
+                Factory::getApplication()->enqueueMessage(
+                    "Error: Quizzes are referencing this image, please re-assign or remove these quizzes and try again."
+                );
+            } else {
+                Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred, please contact your administrator.");
+            }
 			return false;
 		}
 	}
