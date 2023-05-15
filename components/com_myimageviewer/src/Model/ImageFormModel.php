@@ -14,7 +14,7 @@ use Joomla\CMS\Table\Table;
  *
  */
 
-class UploadImageModel extends BaseModel {
+class ImageFormModel extends BaseModel {
 
 	public function getTable($type = 'ImageCategory', $prefix = '', $config = array()) {
 		return Factory::getApplication()->bootComponent('com_myImageViewer')->getMVCFactory()->createTable($type);

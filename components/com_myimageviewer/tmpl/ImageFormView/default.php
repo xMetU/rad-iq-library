@@ -16,7 +16,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
-$document->addScript("media/com_myimageviewer/js/uploadImageView.js");
+$document->addScript("media/com_myimageviewer/js/imageFormView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 ?>
 
@@ -37,7 +37,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <div class="row justify-content-center">
 	<div class="col-8 pe-5">
 		<form 
-			action="<?php echo Uri::getInstance()->current() . '?&task=Form.saveImage' ?>"
+			action="<?php echo Uri::getInstance()->current() . '?task=Form.saveImage' ?>"
 			method="post"
 			id="adminForm"
 			name="adminForm"
@@ -94,7 +94,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<hr/>
 			
 			<div class="form-group">
-				<button id="uploadImage-submit" class="btn col-auto">
+				<button class="btn col-auto">
 					<i class="icon-check icon-white"></i> Done
 				</button>
 			</div>

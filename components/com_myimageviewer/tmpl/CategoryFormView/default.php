@@ -16,7 +16,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
-$document->addScript("media/com_myimageviewer/js/addNewCategoryView.js");
+$document->addScript("media/com_myimageviewer/js/categoryFormView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 
@@ -27,7 +27,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <!-- Header -->
 <div class="row">
 	<div class="col">
-		<a class="btn" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display') ?>">Back</a>
+		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
 		<h3>Manage Categories</h3>
@@ -41,7 +41,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col-8">
 		<!-- Create form -->
 		<form 
-			action="<?php echo Uri::getInstance()->current() . '?&task=Form.saveCategory' ?>"
+			action="<?php echo Uri::getInstance()->current() . '?task=Form.saveCategory' ?>"
 			method="post"
 			id="adminForm"
 			name="adminForm"
@@ -74,7 +74,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 		<!-- Delete form -->
 		<form 
-			action="<?php echo Uri::getInstance()->current() . '?&task=Form.deleteCategory' ?>"
+			action="<?php echo Uri::getInstance()->current() . '?task=Form.deleteCategory' ?>"
 			method="post"
 			name="adminForm"
 		>	
@@ -107,7 +107,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					</div>
 					<div class="row">
 						<div class="col">
-							<button id="delete-confirm" class="delete-yes btn float-end me-3">Yes, remove it</button>
+							<button id="delete-confirm" class="btn float-end me-3">Yes, remove it</button>
 						</div>
 						<div class="col">
 							<button id="delete-cancel" class="btn ms-3">No, go back</button>

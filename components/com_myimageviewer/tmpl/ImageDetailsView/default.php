@@ -15,7 +15,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
 $document = Factory::getDocument();
-$document->addScript("media/com_myimageviewer/js/focusImageView.js");
+$document->addScript("media/com_myimageviewer/js/imageDetailsView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 ?>
@@ -27,7 +27,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col">
 		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
         <button id="delete-button" class="btn float-end">Delete</button>
-        <button id="edit-button" class="btn me-3 float-end">Edit</button>
+        <a class="btn me-3 float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm&id=' . $this->item->id; ?>">Edit</a>
 	</div>
 </div>
 
@@ -81,7 +81,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 <!-- Delete confirmation -->
 <form
-    action="<?php echo Uri::getInstance()->current() . '?&task=Form.deleteImage' ?>"
+    action="<?php echo Uri::getInstance()->current() . '?task=Form.deleteImage'; ?>"
     method="post"
     enctype="multipart/form-data"
 >
@@ -96,7 +96,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
             </div>
             <div class="row">
                 <div class="col">
-                    <button id="delete-confirm" class="delete-yes btn float-end me-3">Yes, remove it</button>
+                    <button id="delete-confirm" class="btn float-end me-3">Yes, remove it</button>
                 </div>
                 <div class="col">
                     <button id="delete-cancel" class="btn ms-3">No, go back</button>
