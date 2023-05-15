@@ -2,7 +2,6 @@
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myQuiz
- *
  */
 
  // No direct access to this file
@@ -14,8 +13,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
-$total = 0;
-$marks = 0;
 ?>
 
 
@@ -37,13 +34,11 @@ $marks = 0;
 
             <tbody>
                 <?php foreach ($this->items as $i => $row) : ?>
-                    <?php $total = $total + $row->markValue ?>
                     <tr>
                         <?php if($row->isCorrect): ?>
                             <td class="icon-checkmark-circle"></td>
                             <td><?php echo Text::_("CORRECT"); ?></td>
-                            <td><?php echo $row->markValue . '/' . $row->markValue; 
-                                            $marks = $marks + $row->markValue; ?></td>
+                            <td><?php echo $row->markValue . '/' . $row->markValue; ?></td>
                         
                         <?php else: ?>
                             <td class="icon-delete"></td>
@@ -61,7 +56,7 @@ $marks = 0;
     <!-- ====== BODY =========== -->
     <div class="row mt-5">
         <div class="col-2"><?php echo Text::_("TOTAL SCORE: "); ?></div>
-        <div class="col-2"><?php echo $marks . ' / ' . $total; ?></div>
+        <div class="col-2"><?php echo $this->marks . ' / ' . $this->total; ?></div>
     </div> 
     
     <div class="row mt-5">

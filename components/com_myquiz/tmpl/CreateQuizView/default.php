@@ -2,7 +2,6 @@
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myQuiz
- *
  */
 
  // No direct access to this file

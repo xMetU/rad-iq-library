@@ -2,7 +2,6 @@
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myQuiz
- *
  */
 
  // No direct access to this file
@@ -14,40 +13,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
-
-// Consolidate from multiple items to a single variable
-foreach ($this->items as $i => $row){
-    $quizId = $row->quizId;
-    $title = $row->title;
-    $questionNumber = $row->questionNumber;
-    $question = $row->questionDescription;
-    $imageId = $row->imageId;
-    $imageUrl = $row->imageUrl;
-}
-
-
-$count = count($this->questions);
-
-// Update the button if at end of quiz
-if($questionNumber < $count){
-    $label = Text::_('NEXT'); 
-}
-else {
-    $label = Text::_('FINISH'); 
-}
-
-$answerNumber = 0;
-
-$userQuestionData = Factory::getApplication()->getUserState('myQuiz.userQuestionData');
-foreach ($userQuestionData as $data){
-    if(isset($data['questionNumber'])) {
-        if($data['questionNumber'] === $questionNumber) {
-            $answerNumber = $data['answerNumber'];
-        }
-        
-    }
-}
-
 ?>
 
 
@@ -57,7 +22,7 @@ foreach ($userQuestionData as $data){
 
     <!-- ====== TITLES =========== -->
     <div class="row">
-        <div><h3><?php echo $title; ?></h3></div>
+        <div><h3><?php echo $this->title; ?></h3></div>
     </div>
 
 
@@ -66,7 +31,7 @@ foreach ($userQuestionData as $data){
 
         <!-- ====== Image =========== -->
         <div class="col-3">							
-            <img id="<?php echo $imageId; ?>" src="<?php echo $imageUrl; ?>" style="width:250px;height:280px;"/>
+            <img id="<?php echo $this->imageId; ?>" src="<?php echo $this->imageUrl; ?>" style="width:250px;height:280px;"/>
         </div>
 
 
@@ -75,7 +40,7 @@ foreach ($userQuestionData as $data){
             <form action="" method="post" id="adminForm" name="adminForm" enctype="multipart/form-data">
                 
                 <!--===== Question Part ====== -->
-                <div><h3><?php echo 'Q' . $questionNumber . '. ' . $question; ?></h3></div>
+                <div><h3><?php echo 'Q' . $this->questionNumber . '. ' . $this->question; ?></h3></div>
 
                 <!--===== Answer Part ====== -->
                 <div class="mt-5 mb-5">
@@ -93,17 +58,17 @@ foreach ($userQuestionData as $data){
                 <!--========= [PREV, NEXT] BUTTONS =======================-->
                 <div class="row mt-5">            
                     
-                    <input type="hidden" name="questionNumber" value="<?php echo $questionNumber ?>"/>
-                    <input type="hidden" name="quizId" value="<?php echo $quizId ?>"/>
-                    <input type="hidden" name="count" value="<?php echo $count ?>"/>
+                    <input type="hidden" name="questionNumber" value="<?php echo $this->questionNumber ?>"/>
+                    <input type="hidden" name="quizId" value="<?php echo $this->quizId ?>"/>
+                    <input type="hidden" name="count" value="<?php echo $this->count ?>"/>
                     
                     <div class="col-2">  
-                        <?php if($questionNumber > 1): ?> 
+                        <?php if($this->questionNumber > 1): ?> 
                             <input type="button" class="btn btn-primary" id="prev" value="<?php echo Text::_(' PREV'); ?>"/>                            
                         <?php endif ?>
                     </div>
                     <div class="col-2">  
-                        <input type="button" class="btn btn-primary" id="next" value="<?php echo $label; ?>" />
+                        <input type="button" class="btn btn-primary" id="next" value="<?php echo $this->label; ?>" />
                     </div>                      
                 </div>
             </form>
@@ -164,9 +129,9 @@ foreach ($userQuestionData as $data){
         function checkAnswered() {
             let button = Array.from(document.getElementsByName("selectedAnswer"));
             
-            if("<?php echo $answerNumber; ?>") {
+            if("<?php echo $this->answerNumber; ?>") {
                 for(let i = 0; i < button.length; i++) {
-                    if(button[i].value == "<?php echo $answerNumber; ?>") {
+                    if(button[i].value == "<?php echo $this->answerNumber; ?>") {
                         console.log("answered");
                         button[i].checked = true;
                     }

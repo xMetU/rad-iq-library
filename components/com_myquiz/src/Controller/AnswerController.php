@@ -68,6 +68,7 @@ class AnswerController extends BaseController {
         $answerNumber = Factory::getApplication()->input->post->getInt('selectedAnswer');
         $count = Factory::getApplication()->input->post->getInt('count');
 
+        // Load data into array
         $userAnswerData = array('userId' => $userId, 'quizId' => $quizId, 'questionNumber' => $questionNumber, 
                                 'answerNumber' => $answerNumber, 'count' => $count);
 

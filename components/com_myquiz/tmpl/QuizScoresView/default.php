@@ -2,7 +2,6 @@
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myQuiz
- *
  */
 
  // No direct access to this file
@@ -14,8 +13,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
-
 ?>
+
 
 <!-- ====== QUIZ SCORES DISPLAY =========== -->
 <div class="mt-5">

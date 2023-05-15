@@ -28,17 +28,17 @@ class HtmlView extends BaseHtmlView {
         $this->items = $this->get('Items');
 
         $model = $this->getModel('SaveAnswers');
-        $marks = 0;
-        $total = 0;
+        $this->marks = 0;
+        $this->total = 0;
         
         foreach($this->items as $i => $row) {
             if($row->isCorrect) {
-                $marks = $marks + $row->markValue;
+                $this->marks = $this->marks + $row->markValue;
             }
-            $total = $total + $row->markValue;
+            $this->total = $this->total + $row->markValue;
         }
 
-        $model->saveQuiz($marks, $total);
+        $model->saveQuiz($this->marks, $this->total);
 
         // Call the parent display to display the layout file
         parent::display($template);

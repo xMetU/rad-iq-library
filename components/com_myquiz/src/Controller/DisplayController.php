@@ -126,9 +126,9 @@ class DisplayController extends BaseController {
         $viewFormat = $document->getType();
 
         $view = $this->getView('CreateAnswersView', $viewFormat);
-        $model = $this->getModel('CreateQuiz');
+        $model1 = $this->getModel('CreateQuiz');
         
-        $view->setModel($model, true);   
+        $view->setModel($model1, true);   
 
         $view->document = $document;
         $view->display();

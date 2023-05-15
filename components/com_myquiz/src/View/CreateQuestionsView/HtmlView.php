@@ -11,7 +11,6 @@ use Joomla\CMS\Factory;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myQuiz
- *
  */
 
 class HtmlView extends BaseHtmlView {
@@ -20,7 +19,9 @@ class HtmlView extends BaseHtmlView {
 
     public function display($template = null) {
 
-    
+        $this->questionNumber = Factory::getApplication()->input->get('questionNumber') + 1;
+
+
         // Call the parent display to display the layout file
         parent::display($template);
     }
