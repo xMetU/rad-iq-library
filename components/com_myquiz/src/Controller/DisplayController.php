@@ -7,6 +7,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 
 /**
@@ -132,6 +133,16 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+    }
+
+
+    public function deleteQuiz() {
+        $quizId = $this->input->getInt('quizId');
+        $model = $this->getModel('DeleteQuiz');
+
+        $model->deleteQuiz($quizId);
+
+        $this->setRedirect(Uri::getInstance()->current() . Route::_('?&task=Display.display', false));
     }
 
 }

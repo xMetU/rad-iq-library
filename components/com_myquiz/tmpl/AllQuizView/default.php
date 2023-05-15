@@ -45,20 +45,24 @@ use Joomla\CMS\Router\Route;
                 </div>
                 <div class="col-9">
                     <div class="row mt-2">
-                        <div class="col-3 text-center"><?php echo Text::_("Title: ") ?></div>
+                        <div class="col-2 text-center"><?php echo Text::_("Title: ") ?></div>
                         <div class="col-6"><?php echo $row->title; ?></div>
                         <div class="col-3">
                             <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . 
-                                                Route::_('?&id='. $row->id . '&question=1&attemptsAllowed=' . $row->attemptsAllowed . 
-                                                '&task=Answer.startQuiz') ?>"><?php echo Text::_("START QUIZ")?></a></div>
+                                            Route::_('?&id='. $row->id . '&question=1&attemptsAllowed=' . $row->attemptsAllowed . 
+                                            '&task=Answer.startQuiz') ?>"><?php echo Text::_("START QUIZ")?></a></div>
+                        <div class="col-1">
+                            <a class="btn btn-danger" href="<?php echo Uri::getInstance()->current() . 
+                                    Route::_('?&quizId='. $row->id . '&task=Display.deleteQuiz') ?>">
+                                <i class="icon-times icon-white"></i></a>  
                         </div>
-
+                    </div>
                     <div class="row mt-2">
-                        <div class="col-3 text-center"><?php echo Text::_("Description: ") ?></div>
+                        <div class="col-2 text-center"><?php echo Text::_("Description: ") ?></div>
                         <div class="col-6"><?php echo $row->description; ?></div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-3 text-center"><?php echo Text::_("Attempts: ") ?></div>
+                        <div class="col-2 text-center"><?php echo Text::_("Attempts: ") ?></div>
                         <div class="col-6"><?php echo $row->attemptsAllowed; ?></div>
                     </div>
                 </div>
@@ -71,6 +75,7 @@ use Joomla\CMS\Router\Route;
 
     </div>
 
-
 </div>
+
+
 

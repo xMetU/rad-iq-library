@@ -31,7 +31,6 @@ class QuizScoresModel extends ListModel {
                     $db->quoteName('#__myQuiz_quiz', 'q') . 'ON' . $db->quoteName('qus.quizId') . '=' . $db->quoteName('q.id'))
 				->where($db->quoteName('qus.userId') . '=' . $db->quote($userId));
 			
-
 		}
 		catch (\Exception $e) {
 			echo $e->getMessage();

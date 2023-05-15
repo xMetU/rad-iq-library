@@ -10,7 +10,6 @@ use Joomla\CMS\Factory;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myQuiz
- *
  */
 
 class AllQuizModel extends ListModel {
@@ -39,7 +38,6 @@ class AllQuizModel extends ListModel {
 
         return $query;
     }
-
 
         
 }

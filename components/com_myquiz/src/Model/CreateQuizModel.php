@@ -11,7 +11,6 @@ use Joomla\CMS\Table\Table;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myQuiz
- *
  */
 
 class CreateQuizModel extends BaseModel {

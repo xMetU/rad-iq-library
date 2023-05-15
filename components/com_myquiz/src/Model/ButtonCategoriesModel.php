@@ -10,7 +10,6 @@ use Joomla\CMS\MVC\Model\ListModel;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myImageViewer
- *
  */
 
 class ButtonCategoriesModel extends ListModel {

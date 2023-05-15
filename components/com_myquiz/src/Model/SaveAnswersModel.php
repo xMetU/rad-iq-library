@@ -6,12 +6,10 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\BaseModel;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Table\Table;
 
 /**
  * @package     Joomla.Site
  * @subpackage  com_myQuiz
- *
  */
 
 class SaveAnswersModel extends BaseModel {

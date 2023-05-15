@@ -78,7 +78,7 @@ use Joomla\CMS\Router\Route;
         <div class="col-3">
             <?php foreach ($this->questions as $q => $row) : ?>
                 <div class="row mt-5 col-5">
-                    <a class="btn btn-outline-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&id=' . $row->id . '&question='. $row->questionNumber . '&count='. $count . '&task=Display.questionDisplay') ?>"><?php echo Text::_("Question ") . $row->questionNumber; ?></a>
+                    <a class="btn btn-outline-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&id=' . $row->id . '&question='. $row->questionNumber . '&count='. $this->count . '&task=Display.questionDisplay') ?>"><?php echo Text::_("Question ") . $row->questionNumber; ?></a>
                 </div>
             <?php endforeach; ?> 
         </div>
