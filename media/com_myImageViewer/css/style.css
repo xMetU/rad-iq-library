@@ -36,10 +36,18 @@ div.alert-wrapper {
 /* TODO: Add pagination styles */
 
 /* ========== IMAGE VIEW ========== */
-#categoryScroll {
+
+#categoryParent {
 	height: 35%;
+}
+
+
+#categoryScroll {
+	height: 100%;
 	overflow-y: scroll;
 }
+
+
 
 
 table#categories > thead, table#images>thead {

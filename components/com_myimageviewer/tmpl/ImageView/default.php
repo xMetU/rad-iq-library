@@ -53,7 +53,7 @@ function toggleCategory($id, $categories) {
 	</div>
 </div>
 
-<div class="row h-100">
+<div class="row" id="categoryParent">
 	<!-- Categories -->
 	<div class="col-2" id="categoryScroll">
 		<table id="categories" class="w-100">
