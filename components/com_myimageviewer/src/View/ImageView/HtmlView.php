@@ -15,13 +15,10 @@ use Joomla\CMS\Factory;
  */
 
 class HtmlView extends BaseHtmlView {
-    /**
-     * Display the view
-     *
-     * @param   string  $template  The name of the layout file to parse.
-     * @return  void
-     */
+
+
     public function display($template = null) {
+        
         $this->buttonCategories = $this->get('Items', 'ButtonCategories');
         $this->items = $this->get('Items');
         $this->pagination = $this->get('Pagination');

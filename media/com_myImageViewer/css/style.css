@@ -20,12 +20,6 @@ body {
     background-color: #54A9fB;
 }
 
-.breadcrumb {
-    background-color: #180F15;
-    border: solid 1px white;
-    border-radius: 5px;
-}
-
 .container-sidebar-right div {
     background-color: #180F15;
     color: white;
@@ -42,6 +36,11 @@ div.alert-wrapper {
 /* TODO: Add pagination styles */
 
 /* ========== IMAGE VIEW ========== */
+#categoryScroll {
+	height: 35%;
+	overflow-y: scroll;
+}
+
 
 table#categories > thead, table#images>thead {
     height: 50px;
@@ -50,6 +49,8 @@ table#categories > thead, table#images>thead {
 #categories a {
     border-radius: 999px;
 }
+
+
 
 #images img.card-img-top {
     width: 100%;

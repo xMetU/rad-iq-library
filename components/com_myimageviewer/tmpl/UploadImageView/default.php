@@ -3,7 +3,6 @@
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myImageViewer
- *
  */
 
  // No direct access to this file

@@ -15,7 +15,6 @@ use Joomla\CMS\Filesystem\File;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myImageViewer
- *
  */
 
 class FormController extends BaseController {
@@ -81,60 +80,5 @@ class FormController extends BaseController {
 		}
 			
     }
-
-
-
-	// Function not used - Using as an example of checking valid data
-    public function submit($key = null, $urlVar = null) {     
-
-		$this->checkToken();
-
-		$app   = Factory::getApplication();
-		$model = $this->getModel('Form');
-		$form = $model->getForm($data, false);
-
-
-		if (!$form)
-		{
-			$app->enqueueMessage($model->getError(), 'error');
-			return false;
-		}
-
-		// name of array 'form' must match 'control' => 'form' line in the model code
-		$data  = $this->input->post->get('Form', array(), 'array');
-
-		// This is validate() from the FormModel class, not the Form class
-		// FormModel::validate() calls both Form::filter() and Form::validate() methods
-		$validData = $model->validate($form, $data);
-
-		if ($validData === false)
-		{
-			$errors = $model->getErrors();
-
-			foreach ($errors as $error)
-			{
-				if ($error instanceof \Exception)
-				{
-					$app->enqueueMessage($error->getMessage(), 'warning');
-				}
-				else
-				{
-					$app->enqueueMessage($error, 'warning');
-				}
-			}
-
-			// Save the form data in the session, using a unique identifier
-			$app->setUserState('com_sample_form2.sample', $data);
-		}
-		else
-		{
-			$app->enqueueMessage("Data successfully validated", 'notice');
-			// Clear the form data in the session
-			$app->setUserState('com_sample_form2.sample', null);
-		}
-
-		// Redirect back to the form in all cases
-		$this->setRedirect(Route::_('index.php?option=com_sample_form2&view=form&layout=edit', false));
-	}
 
 }

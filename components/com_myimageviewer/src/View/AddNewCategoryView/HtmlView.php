@@ -11,18 +11,11 @@ use Joomla\CMS\Factory;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myImageViewer
- *
  */
 
 class HtmlView extends BaseHtmlView {
     
 
-    /**
-     * Display the view
-     *
-     * @param   string  $template  The name of the layout file to parse.
-     * @return  void
-     */
     public function display($template = null) {
         
         $this->form = $this->get('Form');

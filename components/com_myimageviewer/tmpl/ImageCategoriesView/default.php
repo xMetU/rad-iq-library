@@ -35,7 +35,6 @@ use Joomla\CMS\Uri\Uri;
 						<tr>
 							<td class="col-2">
 								<a class="btn btn-primary" href="<?php echo Uri::getInstance()->current(); ?>imageCategory=<?php echo $row->categoryName; ?>&task=Display.changeImageList"><?php echo $row->categoryName; ?></a>
-								<!-- <a class="btn btn-primary" href="index.php?imageCategory=<?php echo $row->categoryName; ?>&task=Display.changeImageList"><?php echo $row->categoryName; ?></a> -->
 							</td>
 						</tr>
 					<?php endforeach; ?>
