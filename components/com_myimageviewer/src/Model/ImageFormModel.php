@@ -27,30 +27,8 @@ class ImageFormModel extends BaseModel {
         $table->load($categoryId);
 
         $item->categoryName = $table->categoryName;
-        return $item;	
+        return $item;
 	}
-
-	public function getImages($ids = null) {
-		$items = array();
-		$table = $this->getTable('Image');
-		
-		if ($ids) {
-			$table->load($ids);
-		}
-		else {
-			$table->load();
-		}
-
-		foreach ($table as $image) {
-			$item->id = $image->id;
-			$item->name = $image->imageName;
-			$item->category = getCategory($image->categoryId);
-			$item->description = $image->imageDescription;
-			$item->url = $image->imageUrl;
-		}
-
-		return $items;
-    }
 
 	public function saveImage($data) {
 		$db = Factory::getDbo();
@@ -71,5 +49,27 @@ class ImageFormModel extends BaseModel {
 			return false;
 		}
 	}
-        
+
+	public function updateImage($data) {
+		$db = Factory::getDbo();
+		$columns = array('imageName', 'categoryId', 'imageDescription');
+		
+		$query = $db->getQuery(true)
+			->update($db->quoteName('#__myImageViewer_image'))
+			->set($db->quoteName('imageName') . ' = ' . $db->quote($data['imageName']))
+			->set($db->quoteName('categoryId') . ' = ' . $db->quote($data['categoryId']))
+			->set($db->quoteName('imageDescription') . ' = ' . $db->quote($data['imageDescription']))
+			->where($db->quoteName('id') . ' = ' . $db->quote($data['imageId']));
+		$db->setQuery($query);
+		
+		try {
+			$result = $db->execute();
+			Factory::getApplication()->enqueueMessage("Image updated successfully.");
+			return true;
+		} catch (\Exception $e) {
+			Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+			return false;
+		}
+	}
+       
 }

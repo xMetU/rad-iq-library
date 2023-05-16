@@ -19,19 +19,20 @@ class ImageDetailsModel extends ItemModel {
     public function getItem($pk = null) {
         $id = Factory::getApplication()->input->get('id');
 
-        $item   = new \stdClass();
+        $item = new \stdClass();
 
-        $table1  = $this->getTable('Image');
+        $table1 = $this->getTable('Image');
         $table1->load($id);
 
         $table2 = $this->getTable('ImageCategory');
         $table2->load($table1->categoryId);
 
-        $item->id           =   $table1->id;
-        $item->name         =   $table1->imageName;
-        $item->category     =   $table2->categoryName;
-        $item->description  =   $table1->imageDescription;
-        $item->url          =   $table1->imageUrl;
+        $item->id = $table1->id;
+        $item->name = $table1->imageName;
+        $item->categoryId = $table1->categoryId;
+        $item->category = $table2->categoryName;
+        $item->description = $table1->imageDescription;
+        $item->url = $table1->imageUrl;
 
         return $item;
     }

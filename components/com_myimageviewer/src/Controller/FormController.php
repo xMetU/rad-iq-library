@@ -45,6 +45,19 @@ class FormController extends BaseController {
 		));
     }
 
+	public function updateImage() {
+		$model = $this->getModel('ImageForm');
+
+		$data = $_POST;
+
+		$model->updateImage($data);
+		
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display.imageForm',
+			false,
+		));
+	}
+
 	public function deleteImage() {
 		$model = $this->getModel('ImageDetails');
 		

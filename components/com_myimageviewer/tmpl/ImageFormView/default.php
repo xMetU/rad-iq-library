@@ -18,6 +18,7 @@ use Joomla\CMS\Uri\Uri;
 $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/imageFormView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
+
 ?>
 
 <!-- ========== UPLOAD IMAGE VIEW ========== -->
@@ -37,12 +38,15 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <div class="row justify-content-center">
 	<div class="col-8 pe-5">
 		<form 
-			action="<?php echo Uri::getInstance()->current() . '?task=Form.saveImage' ?>"
+			action="<?php echo Uri::getInstance()->current() . ($this->image ? '?task=Form.updateImage' : '?task=Form.saveImage'); ?>"
 			method="post"
 			id="adminForm"
 			name="adminForm"
 			enctype="multipart/form-data"
 		>
+			<?php if ($this->image) : ?>
+				<input type="hidden" name="imageId" value="<?php echo $this->image->id; ?>"/>
+			<?php endif; ?>
 			<div class="form-group">
 				<label for="imageName">Name: *</label>
 
@@ -53,6 +57,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					placeholder="Enter name..."
 					maxlength="60"
 					required
+					value="<?php echo $this->image ? $this->image->name : ""; ?>"
 				/>
 			</div>
 
@@ -62,10 +67,20 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<div class="col-6">
 					<label for="categoryId">Category: *</label>
 
-					<select id="uploadCategory" name="categoryId" class="form-control form-select" required>
-						<option value="" selected disabled hidden>Select a category</option>
+					<select
+						id="uploadCategory"
+						name="categoryId"
+						class="form-control form-select"
+						required
+					>
+						<option value="" <?php if (!$this->image) echo "selected"; ?>disabled hidden>Select a category</option>
 						<?php foreach ($this->categories as $row) : ?>
-							<option value="<?php echo $row->id; ?>"><?php echo $row->categoryName; ?></option>
+							<option 
+								value="<?php echo $row->id; ?>"
+								<?php if ($this->image && $row->id == $this->image->categoryId) echo "selected"; ?>
+							>
+								<?php echo $row->categoryName; ?>
+							</option>
 						<?php endforeach; ?>
 					</select>
 				</div>
@@ -73,7 +88,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<div class="col-6">
 					<label for="imageUrl">File: *</label>
 
-					<input type="file" name="imageUrl" class="form-control" required/>
+					<input 
+						type="file"
+						name="imageUrl"
+						class="form-control"
+						required
+						<?php if ($this->image) echo "disabled"; ?>
+					/>
 				</div>
 			</div>
 			
@@ -88,7 +109,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					placeholder="Enter description..."
 					maxlength="12000"
 					rows="16"
-				></textarea>
+				><?php echo $this->image ? $this->image->description : ""; ?></textarea>
 			</div>
 
 			<hr/>

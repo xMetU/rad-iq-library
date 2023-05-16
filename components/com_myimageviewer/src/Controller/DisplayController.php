@@ -53,9 +53,11 @@ class DisplayController extends BaseController {
         
         $model1 = $this->getModel('ImageForm');
         $model2 = $this->getModel('Categories');
+        $model3 = $this->getModel('ImageDetails');
         
         $view->setModel($model1, true);
         $view->setModel($model2);
+        $view->setModel($model3);
     
         $view->document = $document;
         $view->display();

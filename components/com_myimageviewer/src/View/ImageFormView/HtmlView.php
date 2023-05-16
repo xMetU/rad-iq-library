@@ -23,6 +23,11 @@ class HtmlView extends BaseHtmlView {
     
     public function display($template = null) {
         $this->categories = $this->get('Items', 'Categories');
+        if (isset($_GET["id"])) {
+            $this->image = $this->get('Item', 'ImageDetails');
+        } else {
+            $this->image = null;
+        }
         // Call the parent display to display the layout file
         parent::display($template);
     }
