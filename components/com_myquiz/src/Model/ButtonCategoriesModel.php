@@ -24,8 +24,9 @@ class ButtonCategoriesModel extends ListModel {
         $query = $db->getQuery(true)
                 //Query
                 ->select($db->quoteName(['ic.id', 'ic.categoryName']))
-                ->from($db->quoteName('#__myImageViewer_imageCategory', 'ic'));
-
+                ->from($db->quoteName('#__myImageViewer_imageCategory', 'ic'))
+                ->order('ic.categoryName ASC');
+                
         return $query;
     }
 
