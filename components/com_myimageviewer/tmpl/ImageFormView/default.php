@@ -28,7 +28,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		<a class="btn" href="<?php echo Uri::getInstance()->current() ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
-		<h3>Add New Image</h3>
+		<h3><?php echo ($this->image ? "Edit " . $this->image->name : "Create New Image"); ?></h3>
 	</div>
 	<div class="col"></div>
 </div>

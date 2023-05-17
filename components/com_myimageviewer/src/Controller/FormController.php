@@ -36,7 +36,7 @@ class FormController extends BaseController {
 		Folder::create($folderUrl);
 		File::upload($tmp, $uploadUrl);
 
-		array_splice($data, 2, 0, $imageUrl);
+		array_push($data, $imageUrl);
 
 		$model->saveImage($data);
         $this->setRedirect(Route::_(
