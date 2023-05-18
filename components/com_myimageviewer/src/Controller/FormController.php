@@ -11,74 +11,96 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filesystem\File;
 
-
 /**
  * @package     Joomla.Site
  * @subpackage  com_myImageViewer
  */
 
 class FormController extends BaseController {
-    
-
-    public function saveImage() {            
-
-		$model = $this->getModel('UploadImage');
+    public function saveImage() {
+		$model = $this->getModel('ImageForm');
 		
 		$data = $_POST;
 		$file = Factory::getApplication()->input->files->get('imageUrl');		
 		
 		$name = $file['name'];
 		$tmp = $file['tmp_name'];
-
-		$path = JPATH_ROOT . '/media/com_myImageViewer/images/';
 		$categoryName = $model->getCategory($data['categoryId'])->categoryName;
 
-
+		$path = JPATH_ROOT . '/media/com_myImageViewer/images/';
 		$folderUrl = $path . $categoryName;
 		$uploadUrl = $path . $categoryName . '/' . $name;
-
 		$imageUrl = 'media/com_myImageViewer/images/' . $categoryName . '/' . $name;
-
 
 		Folder::create($folderUrl);
 		File::upload($tmp, $uploadUrl);
 
 		array_push($data, $imageUrl);
-		// $validData = $model->validate($form, $data);
 
 		$model->saveImage($data);
-
-        $this->setRedirect(Route::_('index.php?option=com_myImageViewer&view=ImageView', false));
+        $this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display.imageForm',
+			false,
+		));
     }
 
+	public function updateImage() {
+		$model = $this->getModel('ImageForm');
 
+		$data = $_POST;
 
-    public function cancelImage($key = null) {
-        Factory::getApplication()->enqueueMessage("FormController/cancelImage");
+		$model->updateImage($data);
+		
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display.imageForm',
+			false,
+		));
+	}
 
-        parent::cancel($key);
-    }
-
-
-
-    public function saveCategory() {  
-
-		$model = $this->getModel('AddNewCategory');
-
-        $data  = Factory::getApplication()->input->post->get('formArray', array(), 'array');
-		$form = $model->getForm($data, false);
-        
-		// $validData = $model->validate($form, $data);
-
-		if($model->save($data)){
-			$app->enqueueMessage("Category Added Successfully");
-			$this->setRedirect(Route::_('index.php?&task=Display.display', false));
+	public function deleteImage() {
+		$model = $this->getModel('ImageDetails');
+		
+		$data = $_POST;
+		$imageUrl = $data['imageUrl'];
+		$imageId = $data['imageId'];
+		// Error messages handled by ImageFormModel.deleteImage
+		if ($model->deleteImage($imageId)) {
+			if (File::exists($imageUrl)) {
+				File::delete($imageUrl);
+			}
 		}
-		else{
-			$app->enqueueMessage("Could not add category");
-			$this->setRedirect(Route::_('index.php?&task=Display.addNewCategory', false));
-		}
-			
+
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display',
+			false,
+		));
+	}
+
+    public function saveCategory() {
+		$model = $this->getModel('CategoryForm');
+
+		$data = $_POST;
+
+		$model->saveCategory($data);
+
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display.categoryForm',
+			false,
+		));
     }
+
+	public function deleteCategory() {
+		$model = $this->getModel('CategoryForm');
+		
+		$data = $_POST;
+		$categoryId = $data['categoryId'];
+
+		$model->deleteCategory($categoryId);
+
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display.categoryForm',
+			false,
+		));
+	}
 
 }
