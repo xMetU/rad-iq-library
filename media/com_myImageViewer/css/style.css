@@ -20,12 +20,6 @@ body {
     background-color: #54A9fB;
 }
 
-.breadcrumb {
-    background-color: #180F15;
-    border: solid 1px white;
-    border-radius: 5px;
-}
-
 .container-sidebar-right div {
     background-color: #180F15;
     color: white;
@@ -54,6 +48,8 @@ div.alert-wrapper {
 #categories a {
     border-radius: 999px;
 }
+
+
 
 #images img.card-img-top {
     width: 100%;

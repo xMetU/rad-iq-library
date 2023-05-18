@@ -14,7 +14,6 @@ use Joomla\CMS\Filesystem\File;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myImageViewer
- *
  */
 
 class FormController extends BaseController {
