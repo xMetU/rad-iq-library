@@ -36,7 +36,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <hr/>
 
 <div class="row justify-content-center">
-	<div class="col-8 pe-5">
+	<div class="col-8">
 		<form 
 			action="<?php echo Uri::getInstance()->current() . ($this->image ? '?task=Form.updateImage' : '?task=Form.saveImage'); ?>"
 			method="post"
@@ -48,13 +48,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<input type="hidden" name="imageId" value="<?php echo $this->image->id; ?>"/>
 			<?php endif; ?>
 			<div class="form-group">
-				<label for="imageName">Name: *</label>
+				<label for="imageName">Title: *</label>
 
 				<input 
 					type="text"
 					name="imageName"
 					class="form-control"
-					placeholder="Enter name..."
+					placeholder="Enter title..."
 					maxlength="60"
 					required
 					value="<?php echo $this->image ? $this->image->name : ""; ?>"
