@@ -57,9 +57,9 @@ function toggleCategory($id, $categories) {
 	</div>
 </div>
 
-<div class="row" id="categoryParent">
+<div class="row">
 	<!-- Categories -->
-	<div class="col-2" id="categoryScroll">
+	<div class="col-2">
 		<table id="categories" class="w-100">
 			<tbody>
 				<?php if (!empty($this->buttonCategories)) : ?>

@@ -1,3 +1,5 @@
+/* GLOBAL */
+
 body {
     background-color: #180F15;
     background-image: linear-gradient(to bottom right, #0b060a, #272662);
@@ -41,15 +43,26 @@ div.alert-wrapper {
     margin-top: 16px;
 }
 
-/* TODO: Add pagination styles */
-
-/* ========== IMAGE VIEW ========== */
-
 #categories a {
     border-radius: 999px;
 }
 
+ul.pagination li.page-item>.page-link {
+    background-color: #180F15;
+    color: white;
+}
 
+ul.pagination li.page-item.active>.page-link {
+    top: -2px;
+    border-width: 3px;
+    border-color: #5E9FFB;
+}
+
+ul.pagination li.page-item.disabled>.page-link {
+    opacity: 50%;
+}
+
+/* IMAGES VIEW */
 
 #images img.card-img-top {
     width: 100%;
@@ -70,24 +83,7 @@ div.alert-wrapper {
     cursor: pointer;
 }
 
-/* Pagination stuff */
-
-ul.pagination li.page-item > .page-link {
-    background-color: #180F15;
-    color: white;
-}
-
-ul.pagination li.page-item.active > .page-link {
-    top: -2px;
-    border-width: 3px;
-    border-color: #5E9FFB;
-}
-
-ul.pagination li.page-item.disabled > .page-link {
-    opacity: 50%;
-}
-
-/* ========== FOCUSED IMAGE VIEW ========== */
+/* IMAGE DETAILS VIEW */
 
 #open-button {
     right: 8px;
@@ -111,7 +107,7 @@ ul.pagination li.page-item.disabled > .page-link {
     background-color: #242C76;
 }
 
-/* ========== UPLOAD IMAGE VIEW ========== */
+/* IMAGE FORM VIEW */
 
 textarea {
     overflow-y: scroll;
