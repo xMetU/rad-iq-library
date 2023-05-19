@@ -18,6 +18,9 @@ class CreateQuizModel extends BaseModel {
 
     // TODO - Check data is valid 
     public function validateQuiz($data) {
+
+        Factory::getApplication()->enqueueMessage('Validating');
+
         return $data;
     }
 
