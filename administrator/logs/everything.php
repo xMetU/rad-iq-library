@@ -16,3 +16,12 @@
 #3 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
 #4 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
 #5 {main}
+2023-05-18T09:22:20+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.21 seconds
+2023-05-18T09:22:21+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.64 seconds
+2023-05-18T09:22:22+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.64 seconds
+2023-05-20T07:51:44+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.36 seconds
+2023-05-20T07:51:44+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-05-20T07:52:07+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.66 seconds
+2023-05-20T07:52:08+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.43 seconds
+2023-05-21T06:01:30+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.39 seconds
+2023-05-21T06:01:31+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.

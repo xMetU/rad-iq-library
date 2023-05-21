@@ -26,8 +26,11 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <div class="row mb-3">
 	<div class="col">
 		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
-        <button id="delete-button" class="btn float-end">Delete</button>
-        <a class="btn me-3 float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm&id=' . $this->item->id; ?>">Edit</a>
+        <!-- User Check to see if they belong to Manager user group. Only managers should access these functions -->
+        <?php if (CheckGroup::isGroup("Manager")) : ?>
+            <button id="delete-button" class="btn float-end">Delete</button>
+            <a class="btn me-3 float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm&id=' . $this->item->id; ?>">Edit</a>
+        <?php endif; ?>
 	</div>
 </div>
 

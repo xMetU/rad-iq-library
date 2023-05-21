@@ -2,7 +2,6 @@
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myQuiz
- *
  */
 
  // No direct access to this file
@@ -13,6 +12,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
+use Kieran\Component\MyQuiz\Site\Helper\CheckGroup;
 
 $document = Factory::getDocument();
 $document->addStyleSheet("media/com_myquiz/css/style.css");
@@ -24,7 +24,10 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 <!-- Create Quiz Button -->
 <div>
-    <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.createQuiz') ?>"><?php echo 'CREATE QUIZ' ?></a>
+    <!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
+    <?php if (CheckGroup::isGroup("Manager")) : ?>
+        <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.createQuiz') ?>"><?php echo 'CREATE QUIZ' ?></a>
+    <?php endif; ?>
 </div>
 
 
@@ -45,27 +48,33 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <div class="col-3">								
                     <img id="<?php echo $row->imageId; ?>" src="<?php echo $row->imageUrl; ?>" style="width:150px;height:180px;"/>
                 </div>
+
                 <div class="col-9">
                     <div class="row mt-2">
                         <div class="col-2 text-center"><?php echo Text::_("Title: ") ?></div>
                         <div class="col-6"><?php echo $row->title; ?></div>
+                        
                         <div class="col-3">
                             <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . 
                                             Route::_('?&id='. $row->id . '&question=1&attemptsAllowed=' . $row->attemptsAllowed . 
-                                            '&task=Answer.startQuiz') ?>"><?php echo Text::_("START QUIZ")?></a></div>
+                                            '&task=Answer.startQuiz') ?>"><?php echo Text::_("START QUIZ")?></a>
+                        </div>
+                        
                         <div class="col-1">
-                            <button id="delete-button" name="delete-button" class="btn btn-danger">
-                                    <i class="icon-times icon-white"></i>
-                            </button> 
-                            <!-- <a class="btn btn-danger" href="<?php echo Uri::getInstance()->current() . 
-                                    Route::_('?&quizId='. $row->id . '&task=Display.deleteQuiz') ?>">
-                                <i class="icon-times icon-white"></i></a>   -->
+                            <!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
+                            <?php if (CheckGroup::isGroup("Manager")) : ?>
+                                <button id="delete-button" name="delete-button" class="btn btn-danger">
+                                        <i class="icon-times icon-white"></i>
+                                </button> 
+                            <?php endif; ?>
                         </div>
                     </div>
+
                     <div class="row mt-2">
                         <div class="col-2 text-center"><?php echo Text::_("Description: ") ?></div>
                         <div class="col-6"><?php echo $row->description; ?></div>
                     </div>
+
                     <div class="row mt-4">
                         <div class="col-2 text-center"><?php echo Text::_("Attempts: ") ?></div>
                         <div class="col-6"><?php echo $row->attemptsAllowed; ?></div>

@@ -14,6 +14,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
+use Kieran\Component\MyImageViewer\Site\Helper\CheckGroup;
+
 
 $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/imagesView.js");
@@ -44,15 +46,21 @@ function toggleCategory($id, $categories) {
 	</div>
 	<div class="col-10 row ps-5">
 		<div class="col">
-			<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage</a>
+			<!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
+			<?php if (CheckGroup::isGroup("Manager")) : ?>
+				<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage</a>
+			<?php endif; ?>
 		</div>
 		<div class="col text-center">
 			<h3>Images</h3>
 		</div>
 		<div class="col">
-			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>">
-				<i class="icon-plus icon-white"></i> New
-			</a>
+			<!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
+			<?php if (CheckGroup::isGroup("Manager")) : ?>
+				<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>">
+					<i class="icon-plus icon-white"></i> New
+				</a>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

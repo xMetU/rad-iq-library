@@ -17,7 +17,6 @@ use Joomla\CMS\Router\Route;
 
 
 <!-- ====== QUESTION DISPLAY WITH ANSWER LIST =========== -->
-
 <div class="mt-5">
 
     <!-- ====== TITLES =========== -->
