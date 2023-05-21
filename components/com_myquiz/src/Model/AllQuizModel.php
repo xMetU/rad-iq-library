@@ -25,7 +25,7 @@ class AllQuizModel extends ListModel {
 
         // Create a new query object.
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['q.id', 'q.title', 'q.description', 'q.imageId', 'i.imageUrl', 'q.attemptsAllowed']))
+            ->select($db->quoteName(['q.id', 'q.title', 'q.description', 'q.imageId', 'i.imageUrl', 'q.attemptsAllowed', 'q.isHidden']))
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',

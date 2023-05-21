@@ -106,18 +106,20 @@ function toggleCategory($id, $categories) {
 				<?php if (!empty($this->items)) : ?>
 					<tr class="row">
 						<?php foreach ($this->items as $item) : ?>
-							<td class="col-3 pt-3 px-3">
-								<div class="card p-3 pb-0">
-									<img
-										id="<?php echo $item->id; ?>"
-										class="card-img-top"
-										src="<?php echo $item->imageUrl; ?>"
-									/>
-									<div class="card-body text-center p-2">
-										<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
+							<?php if (!$item->isHidden == 1) : ?>
+								<td class="col-3 pt-3 px-3">
+									<div class="card p-3 pb-0">
+										<img
+											id="<?php echo $item->id; ?>"
+											class="card-img-top"
+											src="<?php echo $item->imageUrl; ?>"
+										/>
+										<div class="card-body text-center p-2">
+											<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
+										</div>
 									</div>
-								</div>
-							</td>
+								</td>
+							<?php endif; ?>
 						<?php endforeach; ?>
 					</tr>
 				<?php else: ?>

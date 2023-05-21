@@ -25,3 +25,7 @@
 2023-05-20T07:52:08+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.43 seconds
 2023-05-21T06:01:30+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.39 seconds
 2023-05-21T06:01:31+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-05-21T12:32:07+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.25 seconds
+2023-05-21T12:32:07+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-05-21T12:32:18+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.65 seconds
+2023-05-21T12:32:19+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.64 seconds

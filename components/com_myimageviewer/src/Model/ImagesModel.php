@@ -25,7 +25,7 @@ class ImagesModel extends ListModel {
         }
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id']))
+            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id', 'isHidden']))
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
             ->join(
                 'LEFT',

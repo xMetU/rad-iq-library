@@ -13,6 +13,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
+use Kieran\Component\MyImageViewer\Site\Helper\CheckGroup;
+
 
 $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/imageDetailsView.js");
