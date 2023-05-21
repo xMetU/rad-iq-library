@@ -29,7 +29,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
         >Add Another Question</a>
 	</div>
 	<div class="col-8 text-center">
-		<h3>Add Answers to <?php echo $this->questionDescription; ?></h3>
+		<h4>Add Answers to "<?php echo $this->questionDescription; ?>"</h4>
 	</div>
 	<div class="col">
         <a 
