@@ -28,8 +28,8 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             href="<?php echo Uri::getInstance()->current() . '?task=Display.createQuestions&questionNumber=' . $this->questionNumber; ?>"
         >Add Another Question</a>
 	</div>
-	<div class="col-8 text-center">
-		<h4>Add Answers to "<?php echo $this->questionDescription; ?>"</h4>
+	<div class="col-8 text-center text-truncate">
+		<h4>Add Answers to "<?php echo substr($this->questionDescription, 0, 40) . "..."; ?>"</h4>
 	</div>
 	<div class="col">
         <a 
@@ -45,27 +45,19 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 <div class="row justify-content-center">
     <div class="col-8">
         <?php if ($this->answerArray) : ?>
-            <table class="w-100">
-                <thead class="border-bottom">
-                    <th class="col-1">#</th>
-                    <th class="col-2">Correct</th>
-                    <th class="col">Answer</th>
-                </thead>
+            <div id="answers">
                 <?php foreach ($this->answerArray as $row) : ?>
                     <?php if ($row['questionNumber'] == $this->questionNumber) : ?>
-                        <tbody>
-                            <tr>
-                                <td><?php echo $row['answerNumber']; ?>.</td>
-                                <td><i class="<?php if ($row['isCorrect']) echo " icon-checkmark-circle"; ?>"></i></td>
-                                <td><?php echo $row['answerDescription']; ?></td>
-                            </tr>
-                        </tbody>                   
+                        <div class="row p-2 mb-3">
+                            <div class="col-1"><?php echo $row['answerNumber']; ?>.</div>
+                            <div class="col-1"><i class="<?php if ($row['isCorrect']) echo " icon-checkmark-circle"; ?>"></i></div>
+                            <div class="col text-truncate"><?php echo $row['answerDescription']; ?></div>
+                        </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
-            </table>
+            </div>
             <hr/>
         <?php endif; ?>
-        
 
         <form 
             action="<?php echo Uri::getInstance()->current() . '?task=CreateQuiz.processAnswers' ?>"
@@ -77,26 +69,29 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <input type="hidden" name="questionNumber" value="<?php echo $this->questionNumber; ?>"/>
             <input type="hidden" name="answerNumber" value="<?php echo $this->answerNumber; ?>"/>
 
-            <div class="row form-group">
-                <div class="col">
-                    <label for="answerDescription">New Answer: *</label>
+            <div class="form-group">
+                <label for="answerDescription">New Answer: *</label>
 
-                    <input 
-                        type="text"
-                        name="answerDescription"
-                        class="form-control"
-                        placeholder="Enter answer text..."
-                    />
-                </div>
-
-                <div class="col-auto">
-                    <button class="btn mt-4" id="createQuiz-submit" onclick="Joomla.submitbutton(CreateQuiz.processAnswers)">Add</button>
-                </div>
+                <textarea 
+                    type="text"
+                    name="answerDescription"
+                    class="form-control"
+                    placeholder="Enter answer text..."
+                    maxlength="200"
+                    required
+                    rows="2"
+                ></textarea>
             </div>
 
-            <div class="form-group">
-                <input type="checkbox" name="isCorrect" value="1"/>
-                <label for="isCorrect">Is this a correct answer?</label>
+            <div class="row form-group">
+                <div class="col">
+                    <input type="checkbox" name="isCorrect" value="1"/>
+                    <label for="isCorrect">Is this a correct answer?</label>
+                </div>
+            
+                <div class="col-auto">
+                    <button class="btn" id="createQuiz-submit" onclick="Joomla.submitbutton(CreateQuiz.processAnswers)">Add</button>
+                </div>
             </div>
         </form>
     </div>

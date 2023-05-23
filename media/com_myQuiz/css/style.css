@@ -62,3 +62,27 @@ div.alert-wrapper {
     border: none;
     border-radius: 30px;
 }
+
+#questions .card {
+    background-color: #5342D9;
+    color: white;
+    border: none;
+}
+
+/* SCORES VIEW */
+
+#attempts .row {
+    background-color: #5342D9;
+    color: white;
+    border: none;
+    border-radius: 999px;
+}
+
+/* CREATE ANSWERS VIEW */
+
+#answers .row {
+    background-color: #5342D9;
+    color: white;
+    border: none;
+    border-radius: 999px;
+}

@@ -44,15 +44,19 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     </div>
     <div class="col-auto">
         <?php foreach ($this->questions as $question) : ?>
-            <a 
-                class="btn"
-                href="<?php
-                    echo Uri::getInstance()->current() . '?task=Display.questionDisplay'
-                    . '&id=' . $question->id
-                    . '&question='. $question->questionNumber
-                    . '&count='. $this->count;
-                ?>"
-            ><?php echo $question->questionNumber; ?></a>
+            <?php if ($this->questionNumber == $question->questionNumber) : ?>
+                <button class="btn" disabled><?php echo $question->questionNumber; ?></button>
+            <?php else : ?>
+                <a 
+                    class="btn"
+                    href="<?php
+                        echo Uri::getInstance()->current() . '?task=Display.questionDisplay'
+                        . '&id=' . $question->id
+                        . '&question='. $question->questionNumber
+                        . '&count='. $this->count;
+                    ?>"
+                ><?php echo $question->questionNumber; ?></a>
+            <?php endif ?>
         <?php endforeach; ?>
     </div>
     <div class="col">
@@ -92,6 +96,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 </div>
 
 <script>
+    // TODO: Fix answers not being selected
     window.onload = function() {
         checkAnswered();
 
@@ -115,7 +120,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
         function checkAnswered() {
             let button = Array.from(document.getElementsByName("selectedAnswer"));
             
-            if("<?php echo $this->answerNumber; ?>") {
+            if ("<?php echo $this->answerNumber; ?>") {
                 for(let i = 0; i < button.length; i++) {
                     if(button[i].value == "<?php echo $this->answerNumber; ?>") {
                         console.log("answered");

@@ -22,7 +22,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 <div class="row">
 	<div class="col">
-		<a class="btn" href="<?php echo Uri::getInstance()->current() ?>">Back</a>
+		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
 		<h3>Add Questions to <?php echo Factory::getApplication()->getUserState('myQuiz.createQuizData')['title']; ?></h3>
@@ -46,12 +46,14 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <div class="form-group">
                 <label for="questionDescription">Question: *</label>
 
-                <input
-                    type="text"
+                <textarea
                     name="questionDescription"
                     class="form-control"
                     placeholder="What is the question?"
-                />
+                    maxlength="200"
+                    required
+                    rows="3"
+                ></textarea>
             </div>
 
             <hr/>
@@ -59,7 +61,14 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <div class="form-group">
                 <label for="questionFeedback">Feedback: *</label>
 
-                <input type="text" name="questionFeedback" placeholder="Feedback when the question is answered." class="form-control"/>
+                <textarea
+                    name="questionFeedback"
+                    class="form-control"
+                    placeholder="Feedback when the question is answered."
+                    maxlength="200"
+                    required
+                    rows="3"
+                ></textarea>
             </div>
 
             <hr/>

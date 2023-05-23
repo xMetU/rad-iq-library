@@ -20,7 +20,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 <div class="row">
 	<div class="col">
-		<a class="btn" href="<?php echo Uri::getInstance()->current() ?>">Back</a>
+		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
 		<h3>Create New Quiz</h3>
@@ -47,34 +47,34 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     name="title"
                     class="form-control"
                     placeholder="Enter title..."
+                    maxlength="60"
                     required
                 />
             </div>
 
             <hr/>
+            <div class="row">
+                <div class="col form-group">
+                    <label for="imageId">Image: *</label>
+                    <select name="imageId"  placeholder="Select quiz image..." class="form-control form-select">
+                        <?php foreach ($this->images as $row) : ?>
+                            <option value="<?php echo $row->id; ?>"><?php echo $row->imageName; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-            <div class="form-group">
-                <label for="imageId">Image: *</label>	
-                <select name="imageId"  placeholder="Select quiz image..." class="form-control">
-                    <?php foreach ($this->images as $row) : ?>
-                        <option value="<?php echo $row->id; ?>"><?php echo $row->imageName; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+                <div class="col form-group">
+                    <label for="attemptsAllowed">Attempts Allowed: *</label>
 
-            <hr/>
-
-            <div class="form-group">
-                <label for="attemptsAllowed">Attempts Allowed: *</label>
-
-                <input
-                    type="number"
-                    name="attemptsAllowed"
-                    class="form-control"
-                    placeholder="Number of attempts allowed..."
-                    required
-                    min="1"
-                />
+                    <input
+                        type="number"
+                        name="attemptsAllowed"
+                        class="form-control"
+                        placeholder="Number of attempts allowed..."
+                        required
+                        min="1"
+                    />
+                </div>
             </div>
 
             <hr/>
@@ -86,6 +86,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     name="description"
                     class="form-control"
                     placeholder="Enter description..."
+                    maxlength="200"
                     required
                     rows="4"
                 ></textarea>
