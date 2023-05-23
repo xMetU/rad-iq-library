@@ -3,7 +3,6 @@
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myImageViewer
- *
  */
 
  // No direct access to this file
@@ -21,29 +20,17 @@ $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/imagesView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
-// get categories from url
-$categories = isset($_GET['categories']) ? explode(',', $_GET['categories']) : [];
-// filter out empty entries caused by implode/explode
-$categories = array_filter($categories);
-
-// if $id is in $categories, remove it, otherwise add it
-function toggleCategory($id, $categories) {
-	if (in_array($id, $categories)) {
-		return array_diff($categories, [$id]);
-	} else {
-		return array_merge($categories, [$id]);
-	}
-}
-
 ?>
 
 <!-- ========== IMAGE VIEW ========== -->
 
 <!-- Headers -->
 <div class="row">
+	
 	<div class="col-2 text-center my-auto">
 		<h6>Categories</h6>
 	</div>
+
 	<div class="col-10 row ps-5">
 		<div class="col">
 			<!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
@@ -51,9 +38,11 @@ function toggleCategory($id, $categories) {
 				<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage</a>
 			<?php endif; ?>
 		</div>
+
 		<div class="col text-center">
 			<h3>Images</h3>
 		</div>
+
 		<div class="col">
 			<!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
 			<?php if (CheckGroup::isGroup("Manager")) : ?>
@@ -74,14 +63,10 @@ function toggleCategory($id, $categories) {
 					<?php foreach ($this->buttonCategories as $category) : ?>
 						<tr>
 							<td class="pt-3 overflow-hidden">
-								<a
-									class="btn w-100 py-1 text-center<?php echo in_array($category->id, $categories) ? " active" : ""; ?>"
-									href="<?php
-										echo Uri::getInstance()->current()
-										. Route::_('?categories='. implode(',', toggleCategory($category->id, $categories)));
-									?>"
-								>
-									<?php echo $category->categoryName; ?>
+							<a class="btn w-100 py-1 text-center"
+									href="<?php echo Uri::getInstance()->current()
+										. Route::_('?categoryId='. $category->id . '&task=Display.activate'); ?>"
+								><?php echo $category->categoryName; ?>
 								</a>
 							</td>
 						</tr>
@@ -103,34 +88,88 @@ function toggleCategory($id, $categories) {
 			</tfoot>
 
 			<tbody>
-				<?php if (!empty($this->items)) : ?>
+				<form action="<?php echo Uri::getInstance()->current() . '?&task=Display.hideImage' ?>"
+						method="post"
+						id="adminForm"
+						name="adminForm"
+						enctype="multipart/form-data" >
+					
 					<tr class="row">
-						<?php foreach ($this->items as $item) : ?>
-							<?php if (!$item->isHidden == 1) : ?>
-								<td class="col-3 pt-3 px-3">
-									<div class="card p-3 pb-0">
-										<img
-											id="<?php echo $item->id; ?>"
-											class="card-img-top"
-											src="<?php echo $item->imageUrl; ?>"
-										/>
-										<div class="card-body text-center p-2">
-											<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
+						<?php if (!empty($this->items)) : ?>	
+							<?php foreach ($this->items as $item) : ?>
+							
+								<!-- Render all images including hidden for managers, with manager functions -->
+								<?php if (CheckGroup::isGroup("Manager")) : ?>
+									<?php $render = true; ?>
+
+								<!-- Only render images that aren't hidden for non-managers -->    
+								<?php elseif ($item->isHidden == 0) : ?>
+									<?php $render = true; ?>
+								
+								<!-- Image is hidden and shouldn't be viewed --> 
+								<?php else : ?>
+									<?php $render = false; ?>
+								<?php endif; ?>
+							
+								<!-- Only show allowed elements -->
+								<?php if ($render) : ?>	
+									<td class="col-3 pt-3">
+										<div class="card p-3 pb-0">
+											<img
+												id="<?php echo $item->id; ?>"
+												class="card-img-top"
+												src="<?php echo $item->imageUrl; ?>"
+											/>
+
+											<div class="card-body text-center p-2">
+												<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
+											</div>
 										</div>
-									</div>
-								</td>
-							<?php endif; ?>
-						<?php endforeach; ?>
+
+										<!-- HIDE QUIZ -->
+										<div class="row">
+											<?php if (CheckGroup::isGroup("Manager")) : ?>								
+
+												<div class="row text-center">
+													<label for="hideImage"><u><?php echo Text::_("Hide/Unhide Image") ?></u></label>
+												</div>
+
+												<div class="row">
+													<div class="col-3 text-center">
+														<input type="checkbox" id="hide" name="hide" value="<?php echo $item->id; ?>"/>
+													</div>
+
+													<?php if ($item->isHidden == 1) : ?>
+															<div class="col-1"><i class="icon-delete"></i></div>
+															<div class="col"><?php echo Text::_("Hidden") ?></div>
+														<?php else : ?>
+															<div class="col-1"><i class="icon-checkmark-circle"></i></div>
+															<div class="col"><?php echo Text::_("Visible") ?></div>
+														<?php endif; ?>																										
+												</div>																																														
+											<?php endif; ?>									
+										</div>	
+									</td>																			
+								<?php endif; ?>	
+
+							<?php endforeach; ?>
+						<?php endif; ?>
 					</tr>
-				<?php else: ?>
-					<tr>
-						<td>
-							<p class="text-secondary text-center pt-5">Select a category to view images</p>
-						</td>
-					</tr>
-				<?php endif; ?>
+				</form>
 			</tbody>
 		</table>
 	</div>	
 </div>
+
+<script>
+    const hide = Array.from(document.getElementsByName("hide"));
+
+	hide.forEach(box => {
+		box.onclick = () => {
+			let form = document.getElementById("adminForm");
+			form.submit();  
+		}
+	});
+
+</script>
 

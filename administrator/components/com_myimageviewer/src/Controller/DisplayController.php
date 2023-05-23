@@ -24,43 +24,12 @@ class DisplayController extends BaseController {
         $viewFormat = $document->getType();
 
         $view = $this->getView('AdminImageView', $viewFormat);
-        $model = $this->getModel('AdminAllImage');
-        
-        $view->setModel($model, true);   
 
         $view->document = $document;
         $view->display();
 
     }
 
-    public function hideImage() {
-        
-        $model = $this->getModel('AdminAllImage');
 
-        $hideImage = $_POST;
-
-        if($hideImage) {
-            foreach($hideImage as $imageId) {
-
-                $num = $model->checkHidden($imageId);
-                
-                if($num){
-                    if($num == 0) {
-                        $model->setImageHiddenStatus($imageId, 1);
-                    }
-                    else {
-                        $model->setImageHiddenStatus($imageId, 0);
-                    }
-                }
-                else{
-                    $model->setImageHiddenStatus($imageId, 1);
-                }
-                
-                
-            }
-        }
-
-        $this->setRedirect(Uri::getInstance()->current() . Route::_('?option=com_myimageviewer&task=Display.display', false));
-    }
     
 }

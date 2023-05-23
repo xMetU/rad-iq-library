@@ -101,14 +101,12 @@ use Joomla\CMS\Router\Route;
             let prev = document.getElementById("prev");
         
             let text = next.value;
-            console.log(text);
 
             next.addEventListener("click", function() {  
                 var nextAction = 'nextQuestion';
                 var finishAction = 'saveData';
 
                 if(next.value == 'NEXT'){
-                    console.log("next");
                     changeQuestion(nextAction);
                 }
                 if(next.value == 'FINISH'){
