@@ -17,19 +17,6 @@ use Joomla\CMS\Router\Route;
 $document = Factory::getDocument();
 $document->addStyleSheet("media/com_myquiz/css/style.css");
 
-// get categories from url
-$categories = isset($_GET['categories']) ? explode(',', $_GET['categories']) : [];
-// filter out empty entries caused by implode/explode
-$categories = array_filter($categories);
-
-// if $id is in $categories, remove it, otherwise add it
-function toggleCategory($id, $categories) {
-	if (in_array($id, $categories)) {
-		return array_diff($categories, [$id]);
-	} else {
-		return array_merge($categories, [$id]);
-	}
-}
 ?>
 
 
@@ -60,17 +47,16 @@ function toggleCategory($id, $categories) {
 		<table id="categories" class="w-100">
 			<tbody>
 				<?php if (!empty($this->categories)) : ?>
-					<?php foreach ($this->categories as $category) : ?>
+					<?php foreach ($this->categories as $row) : ?>
 						<tr>
 							<td class="pt-3 overflow-hidden">
 								<a
-									class="btn w-100 py-1 text-center<?php echo in_array($category->id, $categories) ? " active" : ""; ?>"
-									href="<?php
-										echo Uri::getInstance()->current()
-										. Route::_('?categories='. implode(',', toggleCategory($category->id, $categories)));
+									class="btn w-100 py-1 text-center<?php echo $row->id == $this->category ? " active" : ""; ?>"
+									href="<?php echo Uri::getInstance()->current()
+										. ($row->id == $this->category ? "" : '?category='. $row->id);
 									?>"
 								>
-									<?php echo $category->categoryName; ?>
+									<?php echo $row->categoryName; ?>
 								</a>
 							</td>
 						</tr>

@@ -21,7 +21,7 @@ class AllQuizModel extends ListModel {
         // Get a db connection.
         $db = $this->getDatabase();
 
-        $categoryId = Factory::getApplication()->input->get('categoryId');
+        $category = Factory::getApplication()->input->get('category');
 
         // Create a new query object.
         $query = $db->getQuery(true)
@@ -30,10 +30,11 @@ class AllQuizModel extends ListModel {
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',
-                $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId'));
+                $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId')
+            );
 
-        if($categoryId){
-            $query = $query->where($db->quoteName('i.categoryId') . '=' . $db->quote($categoryId));
+        if(isset($category)){
+            $query = $query->where($db->quoteName('i.categoryId') . '=' . $category);
         }        
 
         return $query;

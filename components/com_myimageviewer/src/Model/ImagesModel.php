@@ -19,10 +19,7 @@ class ImagesModel extends ListModel {
     public function getListQuery() {
         $db = $this->getDatabase();
 
-        $categories = Factory::getApplication()->input->getVar('categories');
-        if (!isset($categories)) {
-            $categories = "0";
-        }
+        $category = Factory::getApplication()->input->getVar('category');
 
         $query = $db->getQuery(true)
             ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id']))
@@ -30,9 +27,12 @@ class ImagesModel extends ListModel {
             ->join(
                 'LEFT',
                 $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.categoryId')
-            )
-            ->where($db->quoteName('c.id') . 'IN(' . $categories . ')');
-        
+            );
+
+        if (isset($category)) {
+            $query = $query->where($db->quoteName('c.id') . '=' . $category);
+        }
+            
         return $query;
     }
 
