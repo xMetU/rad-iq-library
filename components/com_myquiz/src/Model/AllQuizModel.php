@@ -16,12 +16,15 @@ class AllQuizModel extends ListModel {
 
 
     // Get a list of quizzes filtered by category
-    public function getListQuery(){
+    public function getListQuery() {
 
         // Get a db connection.
         $db = $this->getDatabase();
 
         $categoryId = Factory::getApplication()->input->get('categoryId');
+        $newCategoryId = Factory::getApplication()->getUserState('myQuiz.categoryId');
+
+        $search = Factory::getApplication()->input->getVar('searchText');
 
         // Create a new query object.
         $query = $db->getQuery(true)
@@ -30,10 +33,22 @@ class AllQuizModel extends ListModel {
             ->join(
                 'LEFT',
                 $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId'));
+        
+        // Modify query based on whether a category is selected        
+        if (isset($categoryId)) {
+            if($newCategoryId != $categoryId) {
+                $query->where($db->quoteName('i.categoryId') . '=' . $db->quote($categoryId));
+                $newCategoryId = Factory::getApplication()->setUserState('myQuiz.categoryId', $categoryId);
+            }
+            else{
+                Factory::getApplication()->setUserState('myQuiz.categoryId', 0);
+            }
+        }
 
-        if($categoryId){
-            $query = $query->where($db->quoteName('i.categoryId') . '=' . $db->quote($categoryId));
-        }        
+        // Modify query based on users search term
+        if (isset($search)) {
+            $query->where($db->quoteName('q.title') . ' LIKE ' . $db->quote($search . '%'));
+        }
 
         return $query;
     }

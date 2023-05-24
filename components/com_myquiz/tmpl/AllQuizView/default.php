@@ -23,11 +23,28 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 
 <!-- Create Quiz Button -->
-<div>
+<div class="row">
     <!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
-    <?php if (CheckGroup::isGroup("Manager")) : ?>
-        <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.createQuiz') ?>"><i class="icon-plus icon-white"></i><?php echo ' CREATE QUIZ' ?></a>
-    <?php endif; ?>
+    <div class="col">
+        <?php if (CheckGroup::isGroup("Manager")) : ?>
+            <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&task=Display.createQuiz') ?>"><i class="icon-plus icon-white"></i><?php echo ' CREATE QUIZ' ?></a>      
+        <?php endif; ?>
+    </div>
+    <!-- === SEARCH === -->
+    <div class="col pl-3">
+        <form action="<?php echo Uri::getInstance()->current() . '?&task=Display.display'?>"
+                        method="post"
+                        id="searchForm"
+                        name="searchForm"
+                        enctype="multipart/form-data" >
+
+            <div class="row">
+                <div class="col-6"><input type="text" id="searchText" name="searchText" class="form-control" placeholder="search..."/></div>
+                <div class="col-1"><i id="searchIcon" class="icon-search icon-white"></i></div>
+            </div>
+            
+        </form>
+    </div>
 </div>
 
 
@@ -36,7 +53,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     <div class="col-2" id="categoryScroll">
         <?php foreach ($this->categories as $c => $row) : ?>
             <div class="row mt-3 col-10">		
-                <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&categoryId=' . $row->id) ?>"><?php echo $row->categoryName ?></a>						
+                <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . Route::_('?&categoryId=' . $row->id); ?>"><?php echo $row->categoryName ?></a>						
             </div>
         <?php endforeach; ?>
     </div>
@@ -62,79 +79,77 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <?php else : ?>
                     <?php $render = false; ?>
                 <?php endif; ?>
-            <?php endforeach; ?>
     
-            <!-- Only show allowed elements -->
-            <?php if ($render) : ?>
-                <div class="row mt-3 bg-light">
+                <!-- Only show allowed elements -->
+                <?php if ($render) : ?>
+                    <div class="row mt-3 bg-light">
 
-                    <!-- IMAGE -->
-                    <div class="col">								
-                        <img id="<?php echo $row->imageId; ?>" src="<?php echo $row->imageUrl; ?>" style="width:150px;height:180px;"/>
-                    </div>
-
-                    <!-- TEXT -->
-                    <div class="col-5 mt-4">
-                        <div class="row mt-2">
-                            <div class="col-3 text-center"><?php echo Text::_("Title: ") ?></div>
-                            <div class="col-9"><?php echo $row->title; ?></div>
+                        <!-- IMAGE -->
+                        <div class="col">								
+                            <img id="<?php echo $row->imageId; ?>" src="<?php echo $row->imageUrl; ?>" style="width:150px;height:180px;"/>
                         </div>
 
-                        <div class="row mt-4">
-                            <div class="col-3 text-center"><?php echo Text::_("Description: ") ?></div>
-                            <div class="col-9"><?php echo $row->description; ?></div>
+                        <!-- TEXT -->
+                        <div class="col-5 mt-4">
+                            <div class="row mt-2">
+                                <div class="col-3 text-center"><?php echo Text::_("Title: ") ?></div>
+                                <div class="col-9"><?php echo $row->title; ?></div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-3 text-center"><?php echo Text::_("Description: ") ?></div>
+                                <div class="col-9"><?php echo $row->description; ?></div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-3 text-center"><?php echo Text::_("Attempts: ") ?></div>
+                                <div class="col-9"><?php echo $row->attemptsAllowed; ?></div>
+                            </div>
                         </div>
 
-                        <div class="row mt-4">
-                            <div class="col-3 text-center"><?php echo Text::_("Attempts: ") ?></div>
-                            <div class="col-9"><?php echo $row->attemptsAllowed; ?></div>
-                        </div>
-                    </div>
-
-                    <!-- START QUIZ -->
-                    <div class="col mt-4">
-                        <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . 
-                                    Route::_('?&id='. $row->id . '&question=1&attemptsAllowed=' . $row->attemptsAllowed . 
-                                            '&task=Answer.startQuiz') ?>"><?php echo Text::_("START QUIZ")?></a>
-                    </div>
-
-                    <!-- MANAGER BUTTONS -->
-                    <!-- User Check to see if they belong to Manager user group. Only managers should access these functions -->
-                    <?php if (CheckGroup::isGroup("Manager")) : ?>
-
-                        <!-- HIDE QUIZ -->
+                        <!-- START QUIZ -->
                         <div class="col mt-4">
-                                
-                            <label for="hideQuiz"><u><?php echo Text::_("Hide/Unhide Quiz") ?></u></label>
-                            <div class="row">
-                                <div class="col-2">
-                                    <input type="checkbox" id="hide" name="hide" value="<?php echo $row->id; ?>"/>
-                                </div>
-                                <?php if ($row->isHidden == 1) : ?>
-                                    <div class="col-1"><i class="icon-delete"></i></div>
-                                    <div class="col"><?php echo Text::_("Hidden") ?></div>
-                                <?php else : ?>
-                                    <div class="col-1"><i class="icon-checkmark-circle"></i></div>
-                                    <div class="col"><?php echo Text::_("Visible") ?></div>
-                                <?php endif; ?>  
-                            </div>                                
+                            <a class="btn btn-primary" href="<?php echo Uri::getInstance()->current() . 
+                                        Route::_('?&id='. $row->id . '&question=1&attemptsAllowed=' . $row->attemptsAllowed . 
+                                                '&task=Answer.startQuiz') ?>"><?php echo Text::_("START QUIZ")?></a>
                         </div>
-                                
-                        <!-- DELETE QUIZ -->
-                        <div class="col mt-4">
-                            <label for="deleteQuiz"><u><?php echo Text::_("Delete Quiz") ?></u></label>
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <button id="delete-button" name="delete-button" class="btn btn-danger col-4">
-                                    <i class="icon-times icon-white"></i>
-                                </button>
-                            </div>   
-                        </div>                   
-                    <?php endif; ?>
 
-                    
-                </div>
-            <?php endif; ?>  
+                        <!-- MANAGER BUTTONS -->
+                        <!-- User Check to see if they belong to Manager user group. Only managers should access these functions -->
+                        <?php if (CheckGroup::isGroup("Manager")) : ?>
+
+                            <!-- HIDE QUIZ -->
+                            <div class="col mt-4">
+                                    
+                                <label for="hideQuiz"><u><?php echo Text::_("Hide/Unhide Quiz") ?></u></label>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <input type="checkbox" id="hide" name="hide" value="<?php echo $row->id; ?>"/>
+                                    </div>
+                                    <?php if ($row->isHidden == 1) : ?>
+                                        <div class="col-1"><i class="icon-delete"></i></div>
+                                        <div class="col"><?php echo Text::_("Hidden") ?></div>
+                                    <?php else : ?>
+                                        <div class="col-1"><i class="icon-checkmark-circle"></i></div>
+                                        <div class="col"><?php echo Text::_("Visible") ?></div>
+                                    <?php endif; ?>  
+                                </div>                                
+                            </div>
+                                    
+                            <!-- DELETE QUIZ -->
+                            <div class="col mt-4">
+                                <label for="deleteQuiz"><u><?php echo Text::_("Delete Quiz") ?></u></label>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <button id="delete-button" name="delete-button" class="btn btn-danger col-4">
+                                        <i class="icon-times icon-white"></i>
+                                    </button>
+                                </div>   
+                            </div>                   
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>  
+            <?php endforeach; ?>
         </form> 
 
         <div>
@@ -197,6 +212,13 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     document.getElementById("delete-cancel").onclick = (e) => {
         deleteConfirmation.classList.add("d-none");
     }
+
+
+    const search = document.getElementById("searchIcon");
+	search.onclick = () => {
+		let form = document.getElementById("searchForm");
+		form.submit();
+	}
 </script>
 
 

@@ -31,6 +31,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		<h6>Categories</h6>
 	</div>
 
+	<!-- === MANAGE === -->
 	<div class="col-10 row ps-5">
 		<div class="col">
 			<!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
@@ -39,10 +40,29 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<?php endif; ?>
 		</div>
 
-		<div class="col text-center">
+		<!-- === IMAGE TITLE === -->
+		<div class="col-5 text-center">
 			<h3>Images</h3>
 		</div>
 
+		<!-- === SEARCH === -->
+		<div class="col pl-3">
+			<form action="<?php echo Uri::getInstance()->current() . '?&task=Display.display'?>"
+							method="post"
+							id="searchForm"
+							name="searchForm"
+							enctype="multipart/form-data" >
+
+				<div class="row">
+					<div class="col-11"><input type="text" id="searchText" name="searchText" class="form-control" placeholder="search..."/></div>
+					<div class="col-1"><i id="searchIcon" class="icon-search icon-white"></i></div>
+				</div>
+				
+			</form>
+		</div>
+		
+
+		<!-- === NEW IMAGE === -->
 		<div class="col">
 			<!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
 			<?php if (CheckGroup::isGroup("Manager")) : ?>
@@ -65,7 +85,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							<td class="pt-3 overflow-hidden">
 							<a class="btn w-100 py-1 text-center"
 									href="<?php echo Uri::getInstance()->current()
-										. Route::_('?categoryId='. $category->id . '&task=Display.activate'); ?>"
+										. Route::_('?categoryId='. $category->id); ?>"
 								><?php echo $category->categoryName; ?>
 								</a>
 							</td>
@@ -131,7 +151,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 											<?php if (CheckGroup::isGroup("Manager")) : ?>								
 
 												<div class="row text-center">
-													<label for="hideImage"><u><?php echo Text::_("Hide/Unhide Image") ?></u></label>
+													<label for="hideImage"><u><?php echo Text::_("Hide/Unhide") ?></u></label>
 												</div>
 
 												<div class="row">
@@ -170,6 +190,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			form.submit();  
 		}
 	});
+
+
+	const search = document.getElementById("searchIcon");
+	search.onclick = () => {
+		let form = document.getElementById("searchForm");
+		form.submit();
+	}
 
 </script>
 

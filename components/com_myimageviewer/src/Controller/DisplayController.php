@@ -19,26 +19,6 @@ class DisplayController extends BaseController {
     
 
     public function display($cachable = false, $urlparams = array()) {    
-        
-        // Factory::getApplication()->input->set('isActive', 'inactive');
-        Factory::getApplication()->setUserState('myImageViewer.categoryId', 0);
-
-        $document = Factory::getDocument();
-        $viewFormat = $document->getType();
-
-        $view = $this->getView('ImagesView', $viewFormat);
-
-        $model1 = $this->getModel('Images');
-        $model2 = $this->getModel('Categories');
-        
-        $view->setModel($model1, true);
-        $view->setModel($model2); 
-        
-        $view->document = $document;
-        $view->display();
-    }
-
-    public function activate() {
 
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
@@ -129,5 +109,8 @@ class DisplayController extends BaseController {
         }
         $this->setRedirect(Uri::getInstance()->current() . Route::_('?&task=Display.display', false));
     }
+
+
+
 
 }

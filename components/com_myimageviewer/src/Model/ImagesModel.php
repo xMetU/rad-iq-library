@@ -22,6 +22,8 @@ class ImagesModel extends ListModel {
         $categoryId = Factory::getApplication()->input->getInt('categoryId');
         $newCategoryId = Factory::getApplication()->getUserState('myImageViewer.categoryId');
 
+        $search = Factory::getApplication()->input->getVar('searchText');
+
         $query = $db->getQuery(true)
             ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id', 'isHidden']))
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
@@ -38,6 +40,11 @@ class ImagesModel extends ListModel {
             else{
                 Factory::getApplication()->setUserState('myImageViewer.categoryId', 0);
             }
+        }
+
+        // Modify query based on users search term
+        if (isset($search)) {
+            $query->where($db->quoteName('image.imageName') . ' LIKE ' . $db->quote($search . '%'));
         }
         
         return $query;
