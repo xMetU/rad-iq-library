@@ -24,13 +24,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <!-- ========== IMAGE VIEW ========== -->
 
 <!-- Headers -->
-<div class="row">
+<div class="row pb-3">
 	<div class="col-2 text-center my-auto">
-		<h6>Categories</h6>
+		<h6>Filter by Category</h6>
 	</div>
 	<div class="col-10 row ps-5">
 		<div class="col">
-			<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage</a>
+			<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
 		</div>
 		<div class="col text-center">
 			<h3>Image Viewers</h3>
@@ -45,13 +45,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 <div class="row">
 	<!-- Categories -->
-	<div class="col-2">
+	<div class="col-2 fixed-height">
 		<table id="categories" class="w-100">
 			<tbody>
 				<?php if (!empty($this->categories)) : ?>
 					<?php foreach ($this->categories as $row) : ?>
 						<tr>
-							<td class="pt-3 overflow-hidden">
+							<td class="pb-3">
 								<a
 									class="btn w-100 py-1 text-center<?php echo $row->id == $this->category ? " active" : ""; ?>"
 									href="<?php echo Uri::getInstance()->current()
@@ -69,7 +69,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	</div>
 
 	<!-- Images -->
-	<div class="col-10 row ps-5">
+	<div class="col-10 row ps-5 fixed-height">
 		<table id="images" class="table table-borderless">
 			<tfoot>
 				<tr>
@@ -83,7 +83,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<?php if (!empty($this->items)) : ?>
 					<tr class="row">
 						<?php foreach ($this->items as $item) : ?>
-							<td class="col-3 pt-3 px-3">
+							<td class="col-3 pt-0 pb-3 px-3">
 								<div class="card p-3 pb-0">
 									<img
 										id="<?php echo $item->id; ?>"
