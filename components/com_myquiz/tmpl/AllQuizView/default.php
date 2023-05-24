@@ -15,6 +15,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
 $document = Factory::getDocument();
+$document->addScript("media/com_myquiz/js/allQuizView.js");
 $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 ?>
@@ -91,7 +92,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                                 src="<?php echo $item->imageUrl; ?>"
                                             />
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col">
                                             <div class="card-body p-0">
 										        <h5 class="text-truncate"><?php echo $item->title; ?></h5>
                                                 <p><?php echo $item->description; ?></p>
@@ -99,11 +100,14 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                                     class="btn"
                                                     href="<?php
                                                         echo Uri::getInstance()->current() . '?task=Answer.startQuiz&id=' . $item->id
-                                                        . '&question=1&attemptsAllowed=' . $item->attemptsAllowed
+                                                        . '&question=1&attemptsAllowed=' . $item->attemptsAllowed;
                                                     ?>"
                                                 >Attempt Quiz</a>
 									        </div>
                                         </div>
+										<div class="col-auto">
+											<button id="<?php echo $item->id; ?>" class="delete-button btn">Delete</button> 
+										</div>
                                     </div>	
 								</div>
 							</td>
@@ -112,7 +116,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 				<?php else: ?>
 					<tr>
 						<td>
-							<p class="text-secondary text-center pt-5">Select a category to view quizzes</p>
+							<p class="text-secondary text-center pt-5">No quizzes are assigned to this category</p>
 						</td>
 					</tr>
 				<?php endif; ?>
@@ -121,27 +125,21 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     </div>
 </div>
 
-<script>
-    const deleteConfirmation = document.getElementById("delete-confirmation");
-    let buttons = Array.from(document.getElementsByName("delete-button"));
+<!-- Delete confirmation -->
+<div id="delete-confirmation" class="d-none">
+    <form
+        action="<?php echo Uri::getInstance()->current() . '?task=Display.deleteQuiz'; ?>"
+        method="post"
+        enctype="multipart/form-data"
+    >
+        <input type="hidden" name="quizId"/>
 
-    buttons.forEach(button => {
-        button.onclick = (e) => {
-            deleteConfirmation.classList.remove("d-none");
-        }
-    });
-    
-
-    document.getElementById("delete-confirm").onclick = () => {
-        window.location.href = "<?php echo Uri::getInstance()->current() . 
-                                    Route::_('?&quizId='. $row->id . '&task=Display.deleteQuiz') ?>";
-        deleteConfirmation.classList.add("d-none");
-    }
-
-    document.getElementById("delete-cancel").onclick = (e) => {
-        deleteConfirmation.classList.add("d-none");
-    }
-</script>
-
-
-
+        <div class="overlay-background d-flex">
+            <div class="m-auto text-center">
+                <h5 class="mb-4"><!-- Message --></h5>
+                <button id="delete-confirm" class="btn me-3">Yes, remove it</button>
+                <button id="delete-cancel" class="btn ms-3">No, go back</button> 
+            </div>
+        </div>
+    </form>
+</div>

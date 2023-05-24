@@ -33,7 +33,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage</a>
 		</div>
 		<div class="col text-center">
-			<h3>Images</h3>
+			<h3>Image Viewers</h3>
 		</div>
 		<div class="col">
 			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>">
@@ -100,7 +100,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<?php else: ?>
 					<tr>
 						<td>
-							<p class="text-secondary text-center pt-5">Select a category to view images</p>
+							<p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
 						</td>
 					</tr>
 				<?php endif; ?>

@@ -47,6 +47,16 @@ div.alert-wrapper {
     border-radius: 999px;
 }
 
+.overlay-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 42069;
+    background-color: rgba(0, 0, 0, 0.95);
+}
+
 /* QUIZZES VIEW */
 
 #quizzes img.card-img-top {
