@@ -85,28 +85,21 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 </div>
 
 <!-- Delete confirmation -->
-<form
-    action="<?php echo Uri::getInstance()->current() . '?task=Form.deleteImage'; ?>"
-    method="post"
-    enctype="multipart/form-data"
->
-    <input type="hidden" name="imageId" value="<?php echo $this->item->id; ?>"/>
+<div id="delete-confirmation" class="d-none">
+    <form
+        action="<?php echo Uri::getInstance()->current() . '?task=Form.deleteImage'; ?>"
+        method="post"
+        enctype="multipart/form-data"
+    >
+        <input type="hidden" name="imageId" value="<?php echo $this->item->id; ?>"/>
+        <input type="hidden" name="imageUrl" value="<?php echo $this->item->url; ?>">
 
-    <input type="hidden" name="imageUrl" value="<?php echo $this->item->url; ?>">
-
-    <div id="delete-confirmation" class="overlay-background d-flex d-none">
-        <div class="m-auto justify-content-center">
-            <div class="row mb-4 text-center">
-                <h5>Are you sure you want to remove <?php echo $this->item->name; ?>?<br/>This action cannot be undone.</h5>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <button id="delete-confirm" class="btn float-end me-3">Yes, remove it</button>
-                </div>
-                <div class="col">
-                    <button id="delete-cancel" class="btn ms-3">No, go back</button>
-                </div>
+        <div class="overlay-background d-flex">
+            <div class="m-auto text-center">
+                <h5 class="mb-4">Are you sure you want to remove <?php echo $this->item->name; ?>?<br/>This action cannot be undone.</h5>
+                <button id="delete-confirm" class="btn me-3">Yes, remove it</button>
+                <button id="delete-cancel" class="btn ms-3">No, go back</button> 
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

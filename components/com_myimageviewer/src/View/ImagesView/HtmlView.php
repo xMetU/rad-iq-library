@@ -16,11 +16,11 @@ class HtmlView extends BaseHtmlView {
 
     
     public function display($template = null) {
-
-        $this->buttonCategories = $this->get('Items', 'Categories');
+        $this->categories = $this->get('Items', 'Categories');
         $this->items = $this->get('Items');
         $this->pagination = $this->get('Pagination');
 
+        $this->category = Factory::getApplication()->input->getVar('category');
         // Call the parent display to display the layout file
         parent::display($template);
     }

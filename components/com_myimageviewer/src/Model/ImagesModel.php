@@ -19,9 +19,7 @@ class ImagesModel extends ListModel {
     public function getListQuery() {
         $db = $this->getDatabase();
 
-        $categoryId = Factory::getApplication()->input->getInt('categoryId');
-        $newCategoryId = Factory::getApplication()->getUserState('myImageViewer.categoryId');
-
+        $category = Factory::getApplication()->input->getVar('category');
         $search = Factory::getApplication()->input->getVar('searchText');
 
         $query = $db->getQuery(true)
@@ -29,24 +27,16 @@ class ImagesModel extends ListModel {
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
             ->join(
                 'LEFT',
-                $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.categoryId'));
-        
-        // Modify query based on whether a category is selected
-        if (isset($categoryId)) {
-            if($newCategoryId != $categoryId) {
-                $query->where($db->quoteName('c.id') . '=' . $db->quote($categoryId));
-                $newCategoryId = Factory::getApplication()->setUserState('myImageViewer.categoryId', $categoryId);
-            }
-            else{
-                Factory::getApplication()->setUserState('myImageViewer.categoryId', 0);
-            }
-        }
+                $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.categoryId')
+            );
 
-        // Modify query based on users search term
-        if (isset($search)) {
-            $query->where($db->quoteName('image.imageName') . ' LIKE ' . $db->quote($search . '%'));
+        if (isset($category)) {
+            $query = $query->where($db->quoteName('c.id') . '=' . $category);
         }
-        
+        if (isset($search)) {
+            $query->where($db->quoteName('image.imageName') . ' LIKE %' . $search . '%');
+        }
+            
         return $query;
     }
 

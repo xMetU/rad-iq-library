@@ -5,7 +5,6 @@ namespace Kieran\Component\MyQuiz\Site\View\AllQuizView;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Helper\UserGroupsHelper;
 use Joomla\CMS\Factory;
 
 /**
@@ -22,6 +21,7 @@ class HtmlView extends BaseHtmlView {
         $this->items = $this->get('Items');
         $this->categories = $this->get('Items', 'ButtonCategories');
         $this->pagination = $this->get('Pagination');
+        $this->category = Factory::getApplication()->input->get('category');
 
         // Call the parent display to display the layout file
         parent::display($template);

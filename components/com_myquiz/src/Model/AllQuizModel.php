@@ -21,9 +21,7 @@ class AllQuizModel extends ListModel {
         // Get a db connection.
         $db = $this->getDatabase();
 
-        $categoryId = Factory::getApplication()->input->get('categoryId');
-        $newCategoryId = Factory::getApplication()->getUserState('myQuiz.categoryId');
-
+        $category = Factory::getApplication()->input->get('category');
         $search = Factory::getApplication()->input->getVar('searchText');
 
         // Create a new query object.
@@ -32,33 +30,22 @@ class AllQuizModel extends ListModel {
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',
-                $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId'));
-        
-        // Modify query based on whether a category is selected        
-        if (isset($categoryId)) {
-            if($newCategoryId != $categoryId) {
-                $query->where($db->quoteName('i.categoryId') . '=' . $db->quote($categoryId));
-                $newCategoryId = Factory::getApplication()->setUserState('myQuiz.categoryId', $categoryId);
-            }
-            else{
-                Factory::getApplication()->setUserState('myQuiz.categoryId', 0);
-            }
-        }
+                $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId')
+            );
 
-        // Modify query based on users search term
+        if(isset($category)){
+            $query = $query->where($db->quoteName('i.categoryId') . '=' . $category);
+        }
         if (isset($search)) {
-            $query->where($db->quoteName('q.title') . ' LIKE ' . $db->quote($search . '%'));
+            $query->where($db->quoteName('q.title') . ' LIKE %' . $search . '%');
         }
 
         return $query;
     }
 
-
-
     public function getTable($type = 'Quiz', $prefix = '', $config = array()) {
 		return Factory::getApplication()->bootComponent('com_myQuiz')->getMVCFactory()->createTable($type);
 	}
-
 
     public function checkHidden($quizId) {
 
@@ -70,7 +57,6 @@ class AllQuizModel extends ListModel {
         return $num;
     }
 
-    
     public function setQuizHiddenStatus($quizId, $hide) {
         $db = $this->getDatabase();
         

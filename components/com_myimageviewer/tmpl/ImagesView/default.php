@@ -25,10 +25,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <!-- ========== IMAGE VIEW ========== -->
 
 <!-- Headers -->
-<div class="row">
-	
+<div class="row pb-3">
 	<div class="col-2 text-center my-auto">
-		<h6>Categories</h6>
+		<h6>Filter by Category</h6>
 	</div>
 
 	<!-- === MANAGE === -->
@@ -39,20 +38,19 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage</a>
 			<?php endif; ?>
 		</div>
-
-		<!-- === IMAGE TITLE === -->
-		<div class="col-5 text-center">
-			<h3>Images</h3>
+		<div class="col text-center">
+			<h3>Image Viewers</h3>
 		</div>
 
 		<!-- === SEARCH === -->
 		<div class="col pl-3">
-			<form action="<?php echo Uri::getInstance()->current() . '?&task=Display.display'?>"
-							method="post"
-							id="searchForm"
-							name="searchForm"
-							enctype="multipart/form-data" >
-
+			<form 
+				action="<?php echo Uri::getInstance()->current() . '?task=Display.display'?>"
+				method="post"
+				id="searchForm"
+				name="searchForm"
+				enctype="multipart/form-data"
+			>
 				<div class="row">
 					<div class="col-11"><input type="text" id="searchText" name="searchText" class="form-control" placeholder="search..."/></div>
 					<div class="col-1"><i id="searchIcon" class="icon-search icon-white"></i></div>
@@ -74,19 +72,22 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	</div>
 </div>
 
-<div class="row" id="categoryParent">
+<div class="row">
 	<!-- Categories -->
-	<div class="col-2" id="categoryScroll">
+	<div class="col-2 fixed-height">
 		<table id="categories" class="w-100">
 			<tbody>
-				<?php if (!empty($this->buttonCategories)) : ?>
-					<?php foreach ($this->buttonCategories as $category) : ?>
+				<?php if (!empty($this->categories)) : ?>
+					<?php foreach ($this->categories as $row) : ?>
 						<tr>
-							<td class="pt-3 overflow-hidden">
-							<a class="btn w-100 py-1 text-center"
+							<td class="pb-3">
+								<a
+									class="btn w-100 py-1 text-center<?php echo $row->id == $this->category ? " active" : ""; ?>"
 									href="<?php echo Uri::getInstance()->current()
-										. Route::_('?categoryId='. $category->id); ?>"
-								><?php echo $category->categoryName; ?>
+										. ($row->id == $this->category ? "" : '?category='. $row->id);
+									?>"
+								>
+									<?php echo $row->categoryName; ?>
 								</a>
 							</td>
 						</tr>
@@ -97,7 +98,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	</div>
 
 	<!-- Images -->
-	<div class="col-10 row ps-5">
+	<div class="col-10 row ps-5 fixed-height">
 		<table id="images" class="table table-borderless">
 			<tfoot>
 				<tr>
@@ -175,7 +176,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</tr>
-				</form>
+				<?php else: ?>
+					<tr>
+						<td>
+							<p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
+						</td>
+					</tr>
+				<?php endif; ?>
 			</tbody>
 		</table>
 	</div>	
