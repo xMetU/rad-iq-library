@@ -3,7 +3,6 @@
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myImageViewer
- *
  */
 
  // No direct access to this file
@@ -14,6 +13,8 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
+use Kieran\Component\MyImageViewer\Site\Helper\CheckGroup;
+
 
 $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/imagesView.js");
@@ -28,17 +29,35 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col-2 text-center my-auto">
 		<h6>Filter by Category</h6>
 	</div>
+
+	<!-- === MANAGE === -->
 	<div class="col-10 row ps-5">
 		<div class="col">
-			<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
+			<?php if (CheckGroup::isGroup("Manager")) : ?>
+				<a class="btn me-3" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Categories</a>
+				<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>">New Image</a>
+			<?php endif; ?>
 		</div>
-		<div class="col text-center">
+
+		<div class="col-6 text-center">
 			<h3>Image Viewers</h3>
 		</div>
+
 		<div class="col">
-			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>">
-				<i class="icon-plus icon-white"></i> New
-			</a>
+			<form
+				action="<?php echo Uri::getInstance()->current(); ?>"
+				method="get"
+				enctype="multipart/form-data"
+			>
+				<input
+					type="search"
+					name="search"
+					id="text"
+					class="form-control float-end"
+					placeholder="Search image viewers..."
+					value="<?php if ($this->search) echo $this->search; ?>"
+				/>
+			</form>
 		</div>
 	</div>
 </div>
@@ -73,39 +92,52 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		<table id="images" class="table table-borderless">
 			<tfoot>
 				<tr>
-					<td class="d-flex justify-content-center p-2" colspan="3">
+					<td class="d-flex justify-content-center p-2" colspan="4">
 						<?php echo $this->pagination->getListFooter(); ?>
 					</td>
 				</tr>
 			</tfoot>
 
 			<tbody>
-				<?php if (!empty($this->items)) : ?>
-					<tr class="row">
+				<tr class="row">
+					<?php if (!empty($this->items)) : ?>	
 						<?php foreach ($this->items as $item) : ?>
-							<td class="col-3 pt-0 pb-3 px-3">
-								<div class="card p-3 pb-0">
-									<img
-										id="<?php echo $item->id; ?>"
-										class="card-img-top"
-										src="<?php echo $item->imageUrl; ?>"
-									/>
-									<div class="card-body text-center p-2">
-										<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
+							<?php
+								if (CheckGroup::isGroup("Manager")) {
+									$render = true;
+								} else {
+									$render = !$item->isHidden;
+								}
+							?>
+						
+							<?php if ($render) : ?>
+								<td class="col-3 pt-0 pb-4 px-3">
+									<div class="card p-3 pb-0">
+										<?php if (CheckGroup::isGroup("Manager") && $item->isHidden) : ?>
+											<div class="card-overlay d-flex">
+												<h5 class="m-auto">Hidden</h5>
+											</div>
+										<?php endif; ?>
+										<img
+											id="<?php echo $item->id; ?>"
+											class="card-img-top"
+											src="<?php echo $item->imageUrl; ?>"
+										/>
+
+										<div class="card-body text-center p-2">
+											<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
+										</div>
 									</div>
-								</div>
-							</td>
+								</td>
+							<?php endif; ?>
 						<?php endforeach; ?>
-					</tr>
-				<?php else: ?>
-					<tr>
+					<?php else: ?>
 						<td>
 							<p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
 						</td>
-					</tr>
-				<?php endif; ?>
+					<?php endif; ?>
+				</tr>
 			</tbody>
 		</table>
 	</div>	
 </div>
-

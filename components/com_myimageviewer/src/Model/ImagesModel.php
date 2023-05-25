@@ -20,9 +20,10 @@ class ImagesModel extends ListModel {
         $db = $this->getDatabase();
 
         $category = Factory::getApplication()->input->getVar('category');
+        $search = Factory::getApplication()->input->getVar('search');
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id']))
+            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id', 'isHidden']))
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
             ->join(
                 'LEFT',
@@ -32,6 +33,9 @@ class ImagesModel extends ListModel {
         if (isset($category)) {
             $query = $query->where($db->quoteName('c.id') . '=' . $category);
         }
+        if (isset($search)) {
+            $query = $query->where($db->quoteName('image.imageName') . ' LIKE ' . $db->quote('%' . $search . '%'));
+        }
             
         return $query;
     }
@@ -40,5 +44,9 @@ class ImagesModel extends ListModel {
     protected function populateState($ordering = null, $direction = null){
         $this->setState('list.limit', 0);
     }
+
+    public function getTable($type = 'Image', $prefix = '', $config = array()) {
+		return Factory::getApplication()->bootComponent('com_myImageViewer')->getMVCFactory()->createTable($type);
+	}
 
 }

@@ -16,8 +16,11 @@ use Joomla\CMS\Filesystem\File;
  * @subpackage  com_myImageViewer
  */
 
+
 class FormController extends BaseController {
-    public function saveImage() {
+    
+	
+	public function saveImage() {
 		$model = $this->getModel('ImageForm');
 		
 		$data = $_POST;
@@ -44,6 +47,7 @@ class FormController extends BaseController {
 		));
     }
 
+
 	public function updateImage() {
 		$model = $this->getModel('ImageForm');
 
@@ -56,6 +60,7 @@ class FormController extends BaseController {
 			false,
 		));
 	}
+
 
 	public function deleteImage() {
 		$model = $this->getModel('ImageDetails');
@@ -71,10 +76,11 @@ class FormController extends BaseController {
 		}
 
 		$this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display',
+			Uri::getInstance()->current(),
 			false,
 		));
 	}
+
 
     public function saveCategory() {
 		$model = $this->getModel('CategoryForm');
@@ -89,6 +95,7 @@ class FormController extends BaseController {
 		));
     }
 
+	
 	public function deleteCategory() {
 		$model = $this->getModel('CategoryForm');
 		
@@ -99,6 +106,20 @@ class FormController extends BaseController {
 
 		$this->setRedirect(Route::_(
 			Uri::getInstance()->current() . '?task=Display.categoryForm',
+			false,
+		));
+	}
+
+
+	public function toggleIsHidden() {
+		$model = $this->getModel('ImageDetails');
+
+		$imageId = Factory::getApplication()->input->getVar('id');
+
+		$model->toggleIsHidden($imageId);
+
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current(),
 			false,
 		));
 	}

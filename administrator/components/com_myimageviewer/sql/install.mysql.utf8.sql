@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `#__myImageViewer_image` (
 	`categoryId` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
 	`imageDescription` VARCHAR(12000),
 	`imageUrl` VARCHAR(200) NOT NULL,
+	`isHidden` BOOLEAN NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`categoryId`) REFERENCES `#__myImageViewer_imageCategory` (`id`)
 ) ENGINE = InnoDB;
