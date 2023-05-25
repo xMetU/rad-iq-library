@@ -111,7 +111,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							?>
 						
 							<?php if ($render) : ?>
-								<td class="col-3 pt-0 pb-3">
+								<td class="col-3 pt-0 pb-4 px-3">
 									<div class="card p-3 pb-0">
 										<?php if (CheckGroup::isGroup("Manager") && $item->isHidden) : ?>
 											<div class="card-overlay d-flex">
@@ -132,11 +132,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							<?php endif; ?>
 						<?php endforeach; ?>
 					<?php else: ?>
-						<tr>
-							<td>
-								<p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
-							</td>
-						</tr>
+						<td>
+							<p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
+						</td>
 					<?php endif; ?>
 				</tr>
 			</tbody>

@@ -136,29 +136,17 @@ class DisplayController extends BaseController {
     }
 
 
-    public function hideQuiz() {
-        
+    public function toggleIsHidden() {
         $model = $this->getModel('AllQuiz');
 
-        $quizId = Factory::getApplication()->input->post->getInt('hide');
+		$quizId = Factory::getApplication()->input->getVar('id');
 
-        if($quizId) {
+		$model->toggleIsHidden($quizId);
 
-            $num = $model->checkHidden($quizId);
-            
-            if($num){
-                if($num == 0) {
-                    $model->setQuizHiddenStatus($quizId, 1);
-                }
-                else {
-                    $model->setQuizHiddenStatus($quizId, 0);
-                }
-            }
-            else{
-                $model->setQuizHiddenStatus($quizId, 1);
-            }
-        }
-        $this->setRedirect(Uri::getInstance()->current() . Route::_('?&task=Display.display', false));
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current(),
+			false,
+		));
     }
 
 

@@ -22,7 +22,7 @@ class AllQuizModel extends ListModel {
         $db = $this->getDatabase();
 
         $category = Factory::getApplication()->input->get('category');
-        $search = Factory::getApplication()->input->getVar('searchText');
+        $search = Factory::getApplication()->input->getVar('search');
 
         // Create a new query object.
         $query = $db->getQuery(true)
@@ -37,7 +37,7 @@ class AllQuizModel extends ListModel {
             $query = $query->where($db->quoteName('i.categoryId') . '=' . $category);
         }
         if (isset($search)) {
-            $query->where($db->quoteName('q.title') . ' LIKE %' . $search . '%');
+            $query->where($db->quoteName('q.title') . ' LIKE ' . $db->quote('%' . $search . '%'));
         }
 
         return $query;
@@ -47,34 +47,18 @@ class AllQuizModel extends ListModel {
 		return Factory::getApplication()->bootComponent('com_myQuiz')->getMVCFactory()->createTable($type);
 	}
 
-    public function checkHidden($quizId) {
-
-        $table = $this->getTable();
-        $table->load($quizId);
-
-        $num = $table->isHidden;
-
-        return $num;
-    }
-
-    public function setQuizHiddenStatus($quizId, $hide) {
+    public function toggleIsHidden($quizId) {
         $db = $this->getDatabase();
         
         $query = $db->getQuery(true)
             ->update($db->quoteName('#__myQuiz_quiz'))
-            ->set($db->quoteName('isHidden') . ' = ' . $db->quote($hide))
+            ->set($db->quoteName('isHidden') . ' = NOT ' . $db->quoteName('isHidden'))
             ->where($db->quoteName('id') . ' = ' . $db->quote($quizId));
         
         $db->setQuery($query);
 		
 		try {
-			$result = $db->execute();
-            if($hide == 1) {
-                Factory::getApplication()->enqueueMessage("Quiz hidden successfully.");
-            }
-            else{
-                Factory::getApplication()->enqueueMessage("Quiz unhidden successfully.");
-            }		
+			$result = $db->execute();	
 			return true;
 		} catch (\Exception $e) {
 			Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
