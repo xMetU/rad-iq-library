@@ -31,7 +31,14 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
         <!-- User Check to see if they belong to Manager user group. Only managers should access these functions -->
         <?php if (CheckGroup::isGroup("Manager")) : ?>
             <button id="delete-button" class="btn float-end">Delete</button>
-            <a class="btn me-3 float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm&id=' . $this->item->id; ?>">Edit</a>
+            <a 
+                class="btn me-3 float-end"
+                href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm&id=' . $this->item->id; ?>"
+            >Edit</a>
+            <a 
+                href="<?php echo Uri::getInstance()->current() . '?task=Form.toggleIsHidden&id=' . $this->item->id; ?>"
+                class="btn me-3 float-end"
+            ><?php echo $this->item->isHidden ? "Show" : "Hide"; ?></a>
         <?php endif; ?>
 	</div>
 </div>

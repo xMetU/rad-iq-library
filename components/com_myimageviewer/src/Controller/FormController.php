@@ -76,7 +76,7 @@ class FormController extends BaseController {
 		}
 
 		$this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display',
+			Uri::getInstance()->current(),
 			false,
 		));
 	}
@@ -106,6 +106,20 @@ class FormController extends BaseController {
 
 		$this->setRedirect(Route::_(
 			Uri::getInstance()->current() . '?task=Display.categoryForm',
+			false,
+		));
+	}
+
+
+	public function toggleIsHidden() {
+		$model = $this->getModel('ImageDetails');
+
+		$imageId = Factory::getApplication()->input->getVar('id');
+
+		$model->toggleIsHidden($imageId);
+
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current(),
 			false,
 		));
 	}

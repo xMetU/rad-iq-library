@@ -33,41 +33,31 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<!-- === MANAGE === -->
 	<div class="col-10 row ps-5">
 		<div class="col">
-			<!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
 			<?php if (CheckGroup::isGroup("Manager")) : ?>
-				<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage</a>
+				<a class="btn me-3" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Categories</a>
+				<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>">New Image</a>
 			<?php endif; ?>
 		</div>
-		<div class="col text-center">
+
+		<div class="col-6 text-center">
 			<h3>Image Viewers</h3>
 		</div>
 
-		<!-- === SEARCH === -->
-		<div class="col pl-3">
-			<form 
-				action="<?php echo Uri::getInstance()->current() . '?task=Display.display'?>"
-				method="post"
-				id="searchForm"
-				name="searchForm"
+		<div class="col">
+			<form
+				action="<?php echo Uri::getInstance()->current(); ?>"
+				method="get"
 				enctype="multipart/form-data"
 			>
-				<div class="row">
-					<div class="col-11"><input type="text" id="searchText" name="searchText" class="form-control" placeholder="search..."/></div>
-					<div class="col-1"><i id="searchIcon" class="icon-search icon-white"></i></div>
-				</div>
-				
+				<input
+					type="search"
+					name="search"
+					id="text"
+					class="form-control float-end"
+					placeholder="Search image viewers..."
+					value="<?php if ($this->search) echo $this->search; ?>"
+				/>
 			</form>
-		</div>
-		
-
-		<!-- === NEW IMAGE === -->
-		<div class="col">
-			<!-- User Check to see if they belong to Manager user group. Only managers should access this function -->
-			<?php if (CheckGroup::isGroup("Manager")) : ?>
-				<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>">
-					<i class="icon-plus icon-white"></i> New
-				</a>
-			<?php endif; ?>
 		</div>
 	</div>
 </div>
@@ -102,108 +92,54 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		<table id="images" class="table table-borderless">
 			<tfoot>
 				<tr>
-					<td class="d-flex justify-content-center p-2" colspan="3">
+					<td class="d-flex justify-content-center p-2" colspan="4">
 						<?php echo $this->pagination->getListFooter(); ?>
 					</td>
 				</tr>
 			</tfoot>
 
 			<tbody>
-				<form action="<?php echo Uri::getInstance()->current() . '?&task=Display.hideImage' ?>"
-						method="post"
-						id="adminForm"
-						name="adminForm"
-						enctype="multipart/form-data" >
-					
-					<tr class="row">
-						<?php if (!empty($this->items)) : ?>	
-							<?php foreach ($this->items as $item) : ?>
-							
-								<!-- Render all images including hidden for managers, with manager functions -->
-								<?php if (CheckGroup::isGroup("Manager")) : ?>
-									<?php $render = true; ?>
-
-								<!-- Only render images that aren't hidden for non-managers -->    
-								<?php elseif ($item->isHidden == 0) : ?>
-									<?php $render = true; ?>
-								
-								<!-- Image is hidden and shouldn't be viewed --> 
-								<?php else : ?>
-									<?php $render = false; ?>
-								<?php endif; ?>
-							
-								<!-- Only show allowed elements -->
-								<?php if ($render) : ?>	
-									<td class="col-3 pt-3">
-										<div class="card p-3 pb-0">
-											<img
-												id="<?php echo $item->id; ?>"
-												class="card-img-top"
-												src="<?php echo $item->imageUrl; ?>"
-											/>
-
-											<div class="card-body text-center p-2">
-												<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
+				<tr class="row">
+					<?php if (!empty($this->items)) : ?>	
+						<?php foreach ($this->items as $item) : ?>
+							<?php
+								if (CheckGroup::isGroup("Manager")) {
+									$render = true;
+								} else {
+									$render = !$item->isHidden;
+								}
+							?>
+						
+							<?php if ($render) : ?>
+								<td class="col-3 pt-0 pb-3">
+									<div class="card p-3 pb-0">
+										<?php if (CheckGroup::isGroup("Manager") && $item->isHidden) : ?>
+											<div class="card-overlay d-flex">
+												<h5 class="m-auto">Hidden</h5>
 											</div>
+										<?php endif; ?>
+										<img
+											id="<?php echo $item->id; ?>"
+											class="card-img-top"
+											src="<?php echo $item->imageUrl; ?>"
+										/>
+
+										<div class="card-body text-center p-2">
+											<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
 										</div>
-
-										<!-- HIDE QUIZ -->
-										<div class="row">
-											<?php if (CheckGroup::isGroup("Manager")) : ?>								
-
-												<div class="row text-center">
-													<label for="hideImage"><u><?php echo Text::_("Hide/Unhide") ?></u></label>
-												</div>
-
-												<div class="row">
-													<div class="col-3 text-center">
-														<input type="checkbox" id="hide" name="hide" value="<?php echo $item->id; ?>"/>
-													</div>
-
-													<?php if ($item->isHidden == 1) : ?>
-															<div class="col-1"><i class="icon-delete"></i></div>
-															<div class="col"><?php echo Text::_("Hidden") ?></div>
-														<?php else : ?>
-															<div class="col-1"><i class="icon-checkmark-circle"></i></div>
-															<div class="col"><?php echo Text::_("Visible") ?></div>
-														<?php endif; ?>																										
-												</div>																																														
-											<?php endif; ?>									
-										</div>	
-									</td>																			
-								<?php endif; ?>	
-
-							<?php endforeach; ?>
-						<?php endif; ?>
-					</tr>
-				<?php else: ?>
-					<tr>
-						<td>
-							<p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
-						</td>
-					</tr>
-				<?php endif; ?>
+									</div>
+								</td>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<tr>
+							<td>
+								<p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
+							</td>
+						</tr>
+					<?php endif; ?>
+				</tr>
 			</tbody>
 		</table>
 	</div>	
 </div>
-
-<script>
-    const hide = Array.from(document.getElementsByName("hide"));
-
-	hide.forEach(box => {
-		box.onclick = () => {
-			let form = document.getElementById("adminForm");
-			form.submit();  
-		}
-	});
-
-
-	const search = document.getElementById("searchIcon");
-	search.onclick = () => {
-		let form = document.getElementById("searchForm");
-		form.submit();
-	}
-
-</script>
-

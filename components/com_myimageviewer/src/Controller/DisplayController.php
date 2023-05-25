@@ -86,31 +86,4 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-
-    public function hideImage() {     
-        $model = $this->getModel('Images');
-
-        $imageId = Factory::getApplication()->input->post->getInt('hide');
-
-        if($imageId) {
-            $num = $model->checkHidden($imageId);
-                
-            if($num){
-                if($num == 0) {
-                    $model->setImageHiddenStatus($imageId, 1);
-                }
-                else {
-                    $model->setImageHiddenStatus($imageId, 0);
-                }
-            }
-            else{
-                $model->setImageHiddenStatus($imageId, 1);
-            }
-        }
-        $this->setRedirect(Uri::getInstance()->current() . Route::_('?&task=Display.display', false));
-    }
-
-
-
-
 }

@@ -20,7 +20,7 @@ class ImagesModel extends ListModel {
         $db = $this->getDatabase();
 
         $category = Factory::getApplication()->input->getVar('category');
-        $search = Factory::getApplication()->input->getVar('searchText');
+        $search = Factory::getApplication()->input->getVar('search');
 
         $query = $db->getQuery(true)
             ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id', 'isHidden']))
@@ -34,7 +34,7 @@ class ImagesModel extends ListModel {
             $query = $query->where($db->quoteName('c.id') . '=' . $category);
         }
         if (isset($search)) {
-            $query->where($db->quoteName('image.imageName') . ' LIKE %' . $search . '%');
+            $query = $query->where($db->quoteName('image.imageName') . ' LIKE ' . $db->quote('%' . $search . '%'));
         }
             
         return $query;
@@ -45,47 +45,8 @@ class ImagesModel extends ListModel {
         $this->setState('list.limit', 0);
     }
 
-
     public function getTable($type = 'Image', $prefix = '', $config = array()) {
 		return Factory::getApplication()->bootComponent('com_myImageViewer')->getMVCFactory()->createTable($type);
 	}
-
-
-    public function checkHidden($imageId) {
-
-        $table = $this->getTable();
-        $table->load($imageId);
-
-        $num = $table->isHidden;
-
-        return $num;
-    }
-
-    
-    public function setImageHiddenStatus($imageId, $hide) {
-        $db = $this->getDatabase();
-        
-        $query = $db->getQuery(true)
-            ->update($db->quoteName('#__myImageViewer_image'))
-            ->set($db->quoteName('isHidden') . ' = ' . $db->quote($hide))
-            ->where($db->quoteName('id') . ' = ' . $db->quote($imageId));
-        
-        $db->setQuery($query);
-		
-		try {
-			$result = $db->execute();
-
-            if($hide == 1) {
-                Factory::getApplication()->enqueueMessage("Image hidden successfully.");
-            }
-            else{
-                Factory::getApplication()->enqueueMessage("Image unhidden successfully.");
-            }		
-			return true;
-		} catch (\Exception $e) {
-			Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
-			return false;
-		}
-    }
 
 }

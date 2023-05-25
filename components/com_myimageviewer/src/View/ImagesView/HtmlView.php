@@ -21,6 +21,7 @@ class HtmlView extends BaseHtmlView {
         $this->pagination = $this->get('Pagination');
 
         $this->category = Factory::getApplication()->input->getVar('category');
+        $this->search = Factory::getApplication()->input->getVar('search');
         // Call the parent display to display the layout file
         parent::display($template);
     }
