@@ -24,25 +24,18 @@ class ImageDetailsModel extends ItemModel {
         $table1 = $this->getTable('Image');
         $table1->load($id);
 
+        $table2 = $this->getTable('ImageCategory');
+        $table2->load($table1->categoryId);
+
         $item->id = $table1->id;
         $item->name = $table1->imageName;
         $item->categoryId = $table1->categoryId;
-        $item->category = $this->getCategoryName($table1->id);
+        $item->category = $table2->categoryName;
         $item->description = $table1->imageDescription;
         $item->url = $table1->imageUrl;
         $item->isHidden = $table1->isHidden;
 
         return $item;
-    }
-
-    public function getCategoryName($imageId) {
-        $table1 = $this->getTable('Image');
-        $table1->load($imageId);
-    
-        $table2 = $this->getTable('ImageCategory');
-        $table2->load($table1->categoryId);
-
-        return $table2->categoryName;
     }
 
     public function deleteImage($imageId) {

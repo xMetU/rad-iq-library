@@ -31,7 +31,7 @@ class FormController extends BaseController {
 		$folderUrl = PATH . $categoryName;
 		Folder::create($folderUrl);
 
-		// Save the file
+		// Get paths
 		$name = $data["imageName"] . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
 		$tmp = $file['tmp_name'];
 
@@ -58,8 +58,6 @@ class FormController extends BaseController {
 		$data = Factory::getApplication()->input->getArray();
 
 		if ($model->updateImage($data)) {
-			// TODO: move image to a different folder when category is updated
-
 			$this->setRedirect(Route::_(
 				Uri::getInstance()->current() . '?task=Display.imageDetails&id=' . $data['imageId'],
 				false,
@@ -70,7 +68,6 @@ class FormController extends BaseController {
 				false,
 			));
 		}
-		
 	}
 
 	public function deleteImage() {
@@ -78,14 +75,13 @@ class FormController extends BaseController {
 
 		$data = Factory::getApplication()->input->getArray();
 		
-		$folderUrl = PATH . $model->getCategoryName($data['imageId']);
-
 		// Delete file if db delete is successful
 		if ($model->deleteImage($data['imageId'])) {
 			if (File::exists($data['imageUrl'])) {
 				File::delete($data['imageUrl']);
 
 				// Delete category folder if empty
+				$folderUrl = pathinfo($data['imageUrl'], PATHINFO_DIRNAME);
 				if (count(Folder::files($folderUrl)) == 0) {
 					Folder::delete($folderUrl);
 				}
