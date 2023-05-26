@@ -33,7 +33,6 @@ class ImageFormModel extends BaseModel {
 	public function saveImage($data) {
 		$db = Factory::getDbo();
 		$columns = array('imageName', 'categoryId', 'imageDescription', 'imageUrl');
-		
 		$query = $db->getQuery(true)
 			->insert($db->quoteName('#__myImageViewer_image'))
 			->columns($db->quoteName($columns))

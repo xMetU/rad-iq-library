@@ -23,8 +23,8 @@ class FormController extends BaseController {
 	public function saveImage() {
 		$model = $this->getModel('ImageForm');
 		
-		$data = $_POST;
-		$file = Factory::getApplication()->input->files->get('imageUrl');		
+		$data = Factory::getApplication()->input->post->getArray();
+		$file = Factory::getApplication()->input->files->get('imageUrl');
 		
 		$name = $file['name'];
 		$tmp = $file['tmp_name'];
@@ -47,31 +47,28 @@ class FormController extends BaseController {
 		));
     }
 
-
 	public function updateImage() {
 		$model = $this->getModel('ImageForm');
 
-		$data = $_POST;
+		$data = Factory::getApplication()->input->getArray();
 
 		$model->updateImage($data);
 		
 		$this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.imageForm',
+			Uri::getInstance()->current() . '?task=Display.imageDetails&id=' . $data['imageId'],
 			false,
 		));
 	}
 
-
 	public function deleteImage() {
 		$model = $this->getModel('ImageDetails');
+
+		$data = Factory::getApplication()->input->getArray();
 		
-		$data = $_POST;
-		$imageUrl = $data['imageUrl'];
-		$imageId = $data['imageId'];
 		// Error messages handled by ImageFormModel.deleteImage
-		if ($model->deleteImage($imageId)) {
-			if (File::exists($imageUrl)) {
-				File::delete($imageUrl);
+		if ($model->deleteImage($data['imageId'])) {
+			if (File::exists($data['imageUrl'])) {
+				File::delete($data['imageUrl']);
 			}
 		}
 
@@ -81,13 +78,12 @@ class FormController extends BaseController {
 		));
 	}
 
-
     public function saveCategory() {
 		$model = $this->getModel('CategoryForm');
+		
+		$categoryName = Factory::getApplication()->input->getVar('categoryName');
 
-		$data = $_POST;
-
-		$model->saveCategory($data);
+		$model->saveCategory($categoryName);
 
 		$this->setRedirect(Route::_(
 			Uri::getInstance()->current() . '?task=Display.categoryForm',
@@ -95,12 +91,10 @@ class FormController extends BaseController {
 		));
     }
 
-	
 	public function deleteCategory() {
 		$model = $this->getModel('CategoryForm');
 		
-		$data = $_POST;
-		$categoryId = $data['categoryId'];
+		$categoryId = Factory::getApplication()->input->getVar('categoryId');
 
 		$model->deleteCategory($categoryId);
 
@@ -109,7 +103,6 @@ class FormController extends BaseController {
 			false,
 		));
 	}
-
 
 	public function toggleIsHidden() {
 		$model = $this->getModel('ImageDetails');
