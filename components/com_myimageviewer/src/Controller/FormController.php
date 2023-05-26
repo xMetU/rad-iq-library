@@ -15,31 +15,32 @@ use Joomla\CMS\Filesystem\File;
  * @package     Joomla.Site
  * @subpackage  com_myImageViewer
  */
-
+const PATH = JPATH_ROOT . '/media/com_myImageViewer/images/';
 
 class FormController extends BaseController {
-    
 	
 	public function saveImage() {
 		$model = $this->getModel('ImageForm');
 		
 		$data = Factory::getApplication()->input->post->getArray();
 		$file = Factory::getApplication()->input->files->get('imageUrl');
-		
-		$name = $file['name'];
-		$tmp = $file['tmp_name'];
-		$categoryName = $model->getCategory($data['categoryId'])->categoryName;
 
-		$path = JPATH_ROOT . '/media/com_myImageViewer/images/';
-		$folderUrl = $path . $categoryName;
-		$uploadUrl = $path . $categoryName . '/' . $name;
+		// Create the category folder
+		$categoryName = $model->getCategory($data['categoryId'])->categoryName;
+		$folderUrl = PATH . $categoryName;
+		Folder::create($folderUrl);
+
+		// Save the file
+		$name = $data["imageName"] . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+		$tmp = $file['tmp_name'];
+
+		$uploadUrl = PATH . $categoryName . '/' . $name;
 		$imageUrl = 'media/com_myImageViewer/images/' . $categoryName . '/' . $name;
 
-		Folder::create($folderUrl);
-		File::upload($tmp, $uploadUrl);
-
 		array_push($data, $imageUrl);
-
+		if ($model->saveImage($data)) {
+			File::upload($tmp, $uploadUrl);
+		}
 		$model->saveImage($data);
         $this->setRedirect(Route::_(
 			Uri::getInstance()->current() . '?task=Display.imageForm',
@@ -66,9 +67,14 @@ class FormController extends BaseController {
 		$data = Factory::getApplication()->input->getArray();
 		
 		// Error messages handled by ImageFormModel.deleteImage
+		$folderUrl = PATH . $model->getCategoryName($data['imageId']);
 		if ($model->deleteImage($data['imageId'])) {
 			if (File::exists($data['imageUrl'])) {
 				File::delete($data['imageUrl']);
+
+				if (count(Folder::files($folderUrl)) == 0) {
+					Folder::delete($folderUrl);
+				}
 			}
 		}
 

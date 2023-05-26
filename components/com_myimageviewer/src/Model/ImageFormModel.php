@@ -44,7 +44,11 @@ class ImageFormModel extends BaseModel {
 			Factory::getApplication()->enqueueMessage("Image saved successfully.");
 			return true;
 		} catch (\Exception $e) {
-			Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred, please contact your administrator.");
+			if (str_contains($e->getMessage(), "Duplicate")) {
+				Factory::getApplication()->enqueueMessage("Error: An image already exists with that name and category.");
+			} else {
+				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+			}
 			return false;
 		}
 	}
@@ -66,7 +70,11 @@ class ImageFormModel extends BaseModel {
 			Factory::getApplication()->enqueueMessage("Image updated successfully.");
 			return true;
 		} catch (\Exception $e) {
-			Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+			if (str_contains($e->getMessage(), "Duplicate")) {
+				Factory::getApplication()->enqueueMessage("Error: An image already exists with that name and category.");
+			} else {
+				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+			}
 			return false;
 		}
 	}

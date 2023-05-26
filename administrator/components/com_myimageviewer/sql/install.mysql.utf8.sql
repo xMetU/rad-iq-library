@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS `#__myImageViewer_image` (
 	`imageUrl` VARCHAR(200) NOT NULL,
 	`isHidden` BOOLEAN NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`categoryId`) REFERENCES `#__myImageViewer_imageCategory` (`id`)
+	FOREIGN KEY (`categoryId`) REFERENCES `#__myImageViewer_imageCategory` (`id`),
+	UNIQUE KEY `unique_imageName_categoryId` (`imageName`, `categoryId`)
 ) ENGINE = InnoDB;
 
 INSERT INTO `#__myImageViewer_imageCategory` (`categoryName`) VALUES
