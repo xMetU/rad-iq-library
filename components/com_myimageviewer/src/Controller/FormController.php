@@ -86,14 +86,14 @@ class FormController extends BaseController {
 		if ($model->deleteImage($data['imageId'])) {
 			if (File::exists($data['imageUrl'])) {
 				File::delete($data['imageUrl']);
+			}
+			if (File::exists($data['imageUrl']) . '.thumb') {
 				File::delete($data['imageUrl'] . '.thumb');
-
-				// Delete category folder if empty
-				$folderUrl = pathinfo($data['imageUrl'], PATHINFO_DIRNAME);
-
-				if (count(Folder::files($folderUrl)) + count(Folder::folders($folderUrl)) == 0) {
-					Folder::delete($folderUrl);
-				}
+			}
+			// Delete parent folder if empty
+			$folderUrl = pathinfo($data['imageUrl'], PATHINFO_DIRNAME);
+			if (count(Folder::files($folderUrl)) + count(Folder::folders($folderUrl)) == 0) {
+				Folder::delete($folderUrl);
 			}
 		}
 
