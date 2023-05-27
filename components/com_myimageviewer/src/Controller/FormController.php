@@ -82,7 +82,8 @@ class FormController extends BaseController {
 
 				// Delete category folder if empty
 				$folderUrl = pathinfo($data['imageUrl'], PATHINFO_DIRNAME);
-				if (count(Folder::files($folderUrl)) == 0) {
+
+				if (count(Folder::files($folderUrl)) + count(Folder::folders($folderUrl)) == 0) {
 					Folder::delete($folderUrl);
 				}
 			}

@@ -49,14 +49,18 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				method="get"
 				enctype="multipart/form-data"
 			>
-				<input
-					type="search"
-					name="search"
-					id="text"
-					class="form-control float-end"
-					placeholder="Search image viewers..."
-					value="<?php if ($this->search) echo $this->search; ?>"
-				/>
+				<div class="input-group">
+					<input
+						type="search"
+						name="search"
+						id="text"
+						class="form-control float-end"
+						placeholder="Search..."
+						value="<?php if ($this->search) echo $this->search; ?>"
+					/>
+					<button type="submit" class="btn"><i class="fas fa-search"></i></button>
+				</div>
+				
 			</form>
 		</div>
 	</div>
