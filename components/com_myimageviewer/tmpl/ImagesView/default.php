@@ -125,7 +125,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 										<img
 											id="<?php echo $item->id; ?>"
 											class="card-img-top"
-											src="<?php echo $item->imageUrl; ?>"
+											src="<?php echo $item->imageUrl . '.thumb'; ?>"
 										/>
 
 										<div class="card-body text-center p-2">

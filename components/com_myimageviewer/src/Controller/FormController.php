@@ -10,40 +10,47 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Image\Image;
 
 /**
  * @package     Joomla.Site
  * @subpackage  com_myImageViewer
  */
-const PATH = JPATH_ROOT . '/media/com_myImageViewer/images/';
 
 class FormController extends BaseController {
 	
 	public function saveImage() {
 		$model = $this->getModel('ImageForm');
 		
-		// Get request params, file location
+		// Get request params
 		$data = Factory::getApplication()->input->post->getArray();
 		$file = Factory::getApplication()->input->files->get('imageUrl');
-
-		// Create the category folder
-		$categoryName = $model->getCategory($data['categoryId'])->categoryName;
-		$folderUrl = PATH . $categoryName;
-		Folder::create($folderUrl);
-
-		// Get paths
-		$name = $data["imageName"] . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+		
+		// Temporary file path on the server
 		$tmp = $file['tmp_name'];
 
-		$uploadUrl = PATH . $categoryName . '/' . $name;
+		// Create and append imageUrl
+		$name = $data["imageName"] . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+		$categoryName = $model->getCategory($data['categoryId'])->categoryName;
 		$imageUrl = 'media/com_myImageViewer/images/' . $categoryName . '/' . $name;
-
-		// Add imageUrl to the data
 		array_push($data, $imageUrl);
 
-		// Upload file if save is successful
 		if ($model->saveImage($data)) {
-			File::upload($tmp, $uploadUrl);
+			// Create the category folder
+			$folderUrl = JPATH_ROOT . '/media/com_myImageViewer/images/' . $categoryName;
+			$uploadUrl = $folderUrl . '/' . $name;
+			Folder::create($folderUrl);
+
+			// Create and save main copy
+			$image = new Image($tmp);
+			$image->toFile($uploadUrl);
+
+			// Create and save thumbnail copy
+			$thumbImage = $image->createThumbs(['200x200']);
+			$thumbImage[0]->toFile($uploadUrl . '.thumb');
+
+			// Clear temporary file
+			unlink($tmp);
 		}
 
         $this->setRedirect(Route::_(
@@ -75,10 +82,11 @@ class FormController extends BaseController {
 
 		$data = Factory::getApplication()->input->getArray();
 		
-		// Delete file if db delete is successful
+		// Delete files if db delete is successful
 		if ($model->deleteImage($data['imageId'])) {
 			if (File::exists($data['imageUrl'])) {
 				File::delete($data['imageUrl']);
+				File::delete($data['imageUrl'] . '.thumb');
 
 				// Delete category folder if empty
 				$folderUrl = pathinfo($data['imageUrl'], PATHINFO_DIRNAME);
