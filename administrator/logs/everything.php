@@ -75,3 +75,29 @@
 2023-05-23T19:18:56+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.65 seconds
 2023-05-24T11:25:17+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.38 seconds
 2023-05-24T11:25:18+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-05-27T06:21:31+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 1.10 seconds
+2023-05-27T06:21:31+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-05-27T06:21:47+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.64 seconds
+2023-05-27T06:21:48+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.71 seconds
+2023-05-27T09:32:38+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Joomla\CMS\Router\Exception\RouteNotFoundException thrown with message "Page not found". Stack trace: #0 [ROOT]\libraries\src\Application\SiteApplication.php(744): Joomla\CMS\Router\Router->parse(Object(Joomla\CMS\Uri\Uri), true)
+#1 [ROOT]\libraries\src\Application\SiteApplication.php(232): Joomla\CMS\Application\SiteApplication->route()
+#2 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#3 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#4 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+2023-05-27T09:32:57+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Joomla\CMS\Router\Exception\RouteNotFoundException thrown with message "Page not found". Stack trace: #0 [ROOT]\libraries\src\Application\SiteApplication.php(744): Joomla\CMS\Router\Router->parse(Object(Joomla\CMS\Uri\Uri), true)
+#1 [ROOT]\libraries\src\Application\SiteApplication.php(232): Joomla\CMS\Application\SiteApplication->route()
+#2 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#3 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#4 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+2023-05-27T11:29:22+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Joomla\CMS\Router\Exception\RouteNotFoundException thrown with message "Page not found". Stack trace: #0 [ROOT]\libraries\src\Application\SiteApplication.php(744): Joomla\CMS\Router\Router->parse(Object(Joomla\CMS\Uri\Uri), true)
+#1 [ROOT]\libraries\src\Application\SiteApplication.php(232): Joomla\CMS\Application\SiteApplication->route()
+#2 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#3 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#4 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+2023-05-27T12:46:56+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.25 seconds
+2023-05-27T12:46:56+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-05-27T18:48:42+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.69 seconds
+2023-05-27T18:48:42+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
