@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package     Joomla.Administrator
+ * @package     Joomla.Site
  * @subpackage  com_myImageViewer
  */
 
@@ -40,7 +40,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col-10 row ps-5">
 		<div class="col">
 			<?php if (CheckGroup::isGroup("Manager")) : ?>
-				<a class="btn me-3" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Categories</a>
+				<a class="btn me-3" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
 				<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>"><i class="icon-plus icon-white"></i> New Image</a>
 			<?php endif; ?>
 		</div>
