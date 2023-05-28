@@ -32,12 +32,12 @@ class FormController extends BaseController {
 		// Create and append imageUrl
 		$name = $data["imageName"] . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
 		$categoryName = $model->getCategory($data['categoryId'])->categoryName;
-		$imageUrl = 'media/com_myImageViewer/images/' . $categoryName . '/' . $name;
+		$imageUrl = 'media/com_myimageviewer/images/' . $categoryName . '/' . $name;
 		array_push($data, $imageUrl);
 
 		if ($model->saveImage($data)) {
 			// Create the category folder
-			$folderUrl = JPATH_ROOT . '/media/com_myImageViewer/images/' . $categoryName;
+			$folderUrl = JPATH_ROOT . '/media/com_myimageviewer/images/' . $categoryName;
 			$uploadUrl = $folderUrl . '/' . $name;
 			Folder::create($folderUrl);
 
