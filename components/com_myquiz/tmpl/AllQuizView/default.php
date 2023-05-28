@@ -102,13 +102,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <tr class="row">
                     <?php if (!empty($this->items)) : ?>
 						<?php foreach ($this->items as $item) : ?>
-                            <?php
-                                if (CheckGroup::isGroup("Manager")) {
-                                    $render = true;
-                                } else {
-                                    $render = !$item->isHidden;
-                                }
-                            ?>
+                            <?php $render = CheckGroup::isGroup("Manager") ? true : !$item->isHidden; ?>
                             <?php if ($render) : ?>
                                 <td class="col-12 pt-0 pb-4 px-3">
                                     <div class="card p-3">
@@ -164,21 +158,23 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     </div>
 </div>
 
-<!-- Delete confirmation -->
-<div id="delete-confirmation" class="d-none">
-    <form
-        action="<?php echo Uri::getInstance()->current() . '?task=Display.deleteQuiz'; ?>"
-        method="post"
-        enctype="multipart/form-data"
-    >
-        <input type="hidden" name="quizId"/>
+<?php if (CheckGroup::isGroup("Manager")) : ?>
+    <!-- Delete confirmation -->
+    <div id="delete-confirmation" class="d-none">
+        <form
+            action="<?php echo Uri::getInstance()->current() . '?task=Display.deleteQuiz'; ?>"
+            method="post"
+            enctype="multipart/form-data"
+        >
+            <input type="hidden" name="quizId"/>
 
-        <div class="overlay-background d-flex">
-            <div class="m-auto text-center">
-                <h5 class="mb-4"><!-- Message --></h5>
-                <button id="delete-confirm" class="btn me-3">Yes, remove it</button>
-                <button id="delete-cancel" class="btn ms-3">No, go back</button> 
+            <div class="overlay-background d-flex">
+                <div class="m-auto text-center">
+                    <h5 class="mb-4"><!-- Message --></h5>
+                    <button id="delete-confirm" class="btn me-3">Yes, remove it</button>
+                    <button id="delete-cancel" class="btn ms-3">No, go back</button> 
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+<?php endif; ?>

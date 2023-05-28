@@ -106,14 +106,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<tr class="row">
 					<?php if (!empty($this->items)) : ?>	
 						<?php foreach ($this->items as $item) : ?>
-							<?php
-								if (CheckGroup::isGroup("Manager")) {
-									$render = true;
-								} else {
-									$render = !$item->isHidden;
-								}
-							?>
-						
+							<?php $render = CheckGroup::isGroup("Manager") ? true : !$item->isHidden; ?>
 							<?php if ($render) : ?>
 								<td class="col-3 pt-0 pb-4 px-3">
 									<div class="card p-3 pb-0">

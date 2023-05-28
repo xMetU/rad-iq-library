@@ -91,22 +91,24 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
     </div>
 </div>
 
-<!-- Delete confirmation -->
-<div id="delete-confirmation" class="d-none">
-    <form
-        action="<?php echo Uri::getInstance()->current() . '?task=Form.deleteImage'; ?>"
-        method="post"
-        enctype="multipart/form-data"
-    >
-        <input type="hidden" name="imageId" value="<?php echo $this->item->id; ?>"/>
-        <input type="hidden" name="imageUrl" value="<?php echo $this->item->url; ?>">
+<?php if (CheckGroup::isGroup("Manager")) : ?>
+    <!-- Delete confirmation -->
+    <div id="delete-confirmation" class="d-none">
+        <form
+            action="<?php echo Uri::getInstance()->current() . '?task=Form.deleteImage'; ?>"
+            method="post"
+            enctype="multipart/form-data"
+        >
+            <input type="hidden" name="imageId" value="<?php echo $this->item->id; ?>"/>
+            <input type="hidden" name="imageUrl" value="<?php echo $this->item->url; ?>">
 
-        <div class="overlay-background d-flex">
-            <div class="m-auto text-center">
-                <h5 class="mb-4">Are you sure you want to remove <?php echo $this->item->name; ?>?<br/>This action cannot be undone.</h5>
-                <button id="delete-confirm" class="btn me-3">Yes, remove it</button>
-                <button id="delete-cancel" class="btn ms-3">No, go back</button> 
+            <div class="overlay-background d-flex">
+                <div class="m-auto text-center">
+                    <h5 class="mb-4">Are you sure you want to remove <?php echo $this->item->name; ?>?<br/>This action cannot be undone.</h5>
+                    <button id="delete-confirm" class="btn me-3">Yes, remove it</button>
+                    <button id="delete-cancel" class="btn ms-3">No, go back</button> 
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+<?php endif; ?>
