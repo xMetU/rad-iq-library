@@ -81,7 +81,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 <div class="row">
 	<!-- Categories -->
-	<div class="col-2 fixed-height">
+	<div class="col-2 fixed-height-1">
 		<table id="categories" class="w-100">
 			<tbody>
 				<?php if (!empty($this->categories)) : ?>
@@ -105,7 +105,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	</div>
 
 	<!-- Images -->
-	<div class="col-10 row ps-5 fixed-height">
+	<div class="col-10 row ps-5 fixed-height-1">
 		<table id="images" class="table table-borderless">
 			<tfoot>
 				<tr>

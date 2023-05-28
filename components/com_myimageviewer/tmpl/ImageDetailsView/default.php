@@ -57,10 +57,10 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
     </div>
 
     <!-- Category, description -->
-    <div class="col-6">
+    <div class="col-6 fixed-height-2">
         <h2 class="text-break"><?php echo $this->item->name; ?></h2>
 
-        <h5 >Category: <?php echo $this->item->category; ?></h5>
+        <h5>Category: <?php echo $this->item->category; ?></h5>
 
         <hr/>
 
@@ -78,16 +78,18 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
         <div id="controls" class="col-auto rounded">
             <div class="row">
-                <div class="col form-group px-3">
-                    <label for="brightness-input">Brightness:</label>
+                <div class="col rounded px-4 text-center">
+                    <label for="brightness-input">Brightness</label>
                     <input type="range" min="50" max="250" id="brightness-input" class="form-range"/>
                 </div>
-                <div class="col form-group px-3">
-                    <label for="contrast-input">Contrast:</label>
+                <div class="col-auto rounded mx-2 text-center">
+                    Scroll to <br/> Zoom
+                </div>
+                <div class="col rounded px-4 text-center">
+                    <label for="contrast-input">Contrast</label>
                     <input type="range" min="50" max="450" id="contrast-input" class="form-range"/>
                 </div>
             </div>
-            
         </div>
 
         <div class="col">
