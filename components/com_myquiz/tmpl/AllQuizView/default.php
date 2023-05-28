@@ -141,6 +141,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                                 <div class="card-body p-0">
                                                     <h5 class="text-truncate"><?php echo $item->title; ?></h5>
                                                     <p><?php echo $item->description; ?></p>
+                                                    <p><?php echo 'Attempts: ' . $this->model->checkAttempts($this->userId, $item->id) . '/' . $item->attemptsAllowed; ?></p>
                                                     <a 
                                                         class="btn"
                                                         href="<?php
