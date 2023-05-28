@@ -113,6 +113,16 @@ ul.pagination li.page-item.disabled>.page-link {
     pointer-events: none;
 }
 
+/* SUMMARY VIEW */
+#correct {
+    color: green;
+}
+
+#incorrect {
+    color: red;
+}
+
+
 /* SCORES VIEW */
 
 #attempts .row {
