@@ -86,7 +86,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <div class="row form-group">
                 <div class="col">
                     <input type="checkbox" name="isCorrect" value="1"/>
-                    <label for="isCorrect">Is this a correct answer?</label>
+                    <label for="isCorrect">Is this the correct answer?</label>
                 </div>
             
                 <div class="col-auto">
