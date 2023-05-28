@@ -39,9 +39,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
                 class="btn me-3 float-end">
 
                 <?php if($this->item->isHidden): ?>
-                    <i class="icon-eye-open"></i><?php echo " Show" ?>
+                    <i class="icon-eye-open"></i> Show
                 <?php else: ?>
-                    <i class="icon-eye-close"></i><?php echo " Hide" ?>
+                    <i class="icon-eye-close"></i> Hide
                 <?php endif; ?>
             </a>
         <?php endif; ?>

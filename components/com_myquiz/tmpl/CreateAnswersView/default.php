@@ -52,7 +52,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     <?php if ($row['questionNumber'] == $this->questionNumber) : ?>
                         <div class="row p-2 mb-3">
                             <div class="col-1"><?php echo $row['answerNumber']; ?>.</div>
-                            <div class="col-1"><i class="<?php echo $row['isCorrect'] ? " fas fa-check" : " fas fa-times"; ?>"></i></div>
+                            <div class="col-1"><i class="<?php echo $row['isCorrect'] ? " icon-check" : " icon-times"; ?>"></i></div>
                             <div class="col text-truncate"><?php echo $row['answerDescription']; ?></div>
                         </div>
                     <?php endif; ?>

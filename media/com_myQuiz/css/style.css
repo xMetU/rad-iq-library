@@ -6,7 +6,7 @@ body {
 }
 
 .fixed-height {
-    max-height: calc(100vh - 133px);
+    max-height: calc(100vh - 211px);
     overflow: auto;
     scrollbar-width: none;
 }
