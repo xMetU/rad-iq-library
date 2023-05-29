@@ -134,7 +134,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                                 <img
                                                     id="<?php echo $item->imageId; ?>"
                                                     class="card-img-top"
-                                                    src="<?php echo $item->imageUrl; ?>"
+                                                    src="<?php echo $item->imageUrl . '.thumb'; ?>"
                                                 />
                                             </div>
                                             <div class="col">
@@ -163,6 +163,10 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                                             <i class="icon-eye-close"></i> Hide
                                                         <?php endif; ?>
                                                     </a>
+                                                    <a 
+                                                        class="btn mt-2" 
+                                                        href="<?php echo Uri::getInstance()->current() . '?task=Display.createQuiz&id=' . $item->id; ?>"
+                                                    >Edit</a>
                                                     <button id="<?php echo $item->id; ?>" class="delete-button btn mt-2"><i class="icon-delete"></i> Delete</button> 
                                                 </div>
                                                 <?php if ($item->isHidden) : ?>

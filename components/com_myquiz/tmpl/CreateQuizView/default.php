@@ -23,7 +23,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
-		<h3>Create New Quiz</h3>
+        <h3><?php echo ($this->quiz ? "Edit " . $this->quiz->title : "Create New Quiz"); ?></h3>
 	</div>
 	<div class="col"></div>
 </div>
@@ -33,12 +33,16 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 <div class="row justify-content-center">
     <div class="col-8">
         <form 
-            action="<?php echo Uri::getInstance()->current() . '?task=CreateQuiz.processQuiz' ?>"
+            action="<?php echo Uri::getInstance()->current() . ($this->quiz ? '?task=Form.updateQuiz' : '?task=Form.saveQuiz'); ?>"
             method="post"
             id="adminForm"
             name="adminForm"
             enctype="multipart/form-data"
         >
+            <?php if ($this->quiz) : ?>
+				<input type="hidden" name="id" value="<?php echo $this->quiz->id; ?>"/>
+			<?php endif; ?>
+
             <div class="form-group">
                 <label for="title">Title: *</label>
 
@@ -49,16 +53,22 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     placeholder="Enter title..."
                     maxlength="60"
                     required
+                    value="<?php echo $this->quiz ? $this->quiz->title : ""; ?>"
                 />
             </div>
 
             <hr/>
+
             <div class="row">
                 <div class="col form-group">
                     <label for="imageId">Image: *</label>
                     <select name="imageId"  placeholder="Select quiz image..." class="form-control form-select">
+                        <option value="" <?php if (!$this->quiz) echo "selected"; ?>disabled hidden>Select a category</option>
                         <?php foreach ($this->images as $row) : ?>
-                            <option value="<?php echo $row->id; ?>"><?php echo $row->imageName; ?></option>
+                            <option
+                                value="<?php echo $row->id; ?>"
+                                <?php if ($this->quiz && $row->id == $this->quiz->imageId) echo "selected"; ?>
+                            ><?php echo $row->imageName; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -73,6 +83,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         placeholder="Number of attempts allowed..."
                         required
                         min="1"
+                        value="<?php echo $this->quiz ? $this->quiz->attemptsAllowed : ""; ?>"
                     />
                 </div>
             </div>
@@ -89,7 +100,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     maxlength="200"
                     required
                     rows="4"
-                ></textarea>
+                ><?php echo $this->quiz ? $this->quiz->description : ""; ?></textarea>
             </div>
 
             <hr/>
@@ -98,6 +109,12 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 				<button class="btn col-auto">
 					<i class="icon-check icon-white"></i> Done
 				</button>
+                <?php if ($this->quiz): ?>
+                <a
+                    class="btn float-end"
+                    href="<?php echo Uri::getInstance()->current() . '?task=Display.createQuestions&id=' . $this->quiz->id; ?>"
+                >Questions</a>
+                <?php endif; ?>
 			</div>
         </form>
     </div>

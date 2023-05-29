@@ -22,8 +22,8 @@ class AllImagesModel extends ListModel {
         $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
-                ->select($db->quoteName('i.imageName'))
-                ->from($db->quoteName('#__myImageViewer_image', 'i'));
+            ->select('*')
+            ->from($db->quoteName('#__myImageViewer_image', 'i'));
 
         return $query;
     }

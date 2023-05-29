@@ -88,7 +88,7 @@ class DisplayController extends BaseController {
 
         $view = $this->getView('QuizScoresView', $viewFormat);
         $model = $this->getModel('QuizScores');
-        $view->setModel($model, true);   
+        $view->setModel($model, true);
 
         $view->document = $document;
         $view->display();
@@ -101,9 +101,11 @@ class DisplayController extends BaseController {
         $viewFormat = $document->getType();
 
         $view = $this->getView('CreateQuizView', $viewFormat);
-        $model = $this->getModel('AllImages');
+        $model1 = $this->getModel('AllImages');
+        $model2 = $this->getModel('Quiz');
         
-        $view->setModel($model, true);   
+        $view->setModel($model1, true); 
+        $view->setModel($model2); 
 
         $view->document = $document;
         $view->display();

@@ -18,10 +18,9 @@ use Joomla\CMS\Uri\Uri;
 
 class CreateQuizController extends BaseController {
     
-
     public function processQuiz() {
 
-		$model = $this->getModel('CreateQuiz');	
+		$model = $this->getModel('CreateQuiz');
 
         // Get filtered data from post
         $title = $this->input->post->getVar('title');
