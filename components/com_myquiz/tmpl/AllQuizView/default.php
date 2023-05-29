@@ -195,7 +195,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     <!-- Delete confirmation -->
     <div id="delete-confirmation" class="d-none">
         <form
-            action="<?php echo Uri::getInstance()->current() . '?task=Display.deleteQuiz'; ?>"
+            action="<?php echo Uri::getInstance()->current() . '?task=Form.deleteQuiz'; ?>"
             method="post"
             enctype="multipart/form-data"
         >

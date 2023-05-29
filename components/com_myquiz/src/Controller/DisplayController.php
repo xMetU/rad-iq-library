@@ -17,7 +17,6 @@ use Joomla\CMS\Uri\Uri;
 
 class DisplayController extends BaseController {
     
-
     public function display($cachable = false, $urlparams = array()) {     
 
         $document = Factory::getDocument();
@@ -35,7 +34,6 @@ class DisplayController extends BaseController {
         $view->document = $document;
         $view->display();
     }
-
 
     public function questionDisplay() {
 
@@ -62,7 +60,6 @@ class DisplayController extends BaseController {
             $view->display();
         }
     }
-
 
     public function summaryDisplay() {
 
@@ -94,7 +91,6 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-
     public function createQuiz() {
 
         $document = Factory::getDocument();
@@ -111,7 +107,6 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-
     public function createQuestions() {
 
         $document = Factory::getDocument();
@@ -125,7 +120,6 @@ class DisplayController extends BaseController {
         $view->document = $document;
         $view->display();
     }
-
 
     public function createAnswers() {
 
@@ -141,7 +135,6 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-
     public function toggleIsHidden() {
         $model = $this->getModel('AllQuiz');
 
@@ -155,14 +148,6 @@ class DisplayController extends BaseController {
 		));
     }
 
-
-    public function deleteQuiz() {
-        $quizId = $this->input->getInt('quizId');
-        $model = $this->getModel('DeleteQuiz');
-
-        $model->deleteQuiz($quizId);
-
-        $this->setRedirect(Uri::getInstance()->current() . Route::_('?&task=Display.display', false));
-    }
+    
 
 }

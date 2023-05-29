@@ -24,9 +24,9 @@ class FormController extends BaseController {
         $model->saveQuiz($data);
 
         $this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.createQuiz&id=' . $data['id'],
-			false,
-		));
+            Uri::getInstance()->current() . '?task=Display.createQuiz&id=' . $data['id'],
+            false,
+        ));
     }
 
     public function updateQuiz() {
@@ -40,6 +40,16 @@ class FormController extends BaseController {
 			Uri::getInstance()->current() . '?task=Display.createQuiz&id=' . $data['id'],
 			false,
 		));
+    }
+
+    public function deleteQuiz() {
+        $model = $this->getModel('AllQuiz');
+        
+        $quizId = $this->input->getInt('quizId');
+
+        $model->deleteQuiz($quizId);
+
+        $this->setRedirect(Uri::getInstance()->current() . Route::_('?&task=Display.display', false));
     }
 
     // public function deleteQuestion() {

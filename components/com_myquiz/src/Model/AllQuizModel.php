@@ -14,17 +14,25 @@ use Joomla\CMS\Factory;
 
 class AllQuizModel extends ListModel {
 
+    public function getTable($type = 'Quiz', $prefix = '', $config = array()) {
+		return Factory::getApplication()->bootComponent('com_myQuiz')->getMVCFactory()->createTable($type);
+	}
+
+    // Override global list limit so a reasonable number of quizzes are displayed
+    protected function populateState($ordering = null, $direction = null) {
+        $limit = 5;
+        $start = Factory::getApplication()->input->getVar('start');
+        $this->setState('list.limit', $limit);
+        $this->setState('list.start', $start);
+    }
 
     // Get a list of quizzes filtered by category
     public function getListQuery() {
-
-        // Get a db connection.
         $db = $this->getDatabase();
 
-        $category = Factory::getApplication()->input->get('category');
+        $category = Factory::getApplication()->input->getVar('category');
         $search = Factory::getApplication()->input->getVar('search');
 
-        // Create a new query object.
         $query = $db->getQuery(true)
             ->select($db->quoteName(['q.id', 'q.title', 'q.description', 'q.imageId', 'i.imageUrl', 'q.attemptsAllowed', 'q.isHidden']))
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
@@ -42,20 +50,6 @@ class AllQuizModel extends ListModel {
 
         return $query;
     }
-
-
-    // Override global list limit so a reasonable number of quizzes are displayed
-    protected function populateState($ordering = null, $direction = null) {
-        $limit = 5;
-        $start = Factory::getApplication()->input->getVar('start');
-        $this->setState('list.limit', $limit);
-        $this->setState('list.start', $start);
-    }
-
-
-    public function getTable($type = 'Quiz', $prefix = '', $config = array()) {
-		return Factory::getApplication()->bootComponent('com_myQuiz')->getMVCFactory()->createTable($type);
-	}
 
     public function toggleIsHidden($quizId) {
         $db = $this->getDatabase();
@@ -75,5 +69,47 @@ class AllQuizModel extends ListModel {
 			return false;
 		}
     }
-        
+
+    public function deleteQuiz($quizId) {
+		$db = Factory::getDbo();  
+        try {
+            // Delete from quizUserSummary
+            $query = $db->getQuery(true)
+                ->delete($db->quoteName('#__myQuiz_quizUserSummary'))
+                ->where($db->quoteName('quizId') . '=' . $db->quote($quizId));
+            $db->setQuery($query);
+            $db->execute();
+            // Delete from userAnswers
+            $query = $db->getQuery(true)
+                ->delete($db->quoteName('#__myQuiz_userAnswers'))
+                ->where($db->quoteName('quizId') . '=' . $db->quote($quizId));
+            $db->setQuery($query);
+            $db->execute();
+
+            // Delete from answer
+            $query = $db->getQuery(true)
+                ->delete($db->quoteName('#__myQuiz_answer'))
+                ->where($db->quoteName('quizId') . '=' . $db->quote($quizId));
+            $db->setQuery($query);
+            $db->execute();
+
+            // Delete from question
+            $query = $db->getQuery(true)
+                ->delete($db->quoteName('#__myQuiz_question'))
+                ->where($db->quoteName('quizId') . '=' . $db->quote($quizId));
+            $db->setQuery($query);
+            $db->execute();
+
+            // Delete from quiz
+            $query = $db->getQuery(true)
+                ->delete($db->quoteName('#__myQuiz_quiz'))
+                ->where($db->quoteName('id') . '=' . $db->quote($quizId));
+            $db->setQuery($query);
+            $db->execute();
+            Factory::getApplication()->enqueueMessage("Quiz deleted successfully.");
+        } catch (\Exception $e) {
+            Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+        }
+
+	}
 }
