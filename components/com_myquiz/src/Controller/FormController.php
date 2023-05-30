@@ -24,7 +24,7 @@ class FormController extends BaseController {
         $model->saveQuiz($data);
 
         $this->setRedirect(Route::_(
-            Uri::getInstance()->current() . '?task=Display.createQuiz&id=' . $data['id'],
+            Uri::getInstance()->current() . '?task=Display.createQuiz&id=' . Factory::getDbo()->insertId(),
             false,
         ));
     }

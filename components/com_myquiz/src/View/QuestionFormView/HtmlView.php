@@ -1,6 +1,6 @@
 <?php
 
-namespace Kieran\Component\MyQuiz\Site\View\CreateQuestionsView;
+namespace Kieran\Component\MyQuiz\Site\View\QuestionFormView;
 
 defined('_JEXEC') or die;
 
@@ -14,15 +14,8 @@ use Joomla\CMS\Factory;
  */
 
 class HtmlView extends BaseHtmlView {
-    
-
 
     public function display($template = null) {
-
-        $this->questionNumber = Factory::getApplication()->input->get('questionNumber') + 1;
-
-
-        // Call the parent display to display the layout file
         parent::display($template);
     }
 

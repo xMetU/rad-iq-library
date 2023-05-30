@@ -20,7 +20,6 @@ class QuizFormModel extends BaseModel {
 		$db = Factory::getDbo();
         $columns = array('title', 'imageId', 'attemptsAllowed', 'description');
 
-        Factory::getApplication()->enqueueMessage(implode(',', $data));
 		$query = $db->getQuery(true)
 			->insert($db->quoteName('#__myQuiz_quiz'))
 			->columns($db->quoteName($columns))
@@ -28,7 +27,7 @@ class QuizFormModel extends BaseModel {
 		$db->setQuery($query);
 
 		try {
-			$result = $db->execute();
+			$db->execute();
 			Factory::getApplication()->enqueueMessage("Quiz saved successfully.");
 			return true;
 		} catch (\Exception $e) {
@@ -45,7 +44,6 @@ class QuizFormModel extends BaseModel {
 		$db = Factory::getDbo();
 		$columns = array('title', 'imageId', 'attemptsAllowed', 'description');
 
-		Factory::getApplication()->enqueueMessage(implode(',', $data));
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__myQuiz_quiz'))
 			->set($db->quoteName('title') . ' = ' . $db->quote($data['title']))

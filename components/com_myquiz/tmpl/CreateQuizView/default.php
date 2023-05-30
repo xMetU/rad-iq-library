@@ -25,7 +25,14 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 	<div class="col-8 text-center">
         <h3><?php echo ($this->quiz ? "Edit " . $this->quiz->title : "Create New Quiz"); ?></h3>
 	</div>
-	<div class="col"></div>
+	<div class="col">
+        <?php if ($this->quiz): ?>
+            <a
+                class="btn float-end"
+                href="<?php echo Uri::getInstance()->current() . '?task=Display.questionManager&id=' . $this->quiz->id; ?>"
+            >Edit Questions</a>
+        <?php endif; ?>
+    </div>
 </div>
 
 <hr/>
@@ -106,15 +113,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <hr/>
 
             <div class="form-group">
-				<button class="btn col-auto">
+				<button class="btn">
 					<i class="icon-check icon-white"></i> Done
 				</button>
-                <?php if ($this->quiz): ?>
-                <a
-                    class="btn float-end"
-                    href="<?php echo Uri::getInstance()->current() . '?task=Display.createQuestions&id=' . $this->quiz->id; ?>"
-                >Questions</a>
-                <?php endif; ?>
 			</div>
         </form>
     </div>

@@ -107,12 +107,29 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-    public function createQuestions() {
+    public function questionManager() {
 
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
 
-        $view = $this->getView('CreateQuestionsView', $viewFormat);
+        $view = $this->getView('QuestionManagerView', $viewFormat);
+        $model1 = $this->getModel('Questions');
+        $model2 = $this->getModel('Quiz');
+        
+        $view->setModel($model1, true);
+        $view->setModel($model2);
+
+        $view->document = $document;
+        $view->display();
+
+    }
+
+    public function questionForm() {
+
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+
+        $view = $this->getView('QuestionFormView', $viewFormat);
         $model = $this->getModel('CreateQuiz');
         
         $view->setModel($model, true);   

@@ -16,7 +16,7 @@ class QuizQuestionsModel extends ListModel {
 
     
     // Retrieves the question list for a selected quiz.
-    public function getListQuery(){
+    public function getListQuery() {
 
         // Get a db connection.
         $db = $this->getDatabase();
