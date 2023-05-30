@@ -32,7 +32,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
 		<?php endif; ?>
 	</div>
-	<div class="col-auto"><h3>Image Viewers</h3></div>
+	<div class="col-auto"><h3>Images</h3></div>
 	<div class="col">
 		<?php if (CheckGroup::isGroup("Manager")) : ?>
 			<!-- New image button -->
@@ -143,7 +143,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						<?php endforeach; ?>
 					<?php else: ?>
 						<td>
-							<p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
+							<p class="text-secondary text-center pt-5">No images are assigned to this category</p>
 						</td>
 					<?php endif; ?>
 				</tr>

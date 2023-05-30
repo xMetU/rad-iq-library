@@ -103,3 +103,17 @@
 2023-05-27T18:48:42+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
 2023-05-28T07:11:52+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.34 seconds
 2023-05-28T07:11:52+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-05-29T06:56:58+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Exception thrown with message "Component not found.". Stack trace: #0 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\LegacyComponentDispatcher->dispatch()
+#1 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myfrontpage')
+#2 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#3 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#4 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#5 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+2023-05-29T06:57:51+00:00	WARNING 127.0.0.1	jerror	Joomla\CMS\Filesystem\Folder::delete: Path is not a folder. Path: [ROOT]\administrator\components\com_myfrontpage
+2023-05-29T06:57:51+00:00	WARNING 127.0.0.1	jerror	Joomla\CMS\Filesystem\Folder::delete: Path is not a folder. Path: [ROOT]\components\com_myfrontpage
+2023-05-29T06:57:51+00:00	WARNING 127.0.0.1	jerror	Component Uninstall: Can't uninstall. Please remove manually.
+2023-05-30T07:51:53+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.36 seconds
+2023-05-30T07:51:53+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-05-30T07:52:10+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.65 seconds
+2023-05-30T07:52:11+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.66 seconds
