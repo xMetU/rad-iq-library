@@ -49,10 +49,11 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                             <h5 class="card-title"><?php echo "Question " . $i+1 . ": " . $row->questionDescription; ?></h5>
 						</div>
 						<div class="col-auto d-flex flex-column">
-							<a 
-								class="btn"
-								href="<?php echo Uri::getInstance()->current() . '?task=Display.createQuestion&id=' . $row->id; ?>"
-							>Edit</a>
+							<a class="btn" href="<?php echo 
+									Uri::getInstance()->current()
+									. '?task=Display.questionForm&quizId=' . $this->quiz->id
+									. '&questionNumber=' . $row->questionNumber;
+							?>">Edit</a>
 							<button id="<?php echo $row->id; ?>" class="delete-button btn mt-2"><i class="icon-delete"></i> Delete</button> 
 						</div>
                     </div>

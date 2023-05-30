@@ -45,7 +45,7 @@ class FormController extends BaseController {
     public function deleteQuiz() {
         $model = $this->getModel('AllQuiz');
         
-        $quizId = $this->input->getInt('quizId');
+        $quizId = Factory::getApplication()->input->getInt('quizId');
 
         $model->deleteQuiz($quizId);
 
@@ -58,16 +58,34 @@ class FormController extends BaseController {
     //     $data = Factory::getApplication()->input->post->getArray();
     // }
 
-    // public function saveQuestion() {
-    //     $model = $this->getModel('QuestionForm');
+    public function saveQuestion() {
+        $model = $this->getModel('QuestionForm');
 
-    //     $data = Factory::getApplication()->input->post->getArray();
-    // }
+        $data = Factory::getApplication()->input->post->getArray();
 
-    // public function updateQuestion() {
-    //     $model = $this->getModel('QuestionForm');
+        $model->saveQuestion($data);
 
-    //     $data = Factory::getApplication()->input->post->getArray();
-    // }
+        $this->setRedirect(Route::_(
+            Uri::getInstance()->current()
+            . '?task=Display.questionForm&quizId=' . $data['quizId']
+            . '&questionNumber=' . Factory::getDbo()->insertId(),
+            false,
+        ));
+    }
+
+    public function updateQuestion() {
+        $model = $this->getModel('QuestionForm');
+
+        $data = Factory::getApplication()->input->post->getArray();
+
+        $model->updateQuestion($data);
+
+        $this->setRedirect(Route::_(
+            Uri::getInstance()->current()
+            . '?task=Display.questionForm&quizId=' . $data['quizId']
+            . '&questionNumber=' . $data['questionNumber'],
+            false,
+        ));
+    }
     
 }

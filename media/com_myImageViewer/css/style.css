@@ -84,6 +84,10 @@ ul.pagination li.page-item.disabled>.page-link {
     background-color: rgba(0, 0, 0, 0.95);
 }
 
+textarea {
+    overflow-y: scroll;
+}
+
 /* IMAGES VIEW */
 
 #images img.card-img-top {
@@ -128,10 +132,4 @@ ul.pagination li.page-item.disabled>.page-link {
 
 #controls .col, #controls .col-auto {
     background-color: #242C76;
-}
-
-/* IMAGE FORM VIEW */
-
-textarea {
-    overflow-y: scroll;
 }

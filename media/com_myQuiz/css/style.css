@@ -78,6 +78,10 @@ ul.pagination li.page-item.disabled>.page-link {
     opacity: 50%;
 }
 
+textarea {
+    overflow-y: scroll;
+}
+
 /* QUIZZES VIEW */
 
 #quizzes img.card-img-top {

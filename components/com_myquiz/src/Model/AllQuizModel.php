@@ -71,7 +71,7 @@ class AllQuizModel extends ListModel {
     }
 
     public function deleteQuiz($quizId) {
-		$db = Factory::getDbo();  
+		$db = Factory::getDbo();
         try {
             // Delete from quizUserSummary
             $query = $db->getQuery(true)
@@ -79,6 +79,7 @@ class AllQuizModel extends ListModel {
                 ->where($db->quoteName('quizId') . '=' . $db->quote($quizId));
             $db->setQuery($query);
             $db->execute();
+            
             // Delete from userAnswers
             $query = $db->getQuery(true)
                 ->delete($db->quoteName('#__myQuiz_userAnswers'))

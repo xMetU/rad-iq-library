@@ -42,7 +42,6 @@ class QuizFormModel extends BaseModel {
 
 	public function updateQuiz($data) {
 		$db = Factory::getDbo();
-		$columns = array('title', 'imageId', 'attemptsAllowed', 'description');
 
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__myQuiz_quiz'))

@@ -7,7 +7,6 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
 
-
 /**
  * @package     Joomla.Site
  * @subpackage  com_myQuiz
@@ -16,6 +15,13 @@ use Joomla\CMS\Factory;
 class HtmlView extends BaseHtmlView {
 
     public function display($template = null) {
+        $this->quizId = Factory::getApplication()->input->getVar('quizId');
+        if (Factory::getApplication()->input->getVar('questionNumber') != null) {
+            $this->question = $this->get('Item');
+        } else {
+            $this->question = null;
+        }
+
         parent::display($template);
     }
 

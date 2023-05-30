@@ -30,7 +30,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <a
                 class="btn float-end"
                 href="<?php echo Uri::getInstance()->current() . '?task=Display.questionManager&id=' . $this->quiz->id; ?>"
-            >Edit Questions</a>
+            >Questions</a>
         <?php endif; ?>
     </div>
 </div>
@@ -114,7 +114,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
             <div class="form-group">
 				<button class="btn">
-					<i class="icon-check icon-white"></i> Done
+					<i class="icon-check"></i> Done
 				</button>
 			</div>
         </form>

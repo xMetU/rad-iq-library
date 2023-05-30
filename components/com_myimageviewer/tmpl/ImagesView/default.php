@@ -36,7 +36,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col">
 		<?php if (CheckGroup::isGroup("Manager")) : ?>
 			<!-- New image button -->
-			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>"><i class="icon-plus icon-white"></i> New Image</a>
+			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>"><i class="icon-plus"></i> New Image</a>
 		<?php endif; ?>
 	</div>
 </div>
