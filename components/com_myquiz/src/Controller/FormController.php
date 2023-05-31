@@ -62,8 +62,7 @@ class FormController extends BaseController {
 
         $this->setRedirect(Route::_(
             Uri::getInstance()->current()
-            . '?task=Display.questionForm&quizId=' . $data['quizId']
-            . '&questionId=' . Factory::getDbo()->insertId(),
+            . '?task=Display.questionForm&quizId=' . $data['quizId'],
             false,
         ));
     }
@@ -78,7 +77,7 @@ class FormController extends BaseController {
         $this->setRedirect(Route::_(
             Uri::getInstance()->current()
             . '?task=Display.questionForm&quizId=' . $data['quizId']
-            . '&questionNumber=' . $data['questionNumber'],
+            . '&questionId=' . $data['questionId'],
             false,
         ));
     }
@@ -92,7 +91,7 @@ class FormController extends BaseController {
 
         $this->setRedirect(Route::_(
             Uri::getInstance()->current()
-            . '?task=Display.questionManager&id=' . $data['quizId'],
+            . '?task=Display.questionForm&quizId=' . $data['quizId'],
             false,
         ));
     }

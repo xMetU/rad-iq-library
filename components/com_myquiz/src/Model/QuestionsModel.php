@@ -22,7 +22,7 @@ class QuestionsModel extends ListModel {
     public function getListQuery() {
         $db = $this->getDatabase();
 
-        $id = Factory::getApplication()->input->get('id');
+        $id = Factory::getApplication()->input->get('quizId');
 
         $query = $db->getQuery(true)
             ->select('*')

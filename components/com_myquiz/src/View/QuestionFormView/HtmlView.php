@@ -15,9 +15,11 @@ use Joomla\CMS\Factory;
 class HtmlView extends BaseHtmlView {
 
     public function display($template = null) {
-        $this->quizId = Factory::getApplication()->input->getVar('quizId');
+        $this->items = $this->get('Items');
+
+        $this->quiz = $this->get('Item', 'Quiz');
         if (Factory::getApplication()->input->getVar('questionId') != null) {
-            $this->question = $this->get('Item');
+            $this->question = $this->get('Item', 'Question');
         } else {
             $this->question = null;
         }

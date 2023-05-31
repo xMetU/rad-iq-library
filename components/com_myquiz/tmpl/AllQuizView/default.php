@@ -165,7 +165,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                                     </a>
                                                     <a 
                                                         class="btn mt-2" 
-                                                        href="<?php echo Uri::getInstance()->current() . '?task=Display.createQuiz&id=' . $item->id; ?>"
+                                                        href="<?php echo Uri::getInstance()->current() . '?task=Display.createQuiz&quizId=' . $item->id; ?>"
                                                     >Edit</a>
                                                     <button id="<?php echo $item->id; ?>" class="delete-button btn mt-2"><i class="icon-delete"></i> Delete</button> 
                                                 </div>

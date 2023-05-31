@@ -29,7 +29,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
         <?php if ($this->quiz): ?>
             <a
                 class="btn float-end"
-                href="<?php echo Uri::getInstance()->current() . '?task=Display.questionManager&id=' . $this->quiz->id; ?>"
+                href="<?php echo Uri::getInstance()->current() . '?task=Display.questionForm&quizId=' . $this->quiz->id; ?>"
             >Questions</a>
         <?php endif; ?>
     </div>

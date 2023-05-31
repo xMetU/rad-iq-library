@@ -18,7 +18,7 @@ class HtmlView extends BaseHtmlView {
     public function display($template = null) {
         $this->images = $this->get('Items');
 
-        if (Factory::getApplication()->input->getVar('id') != null) {
+        if (Factory::getApplication()->input->getVar('quizId') != null) {
             $this->quiz = $this->get('Item', 'Quiz');
         } else {
             $this->quiz = null;
