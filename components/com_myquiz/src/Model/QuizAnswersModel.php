@@ -26,7 +26,7 @@ class QuizAnswersModel extends ListModel {
 
         
         $query = $db->getQuery(true)
-                ->select($db->quoteName(['qu.quizId', 'q.title', 'qu.questionNumber', 'qu.questionDescription', 'q.imageId', 'i.imageUrl', 
+                ->select($db->quoteName(['qu.quizId', 'q.title', 'qu.questionNumber', 'qu.description', 'q.imageId', 'i.imageUrl', 
                                         'a.answerNumber', 'a.answerDescription']))
                 ->from($db->quoteName('#__myQuiz_quiz', 'q'))
 

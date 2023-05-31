@@ -46,7 +46,7 @@ class CreateQuizModel extends BaseModel {
 
 
         //========== Save Questions ====================
-        $columns = array('questionNumber', 'quizId', 'questionDescription', 'feedback', 'markValue');
+        $columns = array('questionNumber', 'quizId', 'description', 'feedback', 'markValue');
 
         foreach($questionData as $data) {
 

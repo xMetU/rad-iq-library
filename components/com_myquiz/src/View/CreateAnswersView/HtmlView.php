@@ -21,7 +21,7 @@ class HtmlView extends BaseHtmlView {
     public function display($template = null) {
 
         $this->quizId = Factory::getApplication()->getUserState('myQuiz.quizId');
-        $this->questionDescription = Factory::getApplication()->getUserState('myQuiz.createQuestionDescription');
+        $this->description = Factory::getApplication()->getUserState('myQuiz.createQuestionDescription');
         $this->answerNumber = Factory::getApplication()->input->get('answerNumber') + 1;
         $this->questionNumber = Factory::getApplication()->input->get('questionNumber');
         $this->answerArray = Factory::getApplication()->getUserState('myQuiz.createAnswerData');

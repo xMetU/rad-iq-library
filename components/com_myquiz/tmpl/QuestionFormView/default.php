@@ -28,7 +28,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
         >Back</a>
 	</div>
 	<div class="col-8 text-center">
-		<h3><?php echo $this->question ? "Edit Question: " . $this->question->questionDescription : "Create Question"; ?></h3>
+		<h3><?php echo $this->question ? "Edit Question: " . $this->question->description : "Create Question"; ?></h3>
 	</div>
 	<div class="col"></div>
 </div>
@@ -46,20 +46,20 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
         >
             <input type="hidden" name="quizId" value="<?php echo $this->quizId; ?>"/>
             <?php if ($this->question): ?>
-                <input type="hidden" name="questionNumber" value="<?php echo $this->question->questionNumber; ?>"/>
+                <input type="hidden" name="questionId" value="<?php echo $this->question->id; ?>"/>
             <?php endif; ?>
 
             <div class="form-group">
-                <label for="questionDescription">Question: *</label>
+                <label for="description">Question: *</label>
 
                 <textarea
-                    name="questionDescription"
+                    name="description"
                     class="form-control"
                     placeholder="What is the question?"
                     maxlength="200"
                     required
                     rows="2"
-                ><?php echo $this->question ? $this->question->questionDescription : ""; ?></textarea>
+                ><?php echo $this->question ? $this->question->description : ""; ?></textarea>
             </div>
 
             <hr/>

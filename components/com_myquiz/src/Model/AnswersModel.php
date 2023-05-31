@@ -22,14 +22,12 @@ class AnswersModel extends ListModel {
     public function getListQuery() {
         $db = $this->getDatabase();
 
-        $quizId = Factory::getApplication()->input->get('quizId');
-        $questionNumber = Factory::getApplication()->input->get('questionNumber');
+        $questionId = Factory::getApplication()->input->get('questionId');
 
         $query = $db->getQuery(true)
             ->select('*')
             ->from($db->quoteName('#__myQuiz_answer', 'a'))
-            ->where($db->quoteName('a.quizId') . '=' . $db->quote($id))
-            ->where($db->quoteName('a.questionNumber') . '=' . $db->quote($questionNumber));
+            ->where($db->quoteName('a.questionId') . '=' . $db->quote($questionId));
 
         return $query;
     }

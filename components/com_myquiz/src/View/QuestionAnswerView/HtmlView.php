@@ -27,7 +27,7 @@ class HtmlView extends BaseHtmlView {
             $this->quizId = $row->quizId;
             $this->title = $row->title;
             $this->questionNumber = $row->questionNumber;
-            $this->question = $row->questionDescription;
+            $this->question = $row->description;
             $this->imageId = $row->imageId;
             $this->imageUrl = $row->imageUrl;
         }

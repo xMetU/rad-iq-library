@@ -62,7 +62,7 @@ class AllQuizModel extends ListModel {
         $db->setQuery($query);
 		
 		try {
-			$result = $db->execute();	
+			$result = $db->execute();
 			return true;
 		} catch (\Exception $e) {
 			Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
@@ -72,44 +72,19 @@ class AllQuizModel extends ListModel {
 
     public function deleteQuiz($quizId) {
 		$db = Factory::getDbo();
+
+        $query = $db->getQuery(true)
+            ->delete($db->quoteName('#__myQuiz_quiz'))
+            ->where($db->quoteName('id') . '=' . $db->quote($quizId));
+        $db->setQuery($query);
+
         try {
-            // Delete from quizUserSummary
-            $query = $db->getQuery(true)
-                ->delete($db->quoteName('#__myQuiz_quizUserSummary'))
-                ->where($db->quoteName('quizId') . '=' . $db->quote($quizId));
-            $db->setQuery($query);
-            $db->execute();
-            
-            // Delete from userAnswers
-            $query = $db->getQuery(true)
-                ->delete($db->quoteName('#__myQuiz_userAnswers'))
-                ->where($db->quoteName('quizId') . '=' . $db->quote($quizId));
-            $db->setQuery($query);
-            $db->execute();
-
-            // Delete from answer
-            $query = $db->getQuery(true)
-                ->delete($db->quoteName('#__myQuiz_answer'))
-                ->where($db->quoteName('quizId') . '=' . $db->quote($quizId));
-            $db->setQuery($query);
-            $db->execute();
-
-            // Delete from question
-            $query = $db->getQuery(true)
-                ->delete($db->quoteName('#__myQuiz_question'))
-                ->where($db->quoteName('quizId') . '=' . $db->quote($quizId));
-            $db->setQuery($query);
-            $db->execute();
-
-            // Delete from quiz
-            $query = $db->getQuery(true)
-                ->delete($db->quoteName('#__myQuiz_quiz'))
-                ->where($db->quoteName('id') . '=' . $db->quote($quizId));
-            $db->setQuery($query);
             $db->execute();
             Factory::getApplication()->enqueueMessage("Quiz deleted successfully.");
+            return true;
         } catch (\Exception $e) {
             Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+            return false;
         }
 
 	}

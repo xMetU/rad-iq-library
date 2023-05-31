@@ -52,11 +52,6 @@ class FormController extends BaseController {
         $this->setRedirect(Uri::getInstance()->current() . Route::_('?&task=Display.display', false));
     }
 
-    // public function deleteQuestion() {
-    //     $model = $this->getModel('QuizForm');
-
-    //     $data = Factory::getApplication()->input->post->getArray();
-    // }
 
     public function saveQuestion() {
         $model = $this->getModel('QuestionForm');
@@ -68,7 +63,7 @@ class FormController extends BaseController {
         $this->setRedirect(Route::_(
             Uri::getInstance()->current()
             . '?task=Display.questionForm&quizId=' . $data['quizId']
-            . '&questionNumber=' . Factory::getDbo()->insertId(),
+            . '&questionId=' . Factory::getDbo()->insertId(),
             false,
         ));
     }
@@ -84,6 +79,20 @@ class FormController extends BaseController {
             Uri::getInstance()->current()
             . '?task=Display.questionForm&quizId=' . $data['quizId']
             . '&questionNumber=' . $data['questionNumber'],
+            false,
+        ));
+    }
+
+    public function deleteQuestion() {
+        $model = $this->getModel('QuestionForm');
+
+        $data = Factory::getApplication()->input->post->getArray();
+
+        $model->deleteQuestion($data['questionId']);
+
+        $this->setRedirect(Route::_(
+            Uri::getInstance()->current()
+            . '?task=Display.questionManager&id=' . $data['quizId'],
             false,
         ));
     }

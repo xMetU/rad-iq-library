@@ -47,7 +47,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h5 class="card-title"><?php echo "Question " . $row->questionNumber . ": " . $row->questionDescription; ?></h5>
+                            <h5 class="card-title"><?php echo "Question " . $row->questionNumber . ": " . $row->description; ?></h5>
 
                             <?php if ($row->isCorrect): ?>
                                 <i id="correct" class="icon-checkmark-circle"></i><?php echo " Correct" ?>

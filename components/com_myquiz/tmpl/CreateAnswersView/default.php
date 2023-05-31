@@ -30,7 +30,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 	</div>
 	<div class="col-8 text-center text-truncate">
 		<h4>Add Answers to "<?php
-            echo strlen($this->questionDescription) > 40 ? substr($this->questionDescription, 0, 40) . "..." : $this->questionDescription;
+            echo strlen($this->description) > 40 ? substr($this->description, 0, 40) . "..." : $this->description;
         ?>"</h4>
 	</div>
 	<div class="col">

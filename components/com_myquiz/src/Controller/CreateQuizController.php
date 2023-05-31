@@ -47,11 +47,11 @@ class CreateQuizController extends BaseController {
 
         // Get filtered data from post
         $questionNumber = $this->input->post->getInt('questionNumber');
-        $questionDescription = $this->input->post->getVar('questionDescription');  
+        $description = $this->input->post->getVar('description');  
         $feedback = $this->input->post->getVar('questionFeedback'); 
         $markValue = $this->input->post->getInt('markValue');      
 
-        $data = array('questionNumber' => $questionNumber, 'questionDescription' => $questionDescription, 
+        $data = array('questionNumber' => $questionNumber, 'description' => $description, 
                         'feedback' => $feedback, 'markValue' => $markValue);	
                         
         $validData = $model->validateQuiz($data); // WRITE VALIDATE FUNCTION
@@ -64,7 +64,7 @@ class CreateQuizController extends BaseController {
 
         array_push($questionDataArray, $validData);
         Factory::getApplication()->setUserState('myQuiz.createQuestionData', $questionDataArray);
-        Factory::getApplication()->setUserState('myQuiz.createQuestionDescription', $questionDescription);
+        Factory::getApplication()->setUserState('myQuiz.createQuestionDescription', $description);
 
         $this->setRedirect(Uri::getInstance()->current() . Route::_('?&questionNumber=' . $questionNumber . '&answerNumber=0' . '&task=Display.createAnswers', false));
     }

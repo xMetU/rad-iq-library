@@ -18,14 +18,12 @@ class QuestionModel extends ItemModel {
     public function getItem($pk = null) {
         $db = $this->getDatabase();
 
-        $quizId = Factory::getApplication()->input->get('quizId');
-        $questionNumber = Factory::getApplication()->input->get('questionNumber');
+        $questionId = Factory::getApplication()->input->get('questionId');
 
         $query = $db->getQuery(true)
             ->select('*')
             ->from($db->quoteName('#__myQuiz_question', 'q'))
-            ->where($db->quoteName('q.quizId') . '=' . $db->quote($quizId))
-            ->where($db->quoteName('q.questionNumber') . '=' . $db->quote($questionNumber));
+            ->where($db->quoteName('q.id') . '=' . $db->quote($questionId));
 
         $result = $db->setQuery($query)->loadObject();
 

@@ -17,9 +17,8 @@ use Joomla\CMS\Table\Table;
 class QuestionFormModel extends BaseModel {
 
 	public function saveQuestion($data) {
-		// TODO: Properly set questionNumber
 		$db = Factory::getDbo();
-        $columns = array('quizId', 'questionDescription', 'feedback', 'markValue');
+        $columns = array('quizId', 'description', 'feedback', 'markValue');
 
 		$query = $db->getQuery(true)
 			->insert($db->quoteName('#__myQuiz_question'))
@@ -43,16 +42,34 @@ class QuestionFormModel extends BaseModel {
 
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__myQuiz_question'))
-			->set($db->quoteName('questionDescription') . ' = ' . $db->quote($data['questionDescription']))
+			->set($db->quoteName('description') . ' = ' . $db->quote($data['description']))
 			->set($db->quoteName('feedback') . ' = ' . $db->quote($data['feedback']))
 			->set($db->quoteName('markValue') . ' = ' . $db->quote($data['markValue']))
-			->where($db->quoteName('quizId') . ' = ' . $db->quote($data['quizId']))
-            ->where($db->quoteName('questionNumber') . ' = ' . $db->quote($data['questionNumber']));
+            ->where($db->quoteName('id') . ' = ' . $db->quote($data['questionId']));
 		$db->setQuery($query);
 		
 		try {
 			$result = $db->execute();
 			Factory::getApplication()->enqueueMessage("Question updated successfully.");
+			return true;
+		} catch (\Exception $e) {
+            Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+			return false;
+		}
+	}
+
+
+	public function deleteQuestion($questionId) {
+		$db = Factory::getDbo();
+		
+		$query = $query = $db->getQuery(true)
+            ->delete($db->quoteName('#__myQuiz_question'))
+            ->where($db->quoteName('id') . '=' . $db->quote($questionId));
+        $db->setQuery($query);
+
+		try {
+			$result = $db->execute();
+			Factory::getApplication()->enqueueMessage("Question deleted successfully.");
 			return true;
 		} catch (\Exception $e) {
             Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
