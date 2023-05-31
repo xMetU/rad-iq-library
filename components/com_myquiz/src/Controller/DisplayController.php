@@ -142,20 +142,6 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-    public function createAnswers() {
-
-        $document = Factory::getDocument();
-        $viewFormat = $document->getType();
-
-        $view = $this->getView('CreateAnswersView', $viewFormat);
-        $model1 = $this->getModel('CreateQuiz');
-        
-        $view->setModel($model1, true);   
-
-        $view->document = $document;
-        $view->display();
-    }
-
     public function toggleIsHidden() {
         $model = $this->getModel('AllQuiz');
 
