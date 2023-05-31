@@ -139,7 +139,7 @@ class DisplayController extends BaseController
             $view->document = $document;
 
             // $view->display();
-            Factory::getApplication()->enqueueMessage('Please login to continue');
+            // Factory::getApplication()->enqueueMessage('Please login to continue');
             $this->setRedirect(Uri::root() . 'index.php?&option=com_myfrontpage&view=myfrontpage');
         }
     }

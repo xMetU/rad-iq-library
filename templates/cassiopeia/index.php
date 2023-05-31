@@ -149,7 +149,7 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
                         <?php echo $logo; ?>
                     </a>
                     <?php if ($this->params->get('siteDescription')) : ?>
-                        <div class="site-description"><?php echo htmlspecialchars($this->params->get('siteDescription')); ?></div>
+                        <div class="site-description text-center"><?php echo htmlspecialchars($this->params->get('siteDescription')); ?></div>
                     <?php endif; ?>
                 </div>
             </div>

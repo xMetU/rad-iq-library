@@ -19,7 +19,7 @@ window.onload = function () {
     let currentZoom = 0.5;
     let currentBrightness = 100;
     let currentContrast = 100;
- 
+
     document.getElementById("open-button").onclick = () => {
         focusedImageView.classList.remove("d-none");
     }

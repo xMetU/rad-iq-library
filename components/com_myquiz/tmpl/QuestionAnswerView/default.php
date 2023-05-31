@@ -15,7 +15,7 @@ use Joomla\CMS\Router\Route;
 
 $document = Factory::getDocument();
 $document->addStyleSheet("media/com_myquiz/css/style.css");
-
+$document->addScript("media/com_myquiz/js/questionAnswerView.js");
 ?>
 
 <!-- Header -->
@@ -88,10 +88,53 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     </div>    
 </div>
 
+
+<!-- Focused viewer -->
+<div id="focused-img-view" class="overlay-background d-none">
+    <div class="h-100 text-center">
+        <img id="focused-img" class="h-100" src="<?php echo $this->imageUrl; ?>"/>
+    </div>
+    <div id="controls-container" class="row fixed-top m-2">
+        <div class="col"></div>
+
+        <div id="controls" class="col-auto rounded">
+            <div class="row">
+                <div class="col rounded px-4 text-center">
+                    <label for="brightness-input">Brightness</label>
+                    <input type="range" min="50" max="250" id="brightness-input" class="form-range"/>
+                </div>
+                <div class="col-auto rounded mx-2 text-center">
+                    Scroll to <br/> Zoom
+                </div>
+                <div class="col rounded px-4 text-center">
+                    <label for="contrast-input">Contrast</label>
+                    <input type="range" min="50" max="450" id="contrast-input" class="form-range"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <button id="exit-button" class="btn float-end rounded-circle"><i class="icon-times icon-white"></i></button>
+        </div>
+    </div>
+</div>
+
+
 <script>
-    // TODO: Fix answers not being selected
     window.onload = function() {
         checkAnswered();
+
+        function checkAnswered() {
+            let button = Array.from(document.getElementsByName("selectedAnswer"));
+            
+            if ("<?php echo $this->answerNumber; ?>") {
+                for(let i = 0; i < button.length; i++) {
+                    if(button[i].value == "<?php echo $this->answerNumber; ?>") {
+                        button[i].checked = true;
+                    }
+                }
+            }
+        }
 
         const previousButton = document.getElementById("previous-button");
         const nextButton = document.getElementById("next-button");
@@ -122,22 +165,65 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             submitForm("saveData");
         }
 
-        function checkAnswered() {
-            let button = Array.from(document.getElementsByName("selectedAnswer"));
-            
-            if ("<?php echo $this->answerNumber; ?>") {
-                for(let i = 0; i < button.length; i++) {
-                    if(button[i].value == "<?php echo $this->answerNumber; ?>") {
-                        button[i].checked = true;
-                    }
-                }
-            }
-        }
-
         function submitForm(action) {
             form.action = `?task=Answer.${action}`;
             form.submit();
         }
+
+
+        const focusedImageView = document.getElementById("focused-img-view");
+        const focusedImage = document.getElementById("focused-img");
+        const contrastInput = document.getElementById("contrast-input");
+        const brightnessInput = document.getElementById("brightness-input");
+
+        const minZoom = 0.5;
+        const maxZoom = 2.5;
+        const zoomFactor = 0.1;
+        
+        let currentZoom = 0.5;
+        let currentBrightness = 100;
+        let currentContrast = 100;
+
+        document.getElementById(<?php echo $this->imageId; ?>).onclick = () => {
+            focusedImageView.classList.remove("d-none");
+        }
+
+        document.getElementById("exit-button").onclick = () => {
+            focusedImageView.classList.add("d-none");
+            focusedImage.style.filter = "";
+        }
+
+        focusedImage.style.transform = `scale(0.5)`;
+        focusedImage.addEventListener("wheel", function (e) {
+            e.preventDefault();
+
+            if (e.deltaY < 0) {
+                if (currentZoom >= maxZoom) return;
+                currentZoom += zoomFactor;
+            } else {
+                if (currentZoom <= minZoom) return;
+                currentZoom -= zoomFactor;
+            }
+
+            const { left, top, width, height } = focusedImage.getBoundingClientRect();
+            const imageX = ((e.clientX - left) / width) * 100;
+            const imageY = ((e.clientY - top) / height) * 100;
+            focusedImage.style.transformOrigin = `${imageX}% ${imageY}%`;
+            focusedImage.style.transform = `scale(${currentZoom})`;
+        });
+
+        brightnessInput.value = currentBrightness;
+        brightnessInput.addEventListener("input", function() {
+            currentBrightness = this.value;
+            focusedImage.style.filter = `brightness(${currentBrightness}%) contrast(${currentContrast}%)`;
+        });
+
+        contrastInput.value = currentContrast;
+        contrastInput.addEventListener("input", function() {
+            currentContrast = this.value;
+            focusedImage.style.filter = `brightness(${currentBrightness}%) contrast(${currentContrast}%)`;
+        });
+
     };
 </script>
 
