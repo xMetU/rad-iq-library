@@ -13,7 +13,6 @@ use Joomla\CMS\Uri\Uri;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myQuiz
- *
  */
 
 class CreateQuizController extends BaseController {
@@ -32,11 +31,9 @@ class CreateQuizController extends BaseController {
         $data = array('title' => $title, 'description' => $description, 
                     'imageId' => $imageId, 'attemptsAllowed' => $attemptsAllowed);
 
-		$validData = $model->validateQuiz($data); // WRITE VALIDATE FUNCTION
-
         Factory::getApplication()->setUserState('myQuiz.createQuestionData', array());
         Factory::getApplication()->setUserState('myQuiz.createAnswerData', array());
-        Factory::getApplication()->setUserState('myQuiz.createQuizData', $validData);
+        Factory::getApplication()->setUserState('myQuiz.createQuizData', $data);
 
         $this->setRedirect(Uri::getInstance()->current() . Route::_('?&questionNumber=0' . '&task=Display.createQuestions', false));
     }
@@ -54,8 +51,6 @@ class CreateQuizController extends BaseController {
 
         $data = array('questionNumber' => $questionNumber, 'questionDescription' => $questionDescription, 
                         'feedback' => $feedback, 'markValue' => $markValue);	
-                        
-        $validData = $model->validateQuiz($data); // WRITE VALIDATE FUNCTION
 
         $questionDataArray = Factory::getApplication()->getUserState('myQuiz.createQuestionData');
 
@@ -63,7 +58,7 @@ class CreateQuizController extends BaseController {
             $questionDataArray = array();
         }
 
-        array_push($questionDataArray, $validData);
+        array_push($questionDataArray, $data);
         Factory::getApplication()->setUserState('myQuiz.createQuestionData', $questionDataArray);
         Factory::getApplication()->setUserState('myQuiz.createQuestionDescription', $questionDescription);
 
@@ -89,8 +84,6 @@ class CreateQuizController extends BaseController {
         $data = array('answerNumber' => $answerNumber, 'questionNumber' => $questionNumber, 
                     'answerDescription' => $answerDescription, 'isCorrect' => $isCorrect);
 
-        $validData = $model->validateQuiz($data);
-
         $answerDataArray = Factory::getApplication()->getUserState('myQuiz.createAnswerData');
 
         if(!$answerDataArray) {
@@ -108,10 +101,9 @@ class CreateQuizController extends BaseController {
         }
 
         if($load) {
-            array_push($answerDataArray, $validData);
+            array_push($answerDataArray, $data);
             Factory::getApplication()->setUserState('myQuiz.createAnswerData', $answerDataArray);
         }
-
 
         $this->setRedirect(Uri::getInstance()->current() . Route::_('?&questionNumber=' . $questionNumber . '&answerNumber=' . $answerNumber . '&task=Display.createAnswers', false));
     }

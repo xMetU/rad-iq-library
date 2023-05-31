@@ -171,7 +171,7 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
 
     <div class="site-grid">
         <?php if ($this->countModules('banner', true)) : ?>
-            <div class="container-banner full-width">
+            <div class="container-banner full-width text-center">
                 <jdoc:include type="modules" name="banner" style="none" />
             </div>
         <?php endif; ?>
@@ -219,6 +219,12 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
         <?php if ($this->countModules('bottom-b', true)) : ?>
         <div class="grid-child container-bottom-b">
             <jdoc:include type="modules" name="bottom-b" style="card" />
+        </div>
+        <?php endif; ?>
+      
+      	<?php if ($this->countModules('new-menu-position', true)) : ?>
+        <div class="grid-child container-new-menu-position">
+            <jdoc:include type="modules" name="new-menu-position" style="card" />
         </div>
         <?php endif; ?>
     </div>

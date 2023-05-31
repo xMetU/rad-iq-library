@@ -28,7 +28,7 @@ class AnswerController extends BaseController {
         // Check if not logged in
         if($userId === 0) {
             Factory::getApplication()->enqueueMessage('Please login to continue');
-            $this->setRedirect(Route::_('?index.php', false));
+            $this->setRedirect(Uri::root() . 'index.php?&view=myfrontpageview');
         }
         else {      
             // Check if user has allowed attempts left

@@ -38,6 +38,7 @@
 		<position>sidebar-right</position>
 		<position>bottom-a</position>
 		<position>bottom-b</position>
+      	<position>new-menu-position</position>
 		<position>footer</position>
 		<position>debug</position>
 	</positions>

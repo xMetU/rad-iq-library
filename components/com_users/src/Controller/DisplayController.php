@@ -13,6 +13,9 @@ namespace Joomla\Component\Users\Site\Controller;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Factory;
+
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -80,7 +83,7 @@ class DisplayController extends BaseController
 
                     if ($user->get('guest') == 1) {
                         // Redirect to login page.
-                        $this->setRedirect(Route::_('index.php?option=com_users&view=login', false));
+                        // $this->setRedirect(Route::_('index.php?option=com_users&view=login', false));
 
                         return;
                     }
@@ -100,7 +103,7 @@ class DisplayController extends BaseController
 
                     if ($user->get('guest') != 1) {
                         // Redirect to profile page.
-                        $this->setRedirect(Route::_('index.php?option=com_users&view=profile', false));
+                        // $this->setRedirect(Route::_('index.php?option=com_users&view=profile', false));
 
                         return;
                     }
@@ -135,7 +138,9 @@ class DisplayController extends BaseController
             // Push document object into the view.
             $view->document = $document;
 
-            $view->display();
+            // $view->display();
+            Factory::getApplication()->enqueueMessage('Please login to continue');
+            $this->setRedirect(Uri::root() . 'index.php?&option=com_myfrontpage&view=myfrontpage');
         }
     }
 }

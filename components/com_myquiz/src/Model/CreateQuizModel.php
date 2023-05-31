@@ -16,12 +16,6 @@ use Joomla\CMS\Table\Table;
 class CreateQuizModel extends BaseModel {
 
 
-    // TODO - Check data is valid 
-    public function validateQuiz($data) {
-        return $data;
-    }
-
-
     public function saveAllQuizData($quizData, $questionData, $answerData) {
         
         $db = Factory::getDbo();

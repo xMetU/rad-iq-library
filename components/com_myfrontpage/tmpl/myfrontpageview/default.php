@@ -23,20 +23,25 @@ $document->addStyleSheet("media/com_myfrontpage/css/style.css");
 <!-- ====== Front Page View =========== -->
 
 
-<div class="row">
-    <div id="title" class="text-center">
-			<h1><u>WELCOME TO MED RAD IMAGING LIBRARY</u></h1>
-			<h3>An X-Ray Image Repository and Learning Resource</h3>
+<div>
+	<div id="title" class="text-center mt-5">
+		<h1>WELCOME TO THE MED RAD IMAGING LIBRARY</h1>
+		<h3>X-Ray Image Repository and Learning Resource</h3>
+
 	</div>
 </div>
 
-</hr>
-</br>
-<div>
-	<div class="text-center">
-		<p>Some text will go here that will further describe the website.</p>
-		<p>Text content to be confirmed.</p>
+	<hr>
+	</br>
+	</br>
+	<div class="mt-5">
+		<div class="text-center">
+			<p>Some text will go here that will further describe the website.</p>
+			<p>Text content to be confirmed.</p>
+		</div>
 	</div>
-</div>
+
+
+
 
 
