@@ -12,13 +12,9 @@ use Joomla\CMS\Factory;
  * @subpackage  com_myQuiz
  */
 
-class AllImagesModel extends ListModel {
+class ImagesModel extends ListModel {
 
-    
-    // Get a list of images
     public function getListQuery(){
-
-        // Get a db connection.
         $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
@@ -28,13 +24,10 @@ class AllImagesModel extends ListModel {
         return $query;
     }
 
-
     // Override global list limit so all images are returned
     protected function populateState($ordering = null, $direction = null){
         $limit = 0;
         $this->setState('list.limit', $limit);
     }
 
-
-        
 }

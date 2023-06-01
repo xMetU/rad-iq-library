@@ -18,16 +18,14 @@ use Joomla\CMS\Uri\Uri;
 class DisplayController extends BaseController {
     
     public function display($cachable = false, $urlparams = array()) {     
-
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
-
         $view = $this->getView('QuizzesView', $viewFormat);
+
         $model = $this->getModel('Quizzes');
-        $model2 = $this->getModel('ButtonCategories');
+        $model2 = $this->getModel('Categories');
         $model3 = $this->getModel('SaveAnswers');
-        
-        $view->setModel($model, true);   
+        $view->setModel($model, true);
         $view->setModel($model2);
         $view->setModel($model3);
 
@@ -40,12 +38,12 @@ class DisplayController extends BaseController {
         $userId = Factory::getUser()->id;
 
         // Not logged in
-        if($userId === 0) {
+        if ($userId === 0) {
             Factory::getApplication()->enqueueMessage('Please login to continue');
             $this->setRedirect(Route::_('?index.php', false));
         }
 
-        else{
+        else {
             $document = Factory::getDocument();
             $viewFormat = $document->getType();
     
@@ -62,15 +60,13 @@ class DisplayController extends BaseController {
     }
 
     public function summaryDisplay() {
-
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
-
         $view = $this->getView('SummaryView', $viewFormat);
+
         $model1 = $this->getModel('Summary');
         $model2 = $this->getModel('SaveAnswers');
         $model3 = $this->getModel('QuizQuestions');
-
         $view->setModel($model1, true);   
         $view->setModel($model2);  
         $view->setModel($model3); 
@@ -82,8 +78,8 @@ class DisplayController extends BaseController {
     public function quizScoresDisplay() {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
-
         $view = $this->getView('QuizScoresView', $viewFormat);
+
         $model = $this->getModel('QuizScores');
         $view->setModel($model, true);
 
@@ -91,15 +87,13 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-    public function createQuiz() {
-
+    public function quizForm() {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
-
         $view = $this->getView('QuizFormView', $viewFormat);
-        $model1 = $this->getModel('AllImages');
+
+        $model1 = $this->getModel('Images');
         $model2 = $this->getModel('Quiz');
-        
         $view->setModel($model1, true); 
         $view->setModel($model2); 
 
@@ -108,15 +102,13 @@ class DisplayController extends BaseController {
     }
 
     public function questionForm() {
-
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
-
         $view = $this->getView('QuestionFormView', $viewFormat);
+
         $model1 = $this->getModel('Questions');
         $model2 = $this->getModel('Question');
         $model3 = $this->getModel('Quiz');
-        
         $view->setModel($model1, true);
         $view->setModel($model2);
         $view->setModel($model3);
@@ -128,12 +120,11 @@ class DisplayController extends BaseController {
     public function answerForm() {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
-
         $view = $this->getView('AnswerFormView', $viewFormat);
+
         $model1 = $this->getModel('Answers');
         $model2 = $this->getModel('Answer');
         $model3 = $this->getModel('Question');
-        
         $view->setModel($model1, true);
         $view->setModel($model2);
         $view->setModel($model3);
@@ -144,17 +135,12 @@ class DisplayController extends BaseController {
 
     public function toggleIsHidden() {
         $model = $this->getModel('Quizzes');
-
 		$quizId = Factory::getApplication()->input->getVar('id');
-
 		$model->toggleIsHidden($quizId);
-
 		$this->setRedirect(Route::_(
 			Uri::getInstance()->current(),
 			false,
 		));
     }
-
-    
 
 }

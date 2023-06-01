@@ -26,7 +26,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 	<div class="col">
 		<a
             class="btn"
-            href="<?php echo Uri::getInstance()->current() . '?task=Display.createQuiz&quizId=' . $this->quiz->id; ?>"
+            href="<?php echo Uri::getInstance()->current() . '?task=Display.quizForm&quizId=' . $this->quiz->id; ?>"
         >Back</a>
 	</div>
 	<div class="col-auto text-center">
@@ -117,36 +117,40 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     </div>
     <!-- Questions -->
     <div id="questions" class="col pt-4 fixed-height-2">
-        <?php foreach ($this->items as $row) : ?>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <!-- Info -->
-                    <div class="row">
-                        <div class="col">
-                            <h5 class="text-truncate pb-1"><?php echo $row->description; ?></h5>
-                            <p class="text-truncate">Feedback: <?php echo $row->feedback; ?></p>
+        <?php if ($this->items): ?>
+            <?php foreach ($this->items as $row) : ?>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <!-- Info -->
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="text-truncate pb-1"><?php echo $row->description; ?></h5>
+                                <p class="text-truncate">Feedback: <?php echo $row->feedback; ?></p>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Buttons -->
-                    <div class="row">
-                        <div class="col">
-                            <a class="btn mx-auto" href="<?php echo
-                                Uri::getInstance()->current()
-                                . '?task=Display.questionForm&quizId=' . $this->quiz->id
-                                . '&questionId=' . $row->id;
-                            ?>">Edit</a>
+                        <!-- Buttons -->
+                        <div class="row">
+                            <div class="col">
+                                <a class="btn mx-auto" href="<?php echo
+                                    Uri::getInstance()->current()
+                                    . '?task=Display.questionForm&quizId=' . $this->quiz->id
+                                    . '&questionId=' . $row->id;
+                                ?>">Edit</a>
 
-                            <button id="<?php echo $row->id; ?>" class="delete-button btn"><i class="icon-delete"></i> Delete</button> 
+                                <button id="<?php echo $row->id; ?>" class="delete-button btn"><i class="icon-delete"></i> Delete</button> 
 
-                            <a href="<?php echo
-                                Uri::getInstance()->current()
-                                . '?task=Display.answerForm&questionId=' . $row->id
-                            ?>" class="btn float-end">Answers</a>
+                                <a href="<?php echo
+                                    Uri::getInstance()->current()
+                                    . '?task=Display.answerForm&questionId=' . $row->id
+                                ?>" class="btn float-end">Answers</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center pt-5">There are currently no questions in this quiz</p>
+        <?php endif; ?>
     </div>
 </div>    
 

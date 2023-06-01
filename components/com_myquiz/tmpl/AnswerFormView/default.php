@@ -97,8 +97,8 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
         </form>
     </div>
     <!-- Answers -->
-    <div class="col pt-4 fixed-height-2">
-        <div id="answers">
+    <div id="answers" class="col pt-4 fixed-height-2">
+        <?php if ($this->items): ?>
             <?php foreach ($this->items as $row) : ?>
                 <div class="card mb-3">
                     <div class="card-body">
@@ -123,7 +123,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     </div>
                 </div>
             <?php endforeach; ?>
-        </div>
+        <?php else: ?>
+            <p class="text-center pt-5">There are currently no answers for this question</p>
+        <?php endif; ?>
     </div>
 </div>
 

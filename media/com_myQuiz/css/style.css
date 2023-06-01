@@ -15,7 +15,7 @@ body {
 .fixed-height-2 {
     max-height: calc(100vh - 150px);
     overflow: auto;
-    scrollbar-width: none;
+    scrollbar-width: thin;
 }
 
 * {

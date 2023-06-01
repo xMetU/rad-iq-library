@@ -12,20 +12,16 @@ use Joomla\CMS\MVC\Model\ListModel;
  * @subpackage  com_myImageViewer
  */
 
-class ButtonCategoriesModel extends ListModel {
+class CategoriesModel extends ListModel {
 
-    // A list of all categories to populate the button list for the user to filter by category
     public function getListQuery() {
+        $db = $this->getDatabase();
 
-        // Get a db connection.
-        $db = $this->getDatabase();  
-
-        // Create a new query object.
         $query = $db->getQuery(true)
-                ->select($db->quoteName(['ic.id', 'ic.categoryName']))
-                ->from($db->quoteName('#__myImageViewer_imageCategory', 'ic'))
-                ->order('ic.categoryName ASC');
-                
+            ->select($db->quoteName(['ic.id', 'ic.categoryName']))
+            ->from($db->quoteName('#__myImageViewer_imageCategory', 'ic'))
+            ->order('ic.categoryName ASC');
+
         return $query;
     }
 
