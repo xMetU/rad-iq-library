@@ -12,6 +12,12 @@ body {
     scrollbar-color: red;
 }
 
+.fixed-height-2 {
+    max-height: calc(100vh - 150px);
+    overflow: auto;
+    scrollbar-width: none;
+}
+
 * {
     color: white;
 }
@@ -137,11 +143,10 @@ textarea {
     border-radius: 999px;
 }
 
-/* CREATE ANSWERS VIEW */
+/* ANSWERS FORM VIEW */
 
-#answers .row {
+#answers .card {
     background-color: #5342D9;
     color: white;
     border: none;
-    border-radius: 999px;
 }

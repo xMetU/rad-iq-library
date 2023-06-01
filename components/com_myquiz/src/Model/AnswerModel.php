@@ -23,7 +23,7 @@ class AnswerModel extends ItemModel {
         $query = $db->getQuery(true)
             ->select('*')
             ->from($db->quoteName('#__myQuiz_answer', 'a'))
-            ->where($db->quoteName('q.id') . '=' . $db->quote($answerId));
+            ->where($db->quoteName('a.id') . '=' . $db->quote($answerId));
 
         $result = $db->setQuery($query)->loadObject();
 

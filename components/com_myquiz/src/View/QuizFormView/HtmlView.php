@@ -1,6 +1,6 @@
 <?php
 
-namespace Kieran\Component\MyQuiz\Site\View\CreateQuizView;
+namespace Kieran\Component\MyQuiz\Site\View\QuizFormView;
 
 defined('_JEXEC') or die;
 

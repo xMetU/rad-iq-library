@@ -22,8 +22,8 @@ class DisplayController extends BaseController {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
 
-        $view = $this->getView('AllQuizView', $viewFormat);
-        $model = $this->getModel('AllQuiz');
+        $view = $this->getView('QuizzesView', $viewFormat);
+        $model = $this->getModel('Quizzes');
         $model2 = $this->getModel('ButtonCategories');
         $model3 = $this->getModel('SaveAnswers');
         
@@ -96,7 +96,7 @@ class DisplayController extends BaseController {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
 
-        $view = $this->getView('CreateQuizView', $viewFormat);
+        $view = $this->getView('QuizFormView', $viewFormat);
         $model1 = $this->getModel('AllImages');
         $model2 = $this->getModel('Quiz');
         
@@ -143,7 +143,7 @@ class DisplayController extends BaseController {
     }
 
     public function toggleIsHidden() {
-        $model = $this->getModel('AllQuiz');
+        $model = $this->getModel('Quizzes');
 
 		$quizId = Factory::getApplication()->input->getVar('id');
 

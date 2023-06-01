@@ -141,7 +141,7 @@ INSERT INTO `#__myQuiz_answer` (`questionId`, `description`, `isCorrect`) VALUES
 	(1, 'There are too many bones', 1),
 	(2, 'There is a sophisticated answer', 1),
 	(2, 'It is an alien', 0),
-	(1, 'It has a library card', 1),
-	(1, 'medical reasons', 1),
-	(2, 'There is too much blood', 1),
-	(2, 'The answer is elusive', 1);
+	(3, 'It has a library card', 1),
+	(3, 'medical reasons', 1),
+	(4, 'There is too much blood', 1),
+	(4, 'The answer is elusive', 1);

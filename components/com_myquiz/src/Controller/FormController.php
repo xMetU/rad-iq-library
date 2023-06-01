@@ -18,82 +18,84 @@ class FormController extends BaseController {
 
     public function saveQuiz() {
         $model = $this->getModel('QuizForm');
-        
         $data = Factory::getApplication()->input->post->getArray();
-
         $model->saveQuiz($data);
-
-        $this->setRedirect(Route::_(
-            Uri::getInstance()->current() . '?task=Display.createQuiz&id=' . Factory::getDbo()->insertId(),
-            false,
-        ));
+        $this->navigateToForm('QUIZ', Factory::getDbo()->insertId());
     }
 
     public function updateQuiz() {
         $model = $this->getModel('QuizForm');
-        
         $data = Factory::getApplication()->input->post->getArray();
-
         $model->updateQuiz($data);
-
-        $this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.createQuiz&id=' . $data['id'],
-			false,
-		));
+        $this->navigateToForm('QUIZ', $data['quizId']);
     }
 
     public function deleteQuiz() {
-        $model = $this->getModel('AllQuiz');
-        
+        $model = $this->getModel('Quizzes');
         $quizId = Factory::getApplication()->input->getInt('quizId');
-
         $model->deleteQuiz($quizId);
-
-        $this->setRedirect(Uri::getInstance()->current() . Route::_('?&task=Display.display', false));
+        $this->navigateToForm();
     }
-
 
     public function saveQuestion() {
         $model = $this->getModel('QuestionForm');
-
         $data = Factory::getApplication()->input->post->getArray();
-
         $model->saveQuestion($data);
-
-        $this->setRedirect(Route::_(
-            Uri::getInstance()->current()
-            . '?task=Display.questionForm&quizId=' . $data['quizId'],
-            false,
-        ));
+        $this->navigateToForm('QUESTION', $data['quizId']);
     }
 
     public function updateQuestion() {
         $model = $this->getModel('QuestionForm');
-
         $data = Factory::getApplication()->input->post->getArray();
-
         $model->updateQuestion($data);
-
-        $this->setRedirect(Route::_(
-            Uri::getInstance()->current()
-            . '?task=Display.questionForm&quizId=' . $data['quizId']
-            . '&questionId=' . $data['questionId'],
-            false,
-        ));
+        $this->navigateToForm('QUESTION', $data['quizId']);
     }
 
     public function deleteQuestion() {
         $model = $this->getModel('QuestionForm');
-
         $data = Factory::getApplication()->input->post->getArray();
-
         $model->deleteQuestion($data['questionId']);
+        $this->navigateToForm('QUESTION', $data['quizId']);
+    }
 
-        $this->setRedirect(Route::_(
-            Uri::getInstance()->current()
-            . '?task=Display.questionForm&quizId=' . $data['quizId'],
-            false,
-        ));
+    public function saveAnswer() {
+        $model = $this->getModel('AnswerForm');
+        $data = Factory::getApplication()->input->post->getArray();
+        $model->saveAnswer($data);
+        $this->navigateToForm('ANSWER', $data['questionId']);
+    }
+
+    public function updateAnswer() {
+        $model = $this->getModel('AnswerForm');
+        $data = Factory::getApplication()->input->post->getArray();
+        $model->updateAnswer($data);
+        $this->navigateToForm('ANSWER', $data['questionId']);
+    }
+
+    public function deleteAnswer() {
+        $model = $this->getModel('AnswerForm');
+        $data = Factory::getApplication()->input->post->getArray();
+        $model->deleteAnswer($data['answerId']);
+        $this->navigateToForm('ANSWER', $data['questionId']);
+    }
+
+    private function navigateToForm($form, $id) {
+        switch ($form) {
+            case 'QUIZ':
+                $task = 'quizForm&quizId=' . $id;
+                break;
+            case 'QUESTION':
+                $task = 'questionForm&quizId=' . $id;
+                break;
+            case 'ANSWER':
+                $task = 'answerForm&questionId=' . $id;
+                break;
+            default:
+                $task = 'display';
+        }
+        $this->setRedirect(
+            Uri::getInstance()->current() . '?task=Display.' . $task
+        );
     }
     
 }

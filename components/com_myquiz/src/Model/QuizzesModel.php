@@ -12,7 +12,7 @@ use Joomla\CMS\Factory;
  * @subpackage  com_myQuiz
  */
 
-class AllQuizModel extends ListModel {
+class QuizzesModel extends ListModel {
 
     public function getTable($type = 'Quiz', $prefix = '', $config = array()) {
 		return Factory::getApplication()->bootComponent('com_myQuiz')->getMVCFactory()->createTable($type);
@@ -34,7 +34,7 @@ class AllQuizModel extends ListModel {
         $search = Factory::getApplication()->input->getVar('search');
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['q.id', 'q.title', 'q.description', 'q.imageId', 'i.imageUrl', 'q.attemptsAllowed', 'q.isHidden']))
+            ->select($db->quoteName(['q.id', 'q.title', 'q.description', 'i.imageUrl', 'q.attemptsAllowed', 'q.isHidden']))
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',

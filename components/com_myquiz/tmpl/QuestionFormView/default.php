@@ -19,7 +19,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 ?>
 
-<!-- ====== CREATE QUESTION DISPLAY =========== -->
+<!-- QUESTION FORM VIEW -->
 
 <!-- Header -->
 <div class="row">
@@ -29,7 +29,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             href="<?php echo Uri::getInstance()->current() . '?task=Display.createQuiz&quizId=' . $this->quiz->id; ?>"
         >Back</a>
 	</div>
-	<div class="col-8 text-center">
+	<div class="col-auto text-center">
 		<h3>Questions: <?php echo $this->quiz->title; ?></h3>
 	</div>
 	<div class="col"></div>
@@ -43,8 +43,6 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
         <form 
             action="<?php echo Uri::getInstance()->current() . ($this->question ? '?task=Form.updateQuestion' : '?task=Form.saveQuestion'); ?>"
             method="post"
-            id="adminForm"
-            name="adminForm"
             enctype="multipart/form-data"
         >
             <input type="hidden" name="quizId" value="<?php echo $this->quiz->id; ?>"/>
@@ -63,7 +61,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     maxlength="200"
                     required
                     rows="3"
-                ><?php echo $this->question ? $this->question->description : ""; ?></textarea>
+                ><?php if ($this->question) echo $this->question->description; ?></textarea>
             </div>
 
             <hr/>
@@ -79,7 +77,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     maxlength="200"
                     required
                     rows="3"
-                ><?php echo $this->question ? $this->question->feedback : ""; ?></textarea>
+                ><?php if ($this->question) echo $this->question->feedback; ?></textarea>
             </div>
 
             <hr/>
@@ -94,19 +92,31 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     class="form-control"
                     placeholder="How many marks is this question worth?"
                     min="1"
-                    value="<?php echo $this->question ? $this->question->markValue : ""; ?>"
+                    value="<?php if ($this->question) echo $this->question->markValue; ?>"
                 />
             </div>
 
             <hr/>
             <!-- Submit button -->
             <div class="form-group">
-                <button class="btn"><i class="icon-check"></i> Done</button>
+                <button class="btn">
+                    <?php if ($this->question): ?>
+                        <i class="icon-check"></i> Save
+                    <?php else: ?>
+                        <i class="icon-plus"></i> Add
+                    <?php endif; ?>
+                </button>
+                <?php if ($this->question): ?>
+                    <a class="btn float-end" href="<?php echo 
+                        Uri::getInstance()->current()
+                        . '?task=Display.questionForm&quizId=' . $this->quiz->id;
+                    ?>">Cancel</a>
+                <?php endif; ?>
             </div>
         </form>
     </div>
     <!-- Questions -->
-    <div id="questions" class="col pt-4 fixed-height-1">
+    <div id="questions" class="col pt-4 fixed-height-2">
         <?php foreach ($this->items as $row) : ?>
             <div class="card mb-3">
                 <div class="card-body">
@@ -120,29 +130,25 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     <!-- Buttons -->
                     <div class="row">
                         <div class="col">
+                            <a class="btn mx-auto" href="<?php echo
+                                Uri::getInstance()->current()
+                                . '?task=Display.questionForm&quizId=' . $this->quiz->id
+                                . '&questionId=' . $row->id;
+                            ?>">Edit</a>
+
+                            <button id="<?php echo $row->id; ?>" class="delete-button btn"><i class="icon-delete"></i> Delete</button> 
+
                             <a href="<?php echo
                                 Uri::getInstance()->current()
                                 . '?task=Display.answerForm&questionId=' . $row->id
-                            ?>" class="btn">Answers</a>
-                        </div>
-                        <div class="col-auto">
-                            <a class="btn mx-auto" href="<?php echo
-                                    Uri::getInstance()->current()
-                                    . '?task=Display.questionForm&quizId=' . $this->quiz->id
-                                    . '&questionId=' . $row->id;
-                            ?>">Edit</a>
-                            <button id="<?php echo $row->id; ?>" class="delete-button btn"><i class="icon-delete"></i> Delete</button> 
+                            ?>" class="btn float-end">Answers</a>
                         </div>
                     </div>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
-</div>
-
-
-<!-- Questions -->
-    
+</div>    
 
 <!-- Delete confirmation -->
 <div id="delete-confirmation" class="d-none">
