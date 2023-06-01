@@ -79,22 +79,22 @@ class FormController extends BaseController {
         $this->navigateToForm('ANSWER', $data['questionId']);
     }
 
-    private function navigateToForm($form, $id) {
+    private function navigateToForm($form = "", $id = "") {
         switch ($form) {
             case 'QUIZ':
-                $task = 'quizForm&quizId=' . $id;
+                $task = 'quizForm&quizId=';
                 break;
             case 'QUESTION':
-                $task = 'questionForm&quizId=' . $id;
+                $task = 'questionForm&quizId=';
                 break;
             case 'ANSWER':
-                $task = 'answerForm&questionId=' . $id;
+                $task = 'answerForm&questionId=';
                 break;
             default:
                 $task = 'display';
         }
         $this->setRedirect(
-            Uri::getInstance()->current() . '?task=Display.' . $task
+            Uri::getInstance()->current() . '?task=Display.' . $task . $id
         );
     }
     

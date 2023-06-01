@@ -23,7 +23,7 @@ class HtmlView extends BaseHtmlView {
         $this->category = Factory::getApplication()->input->get('category');
         $this->search = Factory::getApplication()->input->get('search');
 
-        $this->userId = Factory::getUser()->id; 
+        $this->userId = Factory::getUser()->id;
         $this->model = $this->getModel('SaveAnswers');
 
         // Call the parent display to display the layout file

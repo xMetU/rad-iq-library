@@ -60,7 +60,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     placeholder="Enter title..."
                     maxlength="60"
                     required
-                    value="<?php echo $this->quiz ? $this->quiz->title : ""; ?>"
+                    value="<?php if ($this->quiz) echo $this->quiz->title; ?>"
                 />
             </div>
 
@@ -70,7 +70,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <div class="col form-group">
                     <label for="imageId">Image: *</label>
                     <select name="imageId"  placeholder="Select quiz image..." class="form-control form-select">
-                        <option value="" <?php if (!$this->quiz) echo "selected"; ?>disabled hidden>Select a category</option>
+                        <option value="" <?php if (!$this->quiz) echo "selected"; ?>disabled hidden>Select an image</option>
                         <?php foreach ($this->images as $row) : ?>
                             <option
                                 value="<?php echo $row->id; ?>"
@@ -90,7 +90,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         placeholder="Number of attempts allowed..."
                         required
                         min="1"
-                        value="<?php echo $this->quiz ? $this->quiz->attemptsAllowed : ""; ?>"
+                        value="<?php if ($this->quiz) echo $this->quiz->attemptsAllowed; ?>"
                     />
                 </div>
             </div>
@@ -107,7 +107,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     maxlength="200"
                     required
                     rows="4"
-                ><?php echo $this->quiz ? $this->quiz->description : ""; ?></textarea>
+                ><?php if ($this->quiz) echo $this->quiz->description; ?></textarea>
             </div>
 
             <hr/>
