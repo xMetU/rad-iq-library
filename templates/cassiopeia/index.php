@@ -161,7 +161,7 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
                     <jdoc:include type="modules" name="menu" style="none" />
                 <?php endif; ?>
                 <?php if ($this->countModules('search', true)) : ?>
-                    <div class="container-search">
+                    <div class="container-search col-10">
                         <jdoc:include type="modules" name="search" style="none" />
                     </div>
                 <?php endif; ?>

@@ -25,8 +25,8 @@ $document->addStyleSheet("media/com_myfrontpage/css/style.css");
 
 <div>
 	<div id="title" class="text-center mt-5">
-		<h1>WELCOME TO THE MED RAD IMAGING LIBRARY</h1>
-		<h3>X-Ray Image Repository and Learning Resource</h3>
+		<h1>MedRad IQ Library</h1>
+		<h3 class="text-info">Imaging Repository and Learning Resource</h3>
 
 	</div>
 </div>
@@ -34,10 +34,15 @@ $document->addStyleSheet("media/com_myfrontpage/css/style.css");
 	<hr>
 	</br>
 	</br>
-	<div class="mt-5">
-		<div class="text-center">
-			<p>Some text will go here that will further describe the website.</p>
-			<p>Text content to be confirmed.</p>
+	<div id="textBox" class="mt-3 p-4">
+		<div>
+			<p>Welcome to MedRad IQ Library, a web-based application which aims to serve as a comprehensive resource for Medical Imaging students.
+			<p>Housing a comprehensive collection of radiographic images and content, MedRad IQ Library is designed to facilitate a deeper understanding of Medical Imaging Studies (RADY) courses. 
+				It presents real-world cases and images, providing contemporary and relevant insights into the field of medical imaging. 
+				Furthermore, self-assessment modules and quizzes are integrated into the platform, providing an opportunity for students to evaluate their learning progress.</p>
+			<p>By offering access to practical cases and industry-relevant images, the platform hopes to provide an essential resource for those looking to forge a career in medical imaging. 
+				The platform hopes to encourage further exploration and continuous learning for our Medical Imaging students.</p>
+			<p>This platform is a product from a collaboration between STEM and Allied Health & Human Performance Academic Units at University of South Australia.</p>
 		</div>
 	</div>
 
