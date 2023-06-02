@@ -37,6 +37,7 @@ class QuizController extends BaseController {
                 Factory::getApplication()->setUserState('myQuiz.userId', $userId);
                 Factory::getApplication()->setUserState('myQuiz.userAnswers', array());
                 Factory::getApplication()->setUserState('myQuiz.attemptNumber', $userAttempts + 1);
+                Factory::getApplication()->setUserState('myQuiz.startTime', date("Y-m-d H:i:s"));
     
                 $this->setRedirect(
                     Uri::getInstance()->current() 
@@ -81,42 +82,22 @@ class QuizController extends BaseController {
         $userId = Factory::getApplication()->getUserState('myQuiz.userId');
         $userAnswers = Factory::getApplication()->getUserState('myQuiz.userAnswers');
         $attemptNumber = Factory::getApplication()->getUserState('myQuiz.attemptNumber');
+        $startTime = Factory::getApplication()->getUserState('myQuiz.startTime');
+        $finishTime = date("Y-m-d H:i:s");
 
         foreach($userAnswers as $answerId) {
             $model->submitAnswer([$userId, $answerId, $attemptNumber]);
         }
 
-        $model->generateSummary([$userId, $answerId, $attemptNumber]);
+        $model->generateSummary(
+            [
+                'userId' => $userId, 'quizId' => $quizId, 'attemptNumber' => $attemptNumber,
+                'startTime' => $startTime, 'finishTime' => $finishTime,
+            ], 
+            $userAnswers,
+        );
 
         $this->setRedirect(Uri::getInstance()->current() . '?task=Display.summaryDisplay&quizId=' . $quizId);
     }
-
-
-    public function saveData() {
-
-        $userId = Factory::getApplication()->getUserState('myQuiz.userUserId');       
-        $quizId =  Factory::getApplication()->getUserState('myQuiz.userQuizId');
-
-        // Get filtered data from post
-        $questionNumber = Factory::getApplication()->input->post->getInt('questionNumber');
-        $answerNumber = Factory::getApplication()->input->post->getInt('selectedAnswer');
-        $count = Factory::getApplication()->input->post->getInt('count');
-
-        $userAnswerData = array('userId' => $userId, 'quizId' => $quizId, 'questionNumber' => $questionNumber, 
-                                'answerNumber' => $answerNumber, 'count' => $count);
-
-        // Load the final question into the answer array.                        
-        if($answerNumber) {
-            $this->loadUserAnswer($userAnswerData, $questionNumber, $answerNumber);
-        }
-        
-        // Save all the answers to the database
-        $model = $this->getModel('SaveAnswers');
-        $userQuestionData = Factory::getApplication()->getUserState('myQuiz.userQuestionData');
-        $model->saveAnswers($userQuestionData);
-        
-        $this->setRedirect(Uri::getInstance()->current() . Route::_('?&quizId=' . $quizId . '&task=Display.summaryDisplay', false));
-    }
-
 
 }
