@@ -100,7 +100,7 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-    public function summaryDisplay() {
+    public function summary() {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
         $view = $this->getView('SummaryView', $viewFormat);
@@ -114,12 +114,12 @@ class DisplayController extends BaseController {
         $view->display();
     }
 
-    public function quizScoresDisplay() {
+    public function scores() {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
-        $view = $this->getView('QuizScoresView', $viewFormat);
+        $view = $this->getView('ScoresView', $viewFormat);
 
-        $model = $this->getModel('QuizScores');
+        $model = $this->getModel('Scores');
         $view->setModel($model, true);
 
         $view->document = $document;

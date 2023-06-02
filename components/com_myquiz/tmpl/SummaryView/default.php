@@ -27,12 +27,12 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
         <a class="btn" href="<?php echo Uri::getInstance()->current() ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
-		<h3>Summary</h3>
+		<h3>Quiz Summary</h3>
 	</div>
 	<div class="col">
         <a 
             class="btn float-end"
-            href="<?php echo Uri::getInstance()->current() . '?task=Display.quizScoresDisplay'; ?>"
+            href="<?php echo Uri::getInstance()->current() . '?task=Display.scores'; ?>"
         >View All Scores</a>
     </div>
 </div>
@@ -41,27 +41,30 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 <div class="row justify-content-center">
     <div id="questions" class="col-8">
-        <h5 class="text-end">Score: <?php echo $this->marks . ' / ' . $this->total; ?></h5>
-        <?php foreach ($this->items as $row) : ?>
+        <h4 class="text-end">Score: <?php echo $this->marks . ' / ' . $this->total; ?></h4>
+        <?php foreach ($this->items as $i => $row): ?>
             <div class="card mt-4">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h5 class="card-title"><?php echo "Question " . $row->questionNumber . ": " . $row->description; ?></h5>
+                            <h5 class="card-title"><?php echo $i + 1 . ": " . $row->questionDescription; ?></h5>
 
+                            <p>You answered: <?php echo $row->answerDescription; ?></p>
+                            <p>
                             <?php if ($row->isCorrect): ?>
-                                <i id="correct" class="icon-checkmark-circle"></i><?php echo " Correct" ?>
+                                <i id="correct" class="icon-checkmark-circle"></i> Correct
                             <?php else : ?>
-                                <i id="incorrect" class="icon-cancel-circle"></i><?php echo " Incorrect" ?>
+                                <i id="incorrect" class="icon-cancel-circle"></i> Incorrect
                             <?php endif ?>
+                            </p>
                             <p class="card-text"><?php echo $row->feedback; ?></p>
                         </div>   
 
-                        <div class="col-2">
+                        <div class="col-auto">
                             <?php if ($row->isCorrect): ?>
-                                <h5><?php echo "Marks: " . $row->markValue; ?></h5>
+                                <h5><?php echo "Marks: " . $row->markValue . ' / ' . $row->markValue; ?></h5>
                             <?php else : ?> 
-                                <h5><?php echo "Marks: 0"; ?></h5>
+                                <h5><?php echo "Marks: 0" . ' / ' . $row->markValue; ?></h5>
                             <?php endif ?>                                            
                         </div>
                     </div>

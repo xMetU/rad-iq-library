@@ -97,7 +97,7 @@ class QuizController extends BaseController {
             $userAnswers,
         );
 
-        $this->setRedirect(Uri::getInstance()->current() . '?task=Display.summaryDisplay&quizId=' . $quizId);
+        $this->setRedirect(Uri::getInstance()->current() . '?task=Display.summary&quizId=' . $quizId);
     }
 
 }

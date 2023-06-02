@@ -13,7 +13,7 @@ use Joomla\CMS\Factory;
  */
 
 
-class QuizScoresModel extends ListModel {
+class ScoresModel extends ListModel {
 
     
     // Retrieve the list of quiz scores for a user.

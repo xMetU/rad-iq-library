@@ -78,7 +78,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <div class="col">
                 <a 
                     class="btn float-end"
-                    href="<?php echo Uri::getInstance()->current() . '?task=Display.quizScoresDisplay'; ?>"
+                    href="<?php echo Uri::getInstance()->current() . '?task=Display.scores'; ?>"
                 >View Scores</a>
             </div>
         </div>

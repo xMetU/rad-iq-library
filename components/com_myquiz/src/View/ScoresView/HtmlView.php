@@ -1,6 +1,6 @@
 <?php
 
-namespace Kieran\Component\MyQuiz\Site\View\QuizScoresView;
+namespace Kieran\Component\MyQuiz\Site\View\ScoresView;
 
 defined('_JEXEC') or die;
 
@@ -16,7 +16,6 @@ use Joomla\CMS\Factory;
 
 class HtmlView extends BaseHtmlView {
     
-
     public function display($template = null) {
 
         $this->items = $this->get('Items');

@@ -41,7 +41,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <div class="row p-2 mt-4">
                     <div class="col text-truncate"><?php echo $row->title; ?></div>
                     <div class="col-2"><?php echo "Attempt " . $row->attemptNumber; ?></div>
-                    <div class="col-2 text-center"><?php echo "Score: " . $row->userScore . " / " . $row->quizTotalMarks ?></div>
+                    <div class="col-2 text-center"><?php echo "Score: " . $row->score . " / " . $row->maxScore ?></div>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>

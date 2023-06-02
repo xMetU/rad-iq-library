@@ -25,7 +25,7 @@ class UserAnswerModel extends ListModel {
 
         try {
             $query = $db->getQuery(true)
-                ->select('*')
+                ->select(['q.description AS questionDescription', 'q.feedback', 'q.markValue', 'a.isCorrect', 'a.description AS answerDescription'])
                 ->from($db->quoteName('#__myQuiz_userAnswers', 'ua'))
                 ->join(
                     'LEFT',
