@@ -24,7 +24,7 @@ class QuizController extends BaseController {
         if ($userId) {
             // Check if user has allowed attempts left
             $data = Factory::getApplication()->input->getArray();
-            $model = $this->getModel('Quiz');
+            $model = $this->getModel('UserAnswer');
             
             $userAttempts = $model->getAttemptCount($userId, $data['quizId']);
 
@@ -51,28 +51,46 @@ class QuizController extends BaseController {
         }
         else {
             Factory::getApplication()->enqueueMessage('Please login to continue');
-            $this->setRedirect(Route::_('?index.php', false));
+            $this->setRedirect('?index.php');
         }
     }
 
-    public function navigateToQuestion() {
-        $urlData = Factory::getApplication()->input->getArray();
-        $postData = Factory::getApplication()->input->getArray();
-
-        $this->saveAnswer($postData);
-
-        $this->setRedirect(
-            Uri::getInstance()->current()
-            . '?task=Display.quiz&quizId=' . $urlData['quizId']
-            . '&questionId=' . $urlData['questionId']
-        );
-    }
-
-    public function saveAnswer($data) {
+    public function saveAnswer() {
+        $data = Factory::getApplication()->input->getArray();
         $userAnswers = Factory::getApplication()->getUserState('myQuiz.userAnswers');
-        $userAnswers[$data['questionId']] = $data['answerId'];
+        if ($data['answerId']) {
+            $userAnswers[$data['questionId']] = $data['answerId'];
+        }
         Factory::getApplication()->setUserState('myQuiz.userAnswers', $userAnswers);
+
+        if ($data['nextQuestionId'] == "FINISH") {
+            $this->submitAnswers();
+        } else {
+            $this->setRedirect(
+                Uri::getInstance()->current()
+                . '?task=Display.quiz&quizId=' . $data['quizId']
+                . '&questionId=' . $data['nextQuestionId']
+            );
+        }
     }
+
+    private function submitAnswers() {
+        $model = $this->getModel('UserAnswer');
+
+        $quizId = Factory::getApplication()->input->getVar('quizId');
+        $userId = Factory::getApplication()->getUserState('myQuiz.userId');
+        $userAnswers = Factory::getApplication()->getUserState('myQuiz.userAnswers');
+        $attemptNumber = Factory::getApplication()->getUserState('myQuiz.attemptNumber');
+
+        foreach($userAnswers as $answerId) {
+            $model->submitAnswer([$userId, $answerId, $attemptNumber]);
+        }
+
+        $model->generateSummary([$userId, $answerId, $attemptNumber]);
+
+        $this->setRedirect(Uri::getInstance()->current() . '?task=Display.summaryDisplay&quizId=' . $quizId);
+    }
+
 
     public function saveData() {
 

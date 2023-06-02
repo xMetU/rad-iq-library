@@ -19,14 +19,19 @@ class HtmlView extends BaseHtmlView {
         $this->quiz = $this->get('Item', 'Quiz');
         $this->questions = $this->get('Items', 'Questions');
         $this->answers = $this->get('Items', 'Answers');
-        $this->userAnswers = Factory::getApplication()->getUserState('myQuiz.userAnswers');
-        var_dump($this->userAnswers);
 
         foreach ($this->questions as $i => $question) {
             $question->number = $i;
             if ($question->id == Factory::getApplication()->input->getVar('questionId')) {
                 $this->question = $this->questions[$i];
             }
+        }
+
+        $userAnswers = Factory::getApplication()->getUserState('myQuiz.userAnswers');
+        if (array_key_exists($this->question->id, $userAnswers)) {
+            $this->userAnswer = $userAnswers[$this->question->id];
+        } else {
+            $this->userAnswer = null;
         }
         
         parent::display($template);

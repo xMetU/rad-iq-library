@@ -34,7 +34,7 @@ class QuizFormModel extends BaseModel {
 			if (str_contains($e->getMessage(), "Duplicate")) {
 				Factory::getApplication()->enqueueMessage("Error: A quiz already exists with that name.");
 			} else {
-				Factory::getApplication()->enqueueMessage($e->getMessage());
+				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
 			}
 			return false;
 		}

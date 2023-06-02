@@ -28,7 +28,8 @@ class QuizScoresModel extends ListModel {
                 ->from($db->quoteName('#__myQuiz_quizUserSummary', 'qus'))
                 ->join(
                     'LEFT',
-                    $db->quoteName('#__myQuiz_quiz', 'q') . 'ON' . $db->quoteName('qus.quizId') . '=' . $db->quoteName('q.id'))
+                    $db->quoteName('#__myQuiz_quiz', 'q') . 'ON' . $db->quoteName('qus.quizId') . '=' . $db->quoteName('q.id')
+                )
 				->where($db->quoteName('qus.userId') . '=' . $db->quote($userId));
 			
 		}

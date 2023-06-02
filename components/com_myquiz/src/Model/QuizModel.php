@@ -34,27 +34,5 @@ class QuizModel extends ItemModel {
 
         return $result;
     }
-
-    public function saveUserAnswer() {
-
-    }
-
-    public function submitUserAnswers() {
-        
-    }
-
-    public function getAttemptCount($userId, $quizId) {
-        $db = $this->getDatabase();
-
-        $query = $db->getQuery(true)
-            ->select('COUNT(*) AS attemptCount')
-            ->from($db->quoteName('#__myQuiz_quizUserSummary', 'qus'))
-            ->where($db->quoteName('qus.userId') . '=' . $db->quote($userId))
-            ->where($db->quoteName('qus.quizId') . '=' . $db->quote($quizId));
-
-        $result = $db->setQuery($query)->loadObject();
-
-        return $result->attemptCount;
-    }
    
 }

@@ -54,34 +54,6 @@ class DisplayController extends BaseController {
         }
     }
 
-    public function summaryDisplay() {
-        $document = Factory::getDocument();
-        $viewFormat = $document->getType();
-        $view = $this->getView('SummaryView', $viewFormat);
-
-        $model1 = $this->getModel('Summary');
-        $model2 = $this->getModel('SaveAnswers');
-        $model3 = $this->getModel('QuizQuestions');
-        $view->setModel($model1, true);   
-        $view->setModel($model2);  
-        $view->setModel($model3); 
-
-        $view->document = $document;
-        $view->display();
-    }
-
-    public function quizScoresDisplay() {
-        $document = Factory::getDocument();
-        $viewFormat = $document->getType();
-        $view = $this->getView('QuizScoresView', $viewFormat);
-
-        $model = $this->getModel('QuizScores');
-        $view->setModel($model, true);
-
-        $view->document = $document;
-        $view->display();
-    }
-
     public function quizForm() {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
@@ -123,6 +95,32 @@ class DisplayController extends BaseController {
         $view->setModel($model1, true);
         $view->setModel($model2);
         $view->setModel($model3);
+
+        $view->document = $document;
+        $view->display();
+    }
+
+    public function summaryDisplay() {
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+        $view = $this->getView('SummaryView', $viewFormat);
+
+        $model1 = $this->getModel('UserAnswer');
+        $model2 = $this->getModel('Questions');
+        $view->setModel($model1, true);
+        $view->setModel($model2);  
+
+        $view->document = $document;
+        $view->display();
+    }
+
+    public function quizScoresDisplay() {
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+        $view = $this->getView('QuizScoresView', $viewFormat);
+
+        $model = $this->getModel('QuizScores');
+        $view->setModel($model, true);
 
         $view->document = $document;
         $view->display();
