@@ -14,12 +14,12 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
 $document = Factory::getDocument();
+$document->addScript("media/com_myquiz/js/summaryView.js");
 $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 ?>
 
-<!-- ====== SUMMARY VIEW ===== -->
-
+<!-- SUMMARY VIEW -->
 
 <!-- Header -->
 <div class="row">

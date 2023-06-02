@@ -40,14 +40,10 @@ class QuizzesModel extends ListModel {
                 'COUNT(*) AS' . $db->quoteName('questionCount'),
                 'MIN(' . $db->quoteName('qu.id') . ') AS' . $db->quoteName('firstQuestionId')
             ])
-            ->group([
-                $db->quoteName('q.id'),
-                $db->quoteName('q.title'),
-                $db->quoteName('q.description'),
-                $db->quoteName('i.imageUrl'),
-                $db->quoteName('q.attemptsAllowed'),
-                $db->quoteName('q.isHidden')
-            ])
+            ->group($db->quoteName([
+                'q.id', 'q.title', 'q.description',
+                'i.imageUrl', 'q.attemptsAllowed', 'q.isHidden'
+            ]))
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',

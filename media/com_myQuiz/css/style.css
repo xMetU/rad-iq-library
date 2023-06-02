@@ -9,7 +9,6 @@ body {
     max-height: calc(100vh - 211px);
     overflow: auto;
     scrollbar-width: thin;
-    scrollbar-color: red;
 }
 
 .fixed-height-2 {

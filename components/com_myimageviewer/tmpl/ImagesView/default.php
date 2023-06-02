@@ -143,7 +143,11 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						<?php endforeach; ?>
 					<?php else: ?>
 						<td>
-							<p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
+                            <?php if ($this->category): ?>
+                                <p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
+                            <?php else: ?>
+                                <p class="text-secondary text-center pt-5">Could not find any matching image viewers</p>
+                            <?php endif; ?>							
 						</td>
 					<?php endif; ?>
 				</tr>

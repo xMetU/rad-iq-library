@@ -19,7 +19,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 ?>
 
-<!-- Answer Form View -->
+<!-- ASNWER FORM VIEW -->
 
 <div class="row">
 	<div class="col">
@@ -65,7 +65,6 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             </div>
 
             <hr/>
-
             <div class="form-group text-center">
                 <input type="hidden" name="isCorrect" value="0"/>
                 <input

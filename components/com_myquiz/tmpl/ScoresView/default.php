@@ -18,6 +18,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 ?>
 
+<!-- SCORES VIEW -->
 
 <!-- Header -->
 <div class="row">

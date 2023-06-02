@@ -31,11 +31,10 @@ class AnswerFormModel extends BaseModel {
 			Factory::getApplication()->enqueueMessage("Answer saved successfully.");
 			return true;
 		} catch (\Exception $e) {
-            Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+            Factory::getApplication()->enqueueMessage($e->getMessage());
 			return false;
 		}
 	}
-
 
 	public function updateAnswer($data) {
 		$db = Factory::getDbo();
@@ -56,7 +55,6 @@ class AnswerFormModel extends BaseModel {
 			return false;
 		}
 	}
-
 
 	public function deleteAnswer($answerId) {
 		$db = Factory::getDbo();

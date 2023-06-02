@@ -14,10 +14,14 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
 $document = Factory::getDocument();
+$document->addScript("media/com_myquiz/js/quizFormView.js");
 $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 ?>
 
+<!-- QUIZ FORM VIEW -->
+
+<!-- Header -->
 <div class="row">
 	<div class="col">
 		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
