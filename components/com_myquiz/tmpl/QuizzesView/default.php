@@ -15,7 +15,7 @@ use Joomla\CMS\Router\Route;
 use Kieran\Component\MyQuiz\Site\Helper\CheckGroup;
 
 $document = Factory::getDocument();
-$document->addScript("media/com_myquiz/js/allQuizView.js");
+$document->addScript("media/com_myquiz/js/quizzesView.js");
 $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 ?>
@@ -123,41 +123,39 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
             <tbody>
                 <tr class="row">
-                    <?php if (!empty($this->items)) : ?>
-						<?php foreach ($this->items as $item) : ?>
-                            <?php $render = CheckGroup::isGroup("Manager") ? true : !$item->isHidden; ?>
-                            <?php if ($render) : ?>
+                    <?php if (!empty($this->items)): ?>
+						<?php foreach ($this->items as $row) : ?>
+                            <?php $render = CheckGroup::isGroup("Manager") ? true : !$row->isHidden; ?>
+                            <?php if ($render): ?>
                                 <td class="col-12 pt-0 pb-4 px-3">
                                     <div class="card p-3">
                                         <div class="row">
                                             <div class="col-4">
                                                 <img
-                                                    id="<?php echo $item->imageId; ?>"
+                                                    id="<?php echo $row->imageId; ?>"
                                                     class="card-img-top"
-                                                    src="<?php echo $item->imageUrl . '.thumb'; ?>"
+                                                    src="<?php echo $row->imageUrl . '.thumb'; ?>"
                                                 />
                                             </div>
                                             <div class="col">
                                                 <div class="card-body p-0">
-                                                    <h5 class="text-truncate"><?php echo $item->title; ?></h5>
-                                                    <p><?php echo $item->description; ?></p>
-                                                    <p><?php echo 'Attempts: ' . $this->model->checkAttempts($this->userId, $item->id) . '/' . $item->attemptsAllowed; ?></p>
-                                                    <a 
-                                                        class="btn"
-                                                        href="<?php
-                                                            echo Uri::getInstance()->current() . '?task=Answer.startQuiz&id=' . $item->id
-                                                            . '&question=1&attemptsAllowed=' . $item->attemptsAllowed;
-                                                        ?>"
-                                                    >Attempt Quiz</a>
+                                                    <h5 class="text-truncate"><?php echo $row->title; ?></h5>
+                                                    <p><?php echo $row->description; ?></p>
+                                                    <a class="btn" href="<?php echo
+                                                        Uri::getInstance()->current()
+                                                        . '?task=Quiz.startQuiz&quizId=' . $row->id
+                                                        . '&questionId=' . $row->firstQuestionId
+                                                        . '&attemptsAllowed=' . $row->attemptsAllowed;
+                                                    ?>">Attempt Quiz</a>
                                                 </div>
                                             </div>
-                                            <?php if (CheckGroup::isGroup("Manager")) : ?>
+                                            <?php if (CheckGroup::isGroup("Manager")): ?>
                                                 <div class="col-auto d-flex flex-column">
                                                     <a
                                                         class="btn"
-                                                        href="<?php echo Uri::getInstance()->current() . '?task=Display.toggleIsHidden&id=' . $item->id; ?>"
+                                                        href="<?php echo Uri::getInstance()->current() . '?task=Display.toggleIsHidden&id=' . $row->id; ?>"
                                                     >
-                                                        <?php if($item->isHidden): ?>
+                                                        <?php if($row->isHidden): ?>
                                                             <i class="icon-eye-open"></i> Show
                                                         <?php else: ?>
                                                             <i class="icon-eye-close"></i> Hide
@@ -165,11 +163,11 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                                     </a>
                                                     <a
                                                         class="btn mt-2"
-                                                        href="<?php echo Uri::getInstance()->current() . '?task=Display.quizForm&quizId=' . $item->id; ?>"
+                                                        href="<?php echo Uri::getInstance()->current() . '?task=Display.quizForm&quizId=' . $row->id; ?>"
                                                     >Edit</a>
-                                                    <button id="<?php echo $item->id; ?>" class="delete-button btn mt-2"><i class="icon-delete"></i> Delete</button> 
+                                                    <button id="<?php echo $row->id; ?>" class="delete-button btn mt-2"><i class="icon-delete"></i> Delete</button> 
                                                 </div>
-                                                <?php if ($item->isHidden) : ?>
+                                                <?php if ($row->isHidden) : ?>
                                                     <div class="card-overlay d-flex">
                                                         <h5 class="m-auto">Hidden</h5>
                                                     </div>

@@ -17,20 +17,44 @@ use Joomla\CMS\Table\Table;
 class QuizModel extends ItemModel {
 
     public function getItem($pk = null) {
-        $id = Factory::getApplication()->input->get('quizId');
+        $db = $this->getDatabase();
 
-        $item = new \stdClass();
+        $quizId = Factory::getApplication()->input->get('quizId');
 
-        $table = $this->getTable('Quiz');
-        $table->load($id);
+        $query = $db->getQuery(true)
+            ->select(['q.*', 'i.imageUrl'])
+            ->from($db->quoteName('#__myQuiz_quiz', 'q'))
+            ->join(
+                'LEFT',
+                $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId'),
+            )
+            ->where($db->quoteName('q.id') . '=' . $db->quote($quizId));
 
-        $item->id = $table->id;
-        $item->imageId = $table->imageId;
-        $item->title = $table->title;
-        $item->description = $table->description;
-        $item->attemptsAllowed = $table->attemptsAllowed;
+        $result = $db->setQuery($query)->loadObject();
 
-        return $item;
+        return $result;
+    }
+
+    public function saveUserAnswer() {
+
+    }
+
+    public function submitUserAnswers() {
+        
+    }
+
+    public function getAttemptCount($userId, $quizId) {
+        $db = $this->getDatabase();
+
+        $query = $db->getQuery(true)
+            ->select('COUNT(*) AS attemptCount')
+            ->from($db->quoteName('#__myQuiz_quizUserSummary', 'qus'))
+            ->where($db->quoteName('qus.userId') . '=' . $db->quote($userId))
+            ->where($db->quoteName('qus.quizId') . '=' . $db->quote($quizId));
+
+        $result = $db->setQuery($query)->loadObject();
+
+        return $result->attemptCount;
     }
    
 }

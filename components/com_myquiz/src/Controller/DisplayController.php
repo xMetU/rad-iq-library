@@ -24,38 +24,33 @@ class DisplayController extends BaseController {
 
         $model = $this->getModel('Quizzes');
         $model2 = $this->getModel('Categories');
-        $model3 = $this->getModel('SaveAnswers');
         $view->setModel($model, true);
         $view->setModel($model2);
-        $view->setModel($model3);
 
         $view->document = $document;
         $view->display();
     }
 
-    public function questionDisplay() {
-
+    public function quiz() {
         $userId = Factory::getUser()->id;
-
-        // Not logged in
-        if ($userId === 0) {
-            Factory::getApplication()->enqueueMessage('Please login to continue');
-            $this->setRedirect(Route::_('?index.php', false));
-        }
-
-        else {
+        if ($userId) {
             $document = Factory::getDocument();
             $viewFormat = $document->getType();
-    
-            $model1 = $this->getModel('QuizAnswers');
-            $model2 = $this->getModel('QuizQuestions');
-    
-            $view = $this->getView('QuestionAnswerView', $viewFormat);       
-            $view->setModel($model1, true);   
-            $view->setModel($model2, false);
+            
+            $model1 = $this->getModel('Quiz');
+            $model2 = $this->getModel('Questions');
+            $model3 = $this->getModel('Answers');
+            $view = $this->getView('QuizView', $viewFormat);       
+            $view->setModel($model1);
+            $view->setModel($model2);
+            $view->setModel($model3);
     
             $view->document = $document;
             $view->display();
+        }
+        else {
+            Factory::getApplication()->enqueueMessage('Please login to continue');
+            $this->setRedirect(Route::_('?index.php', false));
         }
     }
 

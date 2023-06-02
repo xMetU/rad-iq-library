@@ -34,11 +34,28 @@ class QuizzesModel extends ListModel {
         $search = Factory::getApplication()->input->getVar('search');
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['q.id', 'q.title', 'q.description', 'i.imageUrl', 'q.attemptsAllowed', 'q.isHidden']))
+            ->select([
+                $db->quoteName('q.id'), $db->quoteName('q.title'), $db->quoteName('q.description'),
+                $db->quoteName('i.imageUrl'), $db->quoteName('q.attemptsAllowed'), $db->quoteName('q.isHidden'),
+                'COUNT(*) AS' . $db->quoteName('questionCount'),
+                'MIN(' . $db->quoteName('qu.id') . ') AS' . $db->quoteName('firstQuestionId')
+            ])
+            ->group([
+                $db->quoteName('q.id'),
+                $db->quoteName('q.title'),
+                $db->quoteName('q.description'),
+                $db->quoteName('i.imageUrl'),
+                $db->quoteName('q.attemptsAllowed'),
+                $db->quoteName('q.isHidden')
+            ])
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',
-                $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId')
+                $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId'),
+            )
+            ->join(
+                'LEFT',
+                $db->quoteName('#__myQuiz_question', 'qu') . 'ON' . $db->quoteName('qu.quizId') . '=' . $db->quoteName('q.id'),
             );
 
         if(isset($category)){
