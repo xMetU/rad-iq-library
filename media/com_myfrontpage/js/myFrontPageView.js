@@ -6,6 +6,4 @@ window.onload = function () {
         } catch (e) { }
     }, 5000);
 
-
-
 }

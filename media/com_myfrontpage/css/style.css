@@ -28,9 +28,18 @@ body {
     background-color: #54A9fB;
 }
 
-.container-sidebar-right div {
-    background-color: #180F15;
-    color: white;
+.container-sidebar-right > * {
+    background-color: #5342D9;
+    border-radius: 30px;
+    border: none;
+}
+
+.container-sidebar-right a {
+    color: #DDDDDD;
+}
+
+.container-sidebar-right a:hover {
+    color: #FFFFFF;
 }
 
 .control-group {
@@ -48,17 +57,3 @@ div.alert-wrapper {
 #system-message-container>* {
     margin-top: 16px;
 }
-
-#categories a {
-    border-radius: 999px;
-}
-
-
-#textBox {
-    background-color: #0b060a;
-}
-
-
-
-
-
