@@ -91,7 +91,7 @@ class CreateQuizController extends BaseController {
         }
         else{
             foreach($answerDataArray as $answer) {
-                if($answer['isCorrect'] == 1){
+                if(($answer['questionNumber'] == $questionNumber) && ($answer['isCorrect'] == 1)) {
                     if($isCorrect == 1) {
                         Factory::getApplication()->enqueueMessage("The correct answer is already set");
                         $load = false;
