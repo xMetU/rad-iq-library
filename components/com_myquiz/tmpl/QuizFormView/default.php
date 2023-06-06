@@ -94,6 +94,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         placeholder="Number of attempts allowed..."
                         required
                         min="1"
+                        max="999"
                         value="<?php if ($this->quiz) echo $this->quiz->attemptsAllowed; ?>"
                     />
                 </div>
