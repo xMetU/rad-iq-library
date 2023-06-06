@@ -1,18 +1,16 @@
 <?php
 
-namespace Kieran\Component\MyImageViewer\Site\Model;
+namespace Kieran\Component\MyQuiz\Site\Model;
 
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\ListModel;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Table\Table;
+
 
 /**
  * @package     Joomla.Site
  * @subpackage  com_myImageViewer
  */
-
 
 class CategoriesModel extends ListModel {
 

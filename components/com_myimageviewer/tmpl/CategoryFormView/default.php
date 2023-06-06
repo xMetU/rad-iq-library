@@ -64,7 +64,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 				<div class="col-auto">
 					<button class="btn mt-4">
-						<i class="icon-check icon-white"></i> Done
+						<i class="icon-check"></i> Done
 					</button> 
 				</div>
 			</div>
@@ -94,7 +94,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 				<div class="col-auto">
 					<button id="delete-button" class="btn mt-4">
-						<i class="icon-times icon-white"></i> Remove
+						<i class="icon-times"></i> Remove
 					</button> 
 				</div>
 			</div>
