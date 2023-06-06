@@ -93,7 +93,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
         </div>
 
         <div class="col">
-            <button id="exit-button" class="btn float-end rounded-circle"><i class="icon-times icon-white"></i></button>
+            <button id="exit-button" class="btn float-end rounded-circle"><i class="icon-times"></i></button>
         </div>
     </div>
 </div>

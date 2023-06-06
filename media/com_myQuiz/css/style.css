@@ -8,7 +8,13 @@ body {
 .fixed-height-1 {
     max-height: calc(100vh - 211px);
     overflow: auto;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+}
+
+.fixed-height-2 {
+    max-height: calc(100vh - 150px);
+    overflow: auto;
+    scrollbar-width: thin;
 }
 
 * {
@@ -78,11 +84,15 @@ ul.pagination li.page-item.disabled>.page-link {
     opacity: 50%;
 }
 
+textarea {
+    overflow-y: scroll;
+}
+
 /* QUIZZES VIEW */
 
 #quizzes img.card-img-top {
     width: 100%;
-    aspect-ratio: 2;
+    aspect-ratio: 1.3;
     object-fit: cover;
     border-radius: 20px;
 }
@@ -98,6 +108,7 @@ ul.pagination li.page-item.disabled>.page-link {
     background-color: #5342D9;
     color: white;
     border: none;
+    border-radius: 20px;
 }
 
 
@@ -132,11 +143,11 @@ ul.pagination li.page-item.disabled>.page-link {
     border-radius: 999px;
 }
 
-/* CREATE ANSWERS VIEW */
+/* ANSWERS FORM VIEW */
 
-#answers .row {
+#answers .card {
     background-color: #5342D9;
     color: white;
     border: none;
-    border-radius: 999px;
+    border-radius: 20px;
 }

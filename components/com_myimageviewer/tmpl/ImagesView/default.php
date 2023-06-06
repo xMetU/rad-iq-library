@@ -36,7 +36,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col">
 		<?php if (CheckGroup::isGroup("Manager")) : ?>
 			<!-- New image button -->
-			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>"><i class="icon-plus icon-white"></i> New Image</a>
+			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>"><i class="icon-plus"></i> New Image</a>
 		<?php endif; ?>
 	</div>
 </div>
@@ -143,7 +143,11 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						<?php endforeach; ?>
 					<?php else: ?>
 						<td>
-							<p class="text-secondary text-center pt-5">No images are assigned to this category</p>
+                            <?php if ($this->category): ?>
+                                <p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
+                            <?php else: ?>
+                                <p class="text-secondary text-center pt-5">Could not find any matching image viewers</p>
+                            <?php endif; ?>							
 						</td>
 					<?php endif; ?>
 				</tr>
