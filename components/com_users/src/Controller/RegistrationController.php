@@ -15,6 +15,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
+
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -239,7 +241,8 @@ class RegistrationController extends BaseController
             $this->setRedirect(Route::_('index.php?option=com_users&view=registration&layout=complete', false));
         } else {
             $this->setMessage(Text::_('COM_USERS_REGISTRATION_SAVE_SUCCESS'));
-            $this->setRedirect(Route::_('index.php?option=com_users&view=login', false));
+            $this->setRedirect(Uri::root() . 'index.php?&option=com_myfrontpage&view=myfrontpage');
+            // $this->setRedirect(Route::_('index.php?option=com_users&view=login', false));
         }
 
         return true;
