@@ -15,14 +15,20 @@ use Joomla\CMS\Factory;
 class HtmlView extends BaseHtmlView {
     
     public function display($template = null) {
+        $this->userId = Factory::getUser()->id;
         $this->items = $this->get('Items');
+        if ($this->userId) {
+            foreach ($this->items as $item) {
+                $userAttempts = $this->getModel('UserAnswers')->getAttemptCount($this->userId, $item->id);
+                $item->attemptsRemaining = $item->attemptsAllowed - $userAttempts;
+            }
+        }
+        
+        $this->getModel('UserAnswers')->getAttemptCount($this->userId, 1);
         $this->categories = $this->get('Items', 'Categories');
-
         $this->pagination = $this->get('Pagination');
         $this->category = Factory::getApplication()->input->get('category');
         $this->search = Factory::getApplication()->input->get('search');
-
-        $this->userId = Factory::getUser()->id;
 
         parent::display($template);
     }

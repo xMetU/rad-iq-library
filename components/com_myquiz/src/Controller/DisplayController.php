@@ -24,8 +24,10 @@ class DisplayController extends BaseController {
 
         $model = $this->getModel('Quizzes');
         $model2 = $this->getModel('Categories');
+        $model3 = $this->getModel('UserAnswers');
         $view->setModel($model, true);
         $view->setModel($model2);
+        $view->setModel($model3);
 
         $view->document = $document;
         $view->display();
@@ -36,11 +38,11 @@ class DisplayController extends BaseController {
         if ($userId) {
             $document = Factory::getDocument();
             $viewFormat = $document->getType();
-            
+            $view = $this->getView('QuizView', $viewFormat);       
+
             $model1 = $this->getModel('Quiz');
             $model2 = $this->getModel('Questions');
             $model3 = $this->getModel('Answers');
-            $view = $this->getView('QuizView', $viewFormat);       
             $view->setModel($model1);
             $view->setModel($model2);
             $view->setModel($model3);
@@ -105,7 +107,7 @@ class DisplayController extends BaseController {
         $viewFormat = $document->getType();
         $view = $this->getView('SummaryView', $viewFormat);
 
-        $model1 = $this->getModel('UserAnswer');
+        $model1 = $this->getModel('UserAnswers');
         $model2 = $this->getModel('Questions');
         $view->setModel($model1, true);
         $view->setModel($model2);  

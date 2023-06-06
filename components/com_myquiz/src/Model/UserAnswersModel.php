@@ -14,7 +14,7 @@ use Joomla\CMS\Table\Table;
  */
 
 
-class UserAnswerModel extends ListModel {
+class UserAnswersModel extends ListModel {
 
     public function getListQuery() {
         $db = $this->getDatabase();
@@ -105,7 +105,6 @@ class UserAnswerModel extends ListModel {
         } catch (\Exception $e) {
             Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
         }
-        
     }
 
     public function getAttemptCount($userId, $quizId) {

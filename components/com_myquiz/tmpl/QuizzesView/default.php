@@ -132,7 +132,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                         <div class="card p-3">
                                             <div class="row">
                                                 <!-- Image -->
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <img
                                                         class="card-img-top"
                                                         src="<?php echo $row->imageUrl . '.thumb'; ?>"
@@ -142,12 +142,13 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                                 <div class="col">
                                                     <h5><?php echo $row->title; ?></h5>
                                                     <p><?php echo $row->description; ?></p>
+                                                    <p><?php echo $row->questionCount; ?> Questions </p>
                                                     <a class="btn" href="<?php echo
                                                         Uri::getInstance()->current()
                                                         . '?task=Quiz.startQuiz&quizId=' . $row->id
                                                         . '&questionId=' . $row->firstQuestionId
                                                         . '&attemptsAllowed=' . $row->attemptsAllowed;
-                                                    ?>">Attempt Quiz</a>
+                                                    ?>">Attempt Quiz (<?php if ($this->userId) echo $row->attemptsRemaining; ?> remaining)</a>
                                                 </div>
                                                 
                                                 <?php if (CheckGroup::isGroup("Manager")): ?>

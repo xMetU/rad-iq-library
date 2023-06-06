@@ -19,12 +19,12 @@ use Joomla\CMS\Uri\Uri;
 class QuizController extends BaseController {
     
     public function startQuiz() {
-        $userId = Factory::getUser()->id;    
+        $userId = Factory::getUser()->id;
         // Redirect to main menu if not logged in
         if ($userId) {
             // Check if user has allowed attempts left
             $data = Factory::getApplication()->input->getArray();
-            $model = $this->getModel('UserAnswer');
+            $model = $this->getModel('UserAnswers');
             
             $userAttempts = $model->getAttemptCount($userId, $data['quizId']);
 
@@ -76,7 +76,7 @@ class QuizController extends BaseController {
     }
 
     private function submitAnswers() {
-        $model = $this->getModel('UserAnswer');
+        $model = $this->getModel('UserAnswers');
 
         $quizId = Factory::getApplication()->input->getVar('quizId');
         $userId = Factory::getApplication()->getUserState('myQuiz.userId');
