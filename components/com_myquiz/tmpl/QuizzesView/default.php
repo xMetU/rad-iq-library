@@ -112,88 +112,86 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
     <!-- Quizzes -->
     <div class="col-10 ps-5 fixed-height-1">
-        <div class="row">
-            <table id="quizzes" class="table table-borderless">
-                <tfoot>
-                    <tr>
-                        <td class="d-flex justify-content-center p-2">
-                            <?php echo $this->pagination->getListFooter(); ?>
-                        </td>
-                    </tr>
-                </tfoot>
+        <table id="quizzes" class="table table-borderless">
+            <tfoot>
+                <tr>
+                    <td class="d-flex justify-content-center p-2">
+                        <?php echo $this->pagination->getListFooter(); ?>
+                    </td>
+                </tr>
+            </tfoot>
 
-                <tbody>
-                    <tr class="row">
-                        <?php if (!empty($this->items)): ?>
-                            <?php foreach ($this->items as $row) : ?>
-                                <?php $render = CheckGroup::isGroup("Manager") ? true : !$row->isHidden; ?>
-                                <?php if ($render): ?>
-                                    <td class="col-12 pt-0 pb-4 px-3">
-                                        <div class="card p-3">
-                                            <div class="row">
-                                                <!-- Image -->
-                                                <div class="col-3">
-                                                    <img
-                                                        class="card-img-top"
-                                                        src="<?php echo $row->imageUrl . '.thumb'; ?>"
-                                                    />
+            <tbody>
+                <tr class="row">
+                    <?php if (!empty($this->items)): ?>
+                        <?php foreach ($this->items as $row) : ?>
+                            <?php $render = CheckGroup::isGroup("Manager") ? true : !$row->isHidden; ?>
+                            <?php if ($render): ?>
+                                <td class="col-12 pt-0 pb-4 px-3">
+                                    <div class="card p-3">
+                                        <div class="row">
+                                            <!-- Image -->
+                                            <div class="col-3">
+                                                <img
+                                                    class="card-img-top"
+                                                    src="<?php echo $row->imageUrl . '.thumb'; ?>"
+                                                />
+                                            </div>
+                                            <!-- Info -->
+                                            <div class="col">
+                                                <h5><?php echo $row->title; ?></h5>
+                                                <p><?php echo $row->description; ?></p>
+                                                <p><?php echo $row->questionCount; ?> Questions </p>
+                                                <a class="btn" href="<?php echo
+                                                    Uri::getInstance()->current()
+                                                    . '?task=Quiz.startQuiz&quizId=' . $row->id
+                                                    . '&questionId=' . $row->firstQuestionId
+                                                    . '&attemptsAllowed=' . $row->attemptsAllowed;
+                                                ?>">Attempt Quiz (<?php if ($this->userId) echo $row->attemptsRemaining; ?> remaining)</a>
+                                            </div>
+                                            
+                                            <?php if (CheckGroup::isGroup("Manager")): ?>
+                                                <!-- Manager Buttons -->
+                                                <div class="col-auto d-flex flex-column">
+                                                    <a
+                                                        class="btn"
+                                                        href="<?php echo Uri::getInstance()->current() . '?task=Display.toggleIsHidden&id=' . $row->id; ?>"
+                                                    >
+                                                        <?php if($row->isHidden): ?>
+                                                            <i class="icon-eye-open"></i> Show
+                                                        <?php else: ?>
+                                                            <i class="icon-eye-close"></i> Hide
+                                                        <?php endif; ?>
+                                                    </a>
+                                                    <a
+                                                        class="btn mt-2"
+                                                        href="<?php echo Uri::getInstance()->current() . '?task=Display.quizForm&quizId=' . $row->id; ?>"
+                                                    >Edit</a>
+                                                    <button id="<?php echo $row->id; ?>" class="delete-button btn mt-2"><i class="icon-delete"></i> Delete</button> 
                                                 </div>
-                                                <!-- Info -->
-                                                <div class="col">
-                                                    <h5><?php echo $row->title; ?></h5>
-                                                    <p><?php echo $row->description; ?></p>
-                                                    <p><?php echo $row->questionCount; ?> Questions </p>
-                                                    <a class="btn" href="<?php echo
-                                                        Uri::getInstance()->current()
-                                                        . '?task=Quiz.startQuiz&quizId=' . $row->id
-                                                        . '&questionId=' . $row->firstQuestionId
-                                                        . '&attemptsAllowed=' . $row->attemptsAllowed;
-                                                    ?>">Attempt Quiz (<?php if ($this->userId) echo $row->attemptsRemaining; ?> remaining)</a>
-                                                </div>
-                                                
-                                                <?php if (CheckGroup::isGroup("Manager")): ?>
-                                                    <!-- Manager Buttons -->
-                                                    <div class="col-auto d-flex flex-column">
-                                                        <a
-                                                            class="btn"
-                                                            href="<?php echo Uri::getInstance()->current() . '?task=Display.toggleIsHidden&id=' . $row->id; ?>"
-                                                        >
-                                                            <?php if($row->isHidden): ?>
-                                                                <i class="icon-eye-open"></i> Show
-                                                            <?php else: ?>
-                                                                <i class="icon-eye-close"></i> Hide
-                                                            <?php endif; ?>
-                                                        </a>
-                                                        <a
-                                                            class="btn mt-2"
-                                                            href="<?php echo Uri::getInstance()->current() . '?task=Display.quizForm&quizId=' . $row->id; ?>"
-                                                        >Edit</a>
-                                                        <button id="<?php echo $row->id; ?>" class="delete-button btn mt-2"><i class="icon-delete"></i> Delete</button> 
+                                                <?php if ($row->isHidden) : ?>
+                                                    <div class="card-overlay d-flex">
+                                                        <h5 class="m-auto">Hidden</h5>
                                                     </div>
-                                                    <?php if ($row->isHidden) : ?>
-                                                        <div class="card-overlay d-flex">
-                                                            <h5 class="m-auto">Hidden</h5>
-                                                        </div>
-                                                    <?php endif; ?>
                                                 <?php endif; ?>
-                                            </div>	
-                                        </div>
-                                    </td>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <td>
-                                <?php if ($this->category): ?>
-                                    <p class="text-secondary text-center pt-5">No quizzes are assigned to this category</p>
-                                <?php else: ?>
-                                    <p class="text-secondary text-center pt-5">Could not find any matching quizzes</p>
-                                <?php endif; ?>							
-                            </td>
-                        <?php endif; ?>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                                            <?php endif; ?>
+                                        </div>	
+                                    </div>
+                                </td>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <td>
+                            <?php if ($this->category): ?>
+                                <p class="text-secondary text-center pt-5">No quizzes are assigned to this category</p>
+                            <?php else: ?>
+                                <p class="text-secondary text-center pt-5">Could not find any matching quizzes</p>
+                            <?php endif; ?>							
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 

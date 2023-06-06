@@ -24,7 +24,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 <!-- Header -->
 <div class="row">
 	<div class="col">
-		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
+		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Exit</a>
 	</div>
 	<div class="col-8 text-center">
 		<h3><?php echo $this->quiz->title; ?></h3>

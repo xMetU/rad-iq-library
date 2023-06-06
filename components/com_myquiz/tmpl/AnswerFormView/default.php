@@ -28,8 +28,8 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             . '?task=Display.questionForm&quizId=' . $this->question->quizId;
         ?>">Back</a>
 	</div>
-	<div class="col-8 text-center text-truncate">
-		<h3>Answers: <?php echo $this->question->description; ?></h3>
+	<div class="col-8 text-center">
+		<h3 class="text-truncate">Answers: <?php echo $this->question->description; ?></h3>
 	</div>
 	<div class="col"></div>
 </div>
@@ -102,12 +102,20 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="row">
-                            <!-- Correct -->
-                            <div class="col-auto my-auto"><i class="<?php echo $row->isCorrect ? " icon-check" : " icon-times"; ?>"></i></div>
-                            <!-- Description -->
-                            <div class="col my-auto">
-                                <h5 class="text-truncate pb-1"><?php echo $row->description; ?></h5>
+                            <div class="col">
+                                <h5 class="pb-1"><?php echo $row->description; ?></h5>
                             </div>
+                        </div>
+                        <div class="row d-flex">
+                            <!-- Correct -->
+                            <div class="col my-auto">
+                                <?php if ($row->isCorrect): ?>
+                                    <i class="icon-check"></i> Correct
+                                <?php else: ?>
+                                    <i class="icon-times"></i> Incorrect
+                                <?php endif; ?>
+                            </div>
+                            
                             <!-- Buttons -->
                             <div class="col-auto">
                                 <a class="btn" href="<?php echo

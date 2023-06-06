@@ -108,6 +108,7 @@ textarea {
     background-color: #5342D9;
     color: white;
     border: none;
+    border-radius: 20px;
 }
 
 
@@ -148,4 +149,5 @@ textarea {
     background-color: #5342D9;
     color: white;
     border: none;
+    border-radius: 20px;
 }

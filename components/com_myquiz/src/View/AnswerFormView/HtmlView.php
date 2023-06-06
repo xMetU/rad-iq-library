@@ -20,13 +20,22 @@ class HtmlView extends BaseHtmlView {
         $this->items = $this->get('Items');
 
         $this->question = $this->get('Item', 'Question');
-        if (Factory::getApplication()->input->getVar('answerId') != null) {
-            $this->answer = $this->get('Item', 'Answer');
+        if ($answerId = Factory::getApplication()->input->getVar('answerId')) {
+            $this->answer = $this->findAnswer($answerId, $this->items);
         } else {
             $this->answer = null;
         }
 
         parent::display($template);
+    }
+
+    private function findAnswer($answerId, $answers) {
+        foreach ($answers as $answer) {
+            if ($answer->id == $answerId) {
+                return $answer;
+            }
+        }
+        return null;
     }
 
 }

@@ -125,14 +125,16 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         <!-- Info -->
                         <div class="row">
                             <div class="col">
-                                <h5 class="text-truncate pb-1"><?php echo $row->description; ?></h5>
-                                <p class="text-truncate">Feedback: <?php echo $row->feedback; ?></p>
+                                <h5 class="pb-1"><?php echo $row->description; ?></h5>
+                                <p>Feedback: <?php echo $row->feedback; ?></p>
                             </div>
                         </div>
                         <!-- Buttons -->
-                        <div class="row">
-                            <div class="col">
-                                <a class="btn mx-auto" href="<?php echo
+                        <div class="row d-flex">
+                            <div class="col my-auto">Marks: <?php echo $row->markValue; ?></div>
+
+                            <div class="col-auto">
+                                <a class="btn" href="<?php echo
                                     Uri::getInstance()->current()
                                     . '?task=Display.questionForm&quizId=' . $this->quiz->id
                                     . '&questionId=' . $row->id;
@@ -143,7 +145,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                 <a href="<?php echo
                                     Uri::getInstance()->current()
                                     . '?task=Display.answerForm&questionId=' . $row->id
-                                ?>" class="btn float-end">Answers</a>
+                                ?>" class="btn">Answers</a>
                             </div>
                         </div>
                     </div>

@@ -51,7 +51,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             enctype="multipart/form-data"
         >
             <?php if ($this->quiz) : ?>
-				<input type="hidden" name="id" value="<?php echo $this->quiz->id; ?>"/>
+				<input type="hidden" name="quizId" value="<?php echo $this->quiz->id; ?>"/>
 			<?php endif; ?>
 
             <div class="form-group">

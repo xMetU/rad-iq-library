@@ -49,7 +49,7 @@ class QuizFormModel extends BaseModel {
 			->set($db->quoteName('description') . ' = ' . $db->quote($data['description']))
 			->set($db->quoteName('imageId') . ' = ' . $db->quote($data['imageId']))
             ->set($db->quoteName('attemptsAllowed') . ' = ' . $db->quote($data['attemptsAllowed']))
-			->where($db->quoteName('id') . ' = ' . $db->quote($data['id']));
+			->where($db->quoteName('id') . ' = ' . $db->quote($data['quizId']));
 		$db->setQuery($query);
 		
 		try {
