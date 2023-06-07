@@ -6,13 +6,13 @@ body {
 }
 
 .fixed-height-1 {
-    max-height: calc(100vh - 211px);
+    max-height: calc(100vh - 241px);
     overflow: auto;
     scrollbar-width: thin;
 }
 
 .fixed-height-2 {
-    max-height: calc(100vh - 133px);
+    max-height: calc(100vh - 180px);
     overflow: auto;
     scrollbar-width: thin;
 }

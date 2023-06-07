@@ -73,7 +73,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     value="1"
                     <?php if ($this->answer && $this->answer->isCorrect) echo "checked"; ?>
                 />
-                <label for="isCorrect">Is this the correct answer?</label>
+                <label for="isCorrect">Is this the correct answer? (sets the current correct answer to incorrect)</label>
             </div>
 
             <hr/>
@@ -122,7 +122,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                     Uri::getInstance()->current()
                                     . '?task=Display.answerForm&questionId=' . $this->question->id
                                     . '&answerId=' . $row->id;
-                                ?>">Edit</a>
+                                ?>"><i class="icon-pencil"></i> Edit</a>
 
                                 <button id="<?php echo $row->id; ?>" class="delete-button btn"><i class="icon-delete"></i> Delete</button> 
                             </div>

@@ -136,6 +136,8 @@ return [
 	'Joomla\\Plugin\\User\\Profile\\' => [JPATH_PLUGINS . '\user/profile/src'],
 	'Joomla\\Plugin\\User\\Terms\\' => [JPATH_PLUGINS . '\user/terms/src'],
 	'Joomla\\Plugin\\User\\Token\\' => [JPATH_PLUGINS . '\user/token/src'],
+	'Kieran\\Component\\MyFrontPage\\Administrator\\' => [JPATH_ADMINISTRATOR . '/components/com_myfrontpage/src'],
+	'Kieran\\Component\\MyFrontPage\\Site\\' => [JPATH_SITE . '/components/com_myfrontpage/src'],
 	'Kieran\\Component\\MyImageViewer\\Administrator\\' => [JPATH_ADMINISTRATOR . '/components/com_myimageviewer/src'],
 	'Kieran\\Component\\MyImageViewer\\Site\\' => [JPATH_SITE . '/components/com_myimageviewer/src'],
 	'Kieran\\Component\\MyQuiz\\Administrator\\' => [JPATH_ADMINISTRATOR . '/components/com_myquiz/src'],

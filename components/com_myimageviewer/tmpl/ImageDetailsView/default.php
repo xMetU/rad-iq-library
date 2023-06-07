@@ -33,7 +33,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
             <a 
                 class="btn me-3 float-end"
                 href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm&id=' . $this->item->id; ?>"
-            >Edit</a>
+            ><i class="icon-pencil"></i> Edit</a>
             <a 
                 href="<?php echo Uri::getInstance()->current() . '?task=Form.toggleIsHidden&id=' . $this->item->id; ?>"
                 class="btn me-3 float-end">
@@ -52,7 +52,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <div class="row">
     <!-- Image -->
     <div class="col-6 position-relative">
-        <a id="open-button" class="btn position-absolute m-2">Open</a>
+        <button id="open-button" class="btn position-absolute m-2">View</button>
         <img class="w-100 rounded" src="<?php echo $this->item->url; ?>"/>
     </div>
 

@@ -18,10 +18,10 @@ DROP TRIGGER IF EXISTS delete_answer_userAnswers;
 CREATE TABLE IF NOT EXISTS `#__myQuiz_quiz` (
   `id` SERIAL NOT NULL,
   `imageId` bigint(20) UNSIGNED NOT NULL,
-  `title` VARCHAR(60)  NOT NULL,
-  `description` VARCHAR(200)  NOT NULL,
-  `attemptsAllowed` INT DEFAULT '1',
-  `isHidden` BOOLEAN NOT NULL DEFAULT 0,
+  `title` VARCHAR(60) NOT NULL,
+  `description` VARCHAR(200),
+  `attemptsAllowed` INT NOT NULL,
+  `isHidden` BOOLEAN NOT NULL DEFAULT '0',
   UNIQUE (`title`),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`imageId`) REFERENCES `#__myImageViewer_image` (`id`)
@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_quiz` (
 CREATE TABLE IF NOT EXISTS `#__myQuiz_question` (
   `id` SERIAL NOT NULL,
   `quizId` bigint(20) UNSIGNED NOT NULL,
-  `description` VARCHAR(200),
+  `description` VARCHAR(200) NOT NULL,
   `feedback` VARCHAR(200),
-  `markValue` INT DEFAULT '1',
+  `markValue` INT NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`quizId`) REFERENCES `#__myQuiz_quiz` (`id`)
 ) ENGINE = InnoDB;
@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_question` (
 CREATE TABLE IF NOT EXISTS `#__myQuiz_answer` (
   `id` SERIAL NOT NULL,
   `questionId` bigint(20) UNSIGNED NOT NULL,
-  `description` VARCHAR(200),
-  `isCorrect` BOOLEAN,
+  `description` VARCHAR(200) NOT NULL,
+  `isCorrect` BOOLEAN NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`questionId`) REFERENCES `#__myQuiz_question` (`id`)
 ) ENGINE = InnoDB;
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_quizUserSummary` (
   `userId` int(11) NOT NULL,
   `quizId` bigint(20) UNSIGNED NOT NULL,
   `attemptNumber` INT NOT NULL,
-  `score` INT NOT NULL DEFAULT '0',
+  `score` INT NOT NULL,
   `maxScore` INT NOT NULL,
   `startTime` DATETIME,
   `finishTime` DATETIME,
@@ -127,21 +127,19 @@ DELIMITER ;
 
 
 INSERT INTO `#__myQuiz_quiz` (`imageId`, `title`, `description`, `attemptsAllowed`) VALUES
-	(1, 'Quiz Number 1', 'A series of questions about this image', 5),
-	(2, 'Quiz Multiple Answers Score Test', 'Multiple answers have been selected as correct. Is the score correct? The whole selection and scoring process might break if multiples are allowed', 5);
+	(1, 'Example Quiz', 'A quiz that is to be used as an example.', 5);
 
 INSERT INTO `#__myQuiz_question` (`quizId`, `description`, `feedback`, `markValue`) VALUES
-	(1, 'What is going on in this image?', 'The correct choice for this answer is c as there are reasons', 4),
-	(1, 'How many things are in this image?', 'The correct choice for this answer is a for reasons described', 8),
-	(2, 'Where are the bits in this image?', 'The correct choice for this answer is b. You should know this', 5),
-	(2, 'Where would everyone be in this image?', 'The correct choice for this answer is d. I cant say why', 5);
+	(1, 'Is this quiz an example?', 'The quiz is an example, you can tell by the title.', 4),
+	(1, 'What should you use this quiz for?', 'The example quiz should only be used to test the website.', 8),
+	(1, 'Does this quiz effectively test the website?', 'While it tests basic functionality, it misses some edge cases.', 5);
 	
 INSERT INTO `#__myQuiz_answer` (`questionId`, `description`, `isCorrect`) VALUES
-	(1, 'It has a face', 0),
-	(1, 'There are too many bones', 1),
-	(2, 'There is a sophisticated answer', 1),
-	(2, 'It is an alien', 0),
-	(3, 'It has a library card', 1),
-	(3, 'medical reasons', 1),
-	(4, 'There is too much blood', 1),
-	(4, 'The answer is elusive', 1);
+	(1, 'Yes', 1),
+	(1, 'No', 0),
+	(2, 'Testing the website', 1),
+	(2, 'Measuring IQ', 0),
+	(2, 'Passing the time', 0),
+	(3, 'Yes, completely', 0),
+	(3, 'Yes, but only partially', 1),
+	(3, 'No, not at all', 0);

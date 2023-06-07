@@ -17,8 +17,9 @@ use Joomla\CMS\Uri\Uri;
 
 /** @var Joomla\CMS\Document\HtmlDocument $this */
 
-$app = Factory::getApplication();
-$wa  = $this->getWebAssetManager();
+$app   = Factory::getApplication();
+$input = $app->getInput();
+$wa    = $this->getWebAssetManager();
 
 // Browsers support SVG favicons
 $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon.svg', '', [], true, 1), 'icon', 'rel', ['type' => 'image/svg+xml']);
@@ -26,11 +27,11 @@ $this->addHeadLink(HTMLHelper::_('image', 'favicon.ico', '', [], true, 1), 'alte
 $this->addHeadLink(HTMLHelper::_('image', 'joomla-favicon-pinned.svg', '', [], true, 1), 'mask-icon', 'rel', ['color' => '#000']);
 
 // Detecting Active Variables
-$option   = $app->input->getCmd('option', '');
-$view     = $app->input->getCmd('view', '');
-$layout   = $app->input->getCmd('layout', '');
-$task     = $app->input->getCmd('task', '');
-$itemid   = $app->input->getCmd('Itemid', '');
+$option   = $input->getCmd('option', '');
+$view     = $input->getCmd('view', '');
+$layout   = $input->getCmd('layout', '');
+$task     = $input->getCmd('task', '');
+$itemid   = $input->getCmd('Itemid', '');
 $sitename = htmlspecialchars($app->get('sitename'), ENT_QUOTES, 'UTF-8');
 $menu     = $app->getMenu()->getActive();
 $pageclass = $menu !== null ? $menu->getParams()->get('pageclass_sfx', '') : '';
@@ -141,37 +142,39 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
                 <jdoc:include type="modules" name="below-top" style="none" />
             </div>
         <?php endif; ?>
-
-        <?php if ($this->params->get('brand', 1)) : ?>
-            <div class="grid-child">
-                <div class="navbar-brand">
-                    <a class="brand-logo" href="<?php echo $this->baseurl; ?>/">
-                        <?php echo $logo; ?>
-                    </a>
-                    <?php if ($this->params->get('siteDescription')) : ?>
-                        <div class="site-description"><?php echo htmlspecialchars($this->params->get('siteDescription')); ?></div>
+        <div class="row me-0">
+            <?php if ($this->params->get('brand', 1)) : ?>
+                <div class="col-auto px-5 py-2">
+                    <div class="navbar-brand">
+                        <a class="brand-logo" href="<?php echo $this->baseurl; ?>/">
+                            <?php echo $logo; ?>
+                        </a>
+                        <?php if ($this->params->get('siteDescription')) : ?>
+                            <div class="site-description text-center"><?php echo htmlspecialchars($this->params->get('siteDescription')); ?></div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            
+            <?php if ($this->countModules('menu', true) || $this->countModules('search', true)) : ?>
+                <div class="col-auto ps-5 d-flex">
+                    <?php if ($this->countModules('menu', true)) : ?>
+                        <jdoc:include type="modules" name="menu" style="none" />
+                    <?php endif; ?>
+                    <?php if ($this->countModules('search', true)) : ?>
+                        <div class="container-search mt-auto">
+                            <jdoc:include type="modules" name="search" style="none" />
+                        </div>
                     <?php endif; ?>
                 </div>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($this->countModules('menu', true) || $this->countModules('search', true)) : ?>
-            <div class="grid-child container-nav">
-                <?php if ($this->countModules('menu', true)) : ?>
-                    <jdoc:include type="modules" name="menu" style="none" />
-                <?php endif; ?>
-                <?php if ($this->countModules('search', true)) : ?>
-                    <div class="container-search">
-                        <jdoc:include type="modules" name="search" style="none" />
-                    </div>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
+      	</div>
+        
     </header>
 
     <div class="site-grid">
         <?php if ($this->countModules('banner', true)) : ?>
-            <div class="container-banner full-width">
+            <div class="container-banner">
                 <jdoc:include type="modules" name="banner" style="none" />
             </div>
         <?php endif; ?>

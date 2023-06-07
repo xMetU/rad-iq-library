@@ -13,6 +13,7 @@ namespace Joomla\Component\Users\Site\Controller;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -56,7 +57,8 @@ class DisplayController extends BaseController
 
                     if ($user->get('guest') != 1) {
                         // Redirect to profile page.
-                        $this->setRedirect(Route::_('index.php?option=com_users&view=profile', false));
+                        $this->setRedirect(Uri::root() . 'index.php?&option=com_myfrontpage&view=myfrontpage');
+                        // $this->setRedirect(Route::_('index.php?option=com_users&view=profile', false));
 
                         return;
                     }
@@ -80,7 +82,8 @@ class DisplayController extends BaseController
 
                     if ($user->get('guest') == 1) {
                         // Redirect to login page.
-                        $this->setRedirect(Route::_('index.php?option=com_users&view=login', false));
+                        // $this->setRedirect(Route::_('index.php?option=com_users&view=login', false));
+                        $this->setRedirect(Uri::root() . 'index.php?&option=com_myfrontpage&view=myfrontpage');
 
                         return;
                     }
@@ -100,7 +103,8 @@ class DisplayController extends BaseController
 
                     if ($user->get('guest') != 1) {
                         // Redirect to profile page.
-                        $this->setRedirect(Route::_('index.php?option=com_users&view=profile', false));
+                        $this->setRedirect(Uri::root() . 'index.php?&option=com_myfrontpage&view=myfrontpage');
+                        // $this->setRedirect(Route::_('index.php?option=com_users&view=profile', false));
 
                         return;
                     }
@@ -136,6 +140,7 @@ class DisplayController extends BaseController
             $view->document = $document;
 
             $view->display();
+
         }
     }
 }

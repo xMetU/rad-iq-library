@@ -68,14 +68,13 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             
             <!-- Feedback -->
             <div class="form-group">
-                <label for="feedback">Feedback: *</label>
+                <label for="feedback">Feedback:</label>
 
                 <textarea
                     name="feedback"
                     class="form-control"
                     placeholder="Feedback when the question is answered."
                     maxlength="200"
-                    required
                     rows="3"
                 ><?php if ($this->question) echo $this->question->feedback; ?></textarea>
             </div>
@@ -91,6 +90,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     name="markValue"
                     class="form-control"
                     placeholder="How many marks is this question worth?"
+                    required
                     min="1"
                     max="999"
                     value="<?php if ($this->question) echo $this->question->markValue; ?>"
@@ -126,7 +126,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         <div class="row">
                             <div class="col">
                                 <h5 class="pb-1"><?php echo $row->description; ?></h5>
-                                <p>Feedback: <?php echo $row->feedback; ?></p>
+                                <p><?php echo $row->feedback; ?></p>
                             </div>
                         </div>
                         <!-- Buttons -->
@@ -138,7 +138,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                     Uri::getInstance()->current()
                                     . '?task=Display.questionForm&quizId=' . $this->quiz->id
                                     . '&questionId=' . $row->id;
-                                ?>">Edit</a>
+                                ?>"><i class="icon-pencil"></i> Edit</a>
 
                                 <button id="<?php echo $row->id; ?>" class="delete-button btn"><i class="icon-delete"></i> Delete</button> 
 

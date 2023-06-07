@@ -103,14 +103,13 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <hr/>
 
             <div class="form-group">
-                <label for="description">Description: *</label>
+                <label for="description">Description:</label>
 
                 <textarea
                     name="description"
                     class="form-control"
                     placeholder="Enter description..."
                     maxlength="200"
-                    required
                     rows="4"
                 ><?php if ($this->quiz) echo $this->quiz->description; ?></textarea>
             </div>
