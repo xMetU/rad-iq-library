@@ -13,3 +13,5 @@
 2023-06-05T09:08:45+00:00	INFO 127.0.0.1	joomlafailure	Empty password not allowed.
 2023-06-05T09:12:30+00:00	INFO 127.0.0.1	joomlafailure	Empty password not allowed.
 2023-06-05T09:15:07+00:00	INFO 127.0.0.1	joomlafailure	Empty password not allowed.
+2023-06-06T09:09:58+00:00	INFO 127.0.0.1	joomlafailure	Empty password not allowed.
+2023-06-06T16:19:24+00:00	INFO 127.0.0.1	joomlafailure	Empty password not allowed.

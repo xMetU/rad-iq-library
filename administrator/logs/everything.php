@@ -250,3 +250,36 @@
 2023-06-05T09:12:30+00:00	WARNING 127.0.0.1	jerror	Empty password not allowed.
 2023-06-05T09:15:07+00:00	INFO 127.0.0.1	joomlafailure	Empty password not allowed.
 2023-06-05T09:15:07+00:00	WARNING 127.0.0.1	jerror	Empty password not allowed.
+2023-06-05T13:43:29+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.28 seconds
+2023-06-05T13:43:29+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-06-05T19:47:30+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.78 seconds
+2023-06-05T19:47:30+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-06-06T09:09:45+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.36 seconds
+2023-06-06T09:09:46+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-06-06T09:09:58+00:00	INFO 127.0.0.1	joomlafailure	Empty password not allowed.
+2023-06-06T09:09:58+00:00	WARNING 127.0.0.1	jerror	Empty password not allowed.
+2023-06-06T09:09:59+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.21 seconds
+2023-06-06T09:10:00+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.64 seconds
+2023-06-06T15:22:23+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.25 seconds
+2023-06-06T15:22:23+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-06-06T15:52:00+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Error thrown with message "Class "Kieran\Component\MyQuiz\Site\Model\Factory" not found". Stack trace: #0 [ROOT]\libraries\src\MVC\Model\ListModel.php(215): Kieran\Component\MyQuiz\Site\Model\ButtonCategoriesModel->getListQuery()
+#1 [ROOT]\libraries\src\MVC\Model\ListModel.php(264): Joomla\CMS\MVC\Model\ListModel->_getListQuery()
+#2 [ROOT]\libraries\src\MVC\View\AbstractView.php(146): Joomla\CMS\MVC\Model\ListModel->getItems()
+#3 [ROOT]\components\com_myquiz\src\View\AllQuizView\HtmlView.php(22): Joomla\CMS\MVC\View\AbstractView->get('Items', 'ButtonCategorie...')
+#4 [ROOT]\components\com_myquiz\src\Controller\DisplayController.php(36): Kieran\Component\MyQuiz\Site\View\AllQuizView\HtmlView->display()
+#5 [ROOT]\libraries\src\MVC\Controller\BaseController.php(672): Kieran\Component\MyQuiz\Site\Controller\DisplayController->display()
+#6 [ROOT]\libraries\src\Dispatcher\ComponentDispatcher.php(143): Joomla\CMS\MVC\Controller\BaseController->execute('display')
+#7 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\ComponentDispatcher->dispatch()
+#8 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myquiz')
+#9 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#10 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#11 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#12 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+2023-06-06T16:19:24+00:00	INFO 127.0.0.1	joomlafailure	Empty password not allowed.
+2023-06-06T16:19:24+00:00	WARNING 127.0.0.1	jerror	Empty password not allowed.
+2023-06-07T07:26:16+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.35 seconds
+2023-06-07T07:26:16+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-06-07T08:53:24+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.21 seconds
+2023-06-07T08:53:24+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.65 seconds
+2023-06-07T08:53:25+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.66 seconds

@@ -44,8 +44,25 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <hr/>
 
 <div class="row pb-3">
-	<div class="col-2 text-center my-auto">
-		<h6>Filter by Category</h6>
+	<div class="col-2">
+		<!-- Searchbar -->
+		<form
+			action="<?php echo Uri::getInstance()->current(); ?>"
+			method="get"
+			enctype="multipart/form-data"
+		>
+			<div class="input-group">
+				<input
+					type="catSearch"
+					name="catSearch"
+					id="text"
+					class="form-control"
+					placeholder="Search Category..."
+					value="<?php if ($this->catSearch) echo $this->catSearch; ?>"
+				/>
+				<button type="submit" class="btn"><i class="icon-search"></i></button>
+			</div>
+		</form>
 	</div>
 
 	<div class="col-10 ps-5">
@@ -65,7 +82,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							name="search"
 							id="text"
 							class="form-control"
-							placeholder="Search..."
+							placeholder="Search Images..."
 							value="<?php if ($this->search) echo $this->search; ?>"
 						/>
 						<button type="submit" class="btn"><i class="icon-search"></i></button>
@@ -76,6 +93,12 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<div class="col"></div>
 		</div>
 		
+	</div>
+</div>
+
+<div class="row mt-2">
+	<div class="col-2 text-center my-auto">
+		<h6>Filter by Category</h6>
 	</div>
 </div>
 

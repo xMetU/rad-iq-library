@@ -21,7 +21,9 @@ class HtmlView extends BaseHtmlView {
         $this->items = $this->get('Items');
         $this->categories = $this->get('Items', 'ButtonCategories');
         $this->pagination = $this->get('Pagination');
+
         $this->category = Factory::getApplication()->input->get('category');
+        $this->catSearch = Factory::getApplication()->input->get('catSearch');
         $this->search = Factory::getApplication()->input->get('search');
 
         $this->userId = Factory::getUser()->id; 
