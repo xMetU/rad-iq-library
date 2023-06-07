@@ -16,9 +16,11 @@ use Joomla\CMS\Table\Table;
 
 class QuizFormModel extends BaseModel {
 
-	public function saveQuiz($data) {
+	public function saveQuiz($title, $imageId, $attemptsAllowed, $description) {
+
 		$db = Factory::getDbo();
         $columns = array('title', 'imageId', 'attemptsAllowed', 'description');
+		$data = ['title' => $title, 'imageId' => $imageId, 'attemptsAllowed' => $attemptsAllowed, 'description' => $description];
 
 		$query = $db->getQuery(true)
 			->insert($db->quoteName('#__myQuiz_quiz'))
@@ -31,17 +33,21 @@ class QuizFormModel extends BaseModel {
 			Factory::getApplication()->enqueueMessage("Quiz saved successfully.");
 			return true;
 		} catch (\Exception $e) {
+				
 			if (str_contains($e->getMessage(), "Duplicate")) {
 				Factory::getApplication()->enqueueMessage("Error: A quiz already exists with that name.");
-			} else {
+			}	
+			else {
 				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
 			}
 			return false;
 		}
 	}
 
-	public function updateQuiz($data) {
+	public function updateQuiz($quizId, $title, $imageId, $attemptsAllowed, $description) {
+		
 		$db = Factory::getDbo();
+		$data = ['quizId' => $quizId, 'title' => $title, 'imageId' => $imageId, 'attemptsAllowed' => $attemptsAllowed, 'description' => $description];
 
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__myQuiz_quiz'))

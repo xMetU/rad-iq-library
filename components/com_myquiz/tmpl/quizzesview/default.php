@@ -27,7 +27,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     <div class="col">
         <?php if (CheckGroup::isGroup("Manager")) : ?>
             <!-- Manage categories button -->
-            <a class="btn" href="index.php/image-viewers?task=Display.categoryForm">Manage Categories</a>
+            <a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
         <?php endif; ?>
     </div>
     <div class="col-auto"><h3>Quizzes</h3></div>
@@ -123,7 +123,13 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 										. ($row->id == $this->category ? "" : '?category='. $row->id);
 									?>"
 								>
-									<?php echo $row->categoryName; ?>
+                                    <?php $count = 0; ?>
+                                    <?php foreach ($this->images as $i) : ?>
+                                        <?php if ($i->categoryName == $row->categoryName) : ?>
+                                            <?php $count++; ?>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <?php echo $row->categoryName . ' (' . $count . ')'; ?>
 								</a>
 							</td>
 						</tr>
@@ -162,7 +168,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                             </div>
                                             <!-- Info -->
                                             <div class="col">
-                                                <h5><?php echo $row->title; ?></h5>
+                                                <h5 name="rowTitle"><?php echo $row->title; ?></h5>
                                                 <p><?php echo $row->description; ?></p>
                                                 <p><?php echo $row->questionCount; ?> Question(s) </p>
                                                 <a class="btn" href="<?php echo

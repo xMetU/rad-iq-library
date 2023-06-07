@@ -11,7 +11,8 @@ window.onload = function () {
         const tableBody = document.getElementById("quizzes");
         const deleteConfirmation = document.getElementById("delete-confirmation");
 
-        const titles = tableBody.querySelectorAll("h5");
+        const titles = document.getElementsByName("rowTitle");
+
 
         tableBody.querySelectorAll(".delete-button").forEach((deleteButton, i) => {
             deleteButton.onclick = () => {

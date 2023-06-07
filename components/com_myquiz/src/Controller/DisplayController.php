@@ -25,6 +25,7 @@ class DisplayController extends BaseController {
         $model = $this->getModel('Quizzes');
         $model2 = $this->getModel('Categories');
         $model3 = $this->getModel('UserAnswers');
+
         $view->setModel($model, true);
         $view->setModel($model2);
         $view->setModel($model3);
@@ -43,6 +44,7 @@ class DisplayController extends BaseController {
             $model1 = $this->getModel('Quiz');
             $model2 = $this->getModel('Questions');
             $model3 = $this->getModel('Answers');
+
             $view->setModel($model1);
             $view->setModel($model2);
             $view->setModel($model3);
@@ -132,6 +134,22 @@ class DisplayController extends BaseController {
 			Uri::getInstance()->current(),
 			false,
 		));
+    }
+
+    public function categoryForm() {
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+
+        $view = $this->getView('CategoryFormView', $viewFormat);  
+        
+        $model = $this->getModel('CategoryForm');
+        $model2 = $this->getModel('Categories');
+
+        $view->setModel($model, true);
+        $view->setModel($model2);
+    
+        $view->document = $document;
+        $view->display();
     }
 
 }
