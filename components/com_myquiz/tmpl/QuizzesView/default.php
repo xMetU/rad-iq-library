@@ -166,7 +166,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                                     <a
                                                         class="btn mt-2"
                                                         href="<?php echo Uri::getInstance()->current() . '?task=Display.quizForm&quizId=' . $row->id; ?>"
-                                                    >Edit</a>
+                                                    ><i class="icon-pencil"></i> Edit</a>
                                                     <button id="<?php echo $row->id; ?>" class="delete-button btn mt-2"><i class="icon-delete"></i> Delete</button> 
                                                 </div>
                                                 <?php if ($row->isHidden) : ?>
