@@ -141,7 +141,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                             <div class="col">
                                                 <h5><?php echo $row->title; ?></h5>
                                                 <p><?php echo $row->description; ?></p>
-                                                <p><?php echo $row->questionCount; ?> Questions </p>
+                                                <p><?php echo $row->questionCount; ?> Question(s) </p>
                                                 <a class="btn" href="<?php echo
                                                     Uri::getInstance()->current()
                                                     . '?task=Quiz.startQuiz&quizId=' . $row->id

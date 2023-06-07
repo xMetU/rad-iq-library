@@ -18,10 +18,10 @@ DROP TRIGGER IF EXISTS delete_answer_userAnswers;
 CREATE TABLE IF NOT EXISTS `#__myQuiz_quiz` (
   `id` SERIAL NOT NULL,
   `imageId` bigint(20) UNSIGNED NOT NULL,
-  `title` VARCHAR(60)  NOT NULL,
-  `description` VARCHAR(200)  NOT NULL,
-  `attemptsAllowed` INT DEFAULT '1',
-  `isHidden` BOOLEAN NOT NULL DEFAULT 0,
+  `title` VARCHAR(60) NOT NULL,
+  `description` VARCHAR(200),
+  `attemptsAllowed` INT NOT NULL,
+  `isHidden` BOOLEAN NOT NULL DEFAULT '0',
   UNIQUE (`title`),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`imageId`) REFERENCES `#__myImageViewer_image` (`id`)
@@ -30,9 +30,9 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_quiz` (
 CREATE TABLE IF NOT EXISTS `#__myQuiz_question` (
   `id` SERIAL NOT NULL,
   `quizId` bigint(20) UNSIGNED NOT NULL,
-  `description` VARCHAR(200),
+  `description` VARCHAR(200) NOT NULL,
   `feedback` VARCHAR(200),
-  `markValue` INT DEFAULT '1',
+  `markValue` INT NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`quizId`) REFERENCES `#__myQuiz_quiz` (`id`)
 ) ENGINE = InnoDB;
@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_question` (
 CREATE TABLE IF NOT EXISTS `#__myQuiz_answer` (
   `id` SERIAL NOT NULL,
   `questionId` bigint(20) UNSIGNED NOT NULL,
-  `description` VARCHAR(200),
-  `isCorrect` BOOLEAN,
+  `description` VARCHAR(200) NOT NULL,
+  `isCorrect` BOOLEAN NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`questionId`) REFERENCES `#__myQuiz_question` (`id`)
 ) ENGINE = InnoDB;
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_quizUserSummary` (
   `userId` int(11) NOT NULL,
   `quizId` bigint(20) UNSIGNED NOT NULL,
   `attemptNumber` INT NOT NULL,
-  `score` INT NOT NULL DEFAULT '0',
+  `score` INT NOT NULL,
   `maxScore` INT NOT NULL,
   `startTime` DATETIME,
   `finishTime` DATETIME,
