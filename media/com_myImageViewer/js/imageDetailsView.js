@@ -6,7 +6,6 @@ window.onload = function () {
         } catch (e) {}
     }, 5000);
 
-    // 
     const focusedImageView = document.getElementById("focused-img-view");
     const focusedImage = document.getElementById("focused-img");
     const contrastInput = document.getElementById("contrast-input");

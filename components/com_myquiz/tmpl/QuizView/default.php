@@ -83,7 +83,8 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 <!-- Question and Answers -->
 <div class="row">
-    <div class="col">
+    <div class="col position-relative">
+        <button id="open-button" class="btn position-absolute m-2">View</button>
         <img src="<?php echo $this->quiz->imageUrl; ?>" />
     </div>
     
@@ -117,8 +118,37 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <?php endforeach; ?>
             </form>
         <?php else: ?>
-
             <p class="mt-5 text-center">No answers have been assigned to this question.</p>
         <?php endif; ?>
     </div>    
+</div>
+
+<!-- Focused viewer -->
+<div id="focused-img-view" class="overlay-background d-none">
+    <div class="h-100 text-center">
+        <img id="focused-img" class="h-100" src="<?php echo $this->quiz->imageUrl; ?>"/>
+    </div>
+    <div id="controls-container" class="row fixed-top m-2">
+        <div class="col"></div>
+
+        <div id="controls" class="col-auto rounded">
+            <div class="row">
+                <div class="col rounded px-4 text-center">
+                    <label for="brightness-input">Brightness</label>
+                    <input type="range" min="50" max="250" id="brightness-input" class="form-range"/>
+                </div>
+                <div class="col-auto rounded mx-2 text-center">
+                    Scroll to <br/> Zoom
+                </div>
+                <div class="col rounded px-4 text-center">
+                    <label for="contrast-input">Contrast</label>
+                    <input type="range" min="50" max="450" id="contrast-input" class="form-range"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <button id="exit-button" class="btn float-end rounded-circle"><i class="icon-times"></i></button>
+        </div>
+    </div>
 </div>

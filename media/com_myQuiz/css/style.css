@@ -150,3 +150,17 @@ textarea {
     border: none;
     border-radius: 20px;
 }
+
+/* QUIZ VIEW */
+
+#open-button {
+    right: 8px;
+}
+
+#controls-container {
+    z-index: 69420;
+}
+
+#controls .col, #controls .col-auto {
+    background-color: #242C76;
+}

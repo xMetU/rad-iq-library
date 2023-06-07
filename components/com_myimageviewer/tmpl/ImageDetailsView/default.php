@@ -52,7 +52,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <div class="row">
     <!-- Image -->
     <div class="col-6 position-relative">
-        <a id="open-button" class="btn position-absolute m-2">View</a>
+        <button id="open-button" class="btn position-absolute m-2">View</button>
         <img class="w-100 rounded" src="<?php echo $this->item->url; ?>"/>
     </div>
 
