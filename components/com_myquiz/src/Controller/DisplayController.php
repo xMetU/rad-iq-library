@@ -104,9 +104,7 @@ class DisplayController extends BaseController {
         $view = $this->getView('SummaryView', $viewFormat);
 
         $model1 = $this->getModel('UserAnswers');
-        $model2 = $this->getModel('Questions');
         $view->setModel($model1, true);
-        $view->setModel($model2);  
 
         $view->document = $document;
         $view->display();

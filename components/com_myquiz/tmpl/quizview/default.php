@@ -103,14 +103,14 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 
                 <h5 id="<?php echo $this->question->id; ?>"><?php echo $this->question->number + 1 . '. ' . $this->question->description; ?></h5>
 
-                <?php foreach ($this->answers as $row) : ?>
+                <?php foreach ($this->answers as $i => $row) : ?>
                     <div class="row mt-3">
                         <div class="col-auto">
                             <input 
-                                type="radio"
-                                name="answerId"
+                                type="checkbox"
+                                name=<?php echo "answerId[" . $i . "]"; ?>
                                 value="<?php echo $row->id; ?>"
-                                <?php if ($row->id == $this->userAnswer) echo "checked"; ?>
+                                <?php if ($this->userAnswers && in_array($row->id, $this->userAnswers)) echo "checked"; ?>
                             />
                         </div>
                         <div class="col"><?php echo $row->description; ?></div>

@@ -80,24 +80,6 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             </div>
 
             <hr/>
-
-            <!-- Mark value -->
-            <div class="form-group">
-                <label data-toggle="tooltip" for="markValue">Marks: *</label>
-
-                <input
-                    type="number"
-                    name="markValue"
-                    class="form-control"
-                    placeholder="How many marks is this question worth?"
-                    required
-                    min="1"
-                    max="999"
-                    value="<?php if ($this->question) echo $this->question->markValue; ?>"
-                />
-            </div>
-
-            <hr/>
             <!-- Submit button -->
             <div class="form-group">
                 <button class="btn">
@@ -130,10 +112,8 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                             </div>
                         </div>
                         <!-- Buttons -->
-                        <div class="row d-flex">
-                            <div class="col my-auto">Marks: <?php echo $row->markValue; ?></div>
-
-                            <div class="col-auto">
+                        <div class="row">
+                            <div class="col">
                                 <a class="btn" href="<?php echo
                                     Uri::getInstance()->current()
                                     . '?task=Display.questionForm&quizId=' . $this->quiz->id
@@ -141,7 +121,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                 ?>"><i class="icon-pencil"></i> Edit</a>
 
                                 <button id="<?php echo $row->id; ?>" class="delete-button btn"><i class="icon-delete"></i> Delete</button> 
-
+                            </div>
+                            
+                            <div class="col-auto">
                                 <a href="<?php echo
                                     Uri::getInstance()->current()
                                     . '?task=Display.answerForm&questionId=' . $row->id

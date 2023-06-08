@@ -85,17 +85,16 @@ class QuizController extends BaseController {
         $startTime = Factory::getApplication()->getUserState('myQuiz.startTime');
         $finishTime = date("Y-m-d H:i:s");
 
-        foreach($userAnswers as $answerId) {
-            $model->submitAnswer([$userId, $answerId, $attemptNumber]);
+        foreach ($userAnswers as $answerIds) {
+            foreach ($answerIds as $answerId) {
+                $model->submitAnswer([$userId, $answerId, $attemptNumber]);
+            }
         }
 
-        $model->generateSummary(
-            [
-                'userId' => $userId, 'quizId' => $quizId, 'attemptNumber' => $attemptNumber,
-                'startTime' => $startTime, 'finishTime' => $finishTime,
-            ], 
-            $userAnswers,
-        );
+        $model->generateSummary([
+            'userId' => $userId, 'quizId' => $quizId, 'attemptNumber' => $attemptNumber,
+            'startTime' => $startTime, 'finishTime' => $finishTime,
+        ]);
 
         $this->setRedirect(Uri::getInstance()->current() . '?task=Display.summary&quizId=' . $quizId);
     }

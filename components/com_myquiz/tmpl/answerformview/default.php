@@ -49,7 +49,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <?php if ($this->answer): ?>
                 <input type="hidden" name="answerId" value="<?php echo $this->answer->id; ?>"/>
             <?php endif; ?>
-
+            <!-- Description -->
             <div class="form-group">
                 <label for="description">Answer text: *</label>
 
@@ -65,15 +65,20 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             </div>
 
             <hr/>
-            <div class="form-group text-center">
-                <input type="hidden" name="isCorrect" value="0"/>
+            <!-- Mark value -->
+            <div class="form-group">
+                <label data-toggle="tooltip" for="markValue">Marks: *</label>
+
                 <input
-                    type="checkbox"
-                    name="isCorrect"
-                    value="1"
-                    <?php if ($this->answer && $this->answer->isCorrect) echo "checked"; ?>
+                    type="number"
+                    name="markValue"
+                    class="form-control"
+                    placeholder="How many marks is this answer worth?"
+                    required
+                    min="0"
+                    max="999"
+                    value="<?php if ($this->answer) echo $this->answer->markValue; ?>"
                 />
-                <label for="isCorrect">Is this the correct answer? (sets the current correct answer to incorrect)</label>
             </div>
 
             <hr/>
@@ -108,12 +113,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         </div>
                         <div class="row d-flex">
                             <!-- Correct -->
+
                             <div class="col my-auto">
-                                <?php if ($row->isCorrect): ?>
-                                    <i class="icon-check"></i> Correct
-                                <?php else: ?>
-                                    <i class="icon-times"></i> Incorrect
-                                <?php endif; ?>
+                                Marks: <?php echo $row->markValue; ?>
                             </div>
                             
                             <!-- Buttons -->

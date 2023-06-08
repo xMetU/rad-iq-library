@@ -30,9 +30,9 @@ class HtmlView extends BaseHtmlView {
 
         $userAnswers = Factory::getApplication()->getUserState('myQuiz.userAnswers');
         if ($this->question && array_key_exists($this->question->id, $userAnswers)) {
-            $this->userAnswer = $userAnswers[$this->question->id];
+            $this->userAnswers = $userAnswers[$this->question->id];
         } else {
-            $this->userAnswer = null;
+            $this->userAnswers = null;
         }
         
         parent::display($template);

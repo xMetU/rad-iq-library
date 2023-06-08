@@ -18,23 +18,17 @@ class HtmlView extends BaseHtmlView {
     
     public function display($template = null) {
 
-        $this->items = $this->get('Items');
-        $this->questions = $this->get('Items', 'Questions');
-
-        $this->marks = 0;
-        $this->total = 0;
+        $items = $this->get('Items');
+        var_dump($items);
         
-        foreach($this->items as $item) {
-            if ($item->isCorrect) {
-                $this->marks += $item->markValue;
-            }
-        }
-
-        foreach ($this->questions as $question) {
-            $this->total += $question->markValue;
+        // TODO: consolidate into question => answer[] pairs
+        $this->items = [];
+        foreach ($items as $item) {
+            
         }
 
         parent::display($template);
+
     }
 
 }

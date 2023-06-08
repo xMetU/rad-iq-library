@@ -18,16 +18,7 @@ class AnswerFormModel extends BaseModel {
 
 	public function saveAnswer($data) {
 		$db = Factory::getDbo();
-        $columns = array('questionId', 'description', 'isCorrect');
-
-		if ($data['isCorrect']) {
-			$query = $db->getQuery(true)
-				->update($db->quoteName('#__myQuiz_answer'))
-				->set($db->quoteName('isCorrect') . ' = ' . $db->quote(0))
-				->where($db->quoteName('questionId') . ' = ' . $db->quote($data['questionId']));
-			$db->setQuery($query);
-			$db->execute();
-		}
+        $columns = array('questionId', 'description', 'markValue');
 
 		$query = $db->getQuery(true)
 			->insert($db->quoteName('#__myQuiz_answer'))
@@ -37,11 +28,7 @@ class AnswerFormModel extends BaseModel {
 
 		try {
 			$db->execute();
-			if ($data['isCorrect']) {
-				Factory::getApplication()->enqueueMessage("Answer saved successfully, correct answer updated.");
-			} else {
-				Factory::getApplication()->enqueueMessage("Answer saved successfully.");
-			}
+			Factory::getApplication()->enqueueMessage("Answer saved successfully.");
 			return true;
 		} catch (\Exception $e) {
             Factory::getApplication()->enqueueMessage($e->getMessage());
@@ -52,15 +39,6 @@ class AnswerFormModel extends BaseModel {
 	public function updateAnswer($data) {
 		$db = Factory::getDbo();
 
-		if ($data['isCorrect']) {
-			$query = $db->getQuery(true)
-				->update($db->quoteName('#__myQuiz_answer'))
-				->set($db->quoteName('isCorrect') . ' = ' . $db->quote(0))
-				->where($db->quoteName('questionId') . ' = ' . $db->quote($data['questionId']));
-			$db->setQuery($query);
-			$db->execute();
-		}
-
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__myQuiz_answer'))
 			->set($db->quoteName('description') . ' = ' . $db->quote($data['description']))
@@ -70,11 +48,7 @@ class AnswerFormModel extends BaseModel {
 		
 		try {
 			$result = $db->execute();
-			if ($data['isCorrect']) {
-				Factory::getApplication()->enqueueMessage("Answer updated successfully, correct answer updated.");
-			} else {
-				Factory::getApplication()->enqueueMessage("Answer updated successfully.");
-			}
+			Factory::getApplication()->enqueueMessage("Answer updated successfully.");
 			return true;
 		} catch (\Exception $e) {
             Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
