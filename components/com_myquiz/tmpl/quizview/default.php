@@ -55,10 +55,12 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <?php if ($row->number != $this->question->number): ?>
                     <button
                         id="<?php echo $row->id; ?>"
-                        class="btn navigator"
+                        class="btn navigator<?php if ($row->answered) echo " answered"; ?>"
                     ><?php echo $row->number + 1; ?></button>
                 <?php else: ?>
-                    <button class="btn" disabled><?php echo $row->number + 1; ?></button>
+                    <button class="btn selected<?php if ($row->answered) echo " answered"; ?>" disabled>
+                        <?php echo $row->number + 1; ?>
+                    </button>
                 <?php endif; ?>
                 
             <?php endforeach; ?>

@@ -75,7 +75,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     class="form-control"
                     placeholder="How many marks is this answer worth?"
                     required
-                    min="0"
+                    min="-999"
                     max="999"
                     value="<?php if ($this->answer) echo $this->answer->markValue; ?>"
                 />

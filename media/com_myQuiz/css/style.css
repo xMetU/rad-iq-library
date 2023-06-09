@@ -119,7 +119,7 @@ textarea {
     height: 100%;
     z-index: 42069;
     background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 30px;
+    border-radius: 20px;
     pointer-events: none;
 }
 
@@ -152,6 +152,14 @@ textarea {
 }
 
 /* QUIZ VIEW */
+
+.answered {
+    background-color: #54A9fB;
+}
+
+.selected {
+    border: 3px solid white;
+}
 
 #open-button {
     right: 8px;
