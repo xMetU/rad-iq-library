@@ -146,6 +146,11 @@ textarea {
     border-radius: 999px;
 }
 
+#attempts .row:hover {
+    filter: brightness(120%);
+    cursor: pointer;
+}
+
 /* ANSWERS FORM VIEW */
 
 #answers .card {

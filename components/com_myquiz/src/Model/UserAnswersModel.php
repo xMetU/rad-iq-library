@@ -21,7 +21,7 @@ class UserAnswersModel extends ListModel {
 
         $userId = Factory::getUser()->id;
         $quizId = Factory::getApplication()->input->get('quizId');
-        $attemptNumber = Factory::getApplication()->getUserState('myQuiz.attemptNumber');
+        $attemptNumber = Factory::getApplication()->input->get('attemptNumber');
 
         $query = $db->getQuery(true)
             ->select([

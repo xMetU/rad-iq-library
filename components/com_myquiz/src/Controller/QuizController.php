@@ -96,7 +96,11 @@ class QuizController extends BaseController {
             'startTime' => $startTime, 'finishTime' => $finishTime,
         ]);
 
-        $this->setRedirect(Uri::getInstance()->current() . '?task=Display.summary&quizId=' . $quizId);
+        $this->setRedirect(
+            Uri::getInstance()->current()
+            . '?task=Display.summary&quizId=' . $quizId
+            . '&attemptNumber=' . $attemptNumber
+        );
     }
 
 }

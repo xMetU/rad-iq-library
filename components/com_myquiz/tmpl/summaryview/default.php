@@ -24,17 +24,12 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 <!-- Header -->
 <div class="row">
 	<div class="col">
-        <a class="btn" href="<?php echo Uri::getInstance()->current() ?>">Back</a>
+        <a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.scores'; ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
 		<h3>Quiz Summary</h3>
 	</div>
-	<div class="col">
-        <a 
-            class="btn float-end"
-            href="<?php echo Uri::getInstance()->current() . '?task=Display.scores'; ?>"
-        >View All Scores</a>
-    </div>
+	<div class="col"></div>
 </div>
 
 <hr />
@@ -49,7 +44,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         <div class="col">
                             <div class="row">
                                 <div class="col">
-                                    <h5><?php echo $row->number + 1 . ": " . $row->description; ?></h5>
+                                    <h5><?php echo $row->number + 1 . ". " . $row->description; ?></h5>
                                 </div>
 
                                 <div class="col-auto">
