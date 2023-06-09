@@ -1,8 +1,8 @@
 /* GLOBAL */
 
 body {
-    background-color: #180F15;
-    background-image: linear-gradient(to bottom right, #0b060a, #272662);
+    background-color: #002030;
+    background: linear-gradient(90deg, #002030 0%, #050000 33%, #050000 67%, #002030 100%);
 }
 
 .fixed-height-1 {
@@ -19,6 +19,7 @@ body {
 
 * {
     color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .btn {
@@ -27,11 +28,14 @@ body {
 }
 
 .btn:hover {
-    background-color: #3A42C5;
+    filter: brightness(120%);
+    text-decoration: none;
+    color: white;
 }
 
 .btn.active {
     background-color: #54A9fB;
+    color: black;
 }
 
 .container-sidebar-right div {
@@ -158,7 +162,7 @@ textarea {
 }
 
 .selected {
-    border: 3px solid white;
+    border-width: 3px;
 }
 
 #open-button {
