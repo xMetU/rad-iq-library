@@ -107,8 +107,8 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     <div class="row mt-3">
                         <div class="col-auto">
                             <input 
-                                type="checkbox"
-                                name=<?php echo "answerId[" . $i . "]"; ?>
+                                type="<?php echo $this->isRadio ? "radio" : "checkbox"; ?>"
+                                name=<?php echo "answerId[" . ($this->isRadio ? 0 : $i) . "]"; ?>
                                 value="<?php echo $row->id; ?>"
                                 <?php if ($this->userAnswers && in_array($row->id, $this->userAnswers)) echo "checked"; ?>
                             />

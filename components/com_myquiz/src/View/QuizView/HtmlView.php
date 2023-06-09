@@ -28,8 +28,16 @@ class HtmlView extends BaseHtmlView {
             }
         }
 
+        $correctAnswerCount = 0;
+        foreach ($this->answers as $answer) {
+            if ($answer->markValue > 0) {
+                $correctAnswerCount++;
+            }
+        }
+        $this->isRadio = $correctAnswerCount == 1;
+
         $userAnswers = Factory::getApplication()->getUserState('myQuiz.userAnswers');
-        if ($this->question && array_key_exists($this->question->id, $userAnswers)) {
+        if ($this->question && $userAnswers && array_key_exists($this->question->id, $userAnswers)) {
             $this->userAnswers = $userAnswers[$this->question->id];
         } else {
             $this->userAnswers = null;

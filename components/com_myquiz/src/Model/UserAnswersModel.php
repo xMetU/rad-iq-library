@@ -24,19 +24,23 @@ class UserAnswersModel extends ListModel {
         $attemptNumber = Factory::getApplication()->getUserState('myQuiz.attemptNumber');
 
         $query = $db->getQuery(true)
-            ->select(['q.id', 'q.description AS questionDescription', 'q.feedback', 'a.markValue', 'a.description AS answerDescription'])
-            ->from($db->quoteName('#__myQuiz_userAnswers', 'ua'))
+            ->select([
+                'q.id', 'q.description AS questionDescription', 'q.feedback', 'a.markValue', 
+                'a.description AS answerDescription', 'ua.userId',
+            ])
+            ->from($db->quoteName('#__myQuiz_answer', 'a'))
             ->join(
-                'INNER',
-                $db->quoteName('#__myQuiz_answer', 'a') . 'ON' . $db->quoteName('a.id') . '=' . $db->quoteName('ua.answerId')
+                'LEFT',
+                $db->quoteName('#__myQuiz_userAnswers', 'ua') . 'ON'
+                . $db->quoteName('ua.answerId') . '=' . $db->quoteName('a.id')
+                . ' AND ' . $db->quoteName('ua.userId') . ' = ' . $db->quote($userId)
+                . ' AND ' . $db->quoteName('ua.attemptNumber') . ' = ' . $db->quote($attemptNumber)
             )
             ->join(
                 'LEFT',
                 $db->quoteName('#__myQuiz_question', 'q') . 'ON' . $db->quoteName('q.id') . '=' . $db->quoteName('a.questionId')
             )
-            ->where($db->quoteName('ua.userId') . '=' . $db->quote($userId))
-            ->where($db->quoteName('q.quizId') . '=' . $db->quote($quizId))
-            ->where($db->quoteName('ua.attemptNumber') . '=' . $db->quote($attemptNumber));
+            ->where($db->quoteName('q.quizId') . '=' . $db->quote($quizId));
        
         return $query;
     }
@@ -56,7 +60,7 @@ class UserAnswersModel extends ListModel {
 			Factory::getApplication()->enqueueMessage("Quiz results saved successfully.");
 			return true;
 		} catch (\Exception $e) {
-            Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+            Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator." . $e->getMessage());
 			return false;
         }
     }
@@ -83,6 +87,9 @@ class UserAnswersModel extends ListModel {
             ->where($db->quoteName('ua.userId') . ' = ' . $db->quote($data['userId']))
             ->where($db->quoteName('ua.attemptNumber') . ' = ' . $db->quote($data['attemptNumber']));
         $score = $db->setQuery($query)->loadObject()->score;
+        if (!$score) {
+            $score = 0;
+        }
         
         // Get the total score
         $query = $db->getQuery(true)

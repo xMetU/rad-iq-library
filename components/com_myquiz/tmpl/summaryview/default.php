@@ -41,32 +41,47 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 <div class="row justify-content-center">
     <div id="questions" class="col-8">
-        <h4 class="text-end">Score: <?php echo $this->marks . ' / ' . $this->total; ?></h4>
-        <?php foreach ($this->items as $i => $row): ?>
+        <h4 class="text-end">Score: <?php echo $this->userScore . ' / ' . $this->maxScore; ?></h4>
+        <?php foreach ($this->items as $row): ?>
             <div class="card mt-4">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h5 class="card-title"><?php echo $i + 1 . ": " . $row->questionDescription; ?></h5>
+                            <div class="row">
+                                <div class="col">
+                                    <h5><?php echo $row->number + 1 . ": " . $row->description; ?></h5>
+                                </div>
 
-                            <p>You answered: <?php echo $row->answerDescription; ?></p>
-                            <p>
-                            <?php if ($row->isCorrect): ?>
-                                <i id="correct" class="icon-checkmark-circle"></i> Correct
-                            <?php else : ?>
-                                <i id="incorrect" class="icon-cancel-circle"></i> Incorrect
-                            <?php endif ?>
-                            </p>
-                            <p class="card-text"><?php echo $row->feedback; ?></p>
+                                <div class="col-auto">
+                                    <h6><?php echo $row->userScore . ' / ' . $row->maxScore; ?></h6>
+                                </div>
+                            </div>
+
+                            <hr class="mt-1"/>
+
+                            <div class="row">
+                                <?php foreach($row->answers as $i => $answer): ?>
+                                    <p>
+                                        <?php if ($answer->selected): ?>
+                                            <?php if ($answer->markValue > 0): ?>
+                                                <i id="correct" class="icon-checkmark-circle"></i>
+                                            <?php else : ?>
+                                                <i id="incorrect" class="icon-cancel-circle"></i>
+                                            <?php endif ?>
+                                        <?php else: ?>
+                                            <i class="icon-circle text-secondary"></i>
+                                        <?php endif; ?>
+                                        <?php echo $answer->description . ' (' . $answer->markValue . ')'; ?>
+                                    </p>
+                                <?php endforeach; ?>
+                            </div>
+                            
+                            <hr class="mb-1"/>
+
+                            <div class="row">
+                                <p class="card-text"><?php echo $row->feedback; ?></p>
+                            </div>
                         </div>   
-
-                        <div class="col-auto">
-                            <?php if ($row->isCorrect): ?>
-                                <h5><?php echo "Marks: " . $row->markValue . ' / ' . $row->markValue; ?></h5>
-                            <?php else : ?> 
-                                <h5><?php echo "Marks: 0" . ' / ' . $row->markValue; ?></h5>
-                            <?php endif ?>                                            
-                        </div>
                     </div>
                 </div>
             </div>
