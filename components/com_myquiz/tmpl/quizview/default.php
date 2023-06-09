@@ -58,7 +58,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         class="btn navigator<?php if ($row->answered) echo " answered"; ?>"
                     ><?php echo $row->number + 1; ?></button>
                 <?php else: ?>
-                    <button class="btn selected<?php if ($row->answered) echo " answered"; ?>" disabled>
+                    <button class="btn selected<?php if ($row->answered) echo " answered"; ?>">
                         <?php echo $row->number + 1; ?>
                     </button>
                 <?php endif; ?>

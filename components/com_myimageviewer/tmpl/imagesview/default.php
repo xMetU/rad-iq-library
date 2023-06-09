@@ -15,14 +15,13 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 use Kieran\Component\MyImageViewer\Site\Helper\CheckGroup;
 
-
 $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/imagesView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 ?>
 
-<!-- ========== IMAGES VIEW ========== -->
+<!-- IMAGES VIEW -->
 
 <!-- Headers -->
 <div class="row">
@@ -32,7 +31,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
 		<?php endif; ?>
 	</div>
+
 	<div class="col-auto"><h3>Image Viewers</h3></div>
+
 	<div class="col">
 		<?php if (CheckGroup::isGroup("Manager")) : ?>
 			<!-- New image button -->
@@ -61,7 +62,6 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				>
 					<div class="input-group">
 						<input
-							type="search"
 							name="search"
 							id="text"
 							class="form-control"
@@ -72,10 +72,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					</div>
 				</form>
 			</div>
-			
+
 			<div class="col"></div>
 		</div>
-		
 	</div>
 </div>
 
@@ -105,7 +104,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	</div>
 
 	<!-- Images -->
-	<div class="col-10 row ps-5 fixed-height-1">
+	<div class="col-10 ps-5 fixed-height-1">
 		<table id="images" class="table table-borderless">
 			<tfoot>
 				<tr>
@@ -121,7 +120,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						<?php foreach ($this->items as $item) : ?>
 							<?php $render = CheckGroup::isGroup("Manager") ? true : !$item->isHidden; ?>
 							<?php if ($render) : ?>
-								<td class="col-3 pt-0 pb-4 ps-3 pe-0">
+								<td class="col-3 pt-0 pb-4">
 									<div class="card p-3 pb-0">
 										<?php if (CheckGroup::isGroup("Manager") && $item->isHidden) : ?>
 											<div class="card-overlay d-flex">

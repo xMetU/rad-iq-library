@@ -158,11 +158,12 @@ textarea {
 /* QUIZ VIEW */
 
 .answered {
-    background-color: #54A9fB;
+    background-color: #4499eB;
 }
 
 .selected {
     border-width: 3px;
+    pointer-events: none;
 }
 
 #open-button {

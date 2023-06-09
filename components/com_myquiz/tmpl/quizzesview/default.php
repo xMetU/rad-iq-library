@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myQuiz
@@ -30,7 +31,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <a class="btn" href="index.php/image-viewers?task=Display.categoryForm">Manage Categories</a>
         <?php endif; ?>
     </div>
+
     <div class="col-auto"><h3>Quizzes</h3></div>
+
     <div class="col">
         <?php if (CheckGroup::isGroup("Manager")) : ?>
             <!-- New quiz button -->
@@ -63,7 +66,6 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 >
                     <div class="input-group">
                         <input
-                            type="search"
                             name="search"
                             id="text"
                             class="form-control"
@@ -127,7 +129,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         <?php foreach ($this->items as $row) : ?>
                             <?php $render = CheckGroup::isGroup("Manager") ? true : !$row->isHidden; ?>
                             <?php if ($render): ?>
-                                <td class="col-12 pt-0 pb-4 px-3">
+                                <td class="col-12 pt-0 pb-4">
                                     <div class="card p-3">
                                         <div class="row">
                                             <!-- Image -->
