@@ -23,7 +23,7 @@ class ImagesModel extends ListModel {
         $search = Factory::getApplication()->input->getVar('search');
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id', 'isHidden']))
+            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id', 'c.categoryName', 'isHidden']))
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
             ->join(
                 'LEFT',
@@ -53,5 +53,23 @@ class ImagesModel extends ListModel {
     public function getTable($type = 'Image', $prefix = '', $config = array()) {
 		return Factory::getApplication()->bootComponent('com_myImageViewer')->getMVCFactory()->createTable($type);
 	}
+
+
+    public function getAllImages() {
+        $db = $this->getDatabase();
+
+        $query = $db->getQuery(true)
+            ->select($db->quoteName('c.categoryName'))
+            ->from($db->quoteName('#__myImageViewer_image', 'image'))
+            ->join(
+                'LEFT',
+                $db->quoteName('#__myImageViewer_imageCategory', 'c') . 'ON' . $db->quoteName('c.id') . '=' . $db->quoteName('image.categoryId')
+            );
+        
+        $db->setQuery($query);
+        $db->execute();
+            
+        return $db->loadObjectList();
+    }
 
 }

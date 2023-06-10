@@ -73,7 +73,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     value="1"
                     <?php if ($this->answer && $this->answer->isCorrect) echo "checked"; ?>
                 />
-                <label for="isCorrect">Is this the correct answer? (sets the current correct answer to incorrect)</label>
+                <label for="isCorrect">Is this the correct answer? (Overwrites any previous correct answer)</label>
             </div>
 
             <hr/>

@@ -16,9 +16,10 @@ use Joomla\CMS\Table\Table;
 
 class AnswerFormModel extends BaseModel {
 
-	public function saveAnswer($data) {
+	public function saveAnswer($questionId, $description, $isCorrect) {
 		$db = Factory::getDbo();
         $columns = array('questionId', 'description', 'isCorrect');
+		$data = ['questionId' => $questionId, 'description' => $description, 'isCorrect' => $isCorrect];
 
 		if ($data['isCorrect']) {
 			$query = $db->getQuery(true)
@@ -49,8 +50,9 @@ class AnswerFormModel extends BaseModel {
 		}
 	}
 
-	public function updateAnswer($data) {
+	public function updateAnswer($questionId, $answerId, $description, $isCorrect) {
 		$db = Factory::getDbo();
+		$data = ['questionId' => $questionId, 'answerId' => $answerId, 'description' => $description, 'isCorrect' => $isCorrect];
 
 		if ($data['isCorrect']) {
 			$query = $db->getQuery(true)

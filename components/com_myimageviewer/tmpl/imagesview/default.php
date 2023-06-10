@@ -32,7 +32,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
 		<?php endif; ?>
 	</div>
-	<div class="col-auto"><h3>Image Viewers</h3></div>
+	<div class="col-auto"><h3>Images</h3></div>
 	<div class="col">
 		<?php if (CheckGroup::isGroup("Manager")) : ?>
 			<!-- New image button -->
@@ -44,8 +44,25 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <hr/>
 
 <div class="row pb-3">
-	<div class="col-2 text-center my-auto">
-		<h6>Filter by Category</h6>
+	<div class="col-2">
+		<!-- Searchbar -->
+		<form
+			action="<?php echo Uri::getInstance()->current(); ?>"
+			method="get"
+			enctype="multipart/form-data"
+		>
+			<div class="input-group">
+				<input
+					type="catSearch"
+					name="catSearch"
+					id="text"
+					class="form-control"
+					placeholder="Search Category..."
+					value="<?php if ($this->catSearch) echo $this->catSearch; ?>"
+				/>
+				<button type="submit" class="btn"><i class="icon-search"></i></button>
+			</div>
+		</form>
 	</div>
 
 	<div class="col-10 ps-5">
@@ -65,7 +82,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							name="search"
 							id="text"
 							class="form-control"
-							placeholder="Search..."
+							placeholder="Search Images..."
 							value="<?php if ($this->search) echo $this->search; ?>"
 						/>
 						<button type="submit" class="btn"><i class="icon-search"></i></button>
@@ -76,6 +93,12 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<div class="col"></div>
 		</div>
 		
+	</div>
+</div>
+
+<div class="row mt-2">
+	<div class="col-2 text-center my-auto">
+		<h6>Filter by Category</h6>
 	</div>
 </div>
 
@@ -94,7 +117,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 										. ($row->id == $this->category ? "" : '?category='. $row->id);
 									?>"
 								>
-									<?php echo $row->categoryName; ?>
+								<?php $count = 0; ?>
+								<?php foreach ($this->allImages as $i) : ?>
+									<?php if ($i->categoryName == $row->categoryName) : ?>
+										<?php $count++; ?>
+									<?php endif; ?>
+								<?php endforeach; ?>
+								<?php echo $row->categoryName . ' (' . $count . ')'; ?>
 								</a>
 							</td>
 						</tr>
@@ -144,9 +173,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					<?php else: ?>
 						<td>
                             <?php if ($this->category): ?>
-                                <p class="text-secondary text-center pt-5">No image viewers are assigned to this category</p>
+                                <p class="text-secondary text-center pt-5">No images are assigned to this category</p>
                             <?php else: ?>
-                                <p class="text-secondary text-center pt-5">Could not find any matching image viewers</p>
+                                <p class="text-secondary text-center pt-5">Could not find any matching images</p>
                             <?php endif; ?>							
 						</td>
 					<?php endif; ?>
