@@ -64,6 +64,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     method="get"
                     enctype="multipart/form-data"
                 >
+                    <?php if ($this->category): ?>
+						<input type="hidden" name="category" value="<?php echo $this->category; ?>">
+					<?php endif; ?>
                     <div class="input-group">
                         <input
                             name="search"
@@ -98,7 +101,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 							<td class="pb-3 overflow-hidden">
 								<a
 									class="btn w-100 py-1 text-center<?php if ($row->id == $this->category) echo " active"; ?>"
-									href="<?php 
+									href="<?php
                                         echo Uri::getInstance()->current()
 										. ($row->id == $this->category ? "" : '?category='. $row->id);
 									?>"

@@ -27,7 +27,7 @@ class HtmlView extends BaseHtmlView {
         $this->getModel('UserAnswers')->getAttemptCount($this->userId, 1);
         $this->categories = $this->get('Items', 'Categories');
         $this->pagination = $this->get('Pagination');
-        $this->category = Factory::getApplication()->input->get('category');
+        $this->category = Factory::getApplication()->getUserState('myImageViewer_myQuiz.category');
         $this->search = Factory::getApplication()->input->get('search');
 
         parent::display($template);

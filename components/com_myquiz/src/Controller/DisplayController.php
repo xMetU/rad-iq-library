@@ -31,6 +31,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'QUIZZES');
     }
 
     public function quiz() {
@@ -49,6 +50,7 @@ class DisplayController extends BaseController {
     
             $view->document = $document;
             $view->display();
+            Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'QUIZ');
         }
         else {
             Factory::getApplication()->enqueueMessage('Please login to continue');
@@ -68,6 +70,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'QUIZFORM');
     }
 
     public function questionForm() {
@@ -82,6 +85,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'QUESTIONFORM');
     }
 
     public function answerForm() {
@@ -96,6 +100,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'ANSWERFORM');
     }
 
     public function summary() {
@@ -108,6 +113,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'SUMMARYFORM');
     }
 
     public function scores() {
@@ -120,6 +126,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'SCORES');
     }
 
     public function toggleIsHidden() {
