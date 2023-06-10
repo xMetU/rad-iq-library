@@ -118,11 +118,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
             <div class="form-group">
 				<button class="btn">
-                    <?php if ($this->quiz): ?>
-                        <i class="icon-check"></i> Save
-                    <?php else: ?>
-                        <i class="icon-plus"></i> Add
-                    <?php endif; ?>
+                    <i class="icon-check"></i> Done
                 </button>
 			</div>
         </form>

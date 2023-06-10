@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_userAnswers` (
   `answerId` bigint(20) UNSIGNED NOT NULL,
   `attemptNumber` bigint(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`userId`, `answerId`, `attemptNumber`),
-  FOREIGN KEY (`userId`) REFERENCES `#__users` (`id`)  ON DELETE CASCADE,
+  FOREIGN KEY (`userId`) REFERENCES `#__users` (`id`) ON DELETE CASCADE,
   FOREIGN KEY (`answerId`) REFERENCES `#__myQuiz_answer` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_quizUserSummary` (
   `startTime` DATETIME,
   `finishTime` DATETIME,
   PRIMARY KEY (`userId`, `quizId`, `attemptNumber`),
-  FOREIGN KEY (`userId`) REFERENCES `#__users` (`id`)  ON DELETE CASCADE,
+  FOREIGN KEY (`userId`) REFERENCES `#__users` (`id`) ON DELETE CASCADE,
   FOREIGN KEY (`quizId`) REFERENCES `#__myQuiz_quiz` (`id`)  ON DELETE CASCADE
 ) ENGINE = InnoDB;
 

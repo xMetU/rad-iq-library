@@ -17,8 +17,10 @@ window.onload = function () {
             deleteButton.onclick = () => {
                 deleteConfirmation.querySelector("input").value = deleteButton.id;
                 deleteConfirmation.querySelector("h5").innerHTML = `
-                Are you sure you want to remove ${titles[i].innerHTML}?<br/>This action cannot be undone.
-            `;
+                    Are you sure you want to remove ${titles[i].innerHTML}?<br/>
+                    This will remove all associated questions, answers, and user scores.<br/>
+                    This action cannot be undone.
+                `;
                 deleteConfirmation.classList.remove("d-none");
             }
         })
