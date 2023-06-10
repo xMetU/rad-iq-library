@@ -18,6 +18,8 @@ class HtmlView extends BaseHtmlView {
     
     public function display($template = null) {
         $items = $this->get('Items');
+        $this->quiz = $this->get('Item', 'Quiz');
+        $this->justFinished = Factory::getApplication()->getUserState('myImageViewer_myQuiz.view') == 'QUIZ';
 
         $this->items = [];
         $this->userScore = 0;

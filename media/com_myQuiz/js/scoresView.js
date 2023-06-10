@@ -4,8 +4,8 @@ window.onload = function () {
     
     tableBody.querySelectorAll(".row").forEach((row) => {
         row.addEventListener("click", function () {
-            attemptNumber = row.children[1].innerHTML.split(" ")[1];
-            window.location.href = `?task=Display.summary&quizId=${row.id}&attemptNumber=${attemptNumber}`;
+            data = row.id.split('-');
+            window.location.href = `?task=Display.summary&quizId=${data[0]}&attemptNumber=${data[1]}`;
         });
     });
 };

@@ -24,10 +24,12 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 <!-- Header -->
 <div class="row">
 	<div class="col">
-        <a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.scores'; ?>">Back</a>
+        <a class="btn" href="<?php echo Uri::getInstance()->current() 
+            . ($this->justFinished ? '?task=Display' : '?task=Display.scores');
+        ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
-		<h3>Quiz Summary</h3>
+		<h3>Summary: <?php echo $this->quiz->title; ?></h3>
 	</div>
 	<div class="col"></div>
 </div>
@@ -36,9 +38,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 <div class="row justify-content-center">
     <div id="questions" class="col-8">
-        <h4 class="text-end">Score: <?php echo $this->userScore . ' / ' . $this->maxScore; ?></h4>
+        <h4 class="text-end mb-4">Score: <?php echo $this->userScore . ' / ' . $this->maxScore; ?></h4>
         <?php foreach ($this->items as $row): ?>
-            <div class="card mt-4">
+            <div class="card mb-4">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
