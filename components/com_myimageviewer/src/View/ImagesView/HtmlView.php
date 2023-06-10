@@ -16,12 +16,15 @@ class HtmlView extends BaseHtmlView {
 
     
     public function display($template = null) {
+        
         $this->categories = $this->get('Items', 'Categories');
+        $this->subcategories = $this->get('Items', 'SubCategories');
         $this->items = $this->get('Items');
         $this->allImages = $this->get('AllImages');
         $this->pagination = $this->get('Pagination');
 
         $this->category = Factory::getApplication()->input->getVar('category');
+        $this->subcategory = Factory::getApplication()->input->getVar('subcategory');
         $this->catSearch = Factory::getApplication()->input->getVar('catSearch');
         $this->search = Factory::getApplication()->input->getVar('search');
         

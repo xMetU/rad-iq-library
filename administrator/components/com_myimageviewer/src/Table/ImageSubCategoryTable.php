@@ -20,11 +20,11 @@ defined('_JEXEC') or die;
  *
  * @since  1.0
  */
-class ImageCategoryTable extends Table
+class ImageSubCategoryTable extends Table
 {
     function __construct(DatabaseDriver $db)
 	{
-		parent::__construct('#__myImageViewer_imageCategory', 'categoryId', $db);
+		parent::__construct('#__myImageViewer_imageSubCategory', 'subcategoryId', $db);
 	}
 
 }

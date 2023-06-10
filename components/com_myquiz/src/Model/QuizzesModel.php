@@ -37,7 +37,7 @@ class QuizzesModel extends ListModel {
             ->select([
                 $db->quoteName('q.id'), $db->quoteName('q.title'), $db->quoteName('q.description'),
                 $db->quoteName('i.imageUrl'), $db->quoteName('q.attemptsAllowed'), $db->quoteName('q.isHidden'),
-                'COUNT(' . $db->quoteName('qu.id') . ') AS' . $db->quoteName('questionCount'),
+                'COUNT(qu.id) AS' . $db->quoteName('questionCount'),
                 'MIN(' . $db->quoteName('qu.id') . ') AS' . $db->quoteName('firstQuestionId')
             ])
             ->group($db->quoteName([
@@ -103,24 +103,29 @@ class QuizzesModel extends ListModel {
 	}
 
 
-    public function getQuizImages() {
-        $db = Factory::getDbo();
+    public function getAllQuizzes() {
+        $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
-        ->select($db->quoteName(['q.id', 'i.imageName', 'ic.categoryName']))
-        ->from($db->quoteName('#__myQuiz_quiz', 'q'))
-        ->join(
-            'LEFT',
-            $db->quoteName('#__myImageViewer_image', 'i') . 'ON' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId'),
-        )
-        ->join(
-            'LEFT',
-            $db->quoteName('#__myImageViewer_imageCategory', 'ic') . 'ON' . $db->quoteName('ic.id') . '=' . $db->quoteName('i.categoryId'),
-        );
-
+            ->select($db->quoteName(['q.id', 'i.categoryId', 'i.subcategoryId', 'c.categoryName', 'sc.subcategoryName']))
+            ->from($db->quoteName('#__myQuiz_quiz', 'q'))
+            ->join(
+                'LEFT',
+                $db->quoteName('#__myImageViewer_image', 'i') . ' ON ' . $db->quoteName('i.id') . '=' . $db->quoteName('q.imageId')
+            )
+            ->join(
+                'LEFT',
+                $db->quoteName('#__myImageViewer_imageCategory', 'c') . ' ON ' . $db->quoteName('c.categoryId') . '=' . $db->quoteName('i.categoryId')
+            )
+            ->join(
+                'LEFT',
+                $db->quoteName('#__myImageViewer_imageSubCategory', 'sc') . ' ON ' . $db->quoteName('sc.categoryId') . '=' . $db->quoteName('i.categoryId')
+                    . ' AND ' . $db->quoteName('sc.subcategoryId') . '=' . $db->quoteName('i.subcategoryId')
+            );
+        
         $db->setQuery($query);
         $db->execute();
-
+            
         return $db->loadObjectList();
     }
 }

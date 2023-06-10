@@ -36,7 +36,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col">
 		<?php if (CheckGroup::isGroup("Manager")) : ?>
 			<!-- New image button -->
-			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm'; ?>"><i class="icon-plus"></i> New Image</a>
+			<a class="btn float-end" href="<?php echo Uri::getInstance()->current() . '?task=Display.saveImageForm'; ?>"><i class="icon-plus"></i> New Image</a>
 		<?php endif; ?>
 	</div>
 </div>
@@ -60,7 +60,8 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					placeholder="Search Category..."
 					value="<?php if ($this->catSearch) echo $this->catSearch; ?>"
 				/>
-				<button type="submit" class="btn"><i class="icon-search"></i></button>
+				<button type="submit" class="btn"><i class=
+				"icon-search"></i></button>
 			</div>
 		</form>
 	</div>
@@ -112,21 +113,46 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						<tr>
 							<td class="pb-3">
 								<a
-									class="btn w-100 py-1 text-center<?php echo $row->id == $this->category ? " active" : ""; ?>"
+									class="btn w-100 py-1 text-center<?php echo $row->categoryId == $this->category ? " active" : ""; ?>"
 									href="<?php echo Uri::getInstance()->current()
-										. ($row->id == $this->category ? "" : '?category='. $row->id);
+										. ($row->categoryId == $this->category ? "" : '?category='. $row->categoryId);
 									?>"
 								>
-								<?php $count = 0; ?>
-								<?php foreach ($this->allImages as $i) : ?>
-									<?php if ($i->categoryName == $row->categoryName) : ?>
-										<?php $count++; ?>
-									<?php endif; ?>
-								<?php endforeach; ?>
-								<?php echo $row->categoryName . ' (' . $count . ')'; ?>
+									<?php $count = 0; ?>
+									<?php foreach ($this->allImages as $i) : ?>
+										<?php if ($i->categoryName == $row->categoryName) : ?>
+											<?php $count++; ?>
+										<?php endif; ?>
+									<?php endforeach; ?>
+									<?php echo $row->categoryName . ' (' . $count . ')'; ?>
 								</a>
 							</td>
 						</tr>
+
+						<?php foreach ($this->subcategories as $s) : ?>
+						<tr>
+							<?php if ($s->categoryId == $row->categoryId) : ?>
+								<?php if ($row->categoryId == $this->category) : ?>
+									<td class="pb-3">									
+											<a
+												class="btn w-75 py-1 text-center<?php echo $s->subcategoryId == $this->subcategory ? " active" : ""; ?>"
+												href="<?php echo Uri::getInstance()->current()
+													. ($s->subcategoryId == $this->subcategory ? "" : '?category=' . $row->categoryId . '&subcategory='. $s->subcategoryId);
+												?>"
+											>
+												<?php $subcount = 0; ?>
+												<?php foreach ($this->allImages as $i) : ?>
+													<?php if ($i->subcategoryName == $s->subcategoryName) : ?>
+														<?php $subcount++; ?>
+													<?php endif; ?>
+												<?php endforeach; ?>
+												<?php echo $s->subcategoryName . ' (' . $subcount . ')'; ?>									
+											</a>									
+									</td>
+								<?php endif; ?>
+							<?php endif; ?>
+						</tr>
+						<?php endforeach; ?>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tbody>

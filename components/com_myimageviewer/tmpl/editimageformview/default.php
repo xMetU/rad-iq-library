@@ -20,24 +20,29 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 ?>
 
-<!-- ========== UPLOAD IMAGE VIEW ========== -->
+<!-- ========== EDIT IMAGE FORM VIEW ========== -->
 
 <div class="row">
 	<div class="col">
 		<a class="btn" href="<?php echo Uri::getInstance()->current() ?>">Back</a>
 	</div>
+
 	<div class="col-8 text-center">
-		<h3><?php echo ($this->image ? "Edit " . $this->image->name : "Create New Image Viewer"); ?></h3>
+		<h3><?php echo "Edit " . $this->image->name; ?></h3>
 	</div>
+
 	<div class="col"></div>
 </div>
 
 <hr/>
 
+
+
 <div class="row justify-content-center">
+
 	<div class="col-8">
 		<form 
-			action="<?php echo Uri::getInstance()->current() . ($this->image ? '?task=Form.updateImage' : '?task=Form.saveImage'); ?>"
+			action="<?php echo Uri::getInstance()->current() . '?task=Form.updateImage'; ?>"
 			method="post"
 			id="adminForm"
 			name="adminForm"
@@ -46,6 +51,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<?php if ($this->image) : ?>
 				<input type="hidden" name="imageId" value="<?php echo $this->image->id; ?>"/>
 			<?php endif; ?>
+
 			<div class="form-group">
 				<label for="imageName">Title: *</label>
 
@@ -67,24 +73,59 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					<label for="categoryId">Category: *</label>
 
 					<select
-						id="uploadCategory"
+						id="editImageCategory"
 						name="categoryId"
 						class="form-control form-select"
 						required
 					>
-						<option value="" <?php if (!$this->image) echo "selected"; ?>disabled hidden>Select a category</option>
+
 						<?php foreach ($this->categories as $row) : ?>
-							<option 
-								value="<?php echo $row->id; ?>"
-								<?php if ($this->image && $row->id == $this->image->categoryId) echo "selected"; ?>
+							<option value="<?php echo $row->categoryId; ?>"
+								<?php if ($row->categoryId == $this->categoryId) : ?>
+									<?php echo "selected"; ?>
+								<?php endif ?>
 							>
-								<?php echo $row->categoryName; ?>
+								<?php echo $row->categoryName; ?>								
 							</option>
 						<?php endforeach; ?>
 					</select>
 				</div>
-				
+
 				<div class="col-6">
+					<label for="subcategoryId">Subcategory: </label>
+
+					<select
+						id="editImageSubcategory"
+						name="subcategoryId"
+						class="form-control form-select"
+					>
+						<?php if (!$this->subcategories) : ?>
+							<option value="">No subcategories</option>
+						<?php endif ?>
+
+						<?php foreach ($this->subcategories as $row) : ?>													
+							<option value="<?php echo $row->subcategoryId; ?>" 										
+								<?php if($this->image && $row->categoryId == $this->image->categoryId) : ?>
+									<?php if($row->subcategoryId == $this->image->subcategoryId) : ?>
+										<?php echo "selected"; ?>
+									<?php endif ?>
+								<?php endif ?>
+							>										
+								<?php echo $row->subcategoryName; ?>
+							</option>
+
+						<?php endforeach; ?>
+							
+					</select>
+				</div>
+				
+				
+			</div>
+			
+			<hr/>
+
+			<div class="row">
+				<div>
 					<label for="imageUrl">File: *</label>
 
 					<input 
@@ -97,7 +138,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					/>
 				</div>
 			</div>
-			
+
 			<hr/>
 
 			<div class="form-group">
@@ -122,3 +163,27 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		</form>
 	</div>
 </div>
+
+
+<script>
+
+	const parent = document.getElementById("editImageCategory");
+	const sub = document.getElementById("editImageSubcategory");
+	var imageId = "<?php echo $this->image->id; ?>";
+	var catId = "<?php echo $this->categoryId; ?>";
+
+	console.log(parent);
+
+
+	parent.onchange = (e) => {
+		var changeId = document.getElementById("editImageCategory").value;
+		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${changeId}`;	
+	}
+
+
+	sub.onchange = (e) => {
+		var changeId = document.getElementById("editImageSubcategory").value;
+		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${catId}&subcategoryId=${changeId}`;
+	}
+	
+</script>

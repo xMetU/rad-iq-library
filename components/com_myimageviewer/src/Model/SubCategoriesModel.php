@@ -13,22 +13,16 @@ use Joomla\CMS\Factory;
  */
 
 
-class CategoriesModel extends ListModel {
+class SubCategoriesModel extends ListModel {
 
     public function getListQuery() {
 
         $db = $this->getDatabase();
-        $catSearch = Factory::getApplication()->input->get('catSearch');
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['ic.categoryId', 'ic.categoryName']))
-            ->from($db->quoteName('#__myImageViewer_imageCategory', 'ic'))
-            ->order('ic.categoryId', 'ASC');
+            ->select($db->quoteName(['isc.categoryId', 'isc.subcategoryId', 'isc.subcategoryName']))
+            ->from($db->quoteName('#__myImageViewer_imageSubCategory', 'isc'));
 
-        if(isset($catSearch)) {
-            $query = $query->where($db->quoteName('ic.categoryName') . ' LIKE ' . $db->quote('%' . $catSearch . '%'));
-        }
-        
         return $query;
     }
 
@@ -40,18 +34,22 @@ class CategoriesModel extends ListModel {
     }
 
 
-    public function getAllCategories() {
-
+    public function getCategorySubcategories() {
         $db = $this->getDatabase();
 
-        $query = $db->getQuery(true)
-            ->select($db->quoteName(['ic.categoryId', 'ic.categoryName']))
-            ->from($db->quoteName('#__myImageViewer_imageCategory', 'ic'));
+        $categoryId = Factory::getApplication()->getUserState('myImageViewer.categoryId');
 
+        $query = $db->getQuery(true)
+            ->select($db->quoteName(['isc.categoryId', 'isc.subcategoryId', 'isc.subcategoryName']))
+            ->from($db->quoteName('#__myImageViewer_imageSubCategory', 'isc'));
+
+        if($categoryId) {
+            $query = $query->where($db->quoteName('isc.categoryId') . '=' . $categoryId); 
+        }
 
         $db->setQuery($query);
         $db->execute();
-    
+
         return $db->loadObjectList();
     }
 }

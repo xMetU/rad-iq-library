@@ -23,14 +23,15 @@ class HtmlView extends BaseHtmlView {
                 $item->attemptsRemaining = $item->attemptsAllowed - $userAttempts;
             }
         }
-
-        $this->images = $this->get('QuizImages');
+        $this->allQuizzes = $this->get('AllQuizzes');
         $this->getModel('UserAnswers')->getAttemptCount($this->userId, 1);
         $this->categories = $this->get('Items', 'Categories');
+        $this->subcategories = $this->get('Items', 'SubCategories');
         $this->pagination = $this->get('Pagination');
-        $this->category = Factory::getApplication()->input->get('category');
-        $this->search = Factory::getApplication()->input->get('search');
-        $this->catSearch = Factory::getApplication()->input->get('catSearch');
+        $this->category = Factory::getApplication()->input->getVar('category');
+        $this->subcategory = Factory::getApplication()->input->getVar('subcategory');
+        $this->search = Factory::getApplication()->input->getVar('search');
+        $this->catSearch = Factory::getApplication()->input->getVar('catSearch');
 
         parent::display($template);
     }

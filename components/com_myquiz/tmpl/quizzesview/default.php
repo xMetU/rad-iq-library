@@ -27,7 +27,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     <div class="col">
         <?php if (CheckGroup::isGroup("Manager")) : ?>
             <!-- Manage categories button -->
-            <a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
+            <a class="btn" href="index.php/image-viewer?task=Display.categoryForm">Manage Categories</a>
         <?php endif; ?>
     </div>
     <div class="col-auto"><h3>Quizzes</h3></div>
@@ -46,6 +46,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 <hr/>
 
 <div class="row pb-3">
+
     <div class="col-2">
 		<!-- Searchbar -->
 		<form
@@ -84,7 +85,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                             name="search"
                             id="text"
                             class="form-control"
-                            placeholder="Search Quizzes..."
+                            placeholder="Search..."
                             value="<?php if ($this->search) echo $this->search; ?>"
                         />
                         <button type="submit" class="btn"><i class="icon-search"></i></button>
@@ -102,10 +103,8 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 	</div>
 </div>
 
-<div class="row mt-2">
-    <div class="col-2 text-center my-auto">
-		<h6>Filter by Category</h6>
-	</div>
+<div class="col-2 text-center my-auto">
+	<h6>Filter by Category</h6>
 </div>
 
 <div class="row">
@@ -113,26 +112,51 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     <div class="col-2 fixed-height-1">
 		<table id="categories" class="w-100">
 			<tbody>
-				<?php if (!empty($this->categories)) : ?>
+            <?php if (!empty($this->categories)) : ?>
 					<?php foreach ($this->categories as $row) : ?>
 						<tr>
-							<td class="pb-3 overflow-hidden">
+							<td class="pb-3">
 								<a
-									class="btn w-100 py-1 text-center<?php echo $row->id == $this->category ? " active" : ""; ?>"
+									class="btn w-100 py-1 text-center<?php echo $row->categoryId == $this->category ? " active" : ""; ?>"
 									href="<?php echo Uri::getInstance()->current()
-										. ($row->id == $this->category ? "" : '?category='. $row->id);
+										. ($row->categoryId == $this->category ? "" : '?category='. $row->categoryId);
 									?>"
 								>
-                                    <?php $count = 0; ?>
-                                    <?php foreach ($this->images as $i) : ?>
-                                        <?php if ($i->categoryName == $row->categoryName) : ?>
-                                            <?php $count++; ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                    <?php echo $row->categoryName . ' (' . $count . ')'; ?>
+									<?php $count = 0; ?>
+									<?php foreach ($this->allQuizzes as $i) : ?>
+										<?php if ($i->categoryName == $row->categoryName) : ?>
+											<?php $count++; ?>
+										<?php endif; ?>
+									<?php endforeach; ?>
+									<?php echo $row->categoryName . ' (' . $count . ')'; ?>
 								</a>
 							</td>
 						</tr>
+
+						<?php foreach ($this->subcategories as $s) : ?>
+						<tr>
+							<?php if ($s->categoryId == $row->categoryId) : ?>
+								<?php if ($row->categoryId == $this->category) : ?>
+									<td class="pb-3">									
+											<a
+												class="btn w-75 py-1 text-center<?php echo $s->subcategoryId == $this->subcategory ? " active" : ""; ?>"
+												href="<?php echo Uri::getInstance()->current()
+													. ($s->subcategoryId == $this->subcategory ? "" : '?category=' . $row->categoryId . '&subcategory='. $s->subcategoryId);
+												?>"
+											>
+												<?php $subcount = 0; ?>
+												<?php foreach ($this->allQuizzes as $i) : ?>
+													<?php if ($i->subcategoryName == $s->subcategoryName) : ?>
+														<?php $subcount++; ?>
+													<?php endif; ?>
+												<?php endforeach; ?>
+												<?php echo $s->subcategoryName . ' (' . $subcount . ')'; ?>									
+											</a>									
+									</td>
+								<?php endif; ?>
+							<?php endif; ?>
+						</tr>
+						<?php endforeach; ?>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tbody>
@@ -168,7 +192,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                             </div>
                                             <!-- Info -->
                                             <div class="col">
-                                                <h5 name="rowTitle"><?php echo $row->title; ?></h5>
+                                                <h5><?php echo $row->title; ?></h5>
                                                 <p><?php echo $row->description; ?></p>
                                                 <p><?php echo $row->questionCount; ?> Question(s) </p>
                                                 <a class="btn" href="<?php echo

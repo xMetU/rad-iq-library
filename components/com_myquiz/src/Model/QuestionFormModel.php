@@ -11,14 +11,14 @@ use Joomla\CMS\Table\Table;
 /**
  * @package     Joomla.Site
  * @subpackage  com_myQuiz
+ *
  */
 
 class QuestionFormModel extends BaseModel {
 
-	public function saveQuestion($quizId, $description, $feedback, $markValue) {
+	public function saveQuestion($data) {
 		$db = Factory::getDbo();
         $columns = array('quizId', 'description', 'feedback', 'markValue');
-		$data = ['quizId' => $quizId, 'description' => $description, 'feedback' => $feedback, 'markValue' => $markValue];
 
 		$query = $db->getQuery(true)
 			->insert($db->quoteName('#__myQuiz_question'))
@@ -39,7 +39,6 @@ class QuestionFormModel extends BaseModel {
 
 	public function updateQuestion($data) {
 		$db = Factory::getDbo();
-		$data = ['questionId' => $questionId, 'description' => $description, 'feedback' => $feedback, 'markValue' => $markValue];
 
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__myQuiz_question'))
@@ -77,6 +76,4 @@ class QuestionFormModel extends BaseModel {
 			return false;
 		}
 	}
-
-	
 }

@@ -388,3 +388,29 @@
 2023-06-07T18:06:22+00:00	DEBUG 127.0.0.1	webauthn.system	Removing WebAuthn Passwordless Login information for deleted user #206
 2023-06-07T19:54:40+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.67 seconds
 2023-06-07T19:54:40+00:00	WARNING 127.0.0.1	jerror	The mail function has been disabled by an administrator.
+2023-06-10T20:08:32+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.77 seconds
+2023-06-10T20:08:45+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.64 seconds
+2023-06-10T20:08:46+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.63 seconds
+2023-06-10T20:08:55+00:00	INFO 127.0.0.1	joomlafailure	Username and password do not match or you do not have an account yet.
+2023-06-10T20:08:55+00:00	WARNING 127.0.0.1	jerror	Username and password do not match or you do not have an account yet.
+2023-06-10T20:09:11+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type mysqli_sql_exception thrown with message "Unknown column 'c.id' in 'on clause'". Stack trace: #0 [ROOT]\libraries\vendor\joomla\database\src\Mysqli\MysqliStatement.php(137): mysqli->prepare('SELECT `c`.`cat...')
+#1 [ROOT]\libraries\vendor\joomla\database\src\Mysqli\MysqliDriver.php(1048): Joomla\Database\Mysqli\MysqliStatement->__construct(Object(mysqli), 'SELECT `c`.`cat...')
+#2 [ROOT]\libraries\vendor\joomla\database\src\DatabaseDriver.php(1900): Joomla\Database\Mysqli\MysqliDriver->prepareStatement('SELECT `c`.`cat...')
+#3 [ROOT]\components\com_myimageviewer\src\Model\ImagesModel.php(69): Joomla\Database\DatabaseDriver->setQuery(Object(Joomla\Database\Mysqli\MysqliQuery))
+#4 [ROOT]\libraries\src\MVC\View\AbstractView.php(146): Kieran\Component\MyImageViewer\Site\Model\ImagesModel->getAllImages()
+#5 [ROOT]\components\com_myimageviewer\src\View\ImagesView\HtmlView.php(21): Joomla\CMS\MVC\View\AbstractView->get('AllImages')
+#6 [ROOT]\components\com_myimageviewer\src\Controller\DisplayController.php(35): Kieran\Component\MyImageViewer\Site\View\ImagesView\HtmlView->display()
+#7 [ROOT]\libraries\src\MVC\Controller\BaseController.php(672): Kieran\Component\MyImageViewer\Site\Controller\DisplayController->display()
+#8 [ROOT]\libraries\src\Dispatcher\ComponentDispatcher.php(143): Joomla\CMS\MVC\Controller\BaseController->execute('display')
+#9 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\ComponentDispatcher->dispatch()
+#10 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myimageview...')
+#11 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#12 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#13 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#14 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#15 {main}
+2023-06-10T20:09:50+00:00	WARNING 127.0.0.1	jerror	Cannot delete or update a parent row: a foreign key constraint fails
+2023-06-10T20:18:06+00:00	WARNING 127.0.0.1	jerror	Cannot delete or update a parent row: a foreign key constraint fails
+2023-06-10T20:20:30+00:00	WARNING 127.0.0.1	jerror	Cannot delete or update a parent row: a foreign key constraint fails
+2023-06-10T20:24:10+00:00	INFO 127.0.0.1	joomlafailure	Username and password do not match or you do not have an account yet.
+2023-06-10T20:24:10+00:00	WARNING 127.0.0.1	jerror	Username and password do not match or you do not have an account yet.

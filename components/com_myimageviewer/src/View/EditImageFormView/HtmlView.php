@@ -1,6 +1,6 @@
 <?php
 
-namespace Kieran\Component\MyImageViewer\Site\View\CategoryFormView;
+namespace Kieran\Component\MyImageViewer\Site\View\EditImageFormView;
 
 defined('_JEXEC') or die;
 
@@ -15,19 +15,31 @@ use Joomla\CMS\Factory;
 
 class HtmlView extends BaseHtmlView {
 
-
+    
     public function display($template = null) {
-        
-        
+
+
+        if (Factory::getApplication()->input->getVar('id') != null) {
+            $this->image = $this->get('Item', 'ImageDetails');
+        } else {
+            $this->image = null;            
+        }
+
         $this->categoryId = Factory::getApplication()->input->getInt('categoryId');
-        $this->subcategoryId = Factory::getApplication()->input->getInt('subcategoryId');
+
+        if (!$this->categoryId) {
+            $this->categoryId = $this->image->categoryId;
+        }
 
         Factory::getApplication()->setUserState('myImageViewer.categoryId', $this->categoryId);
 
-        $this->categories = $this->get('Items', 'Categories');
+        $this->subcategoryId = Factory::getApplication()->input->getInt('subcategoryId');
+
+        $this->categories = $this->get('AllCategories', 'Categories');
         $this->subcategories = $this->get('CategorySubcategories', 'SubCategories');
 
         
+
 
         // Call the parent display to display the layout file
         parent::display($template);

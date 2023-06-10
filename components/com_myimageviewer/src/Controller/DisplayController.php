@@ -27,9 +27,11 @@ class DisplayController extends BaseController {
 
         $model1 = $this->getModel('Images');
         $model2 = $this->getModel('Categories');
+        $model3 = $this->getModel('SubCategories');
         
         $view->setModel($model1, true);
         $view->setModel($model2); 
+        $view->setModel($model3); 
         
         $view->document = $document;
         $view->display();
@@ -51,19 +53,41 @@ class DisplayController extends BaseController {
     }
 
 
-    public function imageForm() {
+    public function saveImageForm() {
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
 
-        $view = $this->getView('ImageFormView', $viewFormat);  
+        $view = $this->getView('SaveImageFormView', $viewFormat);  
         
         $model1 = $this->getModel('ImageForm');
         $model2 = $this->getModel('Categories');
-        $model3 = $this->getModel('ImageDetails');
+        $model3 = $this->getModel('SubCategories');
+        $model4 = $this->getModel('ImageDetails');
         
         $view->setModel($model1, true);
         $view->setModel($model2);
         $view->setModel($model3);
+        $view->setModel($model4);
+    
+        $view->document = $document;
+        $view->display();
+    }
+
+    public function editImageForm() {
+        $document = Factory::getDocument();
+        $viewFormat = $document->getType();
+
+        $view = $this->getView('EditImageFormView', $viewFormat);  
+        
+        $model1 = $this->getModel('ImageForm');
+        $model2 = $this->getModel('Categories');
+        $model3 = $this->getModel('SubCategories');
+        $model4 = $this->getModel('ImageDetails');
+        
+        $view->setModel($model1, true);
+        $view->setModel($model2);
+        $view->setModel($model3);
+        $view->setModel($model4);
     
         $view->document = $document;
         $view->display();
@@ -78,9 +102,11 @@ class DisplayController extends BaseController {
         
         $model = $this->getModel('CategoryForm');
         $model2 = $this->getModel('Categories');
+        $model3 = $this->getModel('SubCategories');
 
         $view->setModel($model, true);
         $view->setModel($model2);
+        $view->setModel($model3);
     
         $view->document = $document;
         $view->display();

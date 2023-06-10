@@ -29,7 +29,9 @@ class FormController extends BaseController {
 
         // Perform server side validation
         if($this->validateQuiz($title, $imageId, $attemptsAllowed, $description)) {
-            if($model->saveQuiz($title, $imageId, $attemptsAllowed, $description)){
+
+            $data = array('title' => $title, 'imageId' => $imageId, 'attemptsAllowed' => $attemptsAllowed, 'description' => $description);
+            if($model->saveQuiz($data)){
                 $this->navigateToForm('QUESTION', Factory::getDbo()->insertId());
             }
             //Error
@@ -57,6 +59,8 @@ class FormController extends BaseController {
 
         // Perform server side validation
         if($this->validateQuiz($title, $imageId, $attemptsAllowed, $description)) {
+            
+            $data = array('quizId' => $quizId, 'title' => $title, 'imageId' => $imageId, 'attemptsAllowed' => $attemptsAllowed, 'description' => $description);
             if($model->updateQuiz($quizId, $title, $imageId, $attemptsAllowed, $description)) {
                 $this->navigateToForm('QUESTION', $quizId);
             }  

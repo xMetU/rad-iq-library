@@ -32,7 +32,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
             <button id="delete-button" class="btn float-end"><i class="icon-delete"></i> Delete</button>
             <a 
                 class="btn me-3 float-end"
-                href="<?php echo Uri::getInstance()->current() . '?task=Display.imageForm&id=' . $this->item->id; ?>"
+                href="<?php echo Uri::getInstance()->current() . '?task=Display.editImageForm&id=' . $this->item->id; ?>"
             ><i class="icon-pencil"></i> Edit</a>
             <a 
                 href="<?php echo Uri::getInstance()->current() . '?task=Form.toggleIsHidden&id=' . $this->item->id; ?>"
@@ -61,6 +61,10 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
         <h2 class="text-break"><?php echo $this->item->name; ?></h2>
 
         <h5>Category: <?php echo $this->item->category; ?></h5>
+        
+        <?php if($this->item->subcategory): ?>
+            <h5>Subcategory: <?php echo $this->item->subcategory; ?></h5>
+        <?php endif; ?>
 
         <hr/>
 

@@ -19,45 +19,78 @@ use Joomla\CMS\Image\Image;
 
 class FormController extends BaseController {
 	
+
+
 	public function saveImage() {
 		$model = $this->getModel('ImageForm');
-		
-		// Get request params
-		$data = Factory::getApplication()->input->post->getArray();
-		$file = Factory::getApplication()->input->files->get('imageUrl');
-		
-		// Temporary file path on the server
-		$tmp = $file['tmp_name'];
 
-		// Create and append imageUrl
-		$name = $data["imageName"] . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
-		$categoryName = $model->getCategory($data['categoryId'])->categoryName;
-		$imageUrl = 'media/com_myimageviewer/images/' . $categoryName . '/' . $name;
-		array_push($data, $imageUrl);
+		// Perform filtering
+		$imageName = Factory::getApplication()->input->post->getVar("imageName");
+		$imageDescription = Factory::getApplication()->input->post->getVar("imageDescription");
+		$categoryId = Factory::getApplication()->input->post->getInt("categoryId");
+		$subcategoryId = Factory::getApplication()->input->post->getInt("subcategoryId");
 
-		if ($model->saveImage($data)) {
-			// Create the category folder
-			$folderUrl = JPATH_ROOT . '/media/com_myimageviewer/images/' . $categoryName;
-			$uploadUrl = $folderUrl . '/' . $name;
-			Folder::create($folderUrl);
+		$resume = false;
 
-			// Create and save main copy
-			$image = new Image($tmp);
-			$image->toFile($uploadUrl);
-
-			// Create and save thumbnail copy
-			$thumbImage = $image->createThumbs(['200x200']);
-			$thumbImage[0]->toFile($uploadUrl . '.thumb');
-
-			// Clear temporary file
-			unlink($tmp);
+		if(!isset($subcategoryId)) {
+			if($model->checkSubcategory($categoryId)) {
+				$subcategoryId = 0;
+				$resume = true;		
+			}
+		}
+		else {
+			$resume = true;	
 		}
 
+		if($resume) {
+			// Perform server-side validation
+			if($this->validateImageData($imageName, $imageDescription, $categoryId)){
+				$file = Factory::getApplication()->input->files->get('imageUrl');
+
+				// Temporary file path on the server
+				$tmp = $file['tmp_name'];
+
+				// Create and append imageUrl
+				$name = $imageName . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+				$categoryName = $model->getCategory($categoryId)->categoryName;
+				$imageUrl = 'media/com_myimageviewer/images/' . $categoryName . '/' . $name;
+
+				//Prepare data
+				$data = ['imageName' => $imageName, 'imageDescription' => $imageDescription, 'categoryId' => $categoryId, 'subcategoryId' => $subcategoryId];
+				array_push($data, $imageUrl);
+
+				if ($model->saveImage($data)) {
+					// Create the category folder
+					$folderUrl = JPATH_ROOT . '/media/com_myimageviewer/images/' . $categoryName;
+					$uploadUrl = $folderUrl . '/' . $name;
+					Folder::create($folderUrl);
+
+					// Create and save main copy
+					$image = new Image($tmp);
+					$image->toFile($uploadUrl);
+
+					// Create and save thumbnail copy
+					$thumbImage = $image->createThumbs(['200x200']);
+					$thumbImage[0]->toFile($uploadUrl . '.thumb');
+
+					// Clear temporary file
+					unlink($tmp);
+				}
+			}
+
+		}	
+		else{
+			Factory::getApplication()->enqueueMessage("Error: This category has subcategories. Please choose a subcategory.");
+		}		
+
         $this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.imageForm',
+			Uri::getInstance()->current() . '?task=Display.saveImageForm',
 			false,
 		));
     }
+
+
+
 
 	public function updateImage() {
 		$model = $this->getModel('ImageForm');
@@ -76,6 +109,8 @@ class FormController extends BaseController {
 			));
 		}
 	}
+
+
 
 	public function deleteImage() {
 		$model = $this->getModel('ImageDetails');
@@ -103,6 +138,7 @@ class FormController extends BaseController {
 		));
 	}
 
+
     public function saveCategory() {
 		$model = $this->getModel('CategoryForm');
 		
@@ -119,7 +155,7 @@ class FormController extends BaseController {
 	public function deleteCategory() {
 		$model = $this->getModel('CategoryForm');
 		
-		$categoryId = Factory::getApplication()->input->getVar('categoryId');
+		$categoryId = Factory::getApplication()->input->getInt('categoryId');
 
 		$model->deleteCategory($categoryId);
 
@@ -129,10 +165,46 @@ class FormController extends BaseController {
 		));
 	}
 
+
+	public function saveSubcategory() {
+		$model = $this->getModel('CategoryForm');
+		
+		$categoryId = Factory::getApplication()->input->getInt('categoryId');
+		$subcategoryName = Factory::getApplication()->input->getVar('subcategoryName');
+
+		$model->saveSubcategory($categoryId, $subcategoryName);
+
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display.categoryForm',
+			false,
+		));
+    }
+
+
+	public function deleteSubcategory() {
+		$model = $this->getModel('CategoryForm');
+		
+		$categoryId = Factory::getApplication()->input->getInt('categoryId');
+		$subcategoryId = Factory::getApplication()->input->getInt('subcategoryId');
+
+		if(empty($subcategoryId) || $subcategoryId == 0) {
+			Factory::getApplication()->enqueueMessage("Error: No subcategory to remove. Please choose a parent category with a subcategory");			
+		}
+		else{
+			$model->deleteSubcategory($categoryId, $subcategoryId);
+		}
+
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display.categoryForm',
+			false,
+		));
+	}
+
+
 	public function toggleIsHidden() {
 		$model = $this->getModel('ImageDetails');
 
-		$imageId = Factory::getApplication()->input->getVar('id');
+		$imageId = Factory::getApplication()->input->getInt('id');
 
 		$model->toggleIsHidden($imageId);
 
@@ -141,5 +213,25 @@ class FormController extends BaseController {
 			false,
 		));
 	}
+
+
+	private function validateImageData($imageName, $imageDescription, $categoryId) {
+
+		if(strlen($imageName) > 60) {
+            Factory::getApplication()->enqueueMessage("Image name too long.");
+            return false;
+        }
+
+        if(empty($categoryId)) {
+            Factory::getApplication()->enqueueMessage("Please select a category for this image.");
+            return false;
+        }
+        
+        if(strlen($imageDescription) > 12000) {
+            Factory::getApplication()->enqueueMessage("You have reached the description limit");
+            return false;
+        }
+        return true;
+    }
 
 }
