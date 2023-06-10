@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_quiz` (
   `title` VARCHAR(60) NOT NULL,
   `description` VARCHAR(200),
   `attemptsAllowed` INT NOT NULL,
-  `isHidden` BOOLEAN NOT NULL DEFAULT '0',
+  `isHidden` BOOLEAN NOT NULL DEFAULT '1',
   UNIQUE (`title`),
   PRIMARY KEY (`id`),
   FOREIGN KEY (`imageId`) REFERENCES `#__myImageViewer_image` (`id`)

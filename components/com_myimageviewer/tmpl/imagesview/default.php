@@ -88,7 +88,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						<tr>
 							<td class="pb-3">
 								<a
-									class="btn w-100 py-1 text-center<?php echo $row->id == $this->category ? " active" : ""; ?>"
+									class="btn w-100 py-1 text-center<?php if ($row->id == $this->category) echo " active"; ?>"
 									href="<?php echo Uri::getInstance()->current()
 										. ($row->id == $this->category ? "" : '?category='. $row->id);
 									?>"
@@ -121,7 +121,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							<?php $render = CheckGroup::isGroup("Manager") ? true : !$item->isHidden; ?>
 							<?php if ($render) : ?>
 								<td class="col-3 pt-0 pb-4">
-									<div class="card p-3 pb-0">
+									<div class="card h-100 p-3 pb-0">
 										<?php if (CheckGroup::isGroup("Manager") && $item->isHidden) : ?>
 											<div class="card-overlay d-flex">
 												<h5 class="m-auto">Hidden</h5>
@@ -134,7 +134,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 										/>
 
 										<div class="card-body text-center p-2">
-											<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
+											<h5 class="word-break"><?php echo $item->imageName; ?></h5>
 										</div>
 									</div>
 								</td>

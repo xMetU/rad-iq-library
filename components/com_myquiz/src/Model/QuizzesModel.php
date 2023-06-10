@@ -54,8 +54,8 @@ class QuizzesModel extends ListModel {
                 $db->quoteName('#__myQuiz_question', 'qu') . 'ON' . $db->quoteName('qu.quizId') . '=' . $db->quoteName('q.id'),
             );
 
-        if(isset($category)){
-            $query = $query->where($db->quoteName('i.categoryId') . '=' . $category);
+        if (isset($category)) {
+            $query->where($db->quoteName('i.categoryId') . '=' . $category);
         }
         if (isset($search)) {
             $query->where($db->quoteName('q.title') . ' LIKE ' . $db->quote('%' . $search . '%'));

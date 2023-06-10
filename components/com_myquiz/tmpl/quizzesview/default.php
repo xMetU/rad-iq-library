@@ -97,8 +97,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 						<tr>
 							<td class="pb-3 overflow-hidden">
 								<a
-									class="btn w-100 py-1 text-center<?php echo $row->id == $this->category ? " active" : ""; ?>"
-									href="<?php echo Uri::getInstance()->current()
+									class="btn w-100 py-1 text-center<?php if ($row->id == $this->category) echo " active"; ?>"
+									href="<?php 
+                                        echo Uri::getInstance()->current()
 										. ($row->id == $this->category ? "" : '?category='. $row->id);
 									?>"
 								>

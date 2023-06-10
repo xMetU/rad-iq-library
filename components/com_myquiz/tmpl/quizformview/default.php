@@ -71,9 +71,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <hr/>
 
             <div class="row">
-                <div class="col form-group">
+                <div class="col">
                     <label for="imageId">Image: *</label>
-                    <select name="imageId"  placeholder="Select quiz image..." class="form-control form-select">
+                    <select name="imageId"  placeholder="Select quiz image..." class="form-control form-select" required>
                         <option value="" <?php if (!$this->quiz) echo "selected"; ?>disabled hidden>Select an image</option>
                         <?php foreach ($this->images as $row) : ?>
                             <option
@@ -84,14 +84,14 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     </select>
                 </div>
 
-                <div class="col form-group">
+                <div class="col">
                     <label for="attemptsAllowed">Attempts Allowed: *</label>
 
                     <input
                         type="number"
                         name="attemptsAllowed"
                         class="form-control"
-                        placeholder="Number of attempts allowed..."
+                        placeholder="Enter number of attempts allowed..."
                         required
                         min="1"
                         max="999"
@@ -116,10 +116,17 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
             <hr/>
 
-            <div class="form-group">
-				<button class="btn">
-                    <i class="icon-check"></i> Done
-                </button>
+            <div class="row form-group">
+                <div class="col">
+                    <button class="btn"><i class="icon-check"></i> Done</button>
+                </div>
+                <?php if (!$this->quiz): ?>
+                    <div class="col-auto d-flex">
+                        <p class="my-auto"><i>New quizzes are hidden by default</i></p>
+                    </div>
+
+                    <div class="col"></div>
+                <?php endif; ?>
 			</div>
         </form>
     </div>
