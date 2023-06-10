@@ -189,9 +189,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     <?php else: ?>
                         <td>
                             <?php if ($this->category): ?>
-                                <p class="text-secondary text-center pt-5">No quizzes are assigned to this category</p>
+                                <p class="text-center pt-5">No quizzes are assigned to this category</p>
                             <?php else: ?>
-                                <p class="text-secondary text-center pt-5">Could not find any matching quizzes</p>
+                                <p class="text-center pt-5">Could not find any matching quizzes</p>
                             <?php endif; ?>							
                         </td>
                     <?php endif; ?>
