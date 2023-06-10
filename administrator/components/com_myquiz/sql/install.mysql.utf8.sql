@@ -6,15 +6,6 @@ DROP TABLE IF EXISTS `#__myQuiz_quiz`;
 
 
 
-DROP TRIGGER IF EXISTS delete_user_quizUserSummary;
-DROP TRIGGER IF EXISTS delete_user_userAnswers;
-DROP TRIGGER IF EXISTS delete_quiz_quizUserSummary;
-DROP TRIGGER IF EXISTS delete_quiz_question;
-DROP TRIGGER IF EXISTS delete_question_answer;
-DROP TRIGGER IF EXISTS delete_answer_userAnswers;
-
-
-
 CREATE TABLE IF NOT EXISTS `#__myQuiz_quiz` (
   `id` SERIAL NOT NULL,
   `imageId` bigint(20) UNSIGNED NOT NULL,
@@ -33,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_question` (
   `description` VARCHAR(200) NOT NULL,
   `feedback` VARCHAR(200),
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`quizId`) REFERENCES `#__myQuiz_quiz` (`id`)
+  FOREIGN KEY (`quizId`) REFERENCES `#__myQuiz_quiz` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `#__myQuiz_answer` (
@@ -42,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_answer` (
   `description` VARCHAR(200) NOT NULL,
   `markValue` INT NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`questionId`) REFERENCES `#__myQuiz_question` (`id`)
+  FOREIGN KEY (`questionId`) REFERENCES `#__myQuiz_question` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `#__myQuiz_userAnswers` (
@@ -50,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_userAnswers` (
   `answerId` bigint(20) UNSIGNED NOT NULL,
   `attemptNumber` bigint(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`userId`, `answerId`, `attemptNumber`),
-  FOREIGN KEY (`userId`) REFERENCES `#__users` (`id`),
-  FOREIGN KEY (`answerId`) REFERENCES `#__myQuiz_answer` (`id`)
+  FOREIGN KEY (`userId`) REFERENCES `#__users` (`id`)  ON DELETE CASCADE,
+  FOREIGN KEY (`answerId`) REFERENCES `#__myQuiz_answer` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `#__myQuiz_quizUserSummary` (
@@ -63,65 +54,9 @@ CREATE TABLE IF NOT EXISTS `#__myQuiz_quizUserSummary` (
   `startTime` DATETIME,
   `finishTime` DATETIME,
   PRIMARY KEY (`userId`, `quizId`, `attemptNumber`),
-  FOREIGN KEY (`userId`) REFERENCES `#__users` (`id`),
-  FOREIGN KEY (`quizId`) REFERENCES `#__myQuiz_quiz` (`id`)
+  FOREIGN KEY (`userId`) REFERENCES `#__users` (`id`)  ON DELETE CASCADE,
+  FOREIGN KEY (`quizId`) REFERENCES `#__myQuiz_quiz` (`id`)  ON DELETE CASCADE
 ) ENGINE = InnoDB;
-
-
-
-DELIMITER //
-CREATE TRIGGER delete_user_quizUserSummary
-BEFORE DELETE ON `#__users`
-FOR EACH ROW
-BEGIN
-  DELETE FROM `#__myQuiz_quizUserSummary` WHERE userId = OLD.id;
-END; //
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER delete_user_userAnswers
-BEFORE DELETE ON `#__users`
-FOR EACH ROW
-BEGIN
-  DELETE FROM `#__myQuiz_userAnswers` WHERE userId = OLD.id;
-END; //
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER delete_quiz_quizUserSummary
-BEFORE DELETE ON `#__myQuiz_quiz`
-FOR EACH ROW
-BEGIN
-  DELETE FROM `#__myQuiz_quizUserSummary` WHERE quizId = OLD.id;
-END; //
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER delete_quiz_question
-BEFORE DELETE ON `#__myQuiz_quiz`
-FOR EACH ROW
-BEGIN
-  DELETE FROM `#__myQuiz_question` WHERE quizId = OLD.id;
-END; //
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER delete_question_answer
-BEFORE DELETE ON `#__myQuiz_question`
-FOR EACH ROW
-BEGIN
-  DELETE FROM `#__myQuiz_answer` WHERE questionId = OLD.id;
-END; //
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER delete_answer_userAnswers
-BEFORE DELETE ON `#__myQuiz_answer`
-FOR EACH ROW
-BEGIN
-  DELETE FROM `#__myQuiz_userAnswers` WHERE answerId = OLD.id;
-END; //
-DELIMITER ;
 
 
 
