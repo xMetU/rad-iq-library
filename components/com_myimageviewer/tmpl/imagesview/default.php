@@ -60,6 +60,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					method="get"
 					enctype="multipart/form-data"
 				>
+					<?php if ($this->category): ?>
+						<input type="hidden" name="category" value="<?php echo $this->category; ?>">
+					<?php endif; ?>
 					<div class="input-group">
 						<input
 							name="search"
@@ -90,7 +93,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 								<a
 									class="btn w-100 py-1 text-center<?php if ($row->id == $this->category) echo " active"; ?>"
 									href="<?php echo Uri::getInstance()->current()
-										. ($row->id == $this->category ? "" : '?category='. $row->id);
+										. ($row->id == $this->category ? "" : '?category='. $row->id)
 									?>"
 								>
 									<?php echo $row->categoryName; ?>
@@ -116,7 +119,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 			<tbody>
 				<tr class="row">
-					<?php if (!empty($this->items)) : ?>	
+					<?php if (!empty($this->items)) : ?>
 						<?php foreach ($this->items as $item) : ?>
 							<?php $render = CheckGroup::isGroup("Manager") ? true : !$item->isHidden; ?>
 							<?php if ($render) : ?>
