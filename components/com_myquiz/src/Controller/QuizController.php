@@ -40,20 +40,19 @@ class QuizController extends BaseController {
                 Factory::getApplication()->setUserState('myQuiz.attemptNumber', $userAttempts + 1);
                 Factory::getApplication()->setUserState('myQuiz.startTime', new Date("now +9 hours +30 minutes"));
     
-                $this->setRedirect(
-                    Uri::getInstance()->current() 
-                    . '?task=Display.quiz&quizId=' . $data['quizId']
-                    . '&questionId=' . $data['questionId']
-                );
+                $this->setRedirect(Route::_(
+                    Uri::getInstance()->current() . '?task=Display.quiz&quizId=' . $data['quizId'] . '&questionId=' . $data['questionId'],
+                    false,
+                ));
             }
             else {
                 Factory::getApplication()->enqueueMessage('You have reached the attempt limit for this quiz');
-                $this->setRedirect(Uri::getInstance()->current() . '?&task=Display.display');
+                $this->setRedirect(Route::_(Uri::getInstance()->current() . '?&task=Display.display', false));
             }
         }
         else {
             Factory::getApplication()->enqueueMessage('Please login to continue');
-            $this->setRedirect('?index.php');
+            $this->setRedirect(Route::_('?index.php', false));
         }
     }
 
@@ -68,11 +67,10 @@ class QuizController extends BaseController {
         if ($data['nextQuestionId'] == "FINISH") {
             $this->submitAnswers();
         } else {
-            $this->setRedirect(
-                Uri::getInstance()->current()
-                . '?task=Display.quiz&quizId=' . $data['quizId']
-                . '&questionId=' . $data['nextQuestionId']
-            );
+            $this->setRedirect(Route::_(
+                Uri::getInstance()->current() . '?task=Display.quiz&quizId=' . $data['quizId'] . '&questionId=' . $data['nextQuestionId'],
+                false,
+            ));
         }
     }
 
@@ -97,11 +95,10 @@ class QuizController extends BaseController {
             'startTime' => $startTime, 'finishTime' => $finishTime,
         ]);
 
-        $this->setRedirect(
-            Uri::getInstance()->current()
-            . '?task=Display.summary&quizId=' . $quizId
-            . '&attemptNumber=' . $attemptNumber
-        );
+        $this->setRedirect(Route::_(
+            Uri::getInstance()->current() . '?task=Display.summary&quizId=' . $quizId . '&attemptNumber=' . $attemptNumber,
+            false,
+        ));
     }
 
 }

@@ -93,9 +93,10 @@ class FormController extends BaseController {
             default:
                 $task = 'display';
         }
-        $this->setRedirect(
-            Uri::getInstance()->current() . '?task=Display.' . $task . $id
-        );
+        $this->setRedirect(Route::_(
+            Uri::getInstance()->current() . '?task=Display.' . $task . $id,
+            false
+        ));
     }
     
 }

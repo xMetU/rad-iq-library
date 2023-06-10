@@ -9,7 +9,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
-
 /**
  * @package     Joomla.Site
  * @subpackage  com_myQuiz
@@ -135,10 +134,7 @@ class DisplayController extends BaseController {
         $model = $this->getModel('Quizzes');
 		$quizId = Factory::getApplication()->input->getVar('id');
 		$model->toggleIsHidden($quizId);
-		$this->setRedirect(Route::_(
-			Uri::getInstance()->current(),
-			false,
-		));
+		$this->setRedirect(Route::_(Uri::getInstance()->current(), false));
     }
 
 }

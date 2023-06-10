@@ -17,9 +17,7 @@ use Joomla\CMS\Uri\Uri;
 
 class DisplayController extends BaseController {
     
-
     public function display($cachable = false, $urlparams = array()) {    
-
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
 
@@ -36,7 +34,6 @@ class DisplayController extends BaseController {
         Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'IMAGES');
     }
 
-
     public function imageDetails() {        
         $document = Factory::getDocument();
         $viewFormat = $document->getType();
@@ -51,7 +48,6 @@ class DisplayController extends BaseController {
         $view->display();
         Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'IMAGEDETAILS');
     }
-
 
     public function imageForm() {
         $document = Factory::getDocument();
@@ -71,7 +67,6 @@ class DisplayController extends BaseController {
         $view->display();
         Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'IMAGEFORM');
     }
-
 
     public function categoryForm() {
         $document = Factory::getDocument();
