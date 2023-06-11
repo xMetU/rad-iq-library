@@ -21,9 +21,12 @@ class ImagesModel extends ListModel {
 
         if (Factory::getApplication()->getUserState('myImageViewer_myQuiz.view') != 'IMAGES') {
             $category = Factory::getApplication()->getUserState('myImageViewer_myQuiz.category');
+            $subcategory = Factory::getApplication()->getUserState('myImageViewer_myQuiz.subcategory');
         } else {
             $category = Factory::getApplication()->input->getVar('category');
+            $subcategory = Factory::getApplication()->input->getVar('subcategory');
             Factory::getApplication()->setUserState('myImageViewer_myQuiz.category', $category);
+            Factory::getApplication()->setUserState('myImageViewer_myQuiz.subcategory', $subcategory);
         }
         $search = Factory::getApplication()->input->getVar('search');
 
@@ -37,17 +40,16 @@ class ImagesModel extends ListModel {
             ->join(
                 'LEFT',
                 $db->quoteName('#__myImageViewer_imageSubCategory', 'sc') . ' ON ' . $db->quoteName('sc.categoryId') . '=' . $db->quoteName('image.categoryId')
-                    . ' AND ' . $db->quoteName('sc.subcategoryId') . '=' . $db->quoteName('image.subcategoryId')
+                . ' AND ' . $db->quoteName('sc.subcategoryId') . '=' . $db->quoteName('image.subcategoryId')
             );
 
         if (isset($category)) {
-            $query = $query->where($db->quoteName('image.categoryId') . '=' . $category);
-            
-            if(isset($subcategory)){
-                $query = $query->where($db->quoteName('image.subcategoryId') . '=' . $subcategory);
+            $query = $query->where($db->quoteName('image.categoryId') . ' = ' . $category);
+            if (isset($subcategory)) {
+                $query = $query->where($db->quoteName('image.subcategoryId') . ' = ' . $subcategory);
             }
-            
         }
+        
         if (isset($search)) {
             $query = $query->where($db->quoteName('image.imageName') . ' LIKE ' . $db->quote('%' . $search . '%'));
         }
@@ -63,18 +65,15 @@ class ImagesModel extends ListModel {
         $this->setState('list.start', $start);
     }
 
-
     public function getTable($type = 'Image', $prefix = '', $config = array()) {
 		return Factory::getApplication()->bootComponent('com_myImageViewer')->getMVCFactory()->createTable($type);
 	}
-
 
     public function getAllImages() {
         $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName('c.categoryName'))
-            ->select($db->quoteName(['c.categoryName', 'sc.subcategoryName']))
+            ->select($db->quoteName(['c.categoryId', 'c.categoryName', 'sc.subcategoryId', 'sc.subcategoryName']))
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
             ->join(
                 'LEFT',
@@ -85,7 +84,7 @@ class ImagesModel extends ListModel {
                 $db->quoteName('#__myImageViewer_imageSubCategory', 'sc') . ' ON ' . $db->quoteName('sc.categoryId') . '=' . $db->quoteName('image.categoryId')
                     . ' AND ' . $db->quoteName('sc.subcategoryId') . '=' . $db->quoteName('image.subcategoryId')
             );
-        
+
         $db->setQuery($query);
         $db->execute();
             

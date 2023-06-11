@@ -16,15 +16,30 @@ class HtmlView extends BaseHtmlView {
 
 
     public function display($template = null) {
-        $this->allImages = $this->get('AllImages');
-        $this->categories = $this->get('Items', 'Categories');
-        $this->subcategories = $this->get('Items', 'SubCategories');
+        $allImages = $this->get('AllImages');
         $this->items = $this->get('Items');
+        $this->categories = $this->get('Items', 'Categories');
+        foreach ($this->categories as $category) {
+            $category->count = 0;
+            foreach ($allImages as $image) {
+                if ($image->categoryId == $category->categoryId) {
+                    $category->count++;
+                }
+            }
+        }
+        $this->subcategories = $this->get('Items', 'SubCategories');
+        foreach ($this->subcategories as $subcategory) {
+            $subcategory->count = 0;
+            foreach ($allImages as $image) {
+                if ($image->subcategoryId == $subcategory->subcategoryId) {
+                    $subcategory->count++;
+                }
+            }
+        }
         $this->pagination = $this->get('Pagination');
 
         $this->category = Factory::getApplication()->getUserState('myImageViewer_myQuiz.category');
-        $this->subcategory = Factory::getApplication()->input->getVar('subcategory');
-        $this->catSearch = Factory::getApplication()->input->getVar('catSearch');
+        $this->subcategory = Factory::getApplication()->getUserState('myImageViewer_myQuiz.subcategory');
         $this->search = Factory::getApplication()->input->getVar('search');
         // Call the parent display to display the layout file
         parent::display($template);

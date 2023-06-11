@@ -50,26 +50,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 <div class="row pb-3">
 
-    <div class="col-2">
-		<!-- Searchbar -->
-		<form
-			action="<?php echo Uri::getInstance()->current(); ?>"
-			method="get"
-			enctype="multipart/form-data"
-		>
-			<div class="input-group">
-				<input
-					type="catSearch"
-					name="catSearch"
-					id="text"
-					class="form-control"
-					placeholder="Search Category..."
-					value="<?php if ($this->catSearch) echo $this->catSearch; ?>"
-				/>
-				<button type="submit" class="btn"><i class="icon-search"></i></button>
-			</div>
-		</form>
-	</div>
+    <div class="col-2 text-center my-auto">
+        <h6>Filter by Category</h6>
+    </div>
 
 	<div class="col-10 ps-5">
         <div class="row">
@@ -106,10 +89,6 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             </div>
         </div>
 	</div>
-</div>
-
-<div class="col-2 text-center my-auto">
-	<h6>Filter by Category</h6>
 </div>
 
 <div class="row">
