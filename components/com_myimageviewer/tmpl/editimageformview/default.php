@@ -55,12 +55,18 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 				<input 
 					type="text"
+					id="imageName"
 					name="imageName"
 					class="form-control"
 					placeholder="Enter title..."
 					maxlength="60"
 					required
-					value="<?php echo $this->image ? $this->image->name : ""; ?>"
+					value="<?php if ($this->imageName) {
+								echo $this->imageName;
+							}
+							else {
+								echo $this->image->name;
+							} ?>"
 				/>
 			</div>
 
@@ -135,12 +141,18 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<label for="imageDescription">Description:</label>
 
 				<textarea
+					id="imageDescription"
 					name="imageDescription"
 					class="form-control"
 					placeholder="Enter description..."
 					maxlength="12000"
 					rows="16"
-				><?php echo $this->image->description; ?></textarea>
+				><?php if ($this->imageDescription) {
+							echo $this->imageDescription;
+						}
+						else {
+							echo $this->image->description;
+						} ?></textarea>
 			</div>
 
 			<hr/>
@@ -156,11 +168,16 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 <script>
 	const parent = document.getElementById("editImageCategory");
+
 	var imageId = "<?php echo $this->image->id; ?>";
 	var catId = "<?php echo $this->categoryId; ?>";
 
+
 	parent.onchange = (e) => {
+		var imageName = document.getElementById("imageName").value;
+		var imageDescription = document.getElementById("imageDescription").value;
+
 		var changeId = document.getElementById("editImageCategory").value;
-		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${changeId}`;	
+		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${changeId}&imageName=${imageName}&imageDescription=${imageDescription}`;	
 	}
 </script>

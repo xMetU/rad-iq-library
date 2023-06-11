@@ -207,18 +207,19 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				</div>
 
 				<div class="col-auto">
-					<button id="delete-button" class="btn mt-4">
+					<button id="sub-delete-button" class="btn mt-4">
 						<i class="icon-times"></i> Remove
 					</button> 
 				</div>
+				
+			</div>
 
-				<!-- Delete confirmation -->
-				<div id="delete-confirmation" class="overlay-background d-flex d-none">
-					<div class="m-auto text-center">
-						<h5 class="mb-4"><!-- Message --></h5>
-						<button id="delete-confirm" class="btn me-3">Yes, remove it</button>
-						<button id="delete-cancel" class="btn ms-3">No, go back</button>
-					</div>
+			<!-- Delete confirmation -->
+			<div id="delete-confirmation" class="overlay-background d-flex d-none">
+				<div class="m-auto text-center">
+					<h5 class="mb-4"><!-- Message --></h5>
+					<button id="delete-confirm" class="btn me-3">Yes, remove it</button>
+					<button id="delete-cancel" class="btn ms-3">No, go back</button>
 				</div>
 			</div>
 			

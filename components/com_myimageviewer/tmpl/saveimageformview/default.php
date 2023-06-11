@@ -51,11 +51,15 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 				<input 
 					type="text"
+					id="imageName"
 					name="imageName"
 					class="form-control"
 					placeholder="Enter title..."
 					maxlength="60"
 					required
+					<?php if($this->imageName) : ?>
+						<?php echo "value=" . $this->imageName; ?>
+					<?php endif ?>
 				/>
 			</div>
 
@@ -92,16 +96,18 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						name="subcategoryId"
 						class="form-control form-select"
 					>
-						<?php if ($this->categoryId): ?>
-							<?php foreach ($this->subcategories as $row) : ?>
-								<option value="<?php echo $row->subcategoryId; ?>">
-									<?php echo $row->subcategoryName; ?>
-								</option>
-							<?php endforeach; ?>							
-						<?php endif; ?>
 						<option value="" selected disabled hidden>
 							<?php echo $this->subcategories ? "Select a subcategory" : "No Subcategories"; ?>
-						</option>
+						</option> ?>	
+							<?php foreach ($this->subcategories as $row) : ?>
+								<option value="<?php echo $row->subcategoryId; ?>" 										
+									<?php if($row->categoryId == $this->categoryId && $row->subcategoryId == $this->subcategoryId) : ?>
+										<?php echo "selected"; ?>
+									<?php endif ?>
+								>										
+									<?php echo $row->subcategoryName; ?>
+								</option>									
+							<?php endforeach; ?>						
 					</select>
 				</div>
 			</div>
@@ -128,12 +134,12 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<label for="imageDescription">Description:</label>
 
 				<textarea
+					id="imageDescription"
 					name="imageDescription"
 					class="form-control"
 					placeholder="Enter description..."
 					maxlength="12000"
-					rows="16"
-				></textarea>
+					rows="16"><?php if($this->imageDescription) echo $this->imageDescription; ?></textarea>
 			</div>
 
 			<hr/>
@@ -149,11 +155,18 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 <script>
 	const parent = document.getElementById("saveCategory");
+	const sub = document.getElementById("saveSubcategory");
 	var catId = "<?php echo $this->categoryId; ?>";
 	var subcatId = "<?php echo $this->subcategoryId; ?>";
 
+
 	parent.onchange = (e) => {
 		var changeId = document.getElementById("saveCategory").value;
-		window.location.href = `?task=Display.saveImageForm&categoryId=${changeId}`;	
+
+		var imageName = document.getElementById("imageName").value;
+		var imageDescription = document.getElementById("imageDescription").value;
+
+		window.location.href = `?task=Display.saveImageForm&categoryId=${changeId}&imageName=${imageName}&imageDescription=${imageDescription}`;	
 	}
+
 </script>

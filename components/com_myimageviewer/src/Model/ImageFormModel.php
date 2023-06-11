@@ -58,7 +58,6 @@ class ImageFormModel extends BaseModel {
 
 	public function updateImage($data) {
 		$db = Factory::getDbo();
-		$columns = array('imageName', 'categoryId', 'subcategoryId', 'imageDescription');
 		
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__myImageViewer_image'))

@@ -38,49 +38,43 @@ class FormController extends BaseController {
 				$resume = true;
 			}
 		}
-		else {
-			$resume = true;	
-		}
 
-		if ($resume) {
-			// Perform server-side validation
-			if ($this->validateImageData($imageName, $imageDescription, $categoryId)){
-				$file = Factory::getApplication()->input->files->get('imageUrl');
 
-				// Temporary file path on the server
-				$tmp = $file['tmp_name'];
+		// Perform server-side validation
+		if ($this->validateImageData($imageName, $imageDescription, $categoryId)){
+			$file = Factory::getApplication()->input->files->get('imageUrl');
 
-				// Create and append imageUrl
-				$name = $imageName . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
-				$categoryName = $model->getCategory($categoryId)->categoryName;
-				$imageUrl = 'media/com_myimageviewer/images/' . $categoryName . '/' . $name;
+			// Temporary file path on the server
+			$tmp = $file['tmp_name'];
 
-				//Prepare data
-				$data = ['imageName' => $imageName, 'imageDescription' => $imageDescription, 'categoryId' => $categoryId, 'subcategoryId' => $subcategoryId];
-				array_push($data, $imageUrl);
+			// Create and append imageUrl
+			$name = $imageName . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+			$categoryName = $model->getCategory($categoryId)->categoryName;
+			$imageUrl = 'media/com_myimageviewer/images/' . $categoryName . '/' . $name;
 
-				if ($model->saveImage($data)) {
-					// Create the category folder
-					$folderUrl = JPATH_ROOT . '/media/com_myimageviewer/images/' . $categoryName;
-					$uploadUrl = $folderUrl . '/' . $name;
-					Folder::create($folderUrl);
+			//Prepare data
+			$data = ['imageName' => $imageName, 'imageDescription' => $imageDescription, 'categoryId' => $categoryId, 'subcategoryId' => $subcategoryId];
+			array_push($data, $imageUrl);
 
-					// Create and save main copy
-					$image = new Image($tmp);
-					$image->toFile($uploadUrl);
+			if ($model->saveImage($data)) {
+				// Create the category folder
+				$folderUrl = JPATH_ROOT . '/media/com_myimageviewer/images/' . $categoryName;
+				$uploadUrl = $folderUrl . '/' . $name;
+				Folder::create($folderUrl);
 
-					// Create and save thumbnail copy
-					$thumbImage = $image->createThumbs(['200x200']);
-					$thumbImage[0]->toFile($uploadUrl . '.thumb');
+				// Create and save main copy
+				$image = new Image($tmp);
+				$image->toFile($uploadUrl);
 
-					// Clear temporary file
-					unlink($tmp);
-				}
+				// Create and save thumbnail copy
+				$thumbImage = $image->createThumbs(['200x200']);
+				$thumbImage[0]->toFile($uploadUrl . '.thumb');
+
+				// Clear temporary file
+				unlink($tmp);
 			}
-		}	
-		else {
-			Factory::getApplication()->enqueueMessage("Error: This category has subcategories. Please choose a subcategory.");
 		}
+		
 
         $this->setRedirect(Route::_(
 			Uri::getInstance()->current() . '?task=Display.saveImageForm',
@@ -91,7 +85,22 @@ class FormController extends BaseController {
 	public function updateImage() {
 		$model = $this->getModel('ImageForm');
 
-		$data = Factory::getApplication()->input->getArray();
+		$imageId = Factory::getApplication()->input->post->getInt('imageId');
+		$imageName = Factory::getApplication()->input->post->getVar('imageName');
+		$categoryId = Factory::getApplication()->input->post->getInt('categoryId');
+		$subcategoryId = Factory::getApplication()->input->post->getInt('subcategoryId');
+		$imageDescription = Factory::getApplication()->input->post->getVar('imageDescription');
+
+		
+		if (!isset($subcategoryId)) {
+			if ($model->checkSubcategory($categoryId)) {
+				$subcategoryId = 0;
+				$resume = true;
+			}
+		}
+
+		$data = array('imageId' => $imageId, 'imageName' => $imageName, 'categoryId' => $categoryId, 
+		'subcategoryId' => $subcategoryId, 'imageDescription' => $imageDescription);
 
 		if ($model->updateImage($data)) {
 			$this->setRedirect(Route::_(
@@ -100,7 +109,7 @@ class FormController extends BaseController {
 			));
 		} else {
 			$this->setRedirect(Route::_(
-				Uri::getInstance()->current() . '?task=Display.imageForm&id=' . $data['imageId'],
+				Uri::getInstance()->current() . '?task=Display.editImageForm&id=' . $data['imageId'],
 				false,
 			));
 		}
