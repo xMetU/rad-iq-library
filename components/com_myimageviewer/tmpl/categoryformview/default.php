@@ -18,10 +18,9 @@ $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/categoryFormView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
-
 ?>
 
-<!-- ========== ADD NEW CATEGORY VIEW ========== -->
+<!-- CATEGORY FORM VIEW -->
 
 <!-- Header -->
 <div class="row">
@@ -36,36 +35,25 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 <hr/>
 
-<div class="row">
+<div class="row my-4">
+	<!-- Create category form -->
 	<div class="col">
 		<h4 class="text-center">Create New Category</h4>
-	</div>
-	<div class="col">
-		<h4 class="text-center">Remove Category</h4>
-	</div>
-</div>
 
-<div class="row justify-content-center mt-3">
-	<div class="col">
-		<!-- Create form -->
 		<form 
 			action="<?php echo Uri::getInstance()->current() . '?task=Form.saveCategory'; ?>"
 			method="post"
-			id="adminForm"
 			name="adminForm"
-			enctype="multipart/form-data"
 		>
-			<div class="row form-group p-2">
-				
-
+			<div class="row form-group">
 				<div class="col">
-					<label for="categoryName">Category Name: *</label>
+					<label for="categoryName">Name: *</label>
 
 					<input
 						type="text"
 						name="categoryName"
 						class="form-control"
-						placeholder="Enter name..."
+						placeholder="Enter category name..."
 						maxlength="30"
 						required
 					/>
@@ -82,17 +70,18 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 	<div class="col-1"></div>
 
+	<!-- Delete category form -->
 	<div class="col">
-		<!-- Delete form -->
+		<h4 class="text-center">Remove Category</h4>
 		<form 
 			action="<?php echo Uri::getInstance()->current() . '?task=Form.deleteCategory'; ?>"
 			method="post"
 			name="adminForm"
 		>	
-			<div class="row form-group p-3 bg-danger">
+			<div class="row form-group">
 
 				<div class="col">
-					<label for="categoryId">Category Name: *</label>
+					<label for="categoryId">Name: *</label>
 
 					<select id="delete-select" name="categoryId" class="form-control form-select" required>
 						<option value="" selected disabled hidden>Select a category</option>
@@ -123,19 +112,11 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	
 <hr/>
 
-
-
-<div class="row justify-content-center mt-5">
+<div class="row my-4">
+	<!-- Create subcategory form -->
 	<div class="col">
 		<h4 class="text-center">Create New Subcategory</h4>
-	</div>
-	<div class="col">
-		<h4 class="text-center">Remove Subcategory</h4>
-	</div>
-</div>
 
-<div class="row justify-content-center mt-3">
-	<div class="col">
 		<!-- Create form -->
 		<form 
 			action="<?php echo Uri::getInstance()->current() . '?task=Form.saveSubcategory'; ?>"
@@ -144,73 +125,65 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			name="adminForm"
 			enctype="multipart/form-data"
 		>
-			
+			<div class="form-group">
+				<label for="categoryId">Category Name: *</label>
 
-			<div class="row form-group mt-5">
+				<select id="parent-category-select" name="categoryId" class="form-control form-select" required>
+					<option value="" selected disabled hidden>Select a category</option>
+					<?php foreach ($this->categories as $row) : ?>
+						<option value="<?php echo $row->categoryId; ?>"><?php echo $row->categoryName; ?></option>
+					<?php endforeach; ?>
+				</select>
+
 				
+			</div>
+			
+			<div class="row form-group">
 				<div class="col">
 					<label for="categoryName">Subcategory Name: *</label>
-
+				
 					<input
 						type="text"
 						name="subcategoryName"
 						class="form-control"
-						placeholder="Enter name..."
+						placeholder="Enter subcategory name..."
 						maxlength="30"
 					/>
 				</div>
-			</div>
-
-			<div class="row form-group mt-4">
-				<h5 class="text-center">Assign Parent Category</h5>
-
-				<div class="col">
-					<label for="categoryId">Parent Category Name: *</label>
-
-					<select id="parent-category-select" name="categoryId" class="form-control form-select" required>
-						<option value="" selected disabled hidden>Select a parent category</option>
-						<?php foreach ($this->categories as $row) : ?>
-							<option value="<?php echo $row->categoryId; ?>"><?php echo $row->categoryName; ?></option>
-						<?php endforeach; ?>
-					</select>
-				</div>
-
+				
 				<div class="col-auto">
 					<button class="btn mt-4">
 						<i class="icon-check"></i> Done
 					</button> 
 				</div>
 			</div>
+
 		</form>
 	</div>
 
 	<div class="col-1"></div>
 
-	<div class="col bg-danger p-3">
-		<!-- Delete form -->
+	<!-- Delete subcategory form -->
+	<div class="col">
+		<h4 class="text-center">Remove Subcategory</h4>
+
 		<form 
 			action="<?php echo Uri::getInstance()->current() . '?task=Form.deleteSubcategory'; ?>"
 			method="post"
 			name="adminForm"
 		>	
-			<div class="row form-group">
-				<h5 class="text-center">Select Parent Category</h5>
+			<div class="form-group">
+				<label for="categoryId">Category Name: *</label>
 
-				<div class="col">
-					<label for="categoryId">Parent Category Name: *</label>
-
-					<select id="delete-parent-category-select" name="categoryId" class="form-control form-select" required>
-						<option value="" selected disabled hidden>Select a parent category</option>
-						<?php foreach ($this->categories as $row) : ?>
-							<option value="<?php echo $row->categoryId; ?>"><?php echo $row->categoryName; ?></option>
-						<?php endforeach; ?>
-					</select>
-				</div>
+				<select id="delete-parent-category-select" name="categoryId" class="form-control form-select" required>
+					<option value="" selected disabled hidden>Select a parent category</option>
+					<?php foreach ($this->categories as $row) : ?>
+						<option value="<?php echo $row->categoryId; ?>"><?php echo $row->categoryName; ?></option>
+					<?php endforeach; ?>
+				</select>
 			</div>
 
-			<div class="row form-group mt-4">
-				<h5 class="text-center">Remove Subcategory</h5>
-
+			<div class="row form-group">
 				<div class="col">
 					<label for="subcategoryId">Subcategory Name: *</label>
 
@@ -246,12 +219,10 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		</form>	
 	</div>
 </div>
-	
+
 <hr/>
 
-
 <script>
-
 	const parent = document.getElementById("delete-parent-category-select");
 	
 	parent.onchange = (e) => {
@@ -259,15 +230,11 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		window.location.href = `?task=Display.categoryForm&categoryId=${catId}`;
 	}
 
-	if("<?php echo $this->categoryId; ?>") {
+	if ("<?php echo $this->categoryId; ?>") {
 		for(i= 0; i < parent.options.length; i++) {
 			if(parent.options[i].value == "<?php echo $this->categoryId; ?>") {
 				parent.options[i].selected = true;
 			}
 		}
 	}
-	
 </script>
-
-
-

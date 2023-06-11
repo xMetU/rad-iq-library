@@ -56,7 +56,7 @@ class ImageDetailsModel extends ItemModel {
 			return true;
 		}
 		catch (\Exception $e) {
-            if (str_contains($e-getMessage(), "foreign key constraint")) {
+            if (str_contains($e->getMessage(), "foreign key")) {
                 Factory::getApplication()->enqueueMessage(
                     "Error: Quizzes are referencing this image, please re-assign or remove these quizzes and try again."
                 );
