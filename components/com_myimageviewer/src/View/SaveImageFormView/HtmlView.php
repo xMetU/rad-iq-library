@@ -18,8 +18,6 @@ class HtmlView extends BaseHtmlView {
     
     public function display($template = null) {
 
-        
-
         $this->categoryId = Factory::getApplication()->input->getInt('categoryId');
         Factory::getApplication()->setUserState('myImageViewer.categoryId', $this->categoryId);
         
@@ -28,7 +26,6 @@ class HtmlView extends BaseHtmlView {
         $this->categories = $this->get('AllCategories', 'Categories');
         $this->subcategories = $this->get('CategorySubcategories', 'SubCategories');
         
-
         // Call the parent display to display the layout file
         parent::display($template);
     }

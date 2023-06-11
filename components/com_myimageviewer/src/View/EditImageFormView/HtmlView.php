@@ -15,9 +15,7 @@ use Joomla\CMS\Factory;
 
 class HtmlView extends BaseHtmlView {
 
-    
     public function display($template = null) {
-
 
         if (Factory::getApplication()->input->getVar('id') != null) {
             $this->image = $this->get('Item', 'ImageDetails');
@@ -33,13 +31,8 @@ class HtmlView extends BaseHtmlView {
 
         Factory::getApplication()->setUserState('myImageViewer.categoryId', $this->categoryId);
 
-        $this->subcategoryId = Factory::getApplication()->input->getInt('subcategoryId');
-
         $this->categories = $this->get('AllCategories', 'Categories');
         $this->subcategories = $this->get('CategorySubcategories', 'SubCategories');
-
-        
-
 
         // Call the parent display to display the layout file
         parent::display($template);

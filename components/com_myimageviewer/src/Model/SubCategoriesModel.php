@@ -16,16 +16,12 @@ use Joomla\CMS\Factory;
 class SubCategoriesModel extends ListModel {
 
     public function getListQuery() {
-
         $db = $this->getDatabase();
-
         $query = $db->getQuery(true)
             ->select($db->quoteName(['isc.categoryId', 'isc.subcategoryId', 'isc.subcategoryName']))
             ->from($db->quoteName('#__myImageViewer_imageSubCategory', 'isc'));
-
         return $query;
     }
-
 
     // Override global list limit so all categories are displayed
     protected function populateState($ordering = null, $direction = null){
@@ -33,11 +29,13 @@ class SubCategoriesModel extends ListModel {
         $this->setState('list.limit', $limit);
     }
 
-
     public function getCategorySubcategories() {
         $db = $this->getDatabase();
 
-        $categoryId = Factory::getApplication()->getUserState('myImageViewer.categoryId');
+        $categoryId = Factory::getApplication()->input->getInt('categoryId');
+        if (!$categoryId) {
+            $categoryId = Factory::getApplication()->getUserState('myImageViewer.categoryId');
+        }
 
         $query = $db->getQuery(true)
             ->select($db->quoteName(['isc.categoryId', 'isc.subcategoryId', 'isc.subcategoryName']))

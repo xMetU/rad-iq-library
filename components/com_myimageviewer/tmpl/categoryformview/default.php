@@ -187,16 +187,22 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<div class="col">
 					<label for="subcategoryId">Subcategory Name: *</label>
 
-					<select id="subcategory-select" name="subcategoryId" class="form-control form-select" required>
-
-						<?php if (!$this->subcategories) : ?>
-							<option value="">No subcategories</option>
+					<select 
+						id="subcategory-select"
+						name="subcategoryId"
+						class="form-control form-select"
+						required
+					>
+						<?php if ($this->subcategories) : ?>
+							<option value="" selected disabled hidden>Select a subcategory</option>
+							<?php foreach ($this->subcategories as $row) : ?>
+								<?php if ($row->categoryId == $this->categoryId): ?>
+									<option value="<?php echo $row->subcategoryId; ?>"><?php echo $row->subcategoryName; ?></option>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						<?php else: ?>
+							<option value="" selected>No subcategories</option>
 						<?php endif ?>
-
-						<option value="" selected disabled hidden>Select a subcategory</option>
-						<?php foreach ($this->subcategories as $row) : ?>
-							<option value="<?php echo $row->subcategoryId; ?>"><?php echo $row->subcategoryName; ?></option>
-						<?php endforeach; ?>
 					</select>
 				</div>
 
@@ -224,7 +230,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 <script>
 	const parent = document.getElementById("delete-parent-category-select");
-	
+
 	parent.onchange = (e) => {
 		var catId = document.getElementById("delete-parent-category-select").value;
 		window.location.href = `?task=Display.categoryForm&categoryId=${catId}`;

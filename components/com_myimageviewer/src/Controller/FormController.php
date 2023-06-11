@@ -32,19 +32,19 @@ class FormController extends BaseController {
 
 		$resume = false;
 
-		if(!isset($subcategoryId)) {
-			if($model->checkSubcategory($categoryId)) {
+		if (!isset($subcategoryId)) {
+			if ($model->checkSubcategory($categoryId)) {
 				$subcategoryId = 0;
-				$resume = true;		
+				$resume = true;
 			}
 		}
 		else {
 			$resume = true;	
 		}
 
-		if($resume) {
+		if ($resume) {
 			// Perform server-side validation
-			if($this->validateImageData($imageName, $imageDescription, $categoryId)){
+			if ($this->validateImageData($imageName, $imageDescription, $categoryId)){
 				$file = Factory::getApplication()->input->files->get('imageUrl');
 
 				// Temporary file path on the server
@@ -77,20 +77,16 @@ class FormController extends BaseController {
 					unlink($tmp);
 				}
 			}
-
 		}	
-		else{
+		else {
 			Factory::getApplication()->enqueueMessage("Error: This category has subcategories. Please choose a subcategory.");
-		}		
+		}
 
         $this->setRedirect(Route::_(
 			Uri::getInstance()->current() . '?task=Display.saveImageForm',
 			false,
 		));
     }
-
-
-
 
 	public function updateImage() {
 		$model = $this->getModel('ImageForm');
@@ -109,8 +105,6 @@ class FormController extends BaseController {
 			));
 		}
 	}
-
-
 
 	public function deleteImage() {
 		$model = $this->getModel('ImageDetails');

@@ -58,12 +58,13 @@ class ImageFormModel extends BaseModel {
 
 	public function updateImage($data) {
 		$db = Factory::getDbo();
-		$columns = array('imageName', 'categoryId', 'imageDescription');
+		$columns = array('imageName', 'categoryId', 'subcategoryId', 'imageDescription');
 		
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__myImageViewer_image'))
 			->set($db->quoteName('imageName') . ' = ' . $db->quote($data['imageName']))
 			->set($db->quoteName('categoryId') . ' = ' . $db->quote($data['categoryId']))
+			->set($db->quoteName('subcategoryId') . ' = ' . $db->quote($data['subcategoryId']))
 			->set($db->quoteName('imageDescription') . ' = ' . $db->quote($data['imageDescription']))
 			->where($db->quoteName('id') . ' = ' . $db->quote($data['imageId']));
 		$db->setQuery($query);
@@ -84,7 +85,6 @@ class ImageFormModel extends BaseModel {
 
 
 	public function checkSubcategory($categoryId) {
-
 		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true)
@@ -96,7 +96,7 @@ class ImageFormModel extends BaseModel {
         $db->execute();
 		$result = $db->loadObjectList();
 
-		if($result) {
+		if ($result) {
 			return false;
 		}
 		else{

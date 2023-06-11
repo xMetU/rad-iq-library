@@ -96,21 +96,19 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						name="subcategoryId"
 						class="form-control form-select"
 					>
-						<?php if (!$this->subcategories) : ?>
-							<option value="">No subcategories</option>
-						<?php endif ?>
-
-						<?php foreach ($this->subcategories as $row) : ?>													
-							<option value="<?php echo $row->subcategoryId; ?>" 										
-								<?php if($this->image && $row->categoryId == $this->image->categoryId) : ?>
-									<?php if($row->subcategoryId == $this->image->subcategoryId) : ?>
-										<?php echo "selected"; ?>
-									<?php endif ?>
-								<?php endif ?>
-							>										
-								<?php echo $row->subcategoryName; ?>
-							</option>
-						<?php endforeach; ?>
+						<?php if ($this->categoryId): ?>
+							<?php foreach ($this->subcategories as $row) : ?>
+								<option
+									value="<?php echo $row->subcategoryId; ?>"
+									<?php if ($row->subcategoryId == $this->image->subcategoryId) echo "selected"; ?>
+								>
+									<?php echo $row->subcategoryName; ?>
+								</option>
+							<?php endforeach; ?>
+						<?php endif; ?>
+						<option value="" <?php if (!$this->image->subcategoryId || !$this->subcategories) echo "selected"; ?> disabled hidden>
+							<?php echo $this->subcategories ? "Select a subcategory" : "No Subcategories"; ?>
+						</option>
 					</select>
 				</div>	
 			</div>
@@ -156,20 +154,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	</div>
 </div>
 
-
 <script>
 	const parent = document.getElementById("editImageCategory");
-	const sub = document.getElementById("editImageSubcategory");
 	var imageId = "<?php echo $this->image->id; ?>";
 	var catId = "<?php echo $this->categoryId; ?>";
 
 	parent.onchange = (e) => {
 		var changeId = document.getElementById("editImageCategory").value;
 		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${changeId}`;	
-	}
-
-	sub.onchange = (e) => {
-		var changeId = document.getElementById("editImageSubcategory").value;
-		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${catId}&subcategoryId=${changeId}`;
 	}
 </script>
