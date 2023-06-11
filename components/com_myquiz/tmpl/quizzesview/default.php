@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_myQuiz
@@ -27,10 +28,12 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     <div class="col">
         <?php if (CheckGroup::isGroup("Manager")) : ?>
             <!-- Manage categories button -->
-            <a class="btn" href="index.php/image-viewer?task=Display.categoryForm">Manage Categories</a>
+            <a class="btn" href="index.php/image-viewers?task=Display.categoryForm">Manage Categories</a>
         <?php endif; ?>
     </div>
+
     <div class="col-auto"><h3>Quizzes</h3></div>
+
     <div class="col">
         <?php if (CheckGroup::isGroup("Manager")) : ?>
             <!-- New quiz button -->
@@ -79,9 +82,11 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     method="get"
                     enctype="multipart/form-data"
                 >
+                    <?php if ($this->category): ?>
+						<input type="hidden" name="category" value="<?php echo $this->category; ?>">
+					<?php endif; ?>
                     <div class="input-group">
                         <input
-                            type="search"
                             name="search"
                             id="text"
                             class="form-control"
@@ -117,8 +122,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 						<tr>
 							<td class="pb-3">
 								<a
-									class="btn w-100 py-1 text-center<?php echo $row->categoryId == $this->category ? " active" : ""; ?>"
-									href="<?php echo Uri::getInstance()->current()
+									class="btn w-100 py-1 text-center<?php if ($row->categoryId == $this->category) echo " active"; ?>"
+									href="<?php
+                                        echo Uri::getInstance()->current()
 										. ($row->categoryId == $this->category ? "" : '?category='. $row->categoryId);
 									?>"
 								>
@@ -180,7 +186,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                         <?php foreach ($this->items as $row) : ?>
                             <?php $render = CheckGroup::isGroup("Manager") ? true : !$row->isHidden; ?>
                             <?php if ($render): ?>
-                                <td class="col-12 pt-0 pb-4 px-3">
+                                <td class="col-12 pt-0 pb-4">
                                     <div class="card p-3">
                                         <div class="row">
                                             <!-- Image -->
@@ -236,9 +242,9 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     <?php else: ?>
                         <td>
                             <?php if ($this->category): ?>
-                                <p class="text-secondary text-center pt-5">No quizzes are assigned to this category</p>
+                                <p class="text-center pt-5">No quizzes are assigned to this category</p>
                             <?php else: ?>
-                                <p class="text-secondary text-center pt-5">Could not find any matching quizzes</p>
+                                <p class="text-center pt-5">Could not find any matching quizzes</p>
                             <?php endif; ?>							
                         </td>
                     <?php endif; ?>

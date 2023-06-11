@@ -25,6 +25,7 @@ class HtmlView extends BaseHtmlView {
         Factory::getApplication()->setUserState('myImageViewer.categoryId', $this->categoryId);
 
         $this->categories = $this->get('Items', 'Categories');
+        $this->toQuiz = Factory::getApplication()->getUserState('myImageViewer_myQuiz.view') == "QUIZZES";
         $this->subcategories = $this->get('CategorySubcategories', 'SubCategories');
 
         

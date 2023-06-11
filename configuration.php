@@ -30,7 +30,7 @@ class JConfig {
 	public $gzip = false;
 	public $error_reporting = 'maximum';
 	public $helpurl = 'https://help.joomla.org/proxy?keyref=Help{major}{minor}:{keyref}&lang={langcode}';
-	public $offset = 'UTC';
+	public $offset = 'Australia/Adelaide';
 	public $mailonline = false;
 	public $mailer = 'mail';
 	public $mailfrom = 'hamkj008@mymail.unisa.edu.au';

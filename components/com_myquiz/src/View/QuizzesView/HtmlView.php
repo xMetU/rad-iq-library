@@ -28,10 +28,9 @@ class HtmlView extends BaseHtmlView {
         $this->categories = $this->get('Items', 'Categories');
         $this->subcategories = $this->get('Items', 'SubCategories');
         $this->pagination = $this->get('Pagination');
-        $this->category = Factory::getApplication()->input->getVar('category');
+        $this->category = Factory::getApplication()->getUserState('myImageViewer_myQuiz.category');
         $this->subcategory = Factory::getApplication()->input->getVar('subcategory');
-        $this->search = Factory::getApplication()->input->getVar('search');
-        $this->catSearch = Factory::getApplication()->input->getVar('catSearch');
+        $this->search = Factory::getApplication()->input->get('search');
 
         parent::display($template);
     }

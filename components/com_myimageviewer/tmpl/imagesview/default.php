@@ -15,14 +15,13 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 use Kieran\Component\MyImageViewer\Site\Helper\CheckGroup;
 
-
 $document = Factory::getDocument();
 $document->addScript("media/com_myimageviewer/js/imagesView.js");
 $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 ?>
 
-<!-- ========== IMAGES VIEW ========== -->
+<!-- IMAGES VIEW -->
 
 <!-- Headers -->
 <div class="row">
@@ -32,7 +31,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			<a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
 		<?php endif; ?>
 	</div>
-	<div class="col-auto"><h3>Images</h3></div>
+
+	<div class="col-auto"><h3>Image Viewers</h3></div>
+
 	<div class="col">
 		<?php if (CheckGroup::isGroup("Manager")) : ?>
 			<!-- New image button -->
@@ -77,29 +78,24 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					method="get"
 					enctype="multipart/form-data"
 				>
+					<?php if ($this->category): ?>
+						<input type="hidden" name="category" value="<?php echo $this->category; ?>">
+					<?php endif; ?>
 					<div class="input-group">
 						<input
-							type="search"
 							name="search"
 							id="text"
 							class="form-control"
-							placeholder="Search Images..."
+							placeholder="Search..."
 							value="<?php if ($this->search) echo $this->search; ?>"
 						/>
 						<button type="submit" class="btn"><i class="icon-search"></i></button>
 					</div>
 				</form>
 			</div>
-			
+
 			<div class="col"></div>
 		</div>
-		
-	</div>
-</div>
-
-<div class="row mt-2">
-	<div class="col-2 text-center my-auto">
-		<h6>Filter by Category</h6>
 	</div>
 </div>
 
@@ -113,9 +109,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						<tr>
 							<td class="pb-3">
 								<a
-									class="btn w-100 py-1 text-center<?php echo $row->categoryId == $this->category ? " active" : ""; ?>"
+									class="btn w-100 py-1 text-center<?php if ($row->categoryId == $this->category) echo " active"; ?>"
 									href="<?php echo Uri::getInstance()->current()
-										. ($row->categoryId == $this->category ? "" : '?category='. $row->categoryId);
+										. ($row->categoryId == $this->category ? "" : '?category='. $row->categoryId)
 									?>"
 								>
 									<?php $count = 0; ?>
@@ -160,7 +156,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	</div>
 
 	<!-- Images -->
-	<div class="col-10 row ps-5 fixed-height-1">
+	<div class="col-10 ps-5 fixed-height-1">
 		<table id="images" class="table table-borderless">
 			<tfoot>
 				<tr>
@@ -172,12 +168,12 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 			<tbody>
 				<tr class="row">
-					<?php if (!empty($this->items)) : ?>	
+					<?php if (!empty($this->items)) : ?>
 						<?php foreach ($this->items as $item) : ?>
 							<?php $render = CheckGroup::isGroup("Manager") ? true : !$item->isHidden; ?>
 							<?php if ($render) : ?>
-								<td class="col-3 pt-0 pb-4 ps-3 pe-0">
-									<div class="card p-3 pb-0">
+								<td class="col-3 pt-0 pb-4">
+									<div class="card h-100 p-3 pb-0">
 										<?php if (CheckGroup::isGroup("Manager") && $item->isHidden) : ?>
 											<div class="card-overlay d-flex">
 												<h5 class="m-auto">Hidden</h5>
@@ -190,7 +186,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 										/>
 
 										<div class="card-body text-center p-2">
-											<h5 class="text-truncate"><?php echo $item->imageName; ?></h5>
+											<h5 class="word-break"><?php echo $item->imageName; ?></h5>
 										</div>
 									</div>
 								</td>
@@ -199,9 +195,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					<?php else: ?>
 						<td>
                             <?php if ($this->category): ?>
-                                <p class="text-secondary text-center pt-5">No images are assigned to this category</p>
+                                <p class="text-center pt-5">No image viewers are assigned to this category</p>
                             <?php else: ?>
-                                <p class="text-secondary text-center pt-5">Could not find any matching images</p>
+                                <p class="text-center pt-5">Could not find any matching image viewers</p>
                             <?php endif; ?>							
 						</td>
 					<?php endif; ?>

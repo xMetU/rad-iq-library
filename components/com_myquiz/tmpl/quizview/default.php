@@ -55,10 +55,12 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 <?php if ($row->number != $this->question->number): ?>
                     <button
                         id="<?php echo $row->id; ?>"
-                        class="btn navigator"
+                        class="btn navigator<?php if ($row->answered) echo " answered"; ?>"
                     ><?php echo $row->number + 1; ?></button>
                 <?php else: ?>
-                    <button class="btn" disabled><?php echo $row->number + 1; ?></button>
+                    <button class="btn selected<?php if ($row->answered) echo " answered"; ?>">
+                        <?php echo $row->number + 1; ?>
+                    </button>
                 <?php endif; ?>
                 
             <?php endforeach; ?>
@@ -103,14 +105,14 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 
                 <h5 id="<?php echo $this->question->id; ?>"><?php echo $this->question->number + 1 . '. ' . $this->question->description; ?></h5>
 
-                <?php foreach ($this->answers as $row) : ?>
+                <?php foreach ($this->answers as $i => $row) : ?>
                     <div class="row mt-3">
                         <div class="col-auto">
                             <input 
-                                type="radio"
-                                name="answerId"
+                                type="<?php echo $this->isRadio ? "radio" : "checkbox"; ?>"
+                                name=<?php echo "answerId[" . ($this->isRadio ? 0 : $i) . "]"; ?>
                                 value="<?php echo $row->id; ?>"
-                                <?php if ($row->id == $this->userAnswer) echo "checked"; ?>
+                                <?php if ($this->userAnswers && in_array($row->id, $this->userAnswers)) echo "checked"; ?>
                             />
                         </div>
                         <div class="col"><?php echo $row->description; ?></div>

@@ -26,7 +26,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <!-- Header -->
 <div class="row">
 	<div class="col">
-		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
+		<a class="btn" href="<?php echo $this->toQuiz ? "index.php/quizzes" : Uri::getInstance()->current(); ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
 		<h3>Manage Categories</h3>
