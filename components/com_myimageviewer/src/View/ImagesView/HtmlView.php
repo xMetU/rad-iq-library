@@ -6,6 +6,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
+use Kieran\Component\MyImageViewer\Site\Helper\CheckGroup;
 
 /**
  * @package     Joomla.Site
@@ -23,7 +24,15 @@ class HtmlView extends BaseHtmlView {
             $category->count = 0;
             foreach ($allImages as $image) {
                 if ($image->categoryId == $category->categoryId) {
-                    $category->count++;
+                    if($image->isHidden){
+                        if (CheckGroup::isGroup("Manager")){
+                            $category->count++;
+                        }
+                    }
+                    else{
+                        $category->count++;
+                    }
+                    
                 }
             }
         }
@@ -32,7 +41,14 @@ class HtmlView extends BaseHtmlView {
             $subcategory->count = 0;
             foreach ($allImages as $image) {
                 if ($image->subcategoryId == $subcategory->subcategoryId) {
-                    $subcategory->count++;
+                    if($image->isHidden){
+                        if (CheckGroup::isGroup("Manager")){
+                            $subcategory->count++;
+                        }
+                    }
+                    else{
+                        $subcategory->count++;
+                    }                   
                 }
             }
         }

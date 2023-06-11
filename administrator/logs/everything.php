@@ -414,3 +414,40 @@
 2023-06-10T20:20:30+00:00	WARNING 127.0.0.1	jerror	Cannot delete or update a parent row: a foreign key constraint fails
 2023-06-10T20:24:10+00:00	INFO 127.0.0.1	joomlafailure	Username and password do not match or you do not have an account yet.
 2023-06-10T20:24:10+00:00	WARNING 127.0.0.1	jerror	Username and password do not match or you do not have an account yet.
+2023-06-11T11:29:01+00:00	INFO 127.0.0.1	joomlafailure	Username and password do not match or you do not have an account yet.
+2023-06-11T11:29:01+00:00	WARNING 127.0.0.1	jerror	Username and password do not match or you do not have an account yet.
+2023-06-11T11:47:20+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Error thrown with message "Undefined constant "Kieran\Component\MyImageViewer\Site\Model\i"". Stack trace: #0 [ROOT]\libraries\src\MVC\View\AbstractView.php(146): Kieran\Component\MyImageViewer\Site\Model\ImagesModel->getAllImages()
+#1 [ROOT]\components\com_myimageviewer\src\View\ImagesView\HtmlView.php(20): Joomla\CMS\MVC\View\AbstractView->get('AllImages')
+#2 [ROOT]\components\com_myimageviewer\src\Controller\DisplayController.php(35): Kieran\Component\MyImageViewer\Site\View\ImagesView\HtmlView->display()
+#3 [ROOT]\libraries\src\MVC\Controller\BaseController.php(672): Kieran\Component\MyImageViewer\Site\Controller\DisplayController->display()
+#4 [ROOT]\libraries\src\Dispatcher\ComponentDispatcher.php(143): Joomla\CMS\MVC\Controller\BaseController->execute('display')
+#5 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\ComponentDispatcher->dispatch()
+#6 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myimageview...')
+#7 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#8 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#9 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#10 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+2023-06-11T11:47:41+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Error thrown with message "Undefined constant "Kieran\Component\MyImageViewer\Site\Model\image"". Stack trace: #0 [ROOT]\libraries\src\MVC\View\AbstractView.php(146): Kieran\Component\MyImageViewer\Site\Model\ImagesModel->getAllImages()
+#1 [ROOT]\components\com_myimageviewer\src\View\ImagesView\HtmlView.php(20): Joomla\CMS\MVC\View\AbstractView->get('AllImages')
+#2 [ROOT]\components\com_myimageviewer\src\Controller\DisplayController.php(35): Kieran\Component\MyImageViewer\Site\View\ImagesView\HtmlView->display()
+#3 [ROOT]\libraries\src\MVC\Controller\BaseController.php(672): Kieran\Component\MyImageViewer\Site\Controller\DisplayController->display()
+#4 [ROOT]\libraries\src\Dispatcher\ComponentDispatcher.php(143): Joomla\CMS\MVC\Controller\BaseController->execute('display')
+#5 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\ComponentDispatcher->dispatch()
+#6 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myimageview...')
+#7 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#8 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#9 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#10 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#11 {main}
+2023-06-11T11:48:59+00:00	WARNING 127.0.0.1	jerror	Joomla\CMS\Filesystem\Folder::files: Path is not a folder. Path: media\com_myimageviewer\images\Chest
+2023-06-11T11:48:59+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type TypeError thrown with message "count(): Argument #1 ($value) must be of type Countable|array, bool given". Stack trace: #0 [ROOT]\components\com_myimageviewer\src\Controller\FormController.php(133): count(false)
+#1 [ROOT]\libraries\src\MVC\Controller\BaseController.php(672): Kieran\Component\MyImageViewer\Site\Controller\FormController->deleteImage()
+#2 [ROOT]\libraries\src\Dispatcher\ComponentDispatcher.php(143): Joomla\CMS\MVC\Controller\BaseController->execute('deleteimage')
+#3 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\ComponentDispatcher->dispatch()
+#4 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myimageview...')
+#5 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#6 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#7 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#8 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#9 {main}

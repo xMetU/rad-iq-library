@@ -31,7 +31,7 @@ class ImagesModel extends ListModel {
         $search = Factory::getApplication()->input->getVar('search');
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id', 'image.categoryId', 'c.categoryName', 'image.subcategoryId', 'sc.subcategoryName',  'isHidden']))
+            ->select($db->quoteName(['image.imageName', 'image.imageUrl', 'image.id', 'image.categoryId', 'c.categoryName', 'image.subcategoryId', 'sc.subcategoryName',  'image.isHidden']))
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
             ->join(
                 'LEFT',
@@ -73,7 +73,7 @@ class ImagesModel extends ListModel {
         $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['c.categoryId', 'c.categoryName', 'sc.subcategoryId', 'sc.subcategoryName']))
+            ->select($db->quoteName(['c.categoryId', 'c.categoryName', 'sc.subcategoryId', 'sc.subcategoryName', 'image.isHidden']))
             ->from($db->quoteName('#__myImageViewer_image', 'image'))
             ->join(
                 'LEFT',

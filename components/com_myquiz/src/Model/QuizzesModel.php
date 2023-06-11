@@ -64,6 +64,9 @@ class QuizzesModel extends ListModel {
 
         if (isset($category)) {
             $query->where($db->quoteName('i.categoryId') . '=' . $category);
+            if (isset($subcategory)) {
+                $query = $query->where($db->quoteName('i.subcategoryId') . ' = ' . $subcategory);
+            }
         }
         if (isset($search)) {
             $query->where($db->quoteName('q.title') . ' LIKE ' . $db->quote('%' . $search . '%'));
@@ -114,7 +117,7 @@ class QuizzesModel extends ListModel {
         $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['i.categoryId', 'c.categoryName', 'i.subcategoryId', 'sc.subcategoryName']))
+            ->select($db->quoteName(['i.categoryId', 'c.categoryName', 'i.subcategoryId', 'sc.subcategoryName', 'q.isHidden']))
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',
