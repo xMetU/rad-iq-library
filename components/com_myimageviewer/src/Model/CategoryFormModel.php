@@ -65,7 +65,7 @@ class CategoryFormModel extends BaseModel {
 		catch (\Exception $e) {
 			if (str_contains($e->getMessage(), "foreign key")) {
 				Factory::getApplication()->enqueueMessage(
-					"Error: Images or subcategories are assigned to this category, please re-assign or remove it and try again."
+					"Error: Images or subcategories are assigned to this category, please re-assign or remove them and try again."
 				);
 			} else {
 				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred, please contact your administrator.");
