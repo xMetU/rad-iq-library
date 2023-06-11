@@ -79,7 +79,6 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			name="adminForm"
 		>	
 			<div class="row form-group">
-
 				<div class="col">
 					<label for="categoryId">Name: *</label>
 
@@ -117,7 +116,6 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	<div class="col">
 		<h4 class="text-center">Create New Subcategory</h4>
 
-		<!-- Create form -->
 		<form 
 			action="<?php echo Uri::getInstance()->current() . '?task=Form.saveSubcategory'; ?>"
 			method="post"
@@ -188,7 +186,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					<label for="subcategoryId">Subcategory Name: *</label>
 
 					<select 
-						id="subcategory-select"
+						id="delete-select-sub"
 						name="subcategoryId"
 						class="form-control form-select"
 						required
@@ -207,7 +205,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				</div>
 
 				<div class="col-auto">
-					<button id="sub-delete-button" class="btn mt-4">
+					<button id="delete-button-sub" class="btn mt-4">
 						<i class="icon-times"></i> Remove
 					</button> 
 				</div>
@@ -215,11 +213,11 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			</div>
 
 			<!-- Delete confirmation -->
-			<div id="delete-confirmation" class="overlay-background d-flex d-none">
+			<div id="delete-confirmation-sub" class="overlay-background d-flex d-none">
 				<div class="m-auto text-center">
 					<h5 class="mb-4"><!-- Message --></h5>
-					<button id="delete-confirm" class="btn me-3">Yes, remove it</button>
-					<button id="delete-cancel" class="btn ms-3">No, go back</button>
+					<button id="delete-confirm-sub" class="btn me-3">Yes, remove it</button>
+					<button id="delete-cancel-sub" class="btn ms-3">No, go back</button>
 				</div>
 			</div>
 			
