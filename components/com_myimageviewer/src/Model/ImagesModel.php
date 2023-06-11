@@ -19,14 +19,14 @@ class ImagesModel extends ListModel {
     public function getListQuery() {
         $db = $this->getDatabase();
 
-        if (Factory::getApplication()->getUserState('myImageViewer_myQuiz.view') != 'IMAGES') {
-            $category = Factory::getApplication()->getUserState('myImageViewer_myQuiz.category');
-            $subcategory = Factory::getApplication()->getUserState('myImageViewer_myQuiz.subcategory');
-        } else {
+        if (Factory::getApplication()->getUserState('myImageViewer_myQuiz.view') == 'IMAGES') {
             $category = Factory::getApplication()->input->getVar('category');
             $subcategory = Factory::getApplication()->input->getVar('subcategory');
             Factory::getApplication()->setUserState('myImageViewer_myQuiz.category', $category);
             Factory::getApplication()->setUserState('myImageViewer_myQuiz.subcategory', $subcategory);
+        } else {
+            $category = Factory::getApplication()->getUserState('myImageViewer_myQuiz.category');
+            $subcategory = Factory::getApplication()->getUserState('myImageViewer_myQuiz.subcategory');
         }
         $search = Factory::getApplication()->input->getVar('search');
 

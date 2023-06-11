@@ -115,22 +115,22 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 						</tr>
 
 						<?php foreach ($this->subcategories as $subrow) : ?>
-						<tr>
-							<?php if ($subrow->categoryId == $row->categoryId) : ?>
-								<?php if ($row->categoryId == $this->category) : ?>
-									<td class="pb-3 pe-4">
-											<a
-												class="btn py-1 text-center w-100<?php if ($subrow->subcategoryId == $this->subcategory) echo " active"; ?>"
-												href="<?php echo Uri::getInstance()->current()
-													. ($subrow->subcategoryId == $this->subcategory ? "" : '?category=' . $row->categoryId . '&subcategory='. $subrow->subcategoryId);
-												?>"
-											>
-												<?php echo $subrow->subcategoryName . ' (' . $subrow->count . ')'; ?>									
-											</a>									
-									</td>
-								<?php endif; ?>
-							<?php endif; ?>
-						</tr>
+                            <tr>
+                                <?php if ($subrow->categoryId == $row->categoryId) : ?>
+                                    <?php if ($row->categoryId == $this->category) : ?>
+                                        <td class="pb-3 pe-4">
+                                            <a
+                                                class="btn py-1 text-center w-100<?php if ($subrow->subcategoryId == $this->subcategory) echo " active"; ?>"
+                                                href="<?php echo Uri::getInstance()->current() . '?category=' . $this->category
+                                                    . ($subrow->subcategoryId == $this->subcategory ? "" : '&subcategory=' . $subrow->subcategoryId)
+                                                ?>"
+                                            >
+                                                <?php echo $subrow->subcategoryName . ' (' . $subrow->count . ')'; ?>									
+                                            </a>									
+                                        </td>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            </tr>
 						<?php endforeach; ?>
 					<?php endforeach; ?>
 				<?php endif; ?>
