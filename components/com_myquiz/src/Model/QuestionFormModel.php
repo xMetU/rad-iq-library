@@ -18,7 +18,7 @@ class QuestionFormModel extends BaseModel {
 
 	public function saveQuestion($data) {
 		$db = Factory::getDbo();
-        $columns = array('quizId', 'description', 'feedback', 'markValue');
+        $columns = array('quizId', 'description', 'feedback');
 
 		$query = $db->getQuery(true)
 			->insert($db->quoteName('#__myQuiz_question'))
@@ -44,7 +44,6 @@ class QuestionFormModel extends BaseModel {
 			->update($db->quoteName('#__myQuiz_question'))
 			->set($db->quoteName('description') . ' = ' . $db->quote($data['description']))
 			->set($db->quoteName('feedback') . ' = ' . $db->quote($data['feedback']))
-			->set($db->quoteName('markValue') . ' = ' . $db->quote($data['markValue']))
             ->where($db->quoteName('id') . ' = ' . $db->quote($data['questionId']));
 		$db->setQuery($query);
 		

@@ -20,7 +20,7 @@ class FormController extends BaseController {
         $model = $this->getModel('QuizForm');
         $data = Factory::getApplication()->input->post->getArray();
         $model->saveQuiz($data);
-        $this->navigateToForm('QUIZ', Factory::getDbo()->insertId());
+        $this->navigateToForm('QUESTION', Factory::getDbo()->insertId());
     }
 
     public function updateQuiz() {
@@ -41,7 +41,7 @@ class FormController extends BaseController {
         $model = $this->getModel('QuestionForm');
         $data = Factory::getApplication()->input->post->getArray();
         $model->saveQuestion($data);
-        $this->navigateToForm('QUESTION', $data['quizId']);
+        $this->navigateToForm('ANSWER', Factory::getDbo()->insertId());
     }
 
     public function updateQuestion() {
@@ -93,9 +93,10 @@ class FormController extends BaseController {
             default:
                 $task = 'display';
         }
-        $this->setRedirect(
-            Uri::getInstance()->current() . '?task=Display.' . $task . $id
-        );
+        $this->setRedirect(Route::_(
+            Uri::getInstance()->current() . '?task=Display.' . $task . $id,
+            false
+        ));
     }
     
 }

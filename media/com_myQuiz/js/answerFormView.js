@@ -11,14 +11,14 @@ window.onload = function () {
         const tableBody = document.getElementById("answers");
         const deleteConfirmation = document.getElementById("delete-confirmation");
 
-        const titles = tableBody.querySelectorAll("h5");
-
         tableBody.querySelectorAll(".delete-button").forEach((deleteButton, i) => {
             deleteButton.onclick = () => {
                 deleteConfirmation.querySelector("[name='answerId']").value = deleteButton.id;
                 deleteConfirmation.querySelector("h5").innerHTML = `
-                Are you sure you want to remove ${titles[i].innerHTML}?<br/>This action cannot be undone.
-            `;
+                    Are you sure you want to remove this answer?<br/>
+                    This will adjust all associated user scores.<br/>
+                    This action cannot be undone.
+                `;
                 deleteConfirmation.classList.remove("d-none");
             }
         })

@@ -56,7 +56,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
         <img class="w-100 rounded" src="<?php echo $this->item->url; ?>"/>
     </div>
 
-    <!-- Category, description -->
+    <!-- Title, category, description -->
     <div class="col-6 fixed-height-2">
         <h2 class="text-break"><?php echo $this->item->name; ?></h2>
 
@@ -64,7 +64,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
         <hr/>
 
-        <p><?php echo $this->item->description; ?></p>
+        <p class="text-break"><?php echo nl2br($this->item->description); ?></p>
     </div>
 </div>
 

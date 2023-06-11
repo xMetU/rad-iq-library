@@ -8,6 +8,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Date\Date;
 
 
 /**
@@ -37,22 +38,21 @@ class QuizController extends BaseController {
                 Factory::getApplication()->setUserState('myQuiz.userId', $userId);
                 Factory::getApplication()->setUserState('myQuiz.userAnswers', array());
                 Factory::getApplication()->setUserState('myQuiz.attemptNumber', $userAttempts + 1);
-                Factory::getApplication()->setUserState('myQuiz.startTime', date("Y-m-d H:i:s"));
+                Factory::getApplication()->setUserState('myQuiz.startTime', new Date("now +9 hours +30 minutes"));
     
-                $this->setRedirect(
-                    Uri::getInstance()->current() 
-                    . '?task=Display.quiz&quizId=' . $data['quizId']
-                    . '&questionId=' . $data['questionId']
-                );
+                $this->setRedirect(Route::_(
+                    Uri::getInstance()->current() . '?task=Display.quiz&quizId=' . $data['quizId'] . '&questionId=' . $data['questionId'],
+                    false,
+                ));
             }
             else {
                 Factory::getApplication()->enqueueMessage('You have reached the attempt limit for this quiz');
-                $this->setRedirect(Uri::getInstance()->current() . '?&task=Display.display');
+                $this->setRedirect(Route::_(Uri::getInstance()->current() . '?&task=Display.display', false));
             }
         }
         else {
             Factory::getApplication()->enqueueMessage('Please login to continue');
-            $this->setRedirect('?index.php');
+            $this->setRedirect(Route::_('?index.php', false));
         }
     }
 
@@ -67,11 +67,10 @@ class QuizController extends BaseController {
         if ($data['nextQuestionId'] == "FINISH") {
             $this->submitAnswers();
         } else {
-            $this->setRedirect(
-                Uri::getInstance()->current()
-                . '?task=Display.quiz&quizId=' . $data['quizId']
-                . '&questionId=' . $data['nextQuestionId']
-            );
+            $this->setRedirect(Route::_(
+                Uri::getInstance()->current() . '?task=Display.quiz&quizId=' . $data['quizId'] . '&questionId=' . $data['nextQuestionId'],
+                false,
+            ));
         }
     }
 
@@ -83,21 +82,23 @@ class QuizController extends BaseController {
         $userAnswers = Factory::getApplication()->getUserState('myQuiz.userAnswers');
         $attemptNumber = Factory::getApplication()->getUserState('myQuiz.attemptNumber');
         $startTime = Factory::getApplication()->getUserState('myQuiz.startTime');
-        $finishTime = date("Y-m-d H:i:s");
+        $finishTime = new Date("now +9 hours +30 minutes");
 
-        foreach($userAnswers as $answerId) {
-            $model->submitAnswer([$userId, $answerId, $attemptNumber]);
+        foreach ($userAnswers as $answerIds) {
+            foreach ($answerIds as $answerId) {
+                $model->submitAnswer([$userId, $answerId, $attemptNumber]);
+            }
         }
 
-        $model->generateSummary(
-            [
-                'userId' => $userId, 'quizId' => $quizId, 'attemptNumber' => $attemptNumber,
-                'startTime' => $startTime, 'finishTime' => $finishTime,
-            ], 
-            $userAnswers,
-        );
+        $model->generateSummary([
+            'userId' => $userId, 'quizId' => $quizId, 'attemptNumber' => $attemptNumber,
+            'startTime' => $startTime, 'finishTime' => $finishTime,
+        ]);
 
-        $this->setRedirect(Uri::getInstance()->current() . '?task=Display.summary&quizId=' . $quizId);
+        $this->setRedirect(Route::_(
+            Uri::getInstance()->current() . '?task=Display.summary&quizId=' . $quizId . '&attemptNumber=' . $attemptNumber,
+            false,
+        ));
     }
 
 }

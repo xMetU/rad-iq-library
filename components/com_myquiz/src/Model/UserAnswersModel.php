@@ -21,22 +21,26 @@ class UserAnswersModel extends ListModel {
 
         $userId = Factory::getUser()->id;
         $quizId = Factory::getApplication()->input->get('quizId');
-        $attemptNumber = Factory::getApplication()->getUserState('myQuiz.attemptNumber');
+        $attemptNumber = Factory::getApplication()->input->get('attemptNumber');
 
         $query = $db->getQuery(true)
-            ->select(['q.description AS questionDescription', 'q.feedback', 'q.markValue', 'a.isCorrect', 'a.description AS answerDescription'])
-            ->from($db->quoteName('#__myQuiz_userAnswers', 'ua'))
+            ->select([
+                'q.id', 'q.description AS questionDescription', 'q.feedback', 'a.markValue', 
+                'a.description AS answerDescription', 'ua.userId',
+            ])
+            ->from($db->quoteName('#__myQuiz_answer', 'a'))
             ->join(
                 'LEFT',
-                $db->quoteName('#__myQuiz_answer', 'a') . 'ON' . $db->quoteName('a.id') . '=' . $db->quoteName('ua.answerId')
+                $db->quoteName('#__myQuiz_userAnswers', 'ua') . 'ON'
+                . $db->quoteName('ua.answerId') . '=' . $db->quoteName('a.id')
+                . ' AND ' . $db->quoteName('ua.userId') . ' = ' . $db->quote($userId)
+                . ' AND ' . $db->quoteName('ua.attemptNumber') . ' = ' . $db->quote($attemptNumber)
             )
             ->join(
                 'LEFT',
                 $db->quoteName('#__myQuiz_question', 'q') . 'ON' . $db->quoteName('q.id') . '=' . $db->quoteName('a.questionId')
             )
-            ->where($db->quoteName('ua.userId') . '=' . $db->quote($userId))
-            ->where($db->quoteName('q.quizId') . '=' . $db->quote($quizId))
-            ->where($db->quoteName('ua.attemptNumber') . '=' . $db->quote($attemptNumber));
+            ->where($db->quoteName('q.quizId') . '=' . $db->quote($quizId));
        
         return $query;
     }
@@ -56,38 +60,45 @@ class UserAnswersModel extends ListModel {
 			Factory::getApplication()->enqueueMessage("Quiz results saved successfully.");
 			return true;
 		} catch (\Exception $e) {
-            Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
+            Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator." . $e->getMessage());
 			return false;
         }
     }
 
-    public function generateSummary($data, $answers) {
+    public function generateSummary($data) {
         // Creates and inserts a new row in the quizUserSummary table
         $db = Factory::getDbo();
 
         $columns = ['userId', 'quizId', 'attemptNumber',  'startTime', 'finishTime', 'score', 'maxScore'];
 
         // Get the score
-        if ($answers) {
-            $query = $db->getQuery(true)
-                ->select(['SUM(q.markValue) AS score'])
-                ->from($db->quoteName('#__myQuiz_question', 'q'))
-                ->join(
-                    'LEFT',
-                    $db->quoteName('#__myQuiz_answer', 'a') . 'ON' . $db->quoteName('a.questionId') . '=' . $db->quoteName('q.id')
-                )
-                ->where($db->quoteName('q.quizId') . '=' . $db->quote($data['quizId']))
-                ->where($db->quoteName('a.isCorrect') . '=' . $db->quote(1));
-            $score = $db->setQuery($query)->loadObject()->score;
-        } else {
+        $query = $db->getQuery(true)
+            ->select('SUM(a.markValue) AS score')
+            ->from($db->quoteName('#__myQuiz_userAnswers', 'ua'))
+            ->join(
+                'LEFT',
+                $db->quoteName('#__myQuiz_answer', 'a') . 'ON' . $db->quoteName('a.id') . '=' . $db->quoteName('ua.answerId')
+            )
+            ->join(
+                'LEFT',
+                $db->quoteName('#__myQuiz_question', 'q') . 'ON' . $db->quoteName('q.id') . '=' . $db->quoteName('a.questionId')
+            )
+            ->where($db->quoteName('q.quizId') . ' = ' . $db->quote($data['quizId']))
+            ->where($db->quoteName('ua.userId') . ' = ' . $db->quote($data['userId']))
+            ->where($db->quoteName('ua.attemptNumber') . ' = ' . $db->quote($data['attemptNumber']));
+        $score = $db->setQuery($query)->loadObject()->score;
+        if (!$score) {
             $score = 0;
         }
         
-        
         // Get the total score
         $query = $db->getQuery(true)
-            ->select('SUM(q.markValue) AS totalMarkValue')
-            ->from($db->quoteName('#__myQuiz_question', 'q'))
+            ->select('SUM(a.markValue) AS totalMarkValue')
+            ->from($db->quoteName('#__myQuiz_answer', 'a'))
+            ->join(
+                'INNER',
+                $db->quoteName('#__myQuiz_question', 'q') . 'ON' . $db->quoteName('q.id') . '=' . $db->quoteName('a.questionId')
+            )
             ->where($db->quoteName('q.quizId') . '=' . $db->quote($data['quizId']));
         $maxScore = $db->setQuery($query)->loadObject()->totalMarkValue;
         

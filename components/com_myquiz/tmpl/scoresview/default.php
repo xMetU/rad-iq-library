@@ -14,6 +14,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Router\Route;
 
 $document = Factory::getDocument();
+$document->addScript("media/com_myquiz/js/scoresView.js");
 $document->addStyleSheet("media/com_myquiz/css/style.css");
 
 ?>
@@ -39,10 +40,15 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
             <h2 class="text-center mt-5"><?php echo "No scores to display"; ?></h2>
         <?php else : ?>
             <?php foreach ($this->items as $row) : ?>
-                <div class="row p-2 mt-4">
-                    <div class="col text-truncate"><?php echo $row->title; ?></div>
-                    <div class="col-2"><?php echo "Attempt " . $row->attemptNumber; ?></div>
-                    <div class="col-2 text-center"><?php echo "Score: " . $row->score . " / " . $row->maxScore ?></div>
+                <div id="<?php echo $row->quizId . '-' . $row->attemptNumber; ?>" class="row p-2 mb-3">
+                    <div class="col">
+                        <div id="title"><?php echo $row->title; ?> - Attempt <?php echo $row->attemptNumber; ?></div>
+                        <div>Score: <?php echo $row->score . " / " . $row->maxScore ?></div>
+                    </div>
+                    <div class="col-auto">
+                        <div>Date: <?php echo $row->date; ?></div> 
+                        <div>Duration: <?php echo $row->duration; ?></div>
+                    </div>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>

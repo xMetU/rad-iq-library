@@ -30,7 +30,12 @@ class QuizzesModel extends ListModel {
     public function getListQuery() {
         $db = $this->getDatabase();
 
-        $category = Factory::getApplication()->input->getVar('category');
+        if (Factory::getApplication()->getUserState('myImageViewer_myQuiz.view') != 'QUIZZES') {
+            $category = Factory::getApplication()->getUserState('myImageViewer_myQuiz.category');
+        } else {
+            $category = Factory::getApplication()->input->getVar('category');
+            Factory::getApplication()->setUserState('myImageViewer_myQuiz.category', $category);
+        }
         $search = Factory::getApplication()->input->getVar('search');
 
         $query = $db->getQuery(true)
@@ -54,8 +59,8 @@ class QuizzesModel extends ListModel {
                 $db->quoteName('#__myQuiz_question', 'qu') . 'ON' . $db->quoteName('qu.quizId') . '=' . $db->quoteName('q.id'),
             );
 
-        if(isset($category)){
-            $query = $query->where($db->quoteName('i.categoryId') . '=' . $category);
+        if (isset($category)) {
+            $query->where($db->quoteName('i.categoryId') . '=' . $category);
         }
         if (isset($search)) {
             $query->where($db->quoteName('q.title') . ' LIKE ' . $db->quote('%' . $search . '%'));
