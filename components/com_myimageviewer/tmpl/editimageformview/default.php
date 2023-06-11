@@ -48,9 +48,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			name="adminForm"
 			enctype="multipart/form-data"
 		>
-			<?php if ($this->image) : ?>
-				<input type="hidden" name="imageId" value="<?php echo $this->image->id; ?>"/>
-			<?php endif; ?>
+			<input type="hidden" name="imageId" value="<?php echo $this->image->id; ?>"/>
 
 			<div class="form-group">
 				<label for="imageName">Title: *</label>
@@ -78,7 +76,6 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						class="form-control form-select"
 						required
 					>
-
 						<?php foreach ($this->categories as $row) : ?>
 							<option value="<?php echo $row->categoryId; ?>"
 								<?php if ($row->categoryId == $this->categoryId) : ?>
@@ -113,13 +110,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							>										
 								<?php echo $row->subcategoryName; ?>
 							</option>
-
 						<?php endforeach; ?>
-							
 					</select>
-				</div>
-				
-				
+				</div>	
 			</div>
 			
 			<hr/>
@@ -133,8 +126,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						name="imageUrl"
 						class="form-control"
 						accept=".png,.jpg,.jpeg,.gif"
-						required
-						<?php if ($this->image) echo "disabled"; ?>
+						disabled
 					/>
 				</div>
 			</div>
@@ -150,7 +142,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					placeholder="Enter description..."
 					maxlength="12000"
 					rows="16"
-				><?php echo $this->image ? $this->image->description : ""; ?></textarea>
+				><?php echo $this->image->description; ?></textarea>
 			</div>
 
 			<hr/>
@@ -166,24 +158,18 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 
 <script>
-
 	const parent = document.getElementById("editImageCategory");
 	const sub = document.getElementById("editImageSubcategory");
 	var imageId = "<?php echo $this->image->id; ?>";
 	var catId = "<?php echo $this->categoryId; ?>";
-
-	console.log(parent);
-
 
 	parent.onchange = (e) => {
 		var changeId = document.getElementById("editImageCategory").value;
 		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${changeId}`;	
 	}
 
-
 	sub.onchange = (e) => {
 		var changeId = document.getElementById("editImageSubcategory").value;
 		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${catId}&subcategoryId=${changeId}`;
 	}
-	
 </script>

@@ -60,11 +60,10 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
     <div class="col-6 fixed-height-2">
         <h2 class="text-break"><?php echo $this->item->name; ?></h2>
 
-        <h5>Category: <?php echo $this->item->category; ?></h5>
-        
-        <?php if($this->item->subcategory): ?>
-            <h5>Subcategory: <?php echo $this->item->subcategory; ?></h5>
-        <?php endif; ?>
+        <h5>Category:
+            <?php echo $this->item->category; ?>
+            <?php if ($this->item->subcategory) echo ' - ' . $this->item->subcategory; ?>
+        </h5>
 
         <hr/>
 

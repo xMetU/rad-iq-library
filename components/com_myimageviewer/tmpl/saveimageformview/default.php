@@ -95,9 +95,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						<option value="" selected disabled hidden>
 							<?php echo $this->subcategories ? "Select a subcategory" : "No Subcategories"; ?>
 						</option> ?>	
-
 							<?php foreach ($this->subcategories as $row) : ?>
-								
 								<option value="<?php echo $row->subcategoryId; ?>" 										
 									<?php if($row->categoryId == $this->categoryId && $row->subcategoryId == $this->subcategoryId) : ?>
 										<?php echo "selected"; ?>
@@ -108,8 +106,6 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							<?php endforeach; ?>						
 					</select>
 				</div>
-				
-				
 			</div>
 			
 			<hr/>
@@ -153,14 +149,11 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	</div>
 </div>
 
-
 <script>
-
 	const parent = document.getElementById("saveCategory");
 	const sub = document.getElementById("saveSubcategory");
 	var catId = "<?php echo $this->categoryId; ?>";
 	var subcatId = "<?php echo $this->subcategoryId; ?>";
-
 
 	parent.onchange = (e) => {
 		var changeId = document.getElementById("saveCategory").value;
@@ -171,5 +164,4 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		var changeId = document.getElementById("saveSubcategory").value;
 		window.location.href = `?task=Display.saveImageForm&categoryId=${catId}&subcategoryId=${changeId}`;	
 	}
-	
 </script>
