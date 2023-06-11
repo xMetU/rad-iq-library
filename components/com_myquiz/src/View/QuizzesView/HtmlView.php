@@ -16,6 +16,7 @@ class HtmlView extends BaseHtmlView {
     
     public function display($template = null) {
         $this->userId = Factory::getUser()->id;
+
         $this->items = $this->get('Items');
         if ($this->userId) {
             foreach ($this->items as $item) {
@@ -23,13 +24,30 @@ class HtmlView extends BaseHtmlView {
                 $item->attemptsRemaining = $item->attemptsAllowed - $userAttempts;
             }
         }
-        $this->allQuizzes = $this->get('AllQuizzes');
-        $this->getModel('UserAnswers')->getAttemptCount($this->userId, 1);
+
+        $allQuizzes = $this->get('AllQuizzes');
         $this->categories = $this->get('Items', 'Categories');
+        foreach ($this->categories as $category) {
+            $category->count = 0;
+            foreach ($allQuizzes as $quiz) {
+                if ($quiz->categoryId == $category->categoryId) {
+                    $category->count++;
+                }
+            }
+        }
         $this->subcategories = $this->get('Items', 'SubCategories');
+        foreach ($this->subcategories as $subcategory) {
+            $subcategory->count = 0;
+            foreach ($allQuizzes as $quiz) {
+                if ($quiz->subcategoryId == $subcategory->subcategoryId) {
+                    $subcategory->count++;
+                }
+            }
+        }
+
         $this->pagination = $this->get('Pagination');
         $this->category = Factory::getApplication()->getUserState('myImageViewer_myQuiz.category');
-        $this->subcategory = Factory::getApplication()->input->getVar('subcategory');
+        $this->subcategory = Factory::getApplication()->getUserState('myImageViewer_myQuiz.subcategory');
         $this->search = Factory::getApplication()->input->get('search');
 
         parent::display($template);

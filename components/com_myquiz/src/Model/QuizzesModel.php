@@ -32,9 +32,12 @@ class QuizzesModel extends ListModel {
 
         if (Factory::getApplication()->getUserState('myImageViewer_myQuiz.view') != 'QUIZZES') {
             $category = Factory::getApplication()->getUserState('myImageViewer_myQuiz.category');
+            $subcategory = Factory::getApplication()->getUserState('myImageViewer_myQuiz.subcategory');
         } else {
             $category = Factory::getApplication()->input->getVar('category');
+            $subcategory = Factory::getApplication()->input->getVar('subcategory');
             Factory::getApplication()->setUserState('myImageViewer_myQuiz.category', $category);
+            Factory::getApplication()->setUserState('myImageViewer_myQuiz.subcategory', $subcategory);
         }
         $search = Factory::getApplication()->input->getVar('search');
 
@@ -112,7 +115,7 @@ class QuizzesModel extends ListModel {
         $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['q.id', 'i.categoryId', 'i.subcategoryId', 'c.categoryName', 'sc.subcategoryName']))
+            ->select($db->quoteName(['i.categoryId', 'c.categoryName', 'i.subcategoryId', 'sc.subcategoryName']))
             ->from($db->quoteName('#__myQuiz_quiz', 'q'))
             ->join(
                 'LEFT',
@@ -125,7 +128,7 @@ class QuizzesModel extends ListModel {
             ->join(
                 'LEFT',
                 $db->quoteName('#__myImageViewer_imageSubCategory', 'sc') . ' ON ' . $db->quoteName('sc.categoryId') . '=' . $db->quoteName('i.categoryId')
-                    . ' AND ' . $db->quoteName('sc.subcategoryId') . '=' . $db->quoteName('i.subcategoryId')
+                . ' AND ' . $db->quoteName('sc.subcategoryId') . '=' . $db->quoteName('i.subcategoryId')
             );
         
         $db->setQuery($query);
