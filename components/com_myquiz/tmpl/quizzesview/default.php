@@ -27,7 +27,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     <div class="col">
         <?php if (CheckGroup::isGroup("Manager")) : ?>
             <!-- Manage categories button -->
-            <a class="btn" href="<?php echo Uri::getInstance()->current() . '?task=Display.categoryForm'; ?>">Manage Categories</a>
+            <a class="btn" href="index.php/image-viewers?task=Display.categoryForm">Manage Categories</a>
         <?php endif; ?>
     </div>
     <div class="col-auto"><h3>Quizzes</h3></div>
@@ -46,25 +46,8 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 <hr/>
 
 <div class="row pb-3">
-    <div class="col-2">
-		<!-- Searchbar -->
-		<form
-			action="<?php echo Uri::getInstance()->current(); ?>"
-			method="get"
-			enctype="multipart/form-data"
-		>
-			<div class="input-group">
-				<input
-					type="catSearch"
-					name="catSearch"
-					id="text"
-					class="form-control"
-					placeholder="Search Category..."
-					value="<?php if ($this->catSearch) echo $this->catSearch; ?>"
-				/>
-				<button type="submit" class="btn"><i class="icon-search"></i></button>
-			</div>
-		</form>
+	<div class="col-2 text-center my-auto">
+		<h6>Filter by Category</h6>
 	</div>
 
 	<div class="col-10 ps-5">
@@ -84,7 +67,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                             name="search"
                             id="text"
                             class="form-control"
-                            placeholder="Search Quizzes..."
+                            placeholder="Search..."
                             value="<?php if ($this->search) echo $this->search; ?>"
                         />
                         <button type="submit" class="btn"><i class="icon-search"></i></button>
@@ -99,12 +82,6 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                 >View Scores</a>
             </div>
         </div>
-	</div>
-</div>
-
-<div class="row mt-2">
-    <div class="col-2 text-center my-auto">
-		<h6>Filter by Category</h6>
 	</div>
 </div>
 
@@ -123,13 +100,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 										. ($row->id == $this->category ? "" : '?category='. $row->id);
 									?>"
 								>
-                                    <?php $count = 0; ?>
-                                    <?php foreach ($this->images as $i) : ?>
-                                        <?php if ($i->categoryName == $row->categoryName) : ?>
-                                            <?php $count++; ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                    <?php echo $row->categoryName . ' (' . $count . ')'; ?>
+									<?php echo $row->categoryName; ?>
 								</a>
 							</td>
 						</tr>
@@ -168,7 +139,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                             </div>
                                             <!-- Info -->
                                             <div class="col">
-                                                <h5 name="rowTitle"><?php echo $row->title; ?></h5>
+                                                <h5><?php echo $row->title; ?></h5>
                                                 <p><?php echo $row->description; ?></p>
                                                 <p><?php echo $row->questionCount; ?> Question(s) </p>
                                                 <a class="btn" href="<?php echo

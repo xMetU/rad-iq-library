@@ -94,7 +94,6 @@ class DisplayController extends BaseController
                 // Handle the default views.
                 case 'login':
                     $model = $this->getModel($vName);
-                    
                     break;
 
                 case 'remind':
@@ -140,12 +139,8 @@ class DisplayController extends BaseController
             // Push document object into the view.
             $view->document = $document;
 
-            if($vName == 'login') {
-                $this->setRedirect(Uri::root() . 'index.php?&option=com_myfrontpage&view=myfrontpage');
-            }
-            else{
-                $view->display();
-            }
+            $view->display();
+
         }
     }
 }
