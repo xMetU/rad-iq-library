@@ -1,55 +1,60 @@
 DROP TABLE IF EXISTS `#__myImageViewer_image`;
+DROP TABLE IF EXISTS `#__myImageViewer_imageSubCategory`;
 DROP TABLE IF EXISTS `#__myImageViewer_imageCategory`;
 
+
+
+
 CREATE TABLE IF NOT EXISTS `#__myImageViewer_imageCategory` (
-	`id` SERIAL NOT NULL,
+	`categoryId` SERIAL NOT NULL,
 	`categoryName` VARCHAR(30) NOT NULL UNIQUE,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`categoryId`)
 ) ENGINE = InnoDB;
+
+
+
+
+CREATE TABLE IF NOT EXISTS `#__myImageViewer_imageSubCategory` (
+	`categoryId` bigint(20) UNSIGNED NOT NULL,
+	`subcategoryId` SERIAL NOT NULL,
+	`subcategoryName` VARCHAR(30) NOT NULL UNIQUE,
+	PRIMARY KEY (`categoryId`, `subcategoryId`),
+	FOREIGN KEY (`categoryId`) REFERENCES `#__myImageViewer_imageCategory` (`categoryId`)
+) ENGINE = InnoDB;
+
+
+
 
 CREATE TABLE IF NOT EXISTS `#__myImageViewer_image` (
 	`id` SERIAL NOT NULL,
 	`imageName` VARCHAR(60) NOT NULL,
-	`categoryId` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
+	`categoryId` bigint(20) UNSIGNED NOT NULL,
+	`subcategoryId` bigint(20) UNSIGNED DEFAULT 0,
 	`imageDescription` VARCHAR(12000),
 	`imageUrl` VARCHAR(200) NOT NULL,
 	`isHidden` BOOLEAN NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`categoryId`) REFERENCES `#__myImageViewer_imageCategory` (`id`),
 	UNIQUE KEY `unique_imageName_categoryId` (`imageName`, `categoryId`)
 ) ENGINE = InnoDB;
 
 
 
 INSERT INTO `#__myImageViewer_imageCategory` (`categoryName`) VALUES
-	('Hip'),
-	('Acetabulum'),
-    ('Abdomen'),
-    ('Ankle'),
-	('Calcaneum'),
-	('Tibia-Fibula'),
-	('Knee'),
-	('Femur'),
-	('Pelvis'),
-	('AC Joints'),
 	('Chest'),
-	('Ribs'),
-	('Sternum'),
-	('SC Joints'),
-	('Toes'),
-	('Foot'),
-	('Forearm'),
-	('Elbow'),
-	('Shoulder'),
-	('Scapula'),
-	('Humerus'),
-	('Clavicle'),
-	('Thumb'),
-	('Finger'),
-	('Hand'),
-	('Norgaard\'s'),
-	('Wrist'),
-	('Scaphoid');
+    ('Abdomen'),
+    ('Pelvis'),
+	('Upper Extremities'),
+	('Lower Extremities');
 
-INSERT INTO `#__myImageViewer_image` (`imageName`, `categoryId`, `imageDescription`, `imageUrl`, `isHidden`) VALUES
-('Example Chest X-ray', 11, 'This is an example x-ray of a chest.', 'media/com_myimageviewer/images/Chest/Chest X-ray.png', 0);
+INSERT INTO `#__myImageViewer_imageSubCategory` (`categoryId`, `subcategoryId`, `subcategoryName`) VALUES
+	(4, 1, 'Shoulder'),
+    (4, 2, 'Elbow'),
+    (4, 3, 'Forearm'),
+	(4, 4, 'Wrist'),
+	(4, 5, 'Hand'),
+	(5, 6, 'Knee'),
+    (5, 7, 'Ankle'),
+    (5, 8, 'Foot');
+
+INSERT INTO `#__myImageViewer_image` (`imageName`, `categoryId`, `subcategoryId`, `imageDescription`, `imageUrl`, `isHidden`) VALUES
+('Example Chest X-ray', 4, 3, 'This is an example x-ray of a chest.', 'media/com_myimageviewer/images/Chest/Chest X-ray.png', 0);

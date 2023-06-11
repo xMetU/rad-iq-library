@@ -27,10 +27,15 @@ class ImageDetailsModel extends ItemModel {
         $table2 = $this->getTable('ImageCategory');
         $table2->load($table1->categoryId);
 
+        $table3 = $this->getTable('ImageSubCategory');
+        $table3->load($table1->subcategoryId);
+
         $item->id = $table1->id;
         $item->name = $table1->imageName;
         $item->categoryId = $table1->categoryId;
         $item->category = $table2->categoryName;
+        $item->subcategoryId = $table1->subcategoryId;
+        $item->subcategory = $table3->subcategoryName;
         $item->description = $table1->imageDescription;
         $item->url = $table1->imageUrl;
         $item->isHidden = $table1->isHidden;
@@ -51,7 +56,7 @@ class ImageDetailsModel extends ItemModel {
 			return true;
 		}
 		catch (\Exception $e) {
-            if (str_contains($e-getMessage(), "foreign key constraint")) {
+            if (str_contains($e->getMessage(), "foreign key")) {
                 Factory::getApplication()->enqueueMessage(
                     "Error: Quizzes are referencing this image, please re-assign or remove these quizzes and try again."
                 );

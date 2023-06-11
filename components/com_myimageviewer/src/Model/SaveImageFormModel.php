@@ -31,6 +31,17 @@ class ImageFormModel extends BaseModel {
 	}
 
 
+	public function getSubCategory($subcategoryId)  {
+        $item = new \stdClass();
+
+        $table = $this->getTable();
+        $table->load($subcategoryId);
+
+        $item->subcategoryName = $table->subcategoryName;
+        return $item;
+	}
+
+
 	public function saveImage($data) {
 
 		$db = Factory::getDbo();
@@ -58,12 +69,12 @@ class ImageFormModel extends BaseModel {
 
 	public function updateImage($data) {
 		$db = Factory::getDbo();
+		$columns = array('imageName', 'categoryId', 'imageDescription');
 		
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__myImageViewer_image'))
 			->set($db->quoteName('imageName') . ' = ' . $db->quote($data['imageName']))
 			->set($db->quoteName('categoryId') . ' = ' . $db->quote($data['categoryId']))
-			->set($db->quoteName('subcategoryId') . ' = ' . $db->quote($data['subcategoryId']))
 			->set($db->quoteName('imageDescription') . ' = ' . $db->quote($data['imageDescription']))
 			->where($db->quoteName('id') . ' = ' . $db->quote($data['imageId']));
 		$db->setQuery($query);
@@ -79,27 +90,6 @@ class ImageFormModel extends BaseModel {
 				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
 			}
 			return false;
-		}
-	}
-
-
-	public function checkSubcategory($categoryId) {
-		$db = Factory::getDbo();
-
-		$query = $db->getQuery(true)
-            ->select($db->quoteName(['isc.categoryId', 'isc.subcategoryId', 'isc.subcategoryName']))
-            ->from($db->quoteName('#__myImageViewer_imageSubCategory', 'isc'))
-			->where($db->quoteName('isc.categoryId') . ' = ' . $db->quote($categoryId));
-
-        $db->setQuery($query);
-        $db->execute();
-		$result = $db->loadObjectList();
-
-		if ($result) {
-			return false;
-		}
-		else{
-			return true;
 		}
 	}
 }

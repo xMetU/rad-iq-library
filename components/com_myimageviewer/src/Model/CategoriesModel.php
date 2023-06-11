@@ -6,7 +6,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Table\Table;
 
 /**
  * @package     Joomla.Site
@@ -20,9 +19,9 @@ class CategoriesModel extends ListModel {
         $db = $this->getDatabase();
 
         $query = $db->getQuery(true)
-            ->select($db->quoteName(['ic.id', 'ic.categoryName']))
+            ->select($db->quoteName(['ic.categoryId', 'ic.categoryName']))
             ->from($db->quoteName('#__myImageViewer_imageCategory', 'ic'))
-            ->order('ic.categoryName ASC');
+            ->order('ic.categoryId', 'ASC');
 
         return $query;
     }
@@ -31,5 +30,21 @@ class CategoriesModel extends ListModel {
     protected function populateState($ordering = null, $direction = null){
         $limit = 0;
         $this->setState('list.limit', $limit);
+    }
+
+
+    public function getAllCategories() {
+
+        $db = $this->getDatabase();
+
+        $query = $db->getQuery(true)
+            ->select($db->quoteName(['ic.categoryId', 'ic.categoryName']))
+            ->from($db->quoteName('#__myImageViewer_imageCategory', 'ic'));
+
+
+        $db->setQuery($query);
+        $db->execute();
+    
+        return $db->loadObjectList();
     }
 }

@@ -54,7 +54,55 @@ class CategoryFormModel extends BaseModel {
 		$db = Factory::getDbo();
 		$query = $db->getQuery(true)
 			->delete($db->quoteName('#__myImageViewer_imageCategory'))
-			->where($db->quoteName('id') . '=' . (int) $categoryId);
+			->where($db->quoteName('categoryId') . '=' . $categoryId);
+		$db->setQuery($query);
+			
+		try {
+			$db->execute();
+			Factory::getApplication()->enqueueMessage("Category removed successfully.");
+			return true;
+		}
+		catch (\Exception $e) {
+			if (str_contains($e->getMessage(), "foreign key")) {
+				Factory::getApplication()->enqueueMessage(
+					"Error: Images or subcategories are assigned to this category, please re-assign or remove them and try again."
+				);
+			} else {
+				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred, please contact your administrator.");
+			}
+			return false;
+		}
+	}
+
+	public function saveSubcategory($categoryId, $subcategoryName) {
+		$db = Factory::getDbo();
+		$data = array($categoryId, $subcategoryName);
+
+		$query = $db->getQuery(true)
+			->insert($db->quoteName('#__myImageViewer_imageSubCategory'))
+			->columns($db->quoteName(['categoryId', 'subcategoryName']))
+			->values(implode(',', $db->quote($data)));
+		$db->setQuery($query);
+
+		try {
+			$db->execute();
+			Factory::getApplication()->enqueueMessage("Subcategory saved successfully.");
+			return true;
+		} catch (\Exception $e) {
+			if (str_contains($e->getMessage(), "Duplicate")) {
+				Factory::getApplication()->enqueueMessage("Error: A subcategory with this name already exists.");
+			} else {
+				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred, please contact your administrator.");
+			}
+			return false;
+		}
+	}
+
+	public function deleteSubcategory($categoryId, $subcategoryId) {
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true)
+			->delete($db->quoteName('#__myImageViewer_imageSubCategory'))
+			->where($db->quoteName('categoryId') . '=' . $categoryId . ' AND ' . $db->quoteName('subcategoryId') . '=' . $subcategoryId);
 		$db->setQuery($query);
 			
 		try {
@@ -66,8 +114,13 @@ class CategoryFormModel extends BaseModel {
 			return true;
 		}
 		catch (\Exception $e) {
-			Factory::getApplication()
-				->enqueueMessage("Error: Content is assigned to this category, please re-assign or remove it and try again.");
+			if (str_contains($e->getMessage(), "foreign key")) {
+				Factory::getApplication()->enqueueMessage(
+					"Error: Images are assigned to this category, please re-assign or remove it and try again."
+				);
+			} else {
+				Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred, please contact your administrator.");
+			}
 			return false;
 		}
 	}
