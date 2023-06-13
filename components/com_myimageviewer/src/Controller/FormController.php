@@ -25,18 +25,13 @@ class FormController extends BaseController {
 		$model = $this->getModel('ImageForm');
 
 		// Perform filtering
-		$imageName = Factory::getApplication()->input->post->getVar("imageName");
-		$imageDescription = Factory::getApplication()->input->post->getVar("imageDescription");
+		$imageName = Factory::getApplication()->input->post->get("imageName");
+		$imageDescription = Factory::getApplication()->input->post->get("imageDescription");
 		$categoryId = Factory::getApplication()->input->post->getInt("categoryId");
 		$subcategoryId = Factory::getApplication()->input->post->getInt("subcategoryId");
 
-		$resume = false;
-
 		if (!isset($subcategoryId)) {
-			if ($model->checkSubcategory($categoryId)) {
-				$subcategoryId = 0;
-				$resume = true;
-			}
+			$subcategoryId = 0;
 		}
 
 
@@ -86,32 +81,32 @@ class FormController extends BaseController {
 		$model = $this->getModel('ImageForm');
 
 		$imageId = Factory::getApplication()->input->post->getInt('imageId');
-		$imageName = Factory::getApplication()->input->post->getVar('imageName');
+		$imageName = Factory::getApplication()->input->post->get('imageName');
 		$categoryId = Factory::getApplication()->input->post->getInt('categoryId');
 		$subcategoryId = Factory::getApplication()->input->post->getInt('subcategoryId');
-		$imageDescription = Factory::getApplication()->input->post->getVar('imageDescription');
+		$imageDescription = Factory::getApplication()->input->post->get('imageDescription');
 
-		
-		if (!isset($subcategoryId)) {
-			if ($model->checkSubcategory($categoryId)) {
-				$subcategoryId = 0;
-				$resume = true;
-			}
+		// If no subcategory, set subcategoryId to 0 instead of null
+		if (!isset($subcategoryId)) {			
+			$subcategoryId = 0;
 		}
 
-		$data = array('imageId' => $imageId, 'imageName' => $imageName, 'categoryId' => $categoryId, 
-		'subcategoryId' => $subcategoryId, 'imageDescription' => $imageDescription);
+		if ($this->validateImageData($imageName, $imageDescription, $categoryId)){
 
-		if ($model->updateImage($data)) {
-			$this->setRedirect(Route::_(
-				Uri::getInstance()->current() . '?task=Display.imageDetails&id=' . $data['imageId'],
-				false,
-			));
-		} else {
-			$this->setRedirect(Route::_(
-				Uri::getInstance()->current() . '?task=Display.editImageForm&id=' . $data['imageId'],
-				false,
-			));
+			$data = array('imageId' => $imageId, 'imageName' => $imageName, 'categoryId' => $categoryId, 
+			'subcategoryId' => $subcategoryId, 'imageDescription' => $imageDescription);
+
+			if ($model->updateImage($data)) {
+				$this->setRedirect(Route::_(
+					Uri::getInstance()->current() . '?task=Display.imageDetails&id=' . $data['imageId'],
+					false,
+				));
+			} else {
+				$this->setRedirect(Route::_(
+					Uri::getInstance()->current() . '?task=Display.editImageForm&id=' . $data['imageId'],
+					false,
+				));
+			}
 		}
 	}
 

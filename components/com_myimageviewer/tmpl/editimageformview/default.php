@@ -48,7 +48,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			name="adminForm"
 			enctype="multipart/form-data"
 		>
-			<input type="hidden" name="imageId" value="<?php echo $this->image->id; ?>"/>
+			<input type="hidden" id="imageId" name="imageId" value="<?php echo $this->image->id; ?>"/>
 
 			<div class="form-group">
 				<label for="imageName">Title: *</label>
@@ -103,6 +103,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						class="form-control form-select"
 					>
 						<?php if ($this->categoryId): ?>
+							<?php if ($this->subcategories): ?>
+								<option value="">None</option>
+							<?php endif; ?>
 							<?php foreach ($this->subcategories as $row) : ?>
 								<option
 									value="<?php echo $row->subcategoryId; ?>"
@@ -112,30 +115,21 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 								</option>
 							<?php endforeach; ?>
 						<?php endif; ?>
-						<option value="" <?php if (!$this->image->subcategoryId || !$this->subcategories) echo "selected"; ?> disabled hidden>
-							<?php echo $this->subcategories ? "Select a subcategory" : "No Subcategories"; ?>
-						</option>
+						<?php if ($this->image->categoryId != $this->categoryId): ?>
+							<option value="" <?php if ($this->image->categoryId != $this->categoryId) echo "selected"; ?> disabled hidden>
+								<?php echo $this->subcategories ? "Select a subcategory..." : "No subcategories for this category"; ?>
+							</option>
+						<?php elseif (!$this->subcategories): ?>
+							<option value="" selected disabled hidden>
+								<?php echo "No subcategories for this category"; ?>
+							</option>
+						<?php endif; ?>
 					</select>
 				</div>	
 			</div>
 			
 			<hr/>
 
-			<div class="row">
-				<div>
-					<label for="imageUrl">File: *</label>
-
-					<input 
-						type="file"
-						name="imageUrl"
-						class="form-control"
-						accept=".png,.jpg,.jpeg,.gif"
-						disabled
-					/>
-				</div>
-			</div>
-
-			<hr/>
 
 			<div class="form-group">
 				<label for="imageDescription">Description:</label>
@@ -170,14 +164,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	const parent = document.getElementById("editImageCategory");
 
 	var imageId = "<?php echo $this->image->id; ?>";
-	var catId = "<?php echo $this->categoryId; ?>";
-
 
 	parent.onchange = (e) => {
 		var imageName = document.getElementById("imageName").value;
 		var imageDescription = document.getElementById("imageDescription").value;
-
 		var changeId = document.getElementById("editImageCategory").value;
+
 		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${changeId}&imageName=${imageName}&imageDescription=${imageDescription}`;	
 	}
+
 </script>

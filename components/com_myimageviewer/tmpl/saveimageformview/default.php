@@ -156,8 +156,6 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <script>
 	const parent = document.getElementById("saveCategory");
 	const sub = document.getElementById("saveSubcategory");
-	var catId = "<?php echo $this->categoryId; ?>";
-	var subcatId = "<?php echo $this->subcategoryId; ?>";
 
 
 	parent.onchange = (e) => {
