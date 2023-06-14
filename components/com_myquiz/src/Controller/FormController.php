@@ -16,7 +16,9 @@ use Joomla\CMS\Uri\Uri;
 
 class FormController extends BaseController {
 
+
     public function saveQuiz() {
+
         $model = $this->getModel('QuizForm');
 
         // Perform post filtering
@@ -27,7 +29,7 @@ class FormController extends BaseController {
 
         // Perform server side validation
         if ($this->validateQuiz($title, $imageId, $attemptsAllowed, $description)) {
-            $data = array('title' => $title, 'imageId' => $imageId, 'attemptsAllowed' => $attemptsAllowed, 'description' => $description);
+            $data = array($title, $imageId, $attemptsAllowed, $description);
             if ($model->saveQuiz($data)) {
                 $this->navigateToForm('QUESTION', Factory::getDbo()->insertId());
             } else {
@@ -40,6 +42,7 @@ class FormController extends BaseController {
     }
 
     public function updateQuiz() {
+
         $model = $this->getModel('QuizForm');
 
         // Perform post filtering
@@ -58,25 +61,68 @@ class FormController extends BaseController {
     }
 
     public function deleteQuiz() {
+
         $model = $this->getModel('Quizzes');
         $quizId = Factory::getApplication()->input->getInt('quizId');
         $model->deleteQuiz($quizId);
         $this->navigateToForm();
     }
 
+
     public function saveQuestion() {
+
         $model = $this->getModel('QuestionForm');
-        $data = Factory::getApplication()->input->post->getArray();
-        $model->saveQuestion($data);
-        $this->navigateToForm('ANSWER', Factory::getDbo()->insertId());
+
+        // Perform post filtering
+        $quizId = Factory::getApplication()->input->post->getInt('quizId');
+        $description = Factory::getApplication()->input->post->getVar('description');
+        $feedback = Factory::getApplication()->input->post->getVar('feedback');
+
+        // Perform server side validation
+        if($this->validateQuestion($description, $feedback)){
+            $data = array($quizId, $description, $feedback);
+            $model->saveQuestion($data);
+            $this->navigateToForm('ANSWER', Factory::getDbo()->insertId());
+        }
+        // Validate failed. Reload form
+        else{
+            $this->navigateToForm('QUESTION', $quizId);
+        }      
     }
 
     public function updateQuestion() {
+
         $model = $this->getModel('QuestionForm');
-        $data = Factory::getApplication()->input->post->getArray();
-        $model->updateQuestion($data);
-        $this->navigateToForm('QUESTION', $data['quizId']);
+
+        // Perform post filtering
+        $quizId = Factory::getApplication()->input->post->getInt('quizId');
+        $questionId = Factory::getApplication()->input->post->getInt('questionId');
+        $description = Factory::getApplication()->input->post->getVar('description');
+        $feedback = Factory::getApplication()->input->post->getVar('feedback');
+
+        // Perform server side validation
+        if($this->validateQuestion($description, $feedback)) {
+            $data = array('quizId' => $quizId, 'questionId' => $questionId, 'description' => $description, 'feedback' => $feedback);
+
+            if($model->updateQuestion($data)) {
+                // Successful update. Reload the form, questionId not needed.
+                $this->navigateToForm('QUESTION', $quizId);
+            }
+            // Update failed. Reload the form and input the questionId
+            else{
+                $this->setRedirect(
+                    Uri::getInstance()->current() . '?task=Display.questionForm&quizId=' . $quizId . '&questionId=' . $questionId
+                );
+            }
+        }
+        // Validation failed. Reload the form and input the questionId
+        else{
+            $this->setRedirect(
+                Uri::getInstance()->current() . '?task=Display.questionForm&quizId=' . $quizId . '&questionId=' . $questionId
+            );
+        }     
     }
+
 
     public function deleteQuestion() {
         $model = $this->getModel('QuestionForm');
@@ -85,19 +131,55 @@ class FormController extends BaseController {
         $this->navigateToForm('QUESTION', $data['quizId']);
     }
 
+
     public function saveAnswer() {
         $model = $this->getModel('AnswerForm');
-        $data = Factory::getApplication()->input->post->getArray();
-        $model->saveAnswer($data);
-        $this->navigateToForm('ANSWER', $data['questionId']);
+
+        // Perform post filtering
+        $questionId = Factory::getApplication()->input->post->getInt('questionId');
+        $description = Factory::getApplication()->input->post->getVar('description');
+        $markValue = Factory::getApplication()->input->post->getInt('markValue');
+
+        // Perform server side validation
+        if($this->validateAnswer($description, $markValue)) {          
+            $data = array($questionId, $description, $markValue);
+            $model->saveAnswer($data);
+        }    
+        $this->navigateToForm('ANSWER', $questionId);
+        
     }
 
     public function updateAnswer() {
         $model = $this->getModel('AnswerForm');
         $data = Factory::getApplication()->input->post->getArray();
-        $model->updateAnswer($data);
-        $this->navigateToForm('ANSWER', $data['questionId']);
+
+        // Perform post filtering
+        $questionId = Factory::getApplication()->input->post->getInt('questionId');
+        $answerId = Factory::getApplication()->input->post->getInt('answerId');
+        $description = Factory::getApplication()->input->post->getVar('description');
+        $markValue = Factory::getApplication()->input->post->getInt('markValue');
+
+
+        // Perform server side validation
+        if($this->validateAnswer($description, $markValue)) {
+            $data = array('questionId' => $questionId, 'answerId' => $answerId, 'description' => $description, 'markValue' => $markValue);
+            
+            if($model->updateAnswer($data)) {
+                $this->navigateToForm('ANSWER', $questionId);
+            }
+            else{
+                $this->setRedirect(
+                    Uri::getInstance()->current() . '?task=Display.answerForm&questionId=' . $questionId . '&answerId=' . $answerId
+                );
+            }
+        }    
+        else{
+            $this->setRedirect(
+                Uri::getInstance()->current() . '?task=Display.answerForm&questionId=' . $questionId . '&answerId=' . $answerId
+            );
+        }
     }
+
 
     public function deleteAnswer() {
         $model = $this->getModel('AnswerForm');
@@ -105,6 +187,8 @@ class FormController extends BaseController {
         $model->deleteAnswer($data['answerId']);
         $this->navigateToForm('ANSWER', $data['questionId']);
     }
+
+
 
     private function navigateToForm($form = "", $id = "") {
         switch ($form) {
@@ -126,9 +210,10 @@ class FormController extends BaseController {
         ));
     }
 
+
     private function validateQuiz($title, $imageId, $attemptsAllowed, $description) {
         if(empty($title)) {
-            Factory::getApplication()->enqueueMessage("Please enter a quiz title.");
+            Factory::getApplication()->enqueueMessage("Title was empty. Please enter a quiz title.");
             return false;
         }
         if(empty($imageId)) {
@@ -150,32 +235,39 @@ class FormController extends BaseController {
         return true;
     }
 
+
     private function validateQuestion($description, $feedback) {
         if(empty($description)) {
-            Factory::getApplication()->enqueueMessage("Please describe the question.");
+            Factory::getApplication()->enqueueMessage("Question was blank. Please describe the question.");
             return false;
         }
         if(strlen($description) > 200) {
             Factory::getApplication()->enqueueMessage("Question has a limit of 200 characters");
             return false;
         }
+
+        if(strlen($feedback) > 200) {
+            Factory::getApplication()->enqueueMessage("Feedback has a limit of 200 characters");
+            return false;
+        }
         return true;
     }
 
-    private function validateAnswer($description) {
+
+    private function validateAnswer($description, $markValue) {
         if(empty($description)) {
-            Factory::getApplication()->enqueueMessage("Please describe the answer");
+            Factory::getApplication()->enqueueMessage("Answer was blank. Please describe the answer");
             return false;
         }
         if(strlen($description) > 200) {
             Factory::getApplication()->enqueueMessage("Answer has a limit of 200 characters");
             return false;
         }
-            if(empty($markValue)) {
+        if(!isset($markValue)) {
             Factory::getApplication()->enqueueMessage("Please enter a mark value");
             return false;
         }
-        if ($markValue < -999 or $markValue > 999) {
+        if ($markValue < -100 or $markValue > 100) {
             Factory::getApplication()->enqueueMessage("Please enter a mark value between -999 and 999");
             return false;
         }

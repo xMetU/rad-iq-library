@@ -25,9 +25,6 @@ class HtmlView extends BaseHtmlView {
 
         $this->categories = $this->get('AllCategories', 'Categories');
         $this->subcategories = $this->get('CategorySubcategories', 'SubCategories');
-
-        $this->imageName = Factory::getApplication()->input->getVar('imageName');
-        $this->imageDescription = Factory::getApplication()->input->getVar('imageDescription');
         
         // Call the parent display to display the layout file
         parent::display($template);

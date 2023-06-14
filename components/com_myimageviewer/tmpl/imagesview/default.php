@@ -32,7 +32,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		<?php endif; ?>
 	</div>
 
-	<div class="col-auto"><h3>Image Viewers</h3></div>
+	<div class="col-auto"><h3>Images</h3></div>
 
 	<div class="col">
 		<?php if (CheckGroup::isGroup("Manager")) : ?>
@@ -115,7 +115,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 													. ($subrow->subcategoryId == $this->subcategory ? "" : '&subcategory=' . $subrow->subcategoryId)
 												?>"
 											>
-												<?php echo $subrow->subcategoryName . ' (' . $subrow->count . ')'; ?>									
+												<?php echo "- " . $subrow->subcategoryName . ' (' . $subrow->count . ')'; ?>									
 											</a>									
 										</td>
 									<?php endif; ?>
@@ -168,9 +168,9 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					<?php else: ?>
 						<td>
                             <?php if ($this->category): ?>
-                                <p class="text-center pt-5">No image viewers are assigned to this category</p>
+                                <p class="text-center pt-5">No images are assigned to this category</p>
                             <?php else: ?>
-                                <p class="text-center pt-5">Could not find any matching image viewers</p>
+                                <p class="text-center pt-5">Could not find any matching images</p>
                             <?php endif; ?>							
 						</td>
 					<?php endif; ?>

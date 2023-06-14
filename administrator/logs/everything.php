@@ -451,3 +451,67 @@
 #7 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
 #8 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
 #9 {main}
+2023-06-11T13:22:43+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Joomla\CMS\Router\Exception\RouteNotFoundException thrown with message "Page not found". Stack trace: #0 [ROOT]\libraries\src\Application\SiteApplication.php(744): Joomla\CMS\Router\Router->parse(Object(Joomla\CMS\Uri\Uri), true)
+#1 [ROOT]\libraries\src\Application\SiteApplication.php(232): Joomla\CMS\Application\SiteApplication->route()
+#2 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#3 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#4 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+2023-06-13T06:02:23+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.36 seconds
+2023-06-13T06:08:12+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.24 seconds
+2023-06-13T06:08:12+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.20 seconds
+2023-06-13T06:17:16+00:00	WARNING 127.0.0.1	jerror	Joomla\CMS\Filesystem\Folder::files: Path is not a folder. Path: media\com_myimageviewer\images\Chest
+2023-06-13T06:17:16+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type TypeError thrown with message "count(): Argument #1 ($value) must be of type Countable|array, bool given". Stack trace: #0 [ROOT]\components\com_myimageviewer\src\Controller\FormController.php(133): count(false)
+#1 [ROOT]\libraries\src\MVC\Controller\BaseController.php(672): Kieran\Component\MyImageViewer\Site\Controller\FormController->deleteImage()
+#2 [ROOT]\libraries\src\Dispatcher\ComponentDispatcher.php(143): Joomla\CMS\MVC\Controller\BaseController->execute('deleteimage')
+#3 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\ComponentDispatcher->dispatch()
+#4 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myimageview...')
+#5 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#6 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#7 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#8 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+2023-06-13T07:51:29+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type TypeError thrown with message "implode(): Argument #2 ($array) must be of type ?array, string given". Stack trace: #0 [ROOT]\components\com_myquiz\src\Model\QuestionFormModel.php(26): implode(',', ''5'')
+#1 [ROOT]\components\com_myquiz\src\Controller\FormController.php(80): Kieran\Component\MyQuiz\Site\Model\QuestionFormModel->saveQuestion(5, 'dzxvv', 'xfbgdgdxfg')
+#2 [ROOT]\libraries\src\MVC\Controller\BaseController.php(672): Kieran\Component\MyQuiz\Site\Controller\FormController->saveQuestion()
+#3 [ROOT]\libraries\src\Dispatcher\ComponentDispatcher.php(143): Joomla\CMS\MVC\Controller\BaseController->execute('savequestion')
+#4 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\ComponentDispatcher->dispatch()
+#5 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myquiz')
+#6 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#7 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#8 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#9 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+2023-06-13T12:10:35+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 2.33 seconds
+2023-06-13T12:37:49+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Joomla\CMS\Router\Exception\RouteNotFoundException thrown with message "Page not found". Stack trace: #0 [ROOT]\libraries\src\Application\SiteApplication.php(744): Joomla\CMS\Router\Router->parse(Object(Joomla\CMS\Uri\Uri), true)
+#1 [ROOT]\libraries\src\Application\SiteApplication.php(232): Joomla\CMS\Application\SiteApplication->route()
+#2 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#3 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#4 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+2023-06-13T19:10:49+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.68 seconds
+2023-06-13T21:09:34+00:00	INFO 127.0.0.1	updater	Loading information from update site #1 with name "Joomla! Core" and URL https://update.joomla.org/core/list.xml took 0.69 seconds
+2023-06-13T21:09:35+00:00	INFO 127.0.0.1	updater	Loading information from update site #2 with name "Accredited Joomla! Translations" and URL https://update.joomla.org/language/translationlist_4.xml took 0.64 seconds
+2023-06-13T21:09:35+00:00	INFO 127.0.0.1	updater	Loading information from update site #3 with name "Joomla! Update Component" and URL https://update.joomla.org/core/extensions/com_joomlaupdate.xml took 0.64 seconds
+2023-06-13T22:06:43+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type Error thrown with message "Call to undefined method Joomla\CMS\Factory::getUserState()". Stack trace: #0 [ROOT]\components\com_myquiz\src\View\QuestionFormView\HtmlView.php(23): Kieran\Component\MyQuiz\Site\Model\AnswersModel->getAnswers()
+#1 [ROOT]\components\com_myquiz\src\Controller\DisplayController.php(91): Kieran\Component\MyQuiz\Site\View\QuestionFormView\HtmlView->display()
+#2 [ROOT]\libraries\src\MVC\Controller\BaseController.php(672): Kieran\Component\MyQuiz\Site\Controller\DisplayController->questionForm()
+#3 [ROOT]\libraries\src\Dispatcher\ComponentDispatcher.php(143): Joomla\CMS\MVC\Controller\BaseController->execute('questionform')
+#4 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\ComponentDispatcher->dispatch()
+#5 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myquiz')
+#6 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#7 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#8 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#9 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#10 {main}
+2023-06-13T22:57:07+00:00	WARNING 127.0.0.1	jerror	Joomla\CMS\Filesystem\Folder::files: Path is not a folder. Path: media\com_myimageviewer\images\Chest
+2023-06-13T22:57:07+00:00	CRITICAL 127.0.0.1	error	Uncaught Throwable of type TypeError thrown with message "count(): Argument #1 ($value) must be of type Countable|array, bool given". Stack trace: #0 [ROOT]\components\com_myimageviewer\src\Controller\FormController.php(128): count(false)
+#1 [ROOT]\libraries\src\MVC\Controller\BaseController.php(672): Kieran\Component\MyImageViewer\Site\Controller\FormController->deleteImage()
+#2 [ROOT]\libraries\src\Dispatcher\ComponentDispatcher.php(143): Joomla\CMS\MVC\Controller\BaseController->execute('deleteimage')
+#3 [ROOT]\libraries\src\Component\ComponentHelper.php(355): Joomla\CMS\Dispatcher\ComponentDispatcher->dispatch()
+#4 [ROOT]\libraries\src\Application\SiteApplication.php(208): Joomla\CMS\Component\ComponentHelper::renderComponent('com_myimageview...')
+#5 [ROOT]\libraries\src\Application\SiteApplication.php(249): Joomla\CMS\Application\SiteApplication->dispatch()
+#6 [ROOT]\libraries\src\Application\CMSApplication.php(294): Joomla\CMS\Application\SiteApplication->doExecute()
+#7 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
+#8 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
+#9 {main}

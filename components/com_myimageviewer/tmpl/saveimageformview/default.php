@@ -39,7 +39,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 <div class="row justify-content-center">
 
 	<div class="col-8">
-		<form 
+		<form
 			action="<?php echo Uri::getInstance()->current() . '?task=Form.saveImage'; ?>"
 			method="post"
 			id="adminForm"
@@ -57,9 +57,6 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					placeholder="Enter title..."
 					maxlength="60"
 					required
-					<?php if($this->imageName) : ?>
-						<?php echo "value=" . $this->imageName; ?>
-					<?php endif ?>
 				/>
 			</div>
 
@@ -139,7 +136,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					class="form-control"
 					placeholder="Enter description..."
 					maxlength="12000"
-					rows="16"><?php if($this->imageDescription) echo $this->imageDescription; ?></textarea>
+					rows="16"></textarea>
 			</div>
 
 			<hr/>
@@ -154,19 +151,27 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 </div>
 
 <script>
+	// Handles persistent form data between redirects caused by selecting a category
 	const parent = document.getElementById("saveCategory");
 	const sub = document.getElementById("saveSubcategory");
-	var catId = "<?php echo $this->categoryId; ?>";
-	var subcatId = "<?php echo $this->subcategoryId; ?>";
-
 
 	parent.onchange = (e) => {
+		sessionStorage.setItem("imageName", document.getElementById("imageName").value);
+		sessionStorage.setItem("imageDescription", document.getElementById("imageDescription").value);
 		var changeId = document.getElementById("saveCategory").value;
 
-		var imageName = document.getElementById("imageName").value;
-		var imageDescription = document.getElementById("imageDescription").value;
-
-		window.location.href = `?task=Display.saveImageForm&categoryId=${changeId}&imageName=${imageName}&imageDescription=${imageDescription}`;	
+		window.location.href = `?task=Display.saveImageForm&categoryId=${changeId}`;	
 	}
 
+	const imageName = sessionStorage.getItem("imageName");
+	const imageDescription = sessionStorage.getItem("imageDescription");
+
+	if (imageName) {
+		document.getElementById("imageName").value = imageName;
+		sessionStorage.removeItem("imageName");
+	}
+	if (imageDescription) {
+		document.getElementById("imageDescription").value = imageDescription;
+		sessionStorage.removeItem("imageDescription");
+	}
 </script>
