@@ -151,13 +151,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 </div>
 
 <script>
+	// Handles persistent form data between redirects caused by selecting a category
 	const parent = document.getElementById("saveCategory");
 	const sub = document.getElementById("saveSubcategory");
 
 	parent.onchange = (e) => {
 		sessionStorage.setItem("imageName", document.getElementById("imageName").value);
 		sessionStorage.setItem("imageDescription", document.getElementById("imageDescription").value);
-
 		var changeId = document.getElementById("saveCategory").value;
 
 		window.location.href = `?task=Display.saveImageForm&categoryId=${changeId}`;	

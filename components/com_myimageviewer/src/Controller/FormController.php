@@ -25,8 +25,8 @@ class FormController extends BaseController {
 		$model = $this->getModel('ImageForm');
 
 		// Perform filtering
-		$imageName = Factory::getApplication()->input->post->get("imageName");
-		$imageDescription = Factory::getApplication()->input->post->get("imageDescription");
+		$imageName = Factory::getApplication()->input->post->getVar("imageName");
+		$imageDescription = Factory::getApplication()->input->post->getVar("imageDescription");
 		$categoryId = Factory::getApplication()->input->post->getInt("categoryId");
 		$subcategoryId = Factory::getApplication()->input->post->getInt("subcategoryId");
 
@@ -80,10 +80,10 @@ class FormController extends BaseController {
 		$model = $this->getModel('ImageForm');
 
 		$imageId = Factory::getApplication()->input->post->getInt('imageId');
-		$imageName = Factory::getApplication()->input->post->get('imageName');
+		$imageName = Factory::getApplication()->input->post->getVar('imageName');
 		$categoryId = Factory::getApplication()->input->post->getInt('categoryId');
 		$subcategoryId = Factory::getApplication()->input->post->getInt('subcategoryId');
-		$imageDescription = Factory::getApplication()->input->post->get('imageDescription');
+		$imageDescription = Factory::getApplication()->input->post->getVar('imageDescription');
 
 		// If no subcategory, set subcategoryId to 0 instead of null
 		if (!isset($subcategoryId)) {			
