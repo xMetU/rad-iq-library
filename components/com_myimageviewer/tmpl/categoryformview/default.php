@@ -237,6 +237,4 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 		var catId = document.getElementById("delete-parent-category-select").value;
 		window.location.href = `?task=Display.categoryForm&categoryId=${catId}`;
 	}
-
-
 </script>

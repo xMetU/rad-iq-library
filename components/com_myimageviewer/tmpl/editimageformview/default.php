@@ -8,9 +8,6 @@
  // No direct access to this file
 defined('_JEXEC') or die('Restricted Access');
 
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Router\Route;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 
@@ -20,7 +17,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 
 ?>
 
-<!-- ========== EDIT IMAGE FORM VIEW ========== -->
+<!-- EDIT IMAGE FORM VIEW -->
 
 <div class="row">
 	<div class="col">
@@ -61,12 +58,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					placeholder="Enter title..."
 					maxlength="60"
 					required
-					value="<?php if ($this->imageName) {
-								echo $this->imageName;
-							}
-							else {
-								echo $this->image->name;
-							} ?>"
+					value="<?php echo $this->image->name; ?>"
 				/>
 			</div>
 
@@ -130,7 +122,6 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 			
 			<hr/>
 
-
 			<div class="form-group">
 				<label for="imageDescription">Description:</label>
 
@@ -141,12 +132,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 					placeholder="Enter description..."
 					maxlength="12000"
 					rows="16"
-				><?php if ($this->imageDescription) {
-							echo $this->imageDescription;
-						}
-						else {
-							echo $this->image->description;
-						} ?></textarea>
+				><?php echo $this->image->description; ?></textarea>
 			</div>
 
 			<hr/>
@@ -161,16 +147,27 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 </div>
 
 <script>
+	// Handles persistent form data between redirects caused by selecting a category
 	const parent = document.getElementById("editImageCategory");
-
-	var imageId = "<?php echo $this->image->id; ?>";
+	const imageId = "<?php echo $this->image->id; ?>";
 
 	parent.onchange = (e) => {
-		var imageName = document.getElementById("imageName").value;
-		var imageDescription = document.getElementById("imageDescription").value;
+		sessionStorage.setItem("imageName", document.getElementById("imageName").value);
+		sessionStorage.setItem("imageDescription", document.getElementById("imageDescription").value);
 		var changeId = document.getElementById("editImageCategory").value;
 
-		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${changeId}&imageName=${imageName}&imageDescription=${imageDescription}`;	
+		window.location.href = `?task=Display.editImageForm&id=${imageId}&categoryId=${changeId}`;	
 	}
 
+	const imageName = sessionStorage.getItem("imageName");
+	const imageDescription = sessionStorage.getItem("imageDescription");
+
+	if (imageName) {
+		document.getElementById("imageName").value = imageName;
+		sessionStorage.removeItem("imageName");
+	}
+	if (imageDescription) {
+		document.getElementById("imageDescription").value = imageDescription;
+		sessionStorage.removeItem("imageDescription");
+	}
 </script>

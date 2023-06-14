@@ -34,7 +34,6 @@ class FormController extends BaseController {
 			$subcategoryId = 0;
 		}
 
-
 		// Perform server-side validation
 		if ($this->validateImageData($imageName, $imageDescription, $categoryId)){
 			$file = Factory::getApplication()->input->files->get('imageUrl');
