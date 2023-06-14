@@ -17,15 +17,6 @@ class HtmlView extends BaseHtmlView {
     public function display($template = null) {
         $this->items = $this->get('Items');
 
-        foreach($this->items as $item) {
-            $item->count = 0;
-            Factory::getApplication()->input->set('questionIdCounter', $item->id);
-            $this->answers = $this->getModel('Answers')->getAnswers();
-            foreach($this->answers as $answer) {
-                $item->count++;
-            }
-        }
-
         $this->quiz = $this->get('Item', 'Quiz');
         if ($questionId = Factory::getApplication()->input->getVar('questionId')) {
             $this->question = $this->findQuestion($questionId, $this->items);

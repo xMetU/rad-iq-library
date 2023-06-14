@@ -131,7 +131,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                                 <a href="<?php echo
                                     Uri::getInstance()->current()
                                     . '?task=Display.answerForm&questionId=' . $row->id
-                                ?>" class="btn"><?php echo 'Answers ' . '(' . $row->count . ')'; ?></a>
+                                ?>" class="btn"><?php echo 'Answers ' . '(' . $row->answerCount . ')'; ?></a>
                             </div>
                         </div>
                     </div>

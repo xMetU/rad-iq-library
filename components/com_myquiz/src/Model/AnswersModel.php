@@ -32,24 +32,4 @@ class AnswersModel extends ListModel {
         return $query;
     }
 
-
-    // List query retrieves items from the cache if it can, which can't be used in a loop. This is loop friendly version.
-    public function getAnswers() {
-
-        $db = $this->getDatabase();
-
-        $questionId = Factory::getApplication()->input->get('questionIdCounter');
-
-        $query = $db->getQuery(true)
-            ->select('*')
-            ->from($db->quoteName('#__myQuiz_answer', 'a'))
-            ->where($db->quoteName('a.questionId') . '=' . $db->quote($questionId));
-        
-        $db->setQuery($query);
-        $db->execute();
-                
-        return $db->loadObjectList();
-
-    }
-
 }
