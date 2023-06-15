@@ -78,9 +78,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 								<?php if ($row->categoryId == $this->categoryId) : ?>
 									<?php echo "selected"; ?>
 								<?php endif ?>
-							>
-								<?php echo $row->categoryName; ?>								
-							</option>
+							><?php echo $row->categoryName; ?></option>
 						<?php endforeach; ?>
 					</select>
 				</div>
@@ -93,17 +91,13 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 						name="subcategoryId"
 						class="form-control form-select"
 					>
-						<option value="" selected disabled hidden>
-							<?php echo $this->subcategories ? "Select a subcategory" : "No Subcategories"; ?>
-						</option> ?>	
+						<option value="" selected disabled hidden><?php echo $this->subcategories ? "Select a subcategory" : "No Subcategories"; ?></option>	
 							<?php foreach ($this->subcategories as $row) : ?>
 								<option value="<?php echo $row->subcategoryId; ?>" 										
 									<?php if($row->categoryId == $this->categoryId && $row->subcategoryId == $this->subcategoryId) : ?>
 										<?php echo "selected"; ?>
 									<?php endif ?>
-								>										
-									<?php echo $row->subcategoryName; ?>
-								</option>									
+								><?php echo $row->subcategoryName; ?></option>									
 							<?php endforeach; ?>						
 					</select>
 				</div>
