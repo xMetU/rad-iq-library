@@ -45,12 +45,12 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
     <!-- Form -->
     <div class="col pe-5">
         <form 
-            action="<?php echo Uri::getInstance()->current() . ($this->isEdit ? '?task=Form.updateQuestion' : '?task=Form.saveQuestion'); ?>"
+            action="<?php echo Uri::getInstance()->current() . ($this->question ? '?task=Form.updateQuestion' : '?task=Form.saveQuestion'); ?>"
             method="post"
             enctype="multipart/form-data"
         >
             <input type="hidden" name="quizId" value="<?php echo $this->quiz->id; ?>"/>
-            <?php if ($this->isEdit): ?>
+            <?php if ($this->question): ?>
                 <input type="hidden" name="questionId" value="<?php echo $this->question->id; ?>"/>
             <?php endif; ?>
             
@@ -65,7 +65,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     maxlength="200"
                     required
                     rows="3"
-                ><?php if ($this->isEdit) echo $this->question->description; ?></textarea>
+                ><?php if ($this->question) echo $this->question->description; ?></textarea>
             </div>
 
             <hr/>
@@ -80,20 +80,20 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
                     placeholder="Feedback when the question is answered."
                     maxlength="200"
                     rows="3"
-                ><?php if ($this->isEdit) echo $this->question->feedback; ?></textarea>
+                ><?php if ($this->question) echo $this->question->feedback; ?></textarea>
             </div>
 
             <hr/>
             <!-- Submit button -->
             <div class="form-group">
                 <button class="btn">
-                    <?php if ($this->isEdit): ?>
+                    <?php if ($this->question): ?>
                         <i class="icon-check"></i> Save
                     <?php else: ?>
                         <i class="icon-plus"></i> Add
                     <?php endif; ?>
                 </button>
-                <?php if ($this->isEdit): ?>
+                <?php if ($this->question): ?>
                     <a class="btn float-end" href="<?php echo 
                         Uri::getInstance()->current()
                         . '?task=Display.questionForm&quizId=' . $this->quiz->id;
