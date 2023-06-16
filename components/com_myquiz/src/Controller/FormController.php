@@ -188,7 +188,7 @@ class FormController extends BaseController {
             Factory::getApplication()->enqueueMessage("Please enter an attempt limit.");
             return false;
         }
-        if ($attemptsAllowed < 1 || $attemptsAllowed > 999) {
+        if ($attemptsAllowed < 1 || $attemptsAllowed > 1000) {
             Factory::getApplication()->enqueueMessage("Attempt limit must be between 1 and 1000.");
             return false;
         }
