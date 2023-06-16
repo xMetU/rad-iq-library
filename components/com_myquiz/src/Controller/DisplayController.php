@@ -72,6 +72,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myQuiz.quizForm', null);
         Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'QUIZFORM');
     }
 
@@ -89,6 +90,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myQuiz.questionForm', null);
         Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'QUESTIONFORM');
     }
 
@@ -104,6 +106,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myQuiz.answerForm', null);
         Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'ANSWERFORM');
     }
 

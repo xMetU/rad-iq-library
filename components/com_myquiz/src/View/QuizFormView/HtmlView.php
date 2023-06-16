@@ -17,11 +17,19 @@ class HtmlView extends BaseHtmlView {
     
     public function display($template = null) {
         $this->images = $this->get('Items');
-
+        $this->isEdit = false;
         if (Factory::getApplication()->input->getVar('quizId') != null) {
             $this->quiz = $this->get('Item', 'Quiz');
+            $this->isEdit = true;
         } else {
-            $this->quiz = null;
+            $this->quiz = new \stdClass();
+        }
+
+        $storedFormData = Factory::getApplication()->getUserState('myQuiz.quizForm');
+        if ($storedFormData) {
+            foreach ($storedFormData as $key => $value) {
+                $this->quiz->{$key} = $value ? $value : null;
+            }
         }
 
         parent::display($template);
