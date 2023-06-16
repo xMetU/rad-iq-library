@@ -55,9 +55,12 @@ class FormController extends BaseController {
         $attemptsAllowed = Factory::getApplication()->input->post->getInt('attemptsAllowed');
         $description = Factory::getApplication()->input->post->getVar('description');
 
+        $data = ['quizId' => $quizId, 'title' => $title, 'imageId' => $imageId, 
+            'attemptsAllowed' => $attemptsAllowed, 'description' => $description];
+        Factory::getApplication()->setUserState('myQuiz.quizForm', $data);
+
         // Perform server side validation
         if ($this->validateQuiz($title, $imageId, $attemptsAllowed, $description)) {
-            $data = array('quizId' => $quizId, 'title' => $title, 'imageId' => $imageId, 'attemptsAllowed' => $attemptsAllowed, 'description' => $description);
             $model->updateQuiz($data);
         }
         $this->navigateToForm('QUIZ', $quizId);

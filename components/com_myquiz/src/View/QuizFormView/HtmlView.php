@@ -21,12 +21,14 @@ class HtmlView extends BaseHtmlView {
         if (Factory::getApplication()->input->getVar('quizId') != null) {
             $this->quiz = $this->get('Item', 'Quiz');
             $this->isEdit = true;
+            $this->quizTitle = $this->quiz->title;
         } else {
             $this->quiz = new \stdClass();
         }
 
         $storedFormData = Factory::getApplication()->getUserState('myQuiz.quizForm');
         if ($storedFormData) {
+            unset($storedFormData['quizId']);
             foreach ($storedFormData as $key => $value) {
                 $this->quiz->{$key} = $value ? $value : null;
             }

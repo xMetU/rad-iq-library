@@ -27,7 +27,7 @@ $document->addStyleSheet("media/com_myquiz/css/style.css");
 		<a class="btn" href="<?php echo Uri::getInstance()->current(); ?>">Back</a>
 	</div>
 	<div class="col-8 text-center">
-        <h3><?php echo ($this->isEdit ? "Edit " . $this->quiz->title : "Create New Quiz"); ?></h3>
+        <h3><?php echo ($this->isEdit ? "Edit " . $this->quizTitle : "Create New Quiz"); ?></h3>
 	</div>
 	<div class="col">
         <?php if ($this->isEdit): ?>
