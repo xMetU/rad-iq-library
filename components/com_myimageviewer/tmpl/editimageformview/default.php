@@ -25,7 +25,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 	</div>
 
 	<div class="col-8 text-center">
-		<h3><?php echo "Edit " . $this->image->name; ?></h3>
+		<h3><?php echo "Edit " . $this->imageName; ?></h3>
 	</div>
 
 	<div class="col"></div>
