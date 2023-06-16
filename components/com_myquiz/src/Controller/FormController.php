@@ -18,7 +18,6 @@ class FormController extends BaseController {
 
 
     public function saveQuiz() {
-
         $model = $this->getModel('QuizForm');
 
         // Perform post filtering
@@ -35,13 +34,13 @@ class FormController extends BaseController {
         if ($this->validateQuiz($title, $imageId, $attemptsAllowed, $description)) {
             $data = array($title, $imageId, $attemptsAllowed, $description);
             if ($model->saveQuiz($data)) {
-                $this->navigateToForm('QUESTION', Factory::getDbo()->insertId());
+                $this->navigateToQuestionForm(Factory::getDbo()->insertId());
             } else {
-                $this->navigateToForm('QUIZ');
+                $this->navigateToQuizForm();
             }         
         }
         else {
-            $this->navigateToForm('QUIZ');
+            $this->navigateToQuizForm();
         }
     }
 
@@ -63,20 +62,18 @@ class FormController extends BaseController {
         if ($this->validateQuiz($title, $imageId, $attemptsAllowed, $description)) {
             $model->updateQuiz($data);
         }
-        $this->navigateToForm('QUIZ', $quizId);
+        $this->navigateToQuizForm($quizId);
     }
 
     public function deleteQuiz() {
-
         $model = $this->getModel('Quizzes');
         $quizId = Factory::getApplication()->input->getInt('quizId');
         $model->deleteQuiz($quizId);
-        $this->navigateToForm();
+        $this->setRedirect(Route::_(Uri::getInstance()->current() . '?task=Display', false));
     }
 
 
     public function saveQuestion() {
-
         $model = $this->getModel('QuestionForm');
 
         // Perform post filtering
@@ -84,20 +81,21 @@ class FormController extends BaseController {
         $description = Factory::getApplication()->input->post->getVar('description');
         $feedback = Factory::getApplication()->input->post->getVar('feedback');
 
+        $data = ['quizId' => $quizId, 'description' => $description, 'feedback' => $feedback];
+        Factory::getApplication()->setUserState('myQuiz.questionForm', $data);
+
         // Perform server side validation
-        if($this->validateQuestion($description, $feedback)){
-            $data = array($quizId, $description, $feedback);
+        if ($this->validateQuestion($description, $feedback)) {
             $model->saveQuestion($data);
-            $this->navigateToForm('ANSWER', Factory::getDbo()->insertId());
+            $this->navigateToAnswerForm(Factory::getDbo()->insertId());
         }
         // Validate failed. Reload form
-        else{
-            $this->navigateToForm('QUESTION', $quizId);
+        else {
+            $this->navigateToQuestionForm($quizId);
         }      
     }
 
     public function updateQuestion() {
-
         $model = $this->getModel('QuestionForm');
 
         // Perform post filtering
@@ -106,37 +104,31 @@ class FormController extends BaseController {
         $description = Factory::getApplication()->input->post->getVar('description');
         $feedback = Factory::getApplication()->input->post->getVar('feedback');
 
-        // Perform server side validation
-        if($this->validateQuestion($description, $feedback)) {
-            $data = array('quizId' => $quizId, 'questionId' => $questionId, 'description' => $description, 'feedback' => $feedback);
+        $data = array('quizId' => $quizId, 'questionId' => $questionId, 'description' => $description, 'feedback' => $feedback);
+        Factory::getApplication()->setUserState('myQuiz.questionForm', $data);
 
-            if($model->updateQuestion($data)) {
+        // Perform server side validation
+        if ($this->validateQuestion($description, $feedback)) {
+            if ($model->updateQuestion($data)) {
                 // Successful update. Reload the form, questionId not needed.
-                $this->navigateToForm('QUESTION', $quizId);
+                $this->navigateToQuestionForm($quizId);
             }
             // Update failed. Reload the form and input the questionId
-            else{
-                $this->setRedirect(
-                    Uri::getInstance()->current() . '?task=Display.questionForm&quizId=' . $quizId . '&questionId=' . $questionId
-                );
+            else {
+                $this->navigateToQuestionForm($quizId, $questionId);
             }
         }
-        // Validation failed. Reload the form and input the questionId
-        else{
-            $this->setRedirect(
-                Uri::getInstance()->current() . '?task=Display.questionForm&quizId=' . $quizId . '&questionId=' . $questionId
-            );
+        else {
+            $this->navigateToQuestionForm($quizId, $questionId);
         }     
     }
-
 
     public function deleteQuestion() {
         $model = $this->getModel('QuestionForm');
         $data = Factory::getApplication()->input->post->getArray();
         $model->deleteQuestion($data['questionId']);
-        $this->navigateToForm('QUESTION', $data['quizId']);
+        $this->navigateToQuestionForm($data['quizId']);
     }
-
 
     public function saveAnswer() {
         $model = $this->getModel('AnswerForm');
@@ -147,12 +139,11 @@ class FormController extends BaseController {
         $markValue = Factory::getApplication()->input->post->getInt('markValue');
 
         // Perform server side validation
-        if($this->validateAnswer($description, $markValue)) {          
+        if ($this->validateAnswer($description, $markValue)) {          
             $data = array($questionId, $description, $markValue);
             $model->saveAnswer($data);
         }    
-        $this->navigateToForm('ANSWER', $questionId);
-        
+        $this->navigateToAnswerForm($questionId);
     }
 
     public function updateAnswer() {
@@ -165,57 +156,52 @@ class FormController extends BaseController {
         $description = Factory::getApplication()->input->post->getVar('description');
         $markValue = Factory::getApplication()->input->post->getInt('markValue');
 
-
         // Perform server side validation
         if($this->validateAnswer($description, $markValue)) {
             $data = array('questionId' => $questionId, 'answerId' => $answerId, 'description' => $description, 'markValue' => $markValue);
             
             if($model->updateAnswer($data)) {
-                $this->navigateToForm('ANSWER', $questionId);
+                $this->navigateToAnswerForm($questionId);
             }
-            else{
-                $this->setRedirect(
-                    Uri::getInstance()->current() . '?task=Display.answerForm&questionId=' . $questionId . '&answerId=' . $answerId
-                );
+            else {
+                $this->navigateToAnswerForm($questionId, $answerId);
             }
-        }    
-        else{
-            $this->setRedirect(
-                Uri::getInstance()->current() . '?task=Display.answerForm&questionId=' . $questionId . '&answerId=' . $answerId
-            );
+        }
+        else {
+            $this->navigateToAnswerForm($questionId, $answerId);
         }
     }
-
 
     public function deleteAnswer() {
         $model = $this->getModel('AnswerForm');
         $data = Factory::getApplication()->input->post->getArray();
         $model->deleteAnswer($data['answerId']);
-        $this->navigateToForm('ANSWER', $data['questionId']);
+        $this->navigateToAnswerForm($data['questionId']);
     }
 
-
-
-    private function navigateToForm($form = "", $id = "") {
-        switch ($form) {
-            case 'QUIZ':
-                $task = 'quizForm&quizId=';
-                break;
-            case 'QUESTION':
-                $task = 'questionForm&quizId=';
-                break;
-            case 'ANSWER':
-                $task = 'answerForm&questionId=';
-                break;
-            default:
-                $task = 'display';
+    private function navigateToQuizForm($quizId = null) {
+        $task = '?task=Display.quizForm';
+        if ($quizId) {
+            $task = $task . '&quizId=' . $quizId;
         }
-        $this->setRedirect(Route::_(
-            Uri::getInstance()->current() . '?task=Display.' . $task . $id,
-            false
-        ));
+        $this->setRedirect(Route::_(Uri::getInstance()->current() . $task, false));
     }
 
+    private function navigateToQuestionForm($quizId = null, $questionId = null) {
+        $task = '?task=Display.questionForm&quizId=' . $quizId;
+        if ($questionId) {
+            $task = $task . '&questionId=' . $questionId;
+        }
+        $this->setRedirect(Route::_(Uri::getInstance()->current() . $task, false));
+    }
+
+    private function navigateToAnswerForm($questionId = null, $answerId = null) {
+        $task = '?task=Display.answerForm&questionId=' . $questionId;
+        if ($answerId) {
+            $task = $task . '&answerId=' . $answerId;
+        }
+        $this->setRedirect(Route::_(Uri::getInstance()->current() . $task, false));
+    }
 
     private function validateQuiz($title, $imageId, $attemptsAllowed, $description) {
         if(empty($title)) {
@@ -241,7 +227,6 @@ class FormController extends BaseController {
         return true;
     }
 
-
     private function validateQuestion($description, $feedback) {
         if(empty($description)) {
             Factory::getApplication()->enqueueMessage("Question was blank. Please describe the question.");
@@ -258,7 +243,6 @@ class FormController extends BaseController {
         }
         return true;
     }
-
 
     private function validateAnswer($description, $markValue) {
         if(empty($description)) {

@@ -16,12 +16,21 @@ class HtmlView extends BaseHtmlView {
 
     public function display($template = null) {
         $this->items = $this->get('Items');
-
         $this->quiz = $this->get('Item', 'Quiz');
+        $this->isEdit = false;
         if ($questionId = Factory::getApplication()->input->getVar('questionId')) {
             $this->question = $this->findQuestion($questionId, $this->items);
+            $this->isEdit = true;
         } else {
-            $this->question = null;
+            $this->question = new \stdClass();
+        }
+
+        $storedFormData = Factory::getApplication()->getUserState('myQuiz.questionForm');
+        if ($storedFormData) {
+            unset($storedFormData['questionId']);
+            foreach ($storedFormData as $key => $value) {
+                $this->question->{$key} = $value ? $value : null;
+            }
         }
 
         parent::display($template);
