@@ -68,11 +68,15 @@ class FormController extends BaseController {
 				// Clear temporary file and user state
 				unlink($tmp);
 				Factory::getApplication()->setUserState('myImageViewer.imageForm', null);
+
+				$this->setRedirect(Route::_(
+					Uri::getInstance()->current() . '?task=Display.saveImageForm',
+					false,
+				));
 			}
 		}
-		
         $this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.saveImageForm',
+			Uri::getInstance()->current() . '?task=Display.saveImageForm&categoryId=' . $categoryId,
 			false,
 		));
     }
@@ -102,13 +106,12 @@ class FormController extends BaseController {
 					Uri::getInstance()->current() . '?task=Display.imageDetails&id=' . $imageId,
 					false,
 				));
-			} else {
-				$this->setRedirect(Route::_(
-					Uri::getInstance()->current() . '?task=Display.editImageForm&id=' . $imageId,
-					false,
-				));
 			}
 		}
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display.editImageForm&id=' . $imageId,
+			false,
+		));
 	}
 
 	public function deleteImage() {
