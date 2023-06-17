@@ -17,7 +17,7 @@ use Joomla\CMS\Table\Table;
 class UserAnswersModel extends ListModel {
 
     public function getListQuery() {
-        $db = $this->getDatabase();
+        $db = $this->getDbo();
 
         $userId = Factory::getUser()->id;
         $quizId = Factory::getApplication()->input->get('quizId');
