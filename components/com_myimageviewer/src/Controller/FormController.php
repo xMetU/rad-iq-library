@@ -19,8 +19,6 @@ use Joomla\CMS\Image\Image;
 
 class FormController extends BaseController {
 	
-
-
 	public function saveImage() {
 		$model = $this->getModel('ImageForm');
 
@@ -41,7 +39,6 @@ class FormController extends BaseController {
 		// Perform server-side validation
 		if ($this->validateImageData($imageName, $imageDescription, $categoryId)){
 			$file = Factory::getApplication()->input->files->get('imageUrl');
-
 			// Temporary file path on the server
 			$tmp = $file['tmp_name'];
 
@@ -73,6 +70,7 @@ class FormController extends BaseController {
 					Uri::getInstance()->current() . '?task=Display.saveImageForm',
 					false,
 				));
+				return;
 			}
 		}
         $this->setRedirect(Route::_(
@@ -106,6 +104,7 @@ class FormController extends BaseController {
 					Uri::getInstance()->current() . '?task=Display.imageDetails&id=' . $imageId,
 					false,
 				));
+				return;
 			}
 		}
 		$this->setRedirect(Route::_(
@@ -134,104 +133,71 @@ class FormController extends BaseController {
 				Folder::delete($folderUrl);
 			}
 		}
-
-		$this->setRedirect(Route::_(
-			Uri::getInstance()->current(),
-			false,
-		));
+		$this->setRedirect(Route::_(Uri::getInstance()->current(), false));
 	}
-
 
     public function saveCategory() {
 		$model = $this->getModel('CategoryForm');
-		
 		$categoryName = Factory::getApplication()->input->getVar('categoryName');
-
 		$model->saveCategory($categoryName);
-
-		$this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.categoryForm',
-			false,
-		));
+		$this->navigateToCategoryForm();
     }
 
 	public function deleteCategory() {
 		$model = $this->getModel('CategoryForm');
-		
 		$categoryId = Factory::getApplication()->input->getInt('categoryId');
-
 		$model->deleteCategory($categoryId);
-
-		$this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.categoryForm',
-			false,
-		));
+		$this->navigateToCategoryForm();
 	}
-
 
 	public function saveSubcategory() {
 		$model = $this->getModel('CategoryForm');
-		
 		$categoryId = Factory::getApplication()->input->getInt('categoryId');
 		$subcategoryName = Factory::getApplication()->input->getVar('subcategoryName');
-
 		$model->saveSubcategory($categoryId, $subcategoryName);
-
-		$this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.categoryForm',
-			false,
-		));
+		$this->navigateToCategoryForm();
     }
-
 
 	public function deleteSubcategory() {
 		$model = $this->getModel('CategoryForm');
-		
 		$categoryId = Factory::getApplication()->input->getInt('categoryId');
 		$subcategoryId = Factory::getApplication()->input->getInt('subcategoryId');
-
-		if(empty($subcategoryId) || $subcategoryId == 0) {
-			Factory::getApplication()->enqueueMessage("Error: No subcategory to remove. Please choose a parent category with a subcategory");			
-		}
-		else{
+		if (empty($subcategoryId) || $subcategoryId == 0) {
+			Factory::getApplication()->enqueueMessage("Error: Please choose a parent category with a subcategory.");			
+		} else {
 			$model->deleteSubcategory($categoryId, $subcategoryId);
 		}
-
-		$this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.categoryForm',
-			false,
-		));
+		$this->navigateToCategoryForm();
 	}
-
 
 	public function toggleIsHidden() {
 		$model = $this->getModel('ImageDetails');
-
 		$imageId = Factory::getApplication()->input->getInt('id');
-
 		$model->toggleIsHidden($imageId);
-
 		$this->setRedirect(Route::_(
 			Uri::getInstance()->current(),
 			false,
 		));
 	}
 
+	private function navigateToCategoryForm() {
+		$this->setRedirect(Route::_(
+			Uri::getInstance()->current() . '?task=Display.categoryForm',
+			false,
+		));
+	}
 
 	private function validateImageData($imageName, $imageDescription, $categoryId) {
-
-		if(strlen($imageName) > 60) {
-            Factory::getApplication()->enqueueMessage("Image name too long.");
+		if (strlen($imageName) > 60) {
+            Factory::getApplication()->enqueueMessage("Name must be less than 60 characters.");
             return false;
         }
-
-        if(empty($categoryId)) {
+        if (empty($categoryId)) {
             Factory::getApplication()->enqueueMessage("Please select a category for this image.");
             return false;
-        }
-        
-        if(strlen($imageDescription) > 12000) {
-            Factory::getApplication()->enqueueMessage("You have reached the description limit");
+        }  
+        if (strlen($imageDescription) > 12000) {
+            Factory::getApplication()->enqueueMessage("Description must be less than 12000 characters.");
             return false;
         }
         return true;

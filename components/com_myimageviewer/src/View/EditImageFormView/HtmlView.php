@@ -30,9 +30,6 @@ class HtmlView extends BaseHtmlView {
         }
 
         $this->categoryId = Factory::getApplication()->input->getInt('categoryId');
-        if (!$this->categoryId) {
-            $this->categoryId = $this->image->categoryId;
-        }
         Factory::getApplication()->setUserState('myImageViewer.categoryId', $this->categoryId);
 
         parent::display($template);
