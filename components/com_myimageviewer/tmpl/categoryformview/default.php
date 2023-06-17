@@ -176,10 +176,10 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 				<select id="delete-parent-category-select" name="categoryId" class="form-control form-select" required>
 					<option value="" selected disabled hidden>Select a parent category</option>
 					<?php foreach ($this->categories as $row) : ?>
-						<option value="<?php echo $row->categoryId; ?>" 
-						<?php if ($row->categoryId == $this->categoryId) echo "selected"; ?>>
-							<?php echo $row->categoryName; ?>
-						</option>
+						<option 
+							value="<?php echo $row->categoryId; ?>"
+							<?php if ($row->categoryId == $this->categoryId) echo "selected"; ?>
+						><?php echo $row->categoryName; ?></option>
 					<?php endforeach; ?>
 				</select>
 			</div>

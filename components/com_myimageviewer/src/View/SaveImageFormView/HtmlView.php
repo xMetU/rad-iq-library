@@ -15,18 +15,15 @@ use Joomla\CMS\Factory;
 
 class HtmlView extends BaseHtmlView {
 
-    
     public function display($template = null) {
+        $this->categories = $this->get('AllCategories', 'Categories');
+        $this->subcategories = $this->get('CategorySubcategories', 'SubCategories');
+
+        $this->formData = Factory::getApplication()->getUserState('myImageViewer.imageForm');
 
         $this->categoryId = Factory::getApplication()->input->getInt('categoryId');
         Factory::getApplication()->setUserState('myImageViewer.categoryId', $this->categoryId);
-        
-        $this->subcategoryId = Factory::getApplication()->input->getInt('subcategoryId');
 
-        $this->categories = $this->get('AllCategories', 'Categories');
-        $this->subcategories = $this->get('CategorySubcategories', 'SubCategories');
-        
-        // Call the parent display to display the layout file
         parent::display($template);
     }
 
