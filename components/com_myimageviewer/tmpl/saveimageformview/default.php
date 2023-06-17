@@ -97,7 +97,7 @@ $document->addStyleSheet("media/com_myimageviewer/css/style.css");
 							<?php foreach ($this->subcategories as $row): ?>
 								<option
 									value="<?php echo $row->subcategoryId; ?>"
-									<?php if ($this->formData && $row->subcategoryId == $this->formData->subcategoryId) echo "selected"; ?>
+									<?php if ($this->formData && $row->subcategoryId == $this->formData['subcategoryId']) echo "selected"; ?>
 								><?php echo $row->subcategoryName; ?></option>
 							<?php endforeach; ?>
 						<?php endif; ?>						
