@@ -67,7 +67,7 @@ class FormController extends BaseController {
 				Factory::getApplication()->setUserState('myImageViewer.imageForm', null);
 
 				$this->setRedirect(Route::_(
-					Uri::getInstance()->current() . '?task=Display.saveImageForm',
+					Uri::getInstance()->current() . '?task=Display.saveImageForm&categoryId=' . $categoryId,
 					false,
 				));
 				return;
@@ -108,7 +108,9 @@ class FormController extends BaseController {
 			}
 		}
 		$this->setRedirect(Route::_(
-			Uri::getInstance()->current() . '?task=Display.editImageForm&id=' . $imageId,
+			Uri::getInstance()->current() 
+			. '?task=Display.editImageForm&id=' . $imageId
+			. '&categoryId=' . $categoryId,
 			false,
 		));
 	}
