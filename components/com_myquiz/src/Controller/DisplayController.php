@@ -72,6 +72,7 @@ class DisplayController extends BaseController {
 
         $view->document = $document;
         $view->display();
+        Factory::getApplication()->setUserState('myQuiz.quizForm', null);
         Factory::getApplication()->setUserState('myImageViewer_myQuiz.view', 'QUIZFORM');
     }
 

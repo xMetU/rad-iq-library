@@ -18,6 +18,7 @@ class QuizzesModel extends ListModel {
 		return Factory::getApplication()->bootComponent('com_myQuiz')->getMVCFactory()->createTable($type);
 	}
 
+
     // Override global list limit so a reasonable number of quizzes are displayed
     protected function populateState($ordering = null, $direction = null) {
         $limit = 5;
@@ -26,9 +27,10 @@ class QuizzesModel extends ListModel {
         $this->setState('list.start', $start);
     }
 
+    
     // Get a list of quizzes filtered by category
     public function getListQuery() {
-        $db = $this->getDatabase();
+        $db = $this->getDbo();
 
         if (Factory::getApplication()->getUserState('myImageViewer_myQuiz.view') == 'QUIZZES') {
             $category = Factory::getApplication()->input->getVar('category');
@@ -76,7 +78,7 @@ class QuizzesModel extends ListModel {
     }
 
     public function toggleIsHidden($quizId) {
-        $db = $this->getDatabase();
+        $db = $this->getDbo();
         
         $query = $db->getQuery(true)
             ->update($db->quoteName('#__myQuiz_quiz'))
@@ -114,7 +116,7 @@ class QuizzesModel extends ListModel {
 	}
 
     public function getAllQuizzes() {
-        $db = $this->getDatabase();
+        $db = $this->getDbo();
 
         $query = $db->getQuery(true)
             ->select($db->quoteName(['i.categoryId', 'c.categoryName', 'i.subcategoryId', 'sc.subcategoryName', 'q.isHidden']))
