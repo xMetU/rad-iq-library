@@ -515,3 +515,5 @@
 #7 [ROOT]\includes\app.php(61): Joomla\CMS\Application\CMSApplication->execute()
 #8 [ROOT]\index.php(32): require_once('C:\\xampp\\htdocs...')
 #9 {main}
+2023-06-18T22:53:02+00:00	WARNING 127.0.0.1	jerror	Could not delete folder. Path: [ROOT]\components\com_myquiz
+2023-06-18T22:53:02+00:00	WARNING 127.0.0.1	jerror	Component Uninstall: Unable to remove the component site folder.

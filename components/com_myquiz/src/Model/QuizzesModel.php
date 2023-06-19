@@ -18,6 +18,7 @@ class QuizzesModel extends ListModel {
 		return Factory::getApplication()->bootComponent('com_myQuiz')->getMVCFactory()->createTable($type);
 	}
 
+
     // Override global list limit so a reasonable number of quizzes are displayed
     protected function populateState($ordering = null, $direction = null) {
         $limit = 5;
@@ -26,6 +27,7 @@ class QuizzesModel extends ListModel {
         $this->setState('list.start', $start);
     }
 
+    
     // Get a list of quizzes filtered by category
     public function getListQuery() {
         $db = $this->getDbo();
