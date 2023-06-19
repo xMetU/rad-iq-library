@@ -77,6 +77,7 @@ class QuizzesModel extends ListModel {
         return $query;
     }
 
+
     public function toggleIsHidden($quizId) {
         $db = $this->getDbo();
         
@@ -96,6 +97,7 @@ class QuizzesModel extends ListModel {
 		}
     }
 
+
     public function deleteQuiz($quizId) {
 		$db = Factory::getDbo();
 
@@ -112,9 +114,9 @@ class QuizzesModel extends ListModel {
             Factory::getApplication()->enqueueMessage("Error: An unknown error has occurred. Please contact your administrator.");
             return false;
         }
-
 	}
 
+    
     public function getAllQuizzes() {
         $db = $this->getDbo();
 

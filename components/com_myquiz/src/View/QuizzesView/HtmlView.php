@@ -6,6 +6,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 use Kieran\Component\MyImageViewer\Site\Helper\CheckGroup;
 
 /**
@@ -26,6 +28,10 @@ class HtmlView extends BaseHtmlView {
                     $item->attemptsRemaining = $item->attemptsAllowed - $userAttempts;
                 }
             }        
+        }
+        else{
+            Factory::getApplication()->enqueueMessage('Please login first.');
+            Factory::getApplication()->redirect(Route::_(Uri::root() . 'index.php?&option=com_myfrontpage&view=myfrontpage', false));
         }
 
         $allQuizzes = $this->get('AllQuizzes');
