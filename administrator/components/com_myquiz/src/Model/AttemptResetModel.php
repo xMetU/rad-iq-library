@@ -45,8 +45,10 @@ class AttemptResetModel extends ListModel {
 
     // Override global list limit so a reasonable number images are displayed
     protected function populateState($ordering = null, $direction = null) {
-        $limit = 0;
+        $limit = 15;
+        $start = Factory::getApplication()->input->getVar('start');
         $this->setState('list.limit', $limit);
+        $this->setState('list.start', $start);
     }
 
 
