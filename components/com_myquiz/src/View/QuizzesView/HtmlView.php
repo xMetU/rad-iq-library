@@ -29,8 +29,8 @@ class HtmlView extends BaseHtmlView {
                 }
             }        
         }
-        else{
-            Factory::getApplication()->enqueueMessage('Please login first.');
+        else {
+            Factory::getApplication()->enqueueMessage('Please login.');
             Factory::getApplication()->redirect(Route::_(Uri::root() . 'index.php?&option=com_myfrontpage&view=myfrontpage', false));
         }
 
